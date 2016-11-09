@@ -1,0 +1,4 @@
+home:
+    resource: "@NAOPlatformBundle/Resources/config/routing.yml"
+    prefix:   /
+

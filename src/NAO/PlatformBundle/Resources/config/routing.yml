@@ -1,0 +1,3 @@
+nao_platform_home:
+    path:     /
+    defaults: { _controller: NAOPlatformBundle:Platform:index }
