@@ -16,3 +16,4 @@
 /web/bundles/
 /bin/*
 !/bin/console
+README.md
