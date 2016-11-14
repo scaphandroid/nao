@@ -1,0 +1,317 @@
+<?php
+
+namespace NAO\PlatformBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Observation
+ *
+ * @ORM\Table(name="observation")
+ * @ORM\Entity(repositoryClass="NAO\PlatformBundle\Repository\ObservationRepository")
+ */
+class Observation
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\ManyToOne(targetEntity="NAO\PlatformBundle\Entity\Espece")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $espece;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="lat", type="float")
+     */
+    private $lat;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="lon", type="float")
+     */
+    private $lon;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_obs", type="datetimetz")
+     */
+    private $dateObs;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_saisie", type="datetimetz")
+     */
+    private $dateSaisie;
+
+    /**
+     * @var string
+     *
+     * @ORM\OneToOne(targetEntity="NAO\PlatformBundle\Entity\Photo", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $photo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="auteur", type="string", length=255)
+     */
+    /* Doit contenir soit 'P' pour particulier soit 'N' pour naturaliste*/
+    private $auteur;
+
+    /**
+     * @var int
+     *
+     * @ORM\ManyToOne(targetEntity="NAO\PlatformBundle\Entity\Naturaliste")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $naturaliste;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="valide", type="boolean")
+     */
+    private $valide;
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set espece
+     *
+     * @param Espece $espece
+     *
+     * @return Observation
+     */
+    public function setEspece(Espece $espece)
+    {
+        $this->espece = $espece;
+
+        return $this;
+    }
+
+    /**
+     * Get espece
+     *
+     * @return string
+     */
+    public function getEspece()
+    {
+        return $this->espece;
+    }
+
+    /**
+     * Set lat
+     *
+     * @param string $lat
+     *
+     * @return Observation
+     */
+    public function setLat($lat)
+    {
+        $this->lat = $lat;
+
+        return $this;
+    }
+
+    /**
+     * Get lat
+     *
+     * @return string
+     */
+    public function getLat()
+    {
+        return $this->lat;
+    }
+
+    /**
+     * Set lon
+     *
+     * @param string $lon
+     *
+     * @return Observation
+     */
+    public function setLon($lon)
+    {
+        $this->lon = $lon;
+
+        return $this;
+    }
+
+    /**
+     * Get lon
+     *
+     * @return string
+     */
+    public function getLon()
+    {
+        return $this->lon;
+    }
+
+    /**
+     * Set dateObs
+     *
+     * @param \DateTime $dateObs
+     *
+     * @return Observation
+     */
+    public function setDateObs($dateObs)
+    {
+        $this->dateObs = $dateObs;
+
+        return $this;
+    }
+
+    /**
+     * Get dateObs
+     *
+     * @return \DateTime
+     */
+    public function getDateObs()
+    {
+        return $this->dateObs;
+    }
+
+    /**
+     * Set dateSaisie
+     *
+     * @param \DateTime $dateSaisie
+     *
+     * @return Observation
+     */
+    public function setDateSaisie($dateSaisie)
+    {
+        $this->dateSaisie = $dateSaisie;
+
+        return $this;
+    }
+
+    /**
+     * Get dateSaisie
+     *
+     * @return \DateTime
+     */
+    public function getDateSaisie()
+    {
+        return $this->dateSaisie;
+    }
+
+    /**
+     * Set photo
+     *
+     * @param string $photo
+     *
+     * @return Observation
+     */
+    public function setPhoto($photo)
+    {
+        $this->photo = $photo;
+
+        return $this;
+    }
+
+    /**
+     * Get photo
+     *
+     * @return string
+     */
+    public function getPhoto()
+    {
+        return $this->photo;
+    }
+
+    /**
+     * Set auteur
+     *
+     * @param string $auteur
+     *
+     * @return Observation
+     */
+    public function setAuteur($auteur)
+    {
+        $this->auteur = $auteur;
+
+        return $this;
+    }
+
+    /**
+     * Get auteur
+     *
+     * @return string
+     */
+    public function getAuteur()
+    {
+        return $this->auteur;
+    }
+
+    /**
+     * Set naturaliste
+     *
+     * @param Naturaliste $naturaliste
+     *
+     * @return Observation
+     */
+    public function setNaturaliste(Naturaliste $naturaliste)
+    {
+        $this->naturaliste = $naturaliste;
+
+        return $this;
+    }
+
+    /**
+     * Get naturaliste
+     *
+     * @return int
+     */
+    public function getNaturaliste()
+    {
+        return $this->naturaliste;
+    }
+
+    /**
+     * Set valide
+     *
+     * @param boolean $valide
+     *
+     * @return Observation
+     */
+    public function setValide($valide)
+    {
+        $this->valide = $valide;
+
+        return $this;
+    }
+
+    /**
+     * Get valide
+     *
+     * @return bool
+     */
+    public function getValide()
+    {
+        return $this->valide;
+    }
+}

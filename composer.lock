@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4111c16a501a1a4ae2d6dbe873d68c68",
+    "hash": "144d0b44f7e8350b7cf09c9511754152",
     "content-hash": "d7e45c4961aa5b752d222325e4bb7eaa",
     "packages": [
         {
@@ -55,7 +55,7 @@
                 },
                 {
                     "name": "Guilherme Blanco",
-                    "email": "guilhermeblanco@gmail.com" 
+                    "email": "guilhermeblanco@gmail.com"
                 },
                 {
                     "name": "Jonathan Wage",
