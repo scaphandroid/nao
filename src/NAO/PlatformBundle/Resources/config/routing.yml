@@ -1,3 +1,17 @@
 nao_platform_home:
     path:     /
     defaults: { _controller: NAOPlatformBundle:Platform:index }
+    methods:  [GET, HEAD]
+
+nao_platform_rechercher:
+    path:     /rechercher/{id_espece}
+    defaults: { _controller: NAOPlatformBundle:Platform:rechercher, id_espece: null }
+    methods:  [GET, HEAD, POST]
+    requirements:
+        id_espece: '\d*'
+
+nao_platform_observer:
+    path:     /observer
+    defaults: { _controller: NAOPlatformBundle:Platform:observer}
+    methods:  [GET, HEAD, POST]
+
