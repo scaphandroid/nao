@@ -32,6 +32,13 @@ class Observation
     private $espece;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(name="localise", type="boolean")
+     */
+    private $localise;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="lat", type="float")
@@ -81,10 +88,21 @@ class Observation
     /**
      * @var string
      *
-     * @ORM\Column(name="auteur", type="string", length=255)
+     * @ORM\Column(name="auteur", type="string")
      */
-    /* Doit contenir soit 'P' pour particulier soit 'N' pour naturaliste*/
+    /* particullier ou naturaliste*/
     private $auteur;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=255)
+     * * @Assert\Email(
+     *     message = "L'email '{{ value }}' n'est pas valide."
+     * )
+     */
+    private $email;
+    
 
     /**
      * @var int
@@ -101,6 +119,11 @@ class Observation
      */
     private $valide;
 
+    public function __construct()
+    {
+        $this->dateSaisie   = new \Datetime();
+        $this->dateObs = new \Datetime();
+     }
 
     /**
      * Get id
@@ -326,5 +349,53 @@ class Observation
     public function getValide()
     {
         return $this->valide;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     *
+     * @return Observation
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set localise
+     *
+     * @param boolean $localise
+     *
+     * @return Observation
+     */
+    public function setLocalise($localise)
+    {
+        $this->localise = $localise;
+
+        return $this;
+    }
+
+    /**
+     * Get localise
+     *
+     * @return boolean
+     */
+    public function getLocalise()
+    {
+        return $this->localise;
     }
 }

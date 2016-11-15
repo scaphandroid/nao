@@ -3,6 +3,8 @@
 namespace NAO\PlatformBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * Observation
@@ -28,6 +30,13 @@ class Observation
      * @ORM\JoinColumn(nullable=false)
      */
     private $espece;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="localise", type="boolean")
+     */
+    private $localise;
 
     /**
      * @var string
@@ -60,18 +69,39 @@ class Observation
     /**
      * @var string
      *
-     * @ORM\OneToOne(targetEntity="NAO\PlatformBundle\Entity\Photo", cascade={"persist"})
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\Column(name="photo", type="string", length=255, nullable=true)
+     *
+     * @Assert\File(
+     *     mimeTypes={
+     *          "image/png",
+     *          "image/jpeg",
+     *          "image/jpg",
+     *          "image/gif"
+     *      },
+     *     maxSize = "5M",
+     *     mimeTypesMessage = "La photo doit être au format png, jpeg, jpg ou gif.",
+     *     uploadErrorMessage = "Une erreur s'est produite. Merci de recommencer."
+     * )
      */
     private $photo;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(name="particulier", type="boolean")
+     */
+    private $particulier;
+
+    /**
      * @var string
      *
-     * @ORM\Column(name="auteur", type="string", length=255)
+     * @ORM\Column(name="email", type="string", length=255)
+     * * @Assert\Email(
+     *     message = "L'email '{{ value }}' n'est pas valide."
+     * )
      */
-    /* Doit contenir soit 'P' pour particulier soit 'N' pour naturaliste*/
-    private $auteur;
+    private $email;
+    
 
     /**
      * @var int
@@ -88,6 +118,10 @@ class Observation
      */
     private $valide;
 
+    public function __construct()
+    {
+        $this->dateSaisie   = new \Datetime();
+     }
 
     /**
      * Get id
@@ -222,11 +256,11 @@ class Observation
     /**
      * Set photo
      *
-     * @param string $photo
+     * @param File $photo
      *
      * @return Observation
      */
-    public function setPhoto($photo)
+    public function setPhoto(File $photo)
     {
         $this->photo = $photo;
 
@@ -246,25 +280,25 @@ class Observation
     /**
      * Set auteur
      *
-     * @param string $auteur
+     * @param string $particulier
      *
      * @return Observation
      */
-    public function setAuteur($auteur)
+    public function setParticulier($particulier)
     {
-        $this->auteur = $auteur;
+        $this->particulier = $particulier;
 
         return $this;
     }
 
     /**
-     * Get auteur
+     * Get particulier
      *
      * @return string
      */
-    public function getAuteur()
+    public function getParticulier()
     {
-        return $this->auteur;
+        return $this->particulier;
     }
 
     /**
@@ -313,5 +347,29 @@ class Observation
     public function getValide()
     {
         return $this->valide;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     *
+     * @return Observation
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
     }
 }
