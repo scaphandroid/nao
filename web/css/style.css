@@ -1,22 +1,30 @@
-p {
-    font-family: 'Open Sans';
+/*GENERALITES*/
+
+body{
+    font-family: "Open Sans", Arial;
+    background-color: #ededed;
 }
+
+.fond-vert {
+    background-color: #00A468;
+}
+
+.body {
+    margin-top: 208px;
+    z-index: 9000;
+}
+
+/*HEADER*/
 
 header {
     position:fixed;
     left:0;
     right:0;
     margin:auto;
-}
-
-header, footer {
+    z-index:9999;
     background-color: #ededed;
 }
 
-.body {
-    height: 400px;
-    background-color: #00A468;;
-}
 
 .entete {
     border: 0 none;
@@ -43,7 +51,6 @@ header, footer {
 
 a {
     text-decoration: none;
-    font-family: 'Open Sans';
 }
 
 .logo a img {
@@ -80,7 +87,6 @@ a {
     background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
     border: medium none;
     color: #c4c4c4;
-    font-family: 'Open Sans';
     font-size: 13px;
     font-weight: 600;
     outline: medium none;
@@ -88,6 +94,10 @@ a {
     position: relative;
     width: 80%;
 }
+
+
+
+/*NAV*/
 
 nav {
     margin-top : 10px;
@@ -104,7 +114,7 @@ nav {
 }
 
 .menu_box_list ul {
-    padding-left :0px;
+    padding-left :0;
     margin-right: -10px;
 }
 
@@ -118,7 +128,7 @@ nav {
 }
 
 .menu_box_list li:last-child {
-    margin-right: 0px;
+    margin-right: 0;
 }
 
 .menu_box_list li.bouton_menu {
@@ -146,7 +156,7 @@ nav {
 .menu_box_list li a {
     color: #90C840;
     display: inline-block;
-   /* font-family: "";*/
+    /* font-family: "";*/
     font-size: 1.1em;
     padding: 14px 0;
     text-align: center;
@@ -187,6 +197,10 @@ nav {
     width: 80%;
     margin: 0 auto;
 }
+
+
+
+/*FOOTER*/
 
 footer .logo {
     height: 120px;
@@ -260,6 +274,26 @@ ol, ul {
 .iconMail {
     background: url("../images/mail.png") no-repeat 0 0;
 }
+
+/* ACCUEIL */
+
+.bouton-main{
+    background-color: #90C840;
+    color: white;
+    background-image: url('../images/oiseau_blanc.png');
+    background-position: 50% 90%;
+    background-repeat: no-repeat;
+    background-size: 15%;
+    height: 55px;
+    padding-top: 0px;
+    font-size: large;
+}
+
+.bouton-main img{
+    display: block;
+}
+
+/*REPONSIVE */
 
 @media (max-width: 768px) {
     .container {

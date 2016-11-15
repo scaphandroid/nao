@@ -18,8 +18,8 @@
             {% endstylesheets %}
 
           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">#}
-            <link rel="stylesheet" href="{{ asset('bundles/naoplatform/css/bootstrap.css') }}" type="text/css" />
-            <link rel="stylesheet" href="{{ asset('bundles/naoplatform/css/style.css') }}" type="text/css" />
+            <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}" type="text/css" />
+            <link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css" />
             <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
 
         <link rel="icon" type="image/x-icon" href="" />
@@ -27,15 +27,13 @@
     {% endblock %}
 </head>
 
-<body>
+<body class="container-fluid">
     <header>
         <div class="container">
             <div class="row entete">
                 <div class="col-sm-4 logo">
                     <a href="{{ path('nao_platform_home') }}">
-                        {% image '@NAOPlatformBundle/Resources/public/images/logo1.png' %}
-                        <img src="{{ asset_url }}" alt="Logo de Nos Amis les Oiseaux" />
-                        {% endimage %}
+                        <img src="{{ asset('images/logo1.png') }}" alt="Logo de Nos Amis les Oiseaux" />
                     </a>
                 </div>
                 <div class="col-sm-offset-4 col-sm-4 hidden-xs recherche">
@@ -59,48 +57,47 @@
         {% endblock %}
         </div>
     </header>
-{% block body %}
-{% endblock %}
 
-<!-- Pied de page  -->
-{% block footer %}
-<footer>
-        <div class="row wrap">
-            <div class="footer_left col-sm-6">
-                <div class="row logo">
-                    <a href="{{ path('nao_platform_home') }}">
-                        {% image '@NAOPlatformBundle/Resources/public/images/logo1.png' %}
-                        <img src="{{ asset_url }}" alt="Logo de Nos Amis les Oiseaux" />
-                        {% endimage %}
-                    </a>
+    <div class="body">{% block body %}{% endblock %}</div>
+
+
+    <!-- Pied de page  -->
+    {% block footer %}
+    <footer>
+            <div class="row wrap">
+                <div class="footer_left col-sm-6">
+                    <div class="row logo">
+                        <a href="{{ path('nao_platform_home') }}">
+                            <img src="{{ asset('images/logo1.png') }}" alt="Logo de Nos Amis les Oiseaux" />
+                        </a>
+                    </div>
+                    <div class="row footer_texte">
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                    </div>
                 </div>
-                <div class="row footer_texte">
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+
+                <div class="col-sm-offset-1 footer_right col-sm-5">
+                    <div class="row footer_liens">
+                        <ul class="footer_nav">
+                            <li><a href="#">Découvrir</a></li> |
+                            <li><a  href="#">Observer</a></li> |
+                            <li><a href="#">S'inscrire</a></li> |
+                            <li><a href="#">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="row footer_rs">
+                        <ul>
+                            <li><a href="#"> <i class="iconTwitter"> </i><span>Twitter</span></a></li>
+                            <li><a href="#"> <i class="iconFacebook"> </i> <span>Facebook</span></a></li>
+                         <!--   <li><a href="#"> <i class="iconRss"> </i><span>Rss</span></a></li> -->
+                            <li><a href="#"> <i class="iconMail"> </i><span>Mail</span></a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
 
-            <div class="col-sm-offset-1 footer_right col-sm-5">
-                <div class="row footer_liens">
-                    <ul class="footer_nav">
-                        <li><a href="#">Découvrir</a></li> |
-                        <li><a  href="#">Observer</a></li> |
-                        <li><a href="#">S'inscrire</a></li> |
-                        <li><a href="#">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="row footer_rs">
-                    <ul>
-                        <li><a href="#"> <i class="iconTwitter"> </i><span>Twitter</span></a></li>
-                        <li><a href="#"> <i class="iconFacebook"> </i> <span>Facebook</span></a></li>
-                     <!--   <li><a href="#"> <i class="iconRss"> </i><span>Rss</span></a></li> -->
-                        <li><a href="#"> <i class="iconMail"> </i><span>Mail</span></a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-</footer>
-{% endblock %}
+    </footer>
+    {% endblock %}
 
 {% block javascript %}
 {% endblock %}
