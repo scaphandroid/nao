@@ -12,17 +12,9 @@ class PlatformController extends Controller
         return $this->render('NAOPlatformBundle:Platform:index.html.twig');
     }
 
-    public function rechercherAction($id)
+    public function rechercherAction()
     {
-        if ($id == null) {// afficher toutes les observations
-            return new Response("Affichage de toutes les observations");
-        }
-        else {
-            return $this->render('NAOPlatformBundle:Platform:rechercher.html.twig', array(
-                'especeId'=>$id
-            ));
-
-        }
+        return $this->render('NAOPlatformBundle:Platform:rechercher.html.twig');
     }
 
     public function observerAction()

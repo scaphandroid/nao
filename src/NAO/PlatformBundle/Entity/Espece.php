@@ -32,13 +32,6 @@ class Espece
     /**
      * @var string
      *
-     * @ORM\Column(name="auteur", type="string", length=255)
-     */
-    private $auteur;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="nom_vern", type="string", length=255)
      */
     private $nomVern;
@@ -85,31 +78,7 @@ class Espece
         return $this->nom;
     }
 
-    /**
-     * Set auteur
-     *
-     * @param string $auteur
-     *
-     * @return Espece
-     */
-    public function setAuteur($auteur)
-    {
-        $this->auteur = $auteur;
-
-        return $this;
-    }
-
-    /**
-     * Get auteur
-     *
-     * @return string
-     */
-    public function getAuteur()
-    {
-        return $this->auteur;
-    }
-
-    /**
+     /**
      * Set nomVern
      *
      * @param string $nomVern
