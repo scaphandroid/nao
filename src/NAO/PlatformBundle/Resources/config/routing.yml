@@ -14,3 +14,12 @@ nao_platform_observer:
     defaults: { _controller: NAOPlatformBundle:Platform:observer}
     methods:  [GET, POST]
 
+nao_platform_compte:
+    path:     /compte
+    defaults: { _controller: NAOPlatformBundle:Platform:compte}
+    methods:  [GET, POST]
+
+nao_platform_demande:
+    path:     /demande
+    defaults: { _controller: NAOPlatformBundle:Platform:demande}
+    methods:  [GET, POST]

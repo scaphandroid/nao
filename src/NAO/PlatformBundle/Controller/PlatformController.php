@@ -3,11 +3,13 @@
 namespace NAO\PlatformBundle\Controller;
 
 use NAO\PlatformBundle\Entity\Espece;
+use NAO\PlatformBundle\Entity\Naturaliste;
 use NAO\PlatformBundle\Entity\Observation;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use NAO\PlatformBundle\Form\ObservationType;
 use NAO\PlatformBundle\Form\EspeceType;
+use NAO\PlatformBundle\Form\NaturalisteType;
 use Symfony\Component\HttpFoundation\Request;
 
 class PlatformController extends Controller
@@ -65,6 +67,30 @@ class PlatformController extends Controller
         }
 
         return $this->render('NAOPlatformBundle:Platform:observer.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }
+
+    public function compteAction()
+    {
+        return $this->render('NAOPlatformBundle:Platform:compte.html.twig');
+    }
+
+    public function demandeAction(Request $request)
+    {
+        $demande = new Naturaliste();
+        $form = $this->createForm(NaturalisteType::class, $demande);
+
+        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($demande);
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('notice', 'Demande de compte naturaliste bien enregistrée.');
+            return $this->redirectToRoute('nao_platform_home');
+        }
+
+        return $this->render('NAOPlatformBundle:Platform:demandeCompteNaturaliste.html.twig', array(
             'form' => $form->createView()
         ));
     }

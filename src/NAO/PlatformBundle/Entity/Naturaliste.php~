@@ -114,10 +114,7 @@ class Naturaliste
      */
     private $dateDemande;
 
-    public function __construct()
-    {
-        $this->dateDemande   = new \Datetime();
-    }
+
     /**
      * Get id
      *
@@ -319,28 +316,5 @@ class Naturaliste
     {
         return $this->password;
     }
-
-    /**
-     * Set dateDemande
-     *
-     * @param \DateTime $dateDemande
-     *
-     * @return Naturaliste
-     */
-    public function setDateDemande($dateDemande)
-    {
-        $this->dateDemande = $dateDemande;
-
-        return $this;
-    }
-
-    /**
-     * Get dateDemande
-     *
-     * @return \DateTime
-     */
-    public function getDateDemande()
-    {
-        return $this->dateDemande;
-    }
 }
+
