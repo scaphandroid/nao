@@ -12,25 +12,34 @@ use Symfony\Component\HttpFoundation\Request;
 
 class PlatformController extends Controller
 {
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        return $this->render('NAOPlatformBundle:Platform:index.html.twig');
+        $espece = new Espece();
+        $form = $this->createForm(EspeceType::class, $espece);
+
+        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+            return $this->render('NAOPlatformBundle:Platform:rechercher.html.twig', array(
+                'form' => $form->createView(),
+                'espece' => $espece
+            ));
+        }
+
+        return $this->render('NAOPlatformBundle:Platform:index.html.twig', array(
+            'form' => $form->createView()
+        ));
     }
 
     public function rechercherAction(Request $request)
     {
-
         $espece = new Espece();
         $form = $this->createForm(EspeceType::class, $espece);
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             /*Afficher la carte avec l'espece recherchée */
-            var_dump($espece->getNomVern());
             return $this->render('NAOPlatformBundle:Platform:rechercher.html.twig', array(
                 'form' => $form->createView(),
-                'especeId' => $espece->getId()
+                'espece' => $espece
             ));
-
         }
 
         return $this->render('NAOPlatformBundle:Platform:rechercher.html.twig', array(

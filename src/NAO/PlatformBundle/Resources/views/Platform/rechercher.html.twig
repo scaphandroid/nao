@@ -18,6 +18,15 @@
                 </div>
                 {{ form_widget(form.rechercher, {'attr': {'class': 'btn btn-primary'}}) }}
             </div>
+            {{ form_rest(form) }}
+            {{ form_end(form) }}
+        </div>
+        <div>
+            {% if espece is defined %}
+                <h3>Affichage des résultats de l'espèce {{ espece.nomVern }}</h3>
+            {% endif %}
+
+        </div>
     </div>
 
 {% endblock %}

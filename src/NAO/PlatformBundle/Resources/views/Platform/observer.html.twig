@@ -50,9 +50,11 @@
             </div>
 
             <p>Ajouter en js lorsque particulier est selectionné champs email si naturaliste champs email+mdp</p>
-
+            {{ form_rest(form) }}
             {{ form_widget(form.valider, {'attr': {'class': 'btn btn-primary col-sm-offset-5 col-sm-2'}}) }}
 
+
+            {{ form_end(form) }}
         </div>
     </div>
 
