@@ -7,8 +7,17 @@
     <div class="body">
         <h3>Formulaire de recherche</h3>
         <div class="well">
+                {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+                {{ form_errors(form) }}
 
-        </div>
+            <div class="form-group">
+                    {{ form_label(form.nomVern, "Nom vernaculaire de l'espèce", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+                    {{ form_errors(form.nomVern) }}
+                <div class="col-sm-3">
+                        {{ form_widget(form.nomVern, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                {{ form_widget(form.rechercher, {'attr': {'class': 'btn btn-primary'}}) }}
+            </div>
     </div>
 
 {% endblock %}

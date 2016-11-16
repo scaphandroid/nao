@@ -2,10 +2,12 @@
 
 namespace NAO\PlatformBundle\Controller;
 
+use NAO\PlatformBundle\Entity\Espece;
 use NAO\PlatformBundle\Entity\Observation;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use NAO\PlatformBundle\Form\ObservationType;
+use NAO\PlatformBundle\Form\EspeceType;
 use Symfony\Component\HttpFoundation\Request;
 
 class PlatformController extends Controller
@@ -15,9 +17,26 @@ class PlatformController extends Controller
         return $this->render('NAOPlatformBundle:Platform:index.html.twig');
     }
 
-    public function rechercherAction()
+    public function rechercherAction(Request $request)
     {
-        return $this->render('NAOPlatformBundle:Platform:rechercher.html.twig');
+
+        $espece = new Espece();
+        $form = $this->createForm(EspeceType::class, $espece);
+
+        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+            /*Afficher la carte avec l'espece recherchée */
+            var_dump($espece->getNomVern());
+            return $this->render('NAOPlatformBundle:Platform:rechercher.html.twig', array(
+                'form' => $form->createView(),
+                'especeId' => $espece->getId()
+            ));
+
+        }
+
+        return $this->render('NAOPlatformBundle:Platform:rechercher.html.twig', array(
+            'form' => $form->createView()
+        ));
+
     }
 
     public function observerAction(Request $request)
