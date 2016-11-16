@@ -5,10 +5,6 @@ body{
     background-color: #ededed;
 }
 
-.fond-vert {
-    background-color: #00A468;
-}
-
 .body {
     margin-top: 208px;
     z-index: 9000;
@@ -275,11 +271,27 @@ ol, ul {
     background: url("../images/mail.png") no-repeat 0 0;
 }
 
+
+
 /* ACCUEIL */
+
+#bloc_observer{
+    background-image: url('../images/background-NAO.jpg');
+    background-size: cover;
+}
+
+#bloc_dernieres_obs{
+    color: #00A468;
+}
+
+.fond-vert {
+    background-color: #00A468;
+    color: #ffffff;
+}
 
 .bouton-main{
     background-color: #90C840;
-    color: white;
+    color: #ffffff;
     background-image: url('../images/oiseau_blanc.png');
     background-position: 50% 90%;
     background-repeat: no-repeat;
@@ -292,6 +304,14 @@ ol, ul {
 .bouton-main img{
     display: block;
 }
+
+.bloc-texte{
+    background-color: #ffffff;
+    color: #000000;
+    text-align: left;
+}
+
+
 
 /*REPONSIVE */
 
