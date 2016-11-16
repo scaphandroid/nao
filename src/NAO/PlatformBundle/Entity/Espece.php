@@ -25,13 +25,6 @@ class Espece
     /**
      * @var string
      *
-     * @ORM\Column(name="nom", type="string", length=255)
-     */
-    private $nom;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="nom_vern", type="string", length=255)
      */
     private $nomVern;
@@ -54,31 +47,7 @@ class Espece
         return $this->id;
     }
 
-    /**
-     * Set nom
-     *
-     * @param string $nom
-     *
-     * @return Espece
-     */
-    public function setNom($nom)
-    {
-        $this->nom = $nom;
-
-        return $this;
-    }
-
-    /**
-     * Get nom
-     *
-     * @return string
-     */
-    public function getNom()
-    {
-        return $this->nom;
-    }
-
-     /**
+       /**
      * Set nomVern
      *
      * @param string $nomVern
