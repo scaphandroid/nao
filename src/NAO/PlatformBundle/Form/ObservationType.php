@@ -33,14 +33,6 @@ class ObservationType extends AbstractType
                 'date_widget' => 'choice'
             ))
             ->add('photo', FileType::class )
-            ->add('auteur', ChoiceType::class, array(
-                'choices' => array(
-                    'Particulier' => true,
-                    'Naturaliste' => false,
-                ),
-            ))
-            ->add('email', EmailType::class)
-            ->add('naturaliste', NaturalisteType::class)
             ->add('valider',SubmitType::class);
     }
     
