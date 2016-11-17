@@ -94,21 +94,12 @@ class Observation
     private $user;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=255)
-     * * @Assert\Email(
-     *     message = "L'email '{{ value }}' n'est pas valide."
-     * )
-     */
-    private $email;
-
-    /**
      * @var bool
      *
      * @ORM\Column(name="valide", type="boolean")
      */
     private $valide;
+
 
     public function __construct()
     {
@@ -126,6 +117,7 @@ class Observation
         return $this->id;
     }
 
+
     /**
      * Set espece
      *
@@ -136,7 +128,6 @@ class Observation
     public function setEspece(Espece $espece)
     {
         $this->espece = $espece;
-
         return $this;
     }
 
@@ -273,18 +264,18 @@ class Observation
     /**
      * Set user
      *
-     * @param string $user
+     * @param User $user
      *
      * @return Observation
      */
-    public function setUser($user)
+    public function setUser(User $user)
     {
         $this->user = $user;
-
-        return $this;
     }
 
+
     /**
+
      * Get user
      *
      * @return string
@@ -319,30 +310,6 @@ class Observation
     }
 
     /**
-     * Set email
-     *
-     * @param string $email
-     *
-     * @return Observation
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * Get email
-     *
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
      * Set localise
      *
      * @param boolean $localise
@@ -352,8 +319,6 @@ class Observation
     public function setLocalise($localise)
     {
         $this->localise = $localise;
-
-        return $this;
     }
 
     /**
@@ -365,4 +330,5 @@ class Observation
     {
         return $this->localise;
     }
+
 }

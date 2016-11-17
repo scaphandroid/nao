@@ -8,7 +8,6 @@ nao_platform_rechercher:
     defaults: { _controller: NAOPlatformBundle:Platform:rechercher }
     methods:  [GET, POST]
 
-
 nao_platform_observer:
     path:     /observer
     defaults: { _controller: NAOPlatformBundle:Platform:observer}
@@ -22,4 +21,5 @@ nao_platform_compte:
 nao_platform_demande:
     path:     /demande
     defaults: { _controller: NAOPlatformBundle:Platform:demande}
-    methods:  [GET, POST]
+    methods:  [GET, HEAD, POST]
+

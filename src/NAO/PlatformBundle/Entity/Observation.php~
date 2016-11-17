@@ -86,30 +86,12 @@ class Observation
     private $photo;
 
     /**
-     * @var bool
-     *
-     * @ORM\Column(name="particulier", type="boolean")
-     */
-    private $particulier;
-
-    /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=255)
-     * * @Assert\Email(
-     *     message = "L'email '{{ value }}' n'est pas valide."
-     * )
+     * @ORM\ManyToOne(targetEntity="NAO\PlatformBundle\Entity\User")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $email;
-    
-
-    /**
-     * @var int
-     *
-     * @ORM\ManyToOne(targetEntity="NAO\PlatformBundle\Entity\Naturaliste")
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $naturaliste;
+    private $user;
 
     /**
      * @var bool
@@ -118,9 +100,11 @@ class Observation
      */
     private $valide;
 
+
     public function __construct()
     {
         $this->dateSaisie   = new \Datetime();
+        $this->dateObs = new \Datetime();
      }
 
     /**
@@ -133,6 +117,7 @@ class Observation
         return $this->id;
     }
 
+
     /**
      * Set espece
      *
@@ -143,7 +128,6 @@ class Observation
     public function setEspece(Espece $espece)
     {
         $this->espece = $espece;
-
         return $this;
     }
 
@@ -278,51 +262,27 @@ class Observation
     }
 
     /**
-     * Set auteur
+     * Set user
      *
-     * @param string $particulier
+     * @param User $user
      *
      * @return Observation
      */
-    public function setParticulier($particulier)
+    public function setUser(User $user)
     {
-        $this->particulier = $particulier;
-
-        return $this;
+        $this->user = $user;
     }
 
+
     /**
-     * Get particulier
+
+     * Get user
      *
      * @return string
      */
-    public function getParticulier()
+    public function getUser()
     {
-        return $this->particulier;
-    }
-
-    /**
-     * Set naturaliste
-     *
-     * @param Naturaliste $naturaliste
-     *
-     * @return Observation
-     */
-    public function setNaturaliste(Naturaliste $naturaliste)
-    {
-        $this->naturaliste = $naturaliste;
-
-        return $this;
-    }
-
-    /**
-     * Get naturaliste
-     *
-     * @return int
-     */
-    public function getNaturaliste()
-    {
-        return $this->naturaliste;
+        return $this->user;
     }
 
     /**
@@ -350,26 +310,25 @@ class Observation
     }
 
     /**
-     * Set email
+     * Set localise
      *
-     * @param string $email
+     * @param boolean $localise
      *
      * @return Observation
      */
-    public function setEmail($email)
+    public function setLocalise($localise)
     {
-        $this->email = $email;
-
-        return $this;
+        $this->localise = $localise;
     }
 
     /**
-     * Get email
+     * Get localise
      *
-     * @return string
+     * @return boolean
      */
-    public function getEmail()
+    public function getLocalise()
     {
-        return $this->email;
+        return $this->localise;
     }
+
 }

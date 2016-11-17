@@ -13,6 +13,7 @@ use NAO\PlatformBundle\Form\UserType;
 use NAO\PlatformBundle\Form\UserParticulierType;
 use Symfony\Component\HttpFoundation\Request;
 
+
 class PlatformController extends Controller
 {
     public function indexAction(Request $request)
