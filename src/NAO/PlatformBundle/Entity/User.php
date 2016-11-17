@@ -5,12 +5,21 @@ namespace NAO\PlatformBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * User
  *
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="NAO\PlatformBundle\Repository\UserRepository")
+ * @UniqueEntity(
+ *     fields={"email"},
+ *     message="Cet email est déjà utilisé."
+ * )
+ * @UniqueEntity(
+ *     fields={"pseudo"},
+ *     message="Ce pseudo est déjà utilisé."
+ * )
  */
 class User
 {
@@ -48,19 +57,32 @@ class User
     /**
      * @var string
      *
-     * @ORM\Column(name="role", type="string", length=255)
-     */
-    private $role;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=255)
+     * @ORM\Column(name="email", type="string", length=255, unique=true)
      * * @Assert\Email(
      *     message = "L'email '{{ value }}' n'est pas valide."
      * )
      */
+
     private $email;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="pseudo", type="string", length=255, unique=true)
+     * @Assert\Length(
+     *     min=2,
+     *     minMessage = "Votre pseudo doit contenir au moins {{ limit }} caractères",
+     *     )
+     */
+    private $pseudo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="role", type="string", length=255)
+     */
+    private $role;
+
 
     /**
      * @var string
@@ -106,7 +128,6 @@ class User
      */
     private $valide;
 
-    /* A voir si l'on garde avec le système de gestion des user*/
     /**
      * @var string
      *
@@ -373,5 +394,29 @@ class User
     public function getRole()
     {
         return $this->role;
+    }
+
+    /**
+     * Set pseudo
+     *
+     * @param string $pseudo
+     *
+     * @return User
+     */
+    public function setPseudo($pseudo)
+    {
+        $this->pseudo = $pseudo;
+
+        return $this;
+    }
+
+    /**
+     * Get pseudo
+     *
+     * @return string
+     */
+    public function getPseudo()
+    {
+        return $this->pseudo;
     }
 }

@@ -88,10 +88,10 @@ class Observation
     /**
      * @var string
      *
-     * @ORM\Column(name="auteur", type="string")
+     * @ORM\ManyToOne(targetEntity="NAO\PlatformBundle\Entity\User")
+     * @ORM\JoinColumn(nullable=false)
      */
-    /* particullier ou naturaliste*/
-    private $auteur;
+    private $user;
 
     /**
      * @var string
@@ -102,15 +102,6 @@ class Observation
      * )
      */
     private $email;
-    
-
-    /**
-     * @var int
-     *
-     * @ORM\ManyToOne(targetEntity="NAO\PlatformBundle\Entity\Naturaliste")
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $naturaliste;
 
     /**
      * @var bool
@@ -280,51 +271,27 @@ class Observation
     }
 
     /**
-     * Set auteur
+     * Set user
      *
-     * @param string $auteur
+     * @param string $user
      *
      * @return Observation
      */
-    public function setAuteur($auteur)
+    public function setUser($user)
     {
-        $this->auteur = $auteur;
+        $this->user = $user;
 
         return $this;
     }
 
     /**
-     * Get auteur
+     * Get user
      *
      * @return string
      */
-    public function getAuteur()
+    public function getUser()
     {
-        return $this->auteur;
-    }
-
-    /**
-     * Set naturaliste
-     *
-     * @param Naturaliste $naturaliste
-     *
-     * @return Observation
-     */
-    public function setNaturaliste(Naturaliste $naturaliste)
-    {
-        $this->naturaliste = $naturaliste;
-
-        return $this;
-    }
-
-    /**
-     * Get naturaliste
-     *
-     * @return int
-     */
-    public function getNaturaliste()
-    {
-        return $this->naturaliste;
+        return $this->user;
     }
 
     /**

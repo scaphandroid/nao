@@ -4,8 +4,15 @@
 {% endblock %}
 
 {% block body %}
-<div>
-    <a href="{{ path('nao_platform_demande') }}">Demande de compte naturaliste</a>
-</div>
+    <div class="col-sm-6">
+     {#   {{ form(formConnexion) }} #}
+        <p>Afficher le formulaire de connexion email/mdp</p>
+
+    </div>
+    <div class="col-sm-6">
+        <h4>Formulaire d'inscription pour saisir des observations</h4>
+        {{ form(formInscription) }}
+        <p>Faire une <a href="{{ path('nao_platform_demande') }}">demande de compte naturaliste</a> pour valider les observations des particuliers</p>
+    </div>
 
 {% endblock %}

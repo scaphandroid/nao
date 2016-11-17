@@ -4,7 +4,10 @@
 {% endblock %}
 
 {% block body %}
+<div>
+    <p>Vous avez déjà un compte particulier et vous souhaitez faire une demande de compte naturaliste ? <a href="{{ path('nao_platform_compte') }}">Connectez-vous</a> et cliquer sur le lien "Devenir naturaliste".</p>
+    {{ form(form) }}
+</div>
 
-{{ form(form) }}
 
 {% endblock %}
