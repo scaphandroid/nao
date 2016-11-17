@@ -78,10 +78,11 @@ class PlatformController extends Controller
         $form = $this->createForm(UserParticulierType::class, $particulier);
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+            /* modifier certains attributs comme "valide", "role"*/
             $em = $this->getDoctrine()->getManager();
             $em->persist($particulier);
             $em->flush();
-              $request->getSession()->getFlashBag()->add('notice', 'Compte enregistré. Vous allez recevoir un email de confirmation.');
+            $request->getSession()->getFlashBag()->add('notice', 'Compte enregistré. Vous allez recevoir un email de confirmation.');
             // Faire une page avec message du type : Vous allez recevoir un email vous demandant de cliquer pour valider la création de votre compte ?
             return $this->redirectToRoute('nao_platform_home');
         }
@@ -97,6 +98,7 @@ class PlatformController extends Controller
         $form = $this->createForm(UserType::class, $naturaliste);
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+            /* modifier certains attributs comme "valide"*/
             $em = $this->getDoctrine()->getManager();
             $em->persist($naturaliste);
             $em->flush();
