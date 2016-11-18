@@ -26,10 +26,18 @@ class Observation
     /**
      * @var string
      *
-     * @ORM\ManyToOne(targetEntity="NAO\PlatformBundle\Entity\Espece")
+     * @ORM\ManyToOne(targetEntity="NAO\PlatformBundle\Entity\EspeceNomVern")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $espece;
+    private $especeNomVern;
+
+    /**
+     * @var string
+     *
+     * @ORM\ManyToOne(targetEntity="NAO\PlatformBundle\Entity\EspeceNomLatin")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $especeNomLatin;
 
     /**
      * @var bool
@@ -119,26 +127,26 @@ class Observation
 
 
     /**
-     * Set espece
+     * Set especeNomVern
      *
-     * @param Espece $espece
+     * @param EspeceNomVern $especeNomVern
      *
      * @return Observation
      */
-    public function setEspece(Espece $espece)
+    public function setEspeceNomVern(EspeceNomVern $especeNomVern)
     {
-        $this->espece = $espece;
+        $this->especeNomVern = $especeNomVern;
         return $this;
     }
 
     /**
-     * Get espece
+     * Get especeNomVern
      *
      * @return string
      */
-    public function getEspece()
+    public function getEspeceNomVern()
     {
-        return $this->espece;
+        return $this->especeNomVern;
     }
 
     /**
@@ -330,5 +338,30 @@ class Observation
     {
         return $this->localise;
     }
+    
 
+
+    /**
+     * Set especeNomLatin
+     *
+     * @param EspeceNomLatin $especeNomLatin
+     *
+     * @return Observation
+     */
+    public function setEspeceNomLatin(EspeceNomLatin $especeNomLatin = null)
+    {
+        $this->especeNomLatin = $especeNomLatin;
+
+        return $this;
+    }
+
+    /**
+     * Get especeNomLatin
+     *
+     * @return \NAO\PlatformBundle\Entity\EspeceNomLatin
+     */
+    public function getEspeceNomLatin()
+    {
+        return $this->especeNomLatin;
+    }
 }

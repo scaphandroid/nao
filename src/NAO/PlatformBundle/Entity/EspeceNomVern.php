@@ -3,15 +3,14 @@
 namespace NAO\PlatformBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Espece
+ * EspeceNomVern
  *
- * @ORM\Table(name="espece")
- * @ORM\Entity(repositoryClass="NAO\PlatformBundle\Repository\EspeceRepository")
+ * @ORM\Table(name="espece_nom_vern")
+ * @ORM\Entity(repositoryClass="NAO\PlatformBundle\Repository\EspeceNomVernRepository")
  */
-class Espece
+class EspeceNomVern
 {
     /**
      * @var int
@@ -25,16 +24,9 @@ class Espece
     /**
      * @var string
      *
-     * @ORM\Column(name="nom_vern", type="string", length=255)
+     * @ORM\Column(name="nomVern", type="string", length=255, unique=true)
      */
     private $nomVern;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="url", type="string", length=255)
-     */
-    private $url;
 
 
     /**
@@ -52,7 +44,7 @@ class Espece
      *
      * @param string $nomVern
      *
-     * @return Espece
+     * @return EspeceNomVern
      */
     public function setNomVern($nomVern)
     {
@@ -69,30 +61,6 @@ class Espece
     public function getNomVern()
     {
         return $this->nomVern;
-    }
-
-    /**
-     * Set url
-     *
-     * @param string $url
-     *
-     * @return Espece
-     */
-    public function setUrl($url)
-    {
-        $this->url = $url;
-
-        return $this;
-    }
-
-    /**
-     * Get url
-     *
-     * @return string
-     */
-    public function getUrl()
-    {
-        return $this->url;
     }
 }
 
