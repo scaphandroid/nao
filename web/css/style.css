@@ -163,10 +163,9 @@ nav {
     color: #90C840;
     display: inline-block;
     /* font-family: "";*/
-    font-size: 1.1em;
+    font-size: 1em;
     padding: 14px 0;
     text-align: center;
-    text-transform: capitalize;
     width: 100%;
 }
 

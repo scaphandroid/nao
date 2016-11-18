@@ -23,7 +23,7 @@ class ObservationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('espece', TextType::class) // il existe des bundle d'autocompletion AutocompleteType
+            ->add('especeNomVern', TextType::class) // il existe des bundle d'autocompletion AutocompleteType
             ->add('localise', CheckboxType::class, array(
                 'label'    => 'Je suis sur place',
                 'required' => false,

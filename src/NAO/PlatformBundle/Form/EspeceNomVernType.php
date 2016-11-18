@@ -8,7 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-class EspeceType extends AbstractType
+class EspeceNomVernType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -26,7 +26,7 @@ class EspeceType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'NAO\PlatformBundle\Entity\Espece'
+            'data_class' => 'NAO\PlatformBundle\Entity\EspeceNomVern'
         ));
     }
 
@@ -35,7 +35,7 @@ class EspeceType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'nao_platformbundle_espece';
+        return 'nao_platformbundle_especeNomVern';
     }
 
 

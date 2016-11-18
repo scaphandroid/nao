@@ -2,13 +2,13 @@
 
 namespace NAO\PlatformBundle\Controller;
 
-use NAO\PlatformBundle\Entity\Espece;
+use NAO\PlatformBundle\Entity\EspeceNomVern;
 use NAO\PlatformBundle\Entity\Observation;
 use NAO\PlatformBundle\Entity\User;
+use NAO\PlatformBundle\Form\EspeceNomVernType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use NAO\PlatformBundle\Form\ObservationType;
-use NAO\PlatformBundle\Form\EspeceType;
 use NAO\PlatformBundle\Form\UserType;
 use NAO\PlatformBundle\Form\UserParticulierType;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,8 +18,8 @@ class PlatformController extends Controller
 {
     public function indexAction(Request $request)
     {
-        $espece = new Espece();
-        $form = $this->createForm(EspeceType::class, $espece);
+        $espece = new EspeceNomVern();
+        $form = $this->createForm(EspeceNomVernType::class, $espece);
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             return $this->render('NAOPlatformBundle:Platform:rechercher.html.twig', array(
@@ -35,8 +35,8 @@ class PlatformController extends Controller
 
     public function rechercherAction(Request $request)
     {
-        $espece = new Espece();
-        $form = $this->createForm(EspeceType::class, $espece);
+        $espece = new EspeceNomVern();
+        $form = $this->createForm(EspeceNomVernType::class, $espece);
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             /*Afficher la carte avec l'espece recherchée */
