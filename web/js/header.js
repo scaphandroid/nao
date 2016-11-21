@@ -3,11 +3,12 @@ $(document).ready(function(){
     var moved = false;
     $(document).scroll(function(){
         if($(window).scrollTop() > 60 && !moved){
+
             $('#barre-recherche').animate({
                 top: "90px",
                 left: "100px"
                 }
-            );
+            ).addClass('recherche-decale');
             $('#logo-header').animate({
                     top: "90px"
                 }
@@ -19,7 +20,7 @@ $(document).ready(function(){
                     top: "0px",
                     left: "0px"
                 }
-            );
+            ).removeClass('recherche-decale');
             $('#logo-header').animate({
                     top: "0px"
                 }
