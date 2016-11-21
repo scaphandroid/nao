@@ -1,0 +1,20 @@
+{% extends "NAOPlatformBundle::layout.html.twig" %}
+{% block title %}
+    Compte
+{% endblock %}
+
+{% block body %}
+<h2>Votre profil</h2>
+
+{% block fos_user_content %}
+    {% trans_default_domain 'FOSUserBundle' %}
+    <div class="fos_user_user_show">
+        <p>{{ 'profile.show.username'|trans }}: {{ user.username }}</p>
+        <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
+        <a href="{{ path('fos_user_security_logout') }}">
+            {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+        </a>
+    </div>
+{% endblock fos_user_content %}
+
+{% endblock %}

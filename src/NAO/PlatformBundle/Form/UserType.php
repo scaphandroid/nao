@@ -24,7 +24,6 @@ class UserType extends AbstractType
             ->add('prenom', TextType::class)
             ->add('nom', TextType::class)
             ->add('email', EmailType::class)
-            ->add('pseudo', TextType::class)
             ->add('profession', TextType::class, array('required' => true))
             ->add('cv', FileType::class, array('required' => true))
             ->add('motivation', TextareaType::class, array('required' => true))
