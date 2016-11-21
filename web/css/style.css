@@ -30,7 +30,7 @@ header {
     right:0;
     top: 0;
     margin:auto;
-    z-index:9999;
+    z-index:9998;
     background-color: #ededed;
 }
 
@@ -54,6 +54,7 @@ header {
     margin: 0;
     padding: 0;
     vertical-align: baseline;
+    z-index: 9998;
 }
 
 .logo a {
@@ -115,6 +116,7 @@ a {
 
 nav {
     margin-top : 10px;
+    z-index: 9999;
 }
 
 .menu_box_list {
@@ -135,26 +137,23 @@ nav {
 .menu_box_list li {
     border-left: 1px solid rgb(190, 190, 190);
     height: 100px;
-    width: 32.55%;
+    width: 32.8%;
     min-width: 105px;
     display: inline-block;
     margin-right: -4px;
+    transition: all .1s ease-in-out;
+    border-bottom: 8px solid #f1ec75;
+}
+
+.menu_box_list li:hover{
+    background-color: white;
+    transform: scale(1.1);
+    /* semble provoquer un bug sur firefox
+    border-bottom: 16px solid #f1ec75;*/
 }
 
 .menu_box_list li:last-child {
     margin-right: 0;
-}
-
-.menu_box_list li.bouton_menu {
-    border-bottom: 8px solid #f1ec75;
-    transition: all .1s ease-in-out;
-}
-
-.menu_box_list li.bouton_menu:hover {
-    border-bottom: 16px solid #FFE202;
-    background-color: #ffffff;
-    transform: scale(1.1);
-    z-index:1;
 }
 
 .menu_box_list li.bouton_menu:hover .icon_observer {
