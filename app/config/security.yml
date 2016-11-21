@@ -42,6 +42,8 @@ security:
                  domain:   ~
 
     access_control:
-        - { path: ^/compte, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/observer, role: ROLE_USER }
+        - { path: ^/connexion, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/rechercher, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/compte, role: ROLE_USER }
+    #    - { path: ^/observer, role: ROLE_USER }
         - { path: ^/admin, role: ROLE_SUPER_ADMIN }
