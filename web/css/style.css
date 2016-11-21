@@ -3,11 +3,14 @@
 body{
     font-family: "Open Sans", Arial;
     background-color: #ededed;
-    padding-top: 210px;
 }
 
 .body {
     z-index: 9000;
+}
+
+.body-margin{
+    margin-top: 210px;
 }
 
 section{
@@ -19,16 +22,21 @@ h2{
     font-size: 20px;
 }
 
+
 /*HEADER*/
 
 header {
-    position:fixed;
     left:0;
     right:0;
     top: 0;
     margin:auto;
     z-index:9999;
     background-color: #ededed;
+}
+
+.header-fixed{
+    position: fixed;
+    margin-top: -110px;
 }
 
 

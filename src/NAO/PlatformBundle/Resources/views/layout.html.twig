@@ -31,12 +31,12 @@
     <header>
         <div class="container">
             <div class="row entete">
-                <div class="col-sm-4 logo">
+                <div id="logo-header" class="col-sm-4 logo">
                     <a href="{{ path('nao_platform_home') }}">
                         <img src="{{ asset('images/logo1.png') }}" alt="Logo de Nos Amis les Oiseaux" />
                     </a>
                 </div>
-                <div class="col-sm-offset-4 col-sm-4 hidden-xs recherche">
+                <div id="barre-recherche" class="col-sm-offset-4 col-sm-3 hidden-xs recherche">
                  {#   {{ form_start(form) }}
                     {{ form_errors(form) }}
                     {{ form_widget(form.nomVern) }}
@@ -50,7 +50,7 @@
             </div>
         {% block nav %}
             <!-- Navigation -->
-            <nav class="">
+            <nav id="boutons-nav" class="">
                 <div class="menu_box_list">
                     <ul>
                         <li class="bouton_menu"><a href="{{ path('nao_platform_rechercher') }}"><i class="icon_rechercher"> </i><span>Rechercher</span></a></li>
@@ -105,6 +105,8 @@
     {% endblock %}
 
 {% block javascript %}
+    <script src="{{ asset('js/jquery-3.1.1.js') }}"></script>
+    <script src="{{ asset("js/header.js") }}"></script>
 {% endblock %}
 
 </body>
