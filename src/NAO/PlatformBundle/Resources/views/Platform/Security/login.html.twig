@@ -1,0 +1,10 @@
+{% extends "NAOPlatformBundle::layout.html.twig" %}
+{% block title %}
+    Connexion/Inscription
+{% endblock %}
+
+{% block body %}
+    {% block fos_user_content %}
+        {{ include('FOSUserBundle:Security:login_content.html.twig') }}
+    {% endblock %}
+{% endblock %}

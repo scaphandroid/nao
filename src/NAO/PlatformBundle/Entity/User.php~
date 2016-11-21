@@ -5,23 +5,15 @@ namespace NAO\PlatformBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use FOS\UserBundle\Model\User as BaseUser;
 
 /**
  * User
  *
- * @ORM\Table(name="user")
+ * @ORM\Table(name="fos_user")
  * @ORM\Entity(repositoryClass="NAO\PlatformBundle\Repository\UserRepository")
- * @UniqueEntity(
- *     fields={"email"},
- *     message="Cet email est déjà utilisé."
- * )
- * @UniqueEntity(
- *     fields={"pseudo"},
- *     message="Ce pseudo est déjà utilisé."
- * )
  */
-class User
+class User extends BaseUser
 {
     /**
      * @var int
@@ -30,7 +22,7 @@ class User
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
@@ -41,7 +33,7 @@ class User
      *     minMessage = "Votre prénom doit contenir au moins {{ limit }} caractères",
      *     )
      */
-    private $prenom;
+    protected $prenom;
 
     /**
      * @var string
@@ -52,38 +44,7 @@ class User
      *     minMessage = "Votre nom doit contenir au moins {{ limit }} caractères",
      *     )
      */
-    private $nom;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=255, unique=true)
-     * * @Assert\Email(
-     *     message = "L'email '{{ value }}' n'est pas valide."
-     * )
-     */
-
-    private $email;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="pseudo", type="string", length=255, unique=true)
-     * @Assert\Length(
-     *     min=2,
-     *     minMessage = "Votre pseudo doit contenir au moins {{ limit }} caractères",
-     *     )
-     */
-    private $pseudo;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="role", type="string", length=255)
-     */
-    private $role;
-
-
+    protected $nom;
     /**
      * @var string
      *
@@ -94,7 +55,7 @@ class User
      *     )
      */
 
-    private $profession;
+    protected $profession;
 
     /**
      * @var string
@@ -108,7 +69,7 @@ class User
      *     uploadErrorMessage = "Une erreur s'est produite. Merci de recommencer."
      *     )
      */
-    private $cv;
+    protected $cv;
 
     /**
      * @var string
@@ -119,32 +80,31 @@ class User
      *      minMessage = "Votre texte de motivation doit être plus long."
      * )
      */
-    private $motivation;
+    protected $motivation;
 
     /**
      * @var bool
      *
      * @ORM\Column(name="valide", type="boolean")
      */
-    private $valide;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="password", type="string", length=255)
-     */
-    private $password;
+    protected $valide;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="date_demande", type="datetimetz")
      */
-    private $dateInscription;
+    protected $dateInscription;
+
 
     public function __construct()
     {
+        parent::__construct();
         $this->dateInscription   = new \Datetime();
+        $this->setNom('Toto');
+        $this->setPrenom('Titi');
+        $this->setRole('ROLE_ADMIN');
+        $this->setValide(true);
     }
     /**
      * Get id
@@ -161,7 +121,7 @@ class User
      *
      * @param string $prenom
      *
-     * @return Naturaliste
+     * @return User
      */
     public function setPrenom($prenom)
     {
@@ -185,7 +145,7 @@ class User
      *
      * @param string $nom
      *
-     * @return Naturaliste
+     * @return User
      */
     public function setNom($nom)
     {
@@ -204,36 +164,13 @@ class User
         return $this->nom;
     }
 
-    /**
-     * Set email
-     *
-     * @param string $email
-     *
-     * @return Naturaliste
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * Get email
-     *
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
 
     /**
      * Set profession
      *
      * @param string $profession
      *
-     * @return Naturaliste
+     * @return User
      */
     public function setProfession($profession)
     {
@@ -257,7 +194,7 @@ class User
      *
      * @param File $cv
      *
-     * @return Naturaliste
+     * @return User
      */
     public function setCv(File $cv)
     {
@@ -281,7 +218,7 @@ class User
      *
      * @param string $motivation
      *
-     * @return Naturaliste
+     * @return User
      */
     public function setMotivation($motivation)
     {
@@ -305,7 +242,7 @@ class User
      *
      * @param boolean $valide
      *
-     * @return Naturaliste
+     * @return User
      */
     public function setValide($valide)
     {
@@ -324,29 +261,6 @@ class User
         return $this->valide;
     }
 
-    /**
-     * Set password
-     *
-     * @param string $password
-     *
-     * @return Naturaliste
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    /**
-     * Get password
-     *
-     * @return string
-     */
-    public function getPassword()
-    {
-        return $this->password;
-    }
 
     /**
      * Set dateInscription
@@ -372,51 +286,4 @@ class User
         return $this->dateInscription;
     }
 
-    /**
-     * Set role
-     *
-     * @param string $role
-     *
-     * @return User
-     */
-    public function setRole($role)
-    {
-        $this->role = $role;
-
-        return $this;
-    }
-
-    /**
-     * Get role
-     *
-     * @return string
-     */
-    public function getRole()
-    {
-        return $this->role;
-    }
-
-    /**
-     * Set pseudo
-     *
-     * @param string $pseudo
-     *
-     * @return User
-     */
-    public function setPseudo($pseudo)
-    {
-        $this->pseudo = $pseudo;
-
-        return $this;
-    }
-
-    /**
-     * Get pseudo
-     *
-     * @return string
-     */
-    public function getPseudo()
-    {
-        return $this->pseudo;
-    }
 }

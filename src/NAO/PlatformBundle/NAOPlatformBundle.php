@@ -6,4 +6,8 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class NAOPlatformBundle extends Bundle
 {
+      public function getParent()
+      {
+          return 'FOSUserBundle';
+      }
 }

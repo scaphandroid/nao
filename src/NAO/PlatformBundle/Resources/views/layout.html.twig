@@ -55,15 +55,38 @@
                     <ul>
                         <li class="bouton_menu"><a href="{{ path('nao_platform_rechercher') }}"><i class="icon_rechercher"> </i><span>Rechercher</span></a></li>
                         <li class="bouton_menu"><a href="{{ path('nao_platform_observer') }}"><i class="icon_observer"> </i><span>Observer</span></a></li>
-                        <li class="bouton_menu"><a href="{{ path('nao_platform_compte') }}"><i class="icon_naturalistes"> </i><span>Se connecter</span></a></li>
+                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                            <li class="bouton_menu"><a href="{{ path('fos_user_profile_show') }}"><i class="icon_naturalistes"> </i><span>Mon compte</span></a></li>
+                        {% else %}
+                            <li class="bouton_menu"><a href="{{ path('fos_user_security_login') }}"><i class="icon_naturalistes"> </i><span>Se connecter</span></a></li>
+                        {% endif %}
                     </ul>
                 </div>
             </nav>
         {% endblock %}
         </div>
     </header>
+<div>
 
-    <div class="body">{% block body %}{% endblock %}</div>
+</div>
+    <div class="body">
+        {% block message %}
+            {% for type, messages in app.session.flashBag.all %}
+                {% for message in messages %}
+                    <div class="{{ type }}">
+                        {{ message|trans({}, 'FOSUserBundle') }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        {% endblock %}
+
+        {% block body %}
+            <div>
+                {% block fos_user_content %}
+                {% endblock fos_user_content %}
+            </div>
+        {% endblock %}
+    </div>
 
 
     <!-- Pied de page  -->
