@@ -2,20 +2,6 @@ home:
     resource: "@NAOPlatformBundle/Resources/config/routing.yml"
     prefix:   /
 
-fos_user_security_login:
-    path:     /connexion
-    defaults: { _controller: NAOPlatformBundle:Security:login}
-    methods:  [GET, POST]
 
-fos_user_security_check:
-    path:     /connexion_check
-    defaults: { _controller: FOSUserBundle:Security:check}
 
-fos_user_security_logout:
-    path:     /deconnexion
-    defaults: { _controller: FOSUserBundle:Security:logout}
-
-fos_user_profile_show:
-    path:     /compte
-    defaults: { _controller: FOSUserBundle:Profile:show}
 

@@ -34,7 +34,14 @@
 
     <div class="col-sm-6">
         <h4>Formulaire d'inscription pour saisir des observations</h4>
-        {{ form(formInscription) }}
+        {% trans_default_domain 'FOSUserBundle' %}
+
+        {{ form_start(formInscription, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
+        {{ form_widget(formInscription) }}
+        <div>
+            <input type="submit" value="{{ 'registration.submit'|trans }}" />
+        </div>
+        {{ form_end(formInscription) }}
         <p>Faire une <a href="{{ path('nao_platform_demande') }}">demande de compte naturaliste</a> pour valider les observations des particuliers</p>
     </div>
 
