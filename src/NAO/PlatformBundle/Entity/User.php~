@@ -96,6 +96,13 @@ class User extends BaseUser
      */
     protected $dateInscription;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="type_compte", type="integer")
+     */
+    protected $typeCompte; //0: particulier 1:naturaliste 2:admin
+
 
     public function __construct()
     {
@@ -103,7 +110,6 @@ class User extends BaseUser
         $this->dateInscription   = new \Datetime();
         $this->setNom('Toto');
         $this->setPrenom('Titi');
-        $this->setRole('ROLE_ADMIN');
         $this->setValide(true);
     }
     /**
@@ -285,5 +291,6 @@ class User extends BaseUser
     {
         return $this->dateInscription;
     }
+   
 
 }
