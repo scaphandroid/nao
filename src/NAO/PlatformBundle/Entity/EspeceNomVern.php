@@ -28,7 +28,7 @@ class EspeceNomVern
      */
     private $nomVern;
 
-    public function __construct($nomVern) {
+    public function __construct($nomVern = null) {
         $this->nomVern = $nomVern;
     }
     /**

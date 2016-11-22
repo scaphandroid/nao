@@ -73,14 +73,14 @@ class PlatformController extends Controller
         ));
     }
 
-    public function compteAction(Request $request)
+/*    public function compteAction(Request $request)
     {
         $particulier = new User();
         $form = $this->createForm(UserParticulierType::class, $particulier);
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             /* modifier certains attributs comme "valide", "role"*/
-            $em = $this->getDoctrine()->getManager();
+ /*           $em = $this->getDoctrine()->getManager();
             $em->persist($particulier);
             $em->flush();
             $request->getSession()->getFlashBag()->add('notice', 'Compte enregistré. Vous allez recevoir un email de confirmation.');
@@ -91,7 +91,7 @@ class PlatformController extends Controller
         return $this->render('NAOPlatformBundle:Platform:compte.html.twig', array(
             'formInscription' => $form->createView()
         ));
-    }
+    }*/
 
     public function demandeAction(Request $request)
     {

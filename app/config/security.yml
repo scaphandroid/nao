@@ -44,6 +44,7 @@ security:
     access_control:
         - { path: ^/connexion, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/rechercher, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/compte, role: ROLE_USER }
-    #    - { path: ^/observer, role: ROLE_USER }
-        - { path: ^/admin, role: ROLE_SUPER_ADMIN }
+        - { path: ^/profile, role: ROLE_USER }
+        - { path: ^/observer, role: IS_AUTHENTICATED_ANONYMOUSLY } #attention à mettre dans le controlleur qu'en post il faut avoir le role SUPER_ADMIN
+        - { path: ^/profile/observationsvalidees, role: ROLE_ADMIN }
+        - { path: ^/profile/comptesnaturalistes, role: ROLE_SUPER_ADMIN }
