@@ -24,7 +24,7 @@ nao_platform_autosearch:
     methods: [GET]
 
 nao_platform_autoget:
-    path:    /autoget
+    path:    /autoget/{id}
     defaults: { _controller: NAOPlatformBundle:Autocomplete:autoget}
     methods: [GET]
 

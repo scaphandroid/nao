@@ -11,8 +11,8 @@ class AutocompleteController extends Controller {
 
     public function autosearchAction(Request $request){
         $q = $request->query->get('q');
-        $results = $this->getDoctrine()->getRepository('NAOPlatformBundle:EspeceNomVern')->findLikeName($q);
-        return $this->render('@NAOPlatform/Autocomplete/autocomplete.html.twig', ['results' => $results]);
+        $results = $this->getDoctrine()->getRepository('NAOPlatformBundle:EspeceNomVern')->findLikeByName($q);
+        return $this->render('NAOPlatformBundle:Autocomplete:autocomplete.json.twig', ['results' => $results]);
 
     }
 

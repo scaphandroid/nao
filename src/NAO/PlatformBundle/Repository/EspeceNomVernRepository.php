@@ -15,9 +15,7 @@ class EspeceNomVernRepository extends \Doctrine\ORM\EntityRepository
             ->where('e.nomVern LIKE :name')
             ->setParameter('name', "%$name%")
             ->orderBy('e.nomVern')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->execute();
+            ->setMaxResults(10);
         return $qb->getQuery()->getResult();
     }
 }
