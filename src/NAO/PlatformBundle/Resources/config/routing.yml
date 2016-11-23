@@ -18,6 +18,16 @@ nao_platform_demande:
     defaults: { _controller: NAOPlatformBundle:Platform:demande}
     methods:  [GET, HEAD, POST]
 
+nao_platform_autosearch:
+    path:     /autosearch
+    defaults: { _controller: NAOPlatformBundle:Autocomplete:autosearch}
+    methods: [GET]
+
+nao_platform_autoget:
+    path:    /autoget
+    defaults: { _controller: NAOPlatformBundle:Autocomplete:autoget}
+    methods: [GET]
+
 fos_user_security_login:
     path:     /connexion
     defaults: { _controller: NAOPlatformBundle:Security:login}
