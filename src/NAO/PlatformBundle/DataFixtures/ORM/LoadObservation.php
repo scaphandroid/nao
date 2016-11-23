@@ -23,7 +23,7 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
 
         $listObservations = array(
             array(
-                'dateObserv' => new \DateTime('2016-07-11'),
+                'dateObserv' => new \DateTime('2016-11-20'),
                 'especeVern' => $espece, // A corriger avec un getnomvern(id) qd on aura fait les repository
                 'localise' => true,
                 'lat' => 48.172402,
@@ -31,7 +31,7 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
                 'valide' => false,
                 'user' => 'user-admin'),
             array(
-                'dateObserv' => new \DateTime('2016-10-11'),
+                'dateObserv' => new \DateTime('2016-11-15'),
                 'especeVern' => $espece,
                 'localise' => true,
                 'lat' => 108.172402,
@@ -47,7 +47,7 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
                 'valide' => true,
                 'user' => 'user-part1'),
             array(
-                'dateObserv' => new \DateTime('2016-05-25'),
+                'dateObserv' => new \DateTime('2016-11-12'),
                 'especeVern' => $espece,
                 'localise' => false,
                 'lat' => 118.172402,

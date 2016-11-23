@@ -10,4 +10,14 @@ namespace NAO\PlatformBundle\Repository;
  */
 class UserRepository extends \Doctrine\ORM\EntityRepository
 {
+    function getComptesNatNonValides() {
+        $qb = $this->createQueryBuilder('user')
+            ->where('user.enabled = :valide')
+            ->andWhere('user.typeCompte = :typeCompte')
+            ->setParameters(array(
+                'valide' => false,
+                'typeCompte' => 1 //Lors de la soumission de la demande le type de compte évolue de 0 à 1
+            ));
+        return $qb->getQuery()->getResult();
+    }
 }

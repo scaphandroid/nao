@@ -28,8 +28,14 @@ class PlatformController extends Controller
             ));
         }
 
+        $manager = $this->getDoctrine()->getManager();
+        $listDerObs = $manager
+            ->getRepository('NAOPlatformBundle:Observation')
+            ->getDerObs(10); //Observation des 10 derniers jours
+
         return $this->render('NAOPlatformBundle:Platform:index.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'DerObs' => $listDerObs
         ));
     }
 

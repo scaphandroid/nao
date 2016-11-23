@@ -10,4 +10,47 @@ namespace NAO\PlatformBundle\Repository;
  */
 class ObservationRepository extends \Doctrine\ORM\EntityRepository
 {
+    function getListObsByUser($id)    {
+        $qb = $this->createQueryBuilder('obs')
+            ->leftJoin('obs.user', 'user')
+            ->where('user.id = :id_user')
+            ->setParameter('id_user', $id);
+        return $qb->getQuery()->getResult();
+    }
+
+    function getListObsNonvalide() {
+        $qb = $this->createQueryBuilder('obs')
+            ->leftJoin('obs.user', 'user')
+            ->where('obs.valide = :valide')
+            ->andWhere('user.typeCompte = :typeCompte')
+            ->setParameters(array('valide' => false, 'typeCompte' => 0));
+        return $qb->getQuery()->getResult();
+    }
+
+    function getAllObserv() { // Pour l'export de toutes les observations
+        return $this->createQueryBuilder('obs')->getQuery()->getResult();
+    }
+
+    function getDerObs($jours) { // Observation des X derniers jours / à mettre sur la page d'accueil ?
+        $qb = $this->createQueryBuilder('obs')
+            ->where('obs.dateObs > :todayMoinsJours')
+            ->setParameter('todayMoinsJours', (new \Datetime())->sub(new \DateInterval('P'.$jours.'D')) );
+        return $qb->getQuery()->getResult();
+    }
+
+    function getListObsByNomVern($id)    {
+        $qb = $this->createQueryBuilder('obs')
+            ->leftJoin('obs.EspeceNomVern', 'especeNV')
+            ->where('especeNV.id = :id_NV')
+            ->setParameter('id_NV', $id);
+        return $qb->getQuery()->getResult();
+    }
+
+    function getListObsByNomLatin($id)    {
+        $qb = $this->createQueryBuilder('obs')
+            ->leftJoin('obs.EspeceNomLatin', 'especeNL')
+            ->where('especeNL.id = :id_NL')
+            ->setParameter('id_NL', $id);
+        return $qb->getQuery()->getResult();
+    }
 }
