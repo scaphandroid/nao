@@ -12,14 +12,11 @@
         <p>{{ 'profile.show.username'|trans }}: {{ user.username }}</p>
         <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
         <a href="{{ path('fos_user_security_logout') }}">
-            <button class="btn btn-default">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</button>
-        </a>
+            <button class="btn btn-default">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</button></a>
         <a href="{{ path('fos_user_change_password') }}">
-            <button class="btn btn-default"> Modifier mon mot de passe </button>
-        </a>
+            <button class="btn btn-default"> Modifier mon mot de passe </button></a>
         <a href="{{ path('fos_user_profile_edit') }}">
-            <button class="btn btn-default">Modifier mon profil</button>
-        </a>
+            <button class="btn btn-default">Modifier mon profil</button></a>
     </div>
 
     <div>
