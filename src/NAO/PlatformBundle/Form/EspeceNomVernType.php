@@ -2,11 +2,11 @@
 
 namespace NAO\PlatformBundle\Form;
 
+use PUGX\AutocompleterBundle\Form\Type\AutocompleteType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class EspeceNomVernType extends AbstractType
 {
@@ -16,7 +16,7 @@ class EspeceNomVernType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nomVern', TextType::class)
+            ->add('nomVern', AutocompleteType::class, ['class' => 'NAO\PlatformBundle\Entity\EspeceNomVern'])
             ->add('rechercher', SubmitType::class);
     }
     
