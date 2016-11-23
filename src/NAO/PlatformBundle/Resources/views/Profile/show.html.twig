@@ -22,14 +22,15 @@
                 <button class="btn btn-default btn-block">Modifier mon profil</button></a><br>
         </div>
     </div>
-<div class="well row col-lg-offset-3 col-lg-6 col-lg-offset-3 ">
+<div class="row">
+    <div class="well col-lg-offset-3 col-lg-6 col-lg-offset-3 col-md-12 col-xs-12">
     <div >
         {% if not is_granted('ROLE_SUPER_ADMIN') %} {#Pour tous les user sauf admin#}
             <h2>Vos observations</h2>
                 <!-- Afficher sous forme de tableau -->
-            <ul>
+            <ul class="list-group">
                 {% for observation in listObserv %}
-                    <li>
+                    <li class="list-group-item">
                         <p>Date de l'observation: {{ observation.dateObs|date('d/m/Y H:i') }} </p>
                         <p>Nom de l'espèce : {{ observation.especeNomVern.nomVern }} </p>
                         <p>Coordonnées GPS : {{ observation.lat }}, {{ observation.lon }} </p>
@@ -41,9 +42,9 @@
     <div>
         {% if (is_granted('ROLE_ADMIN') and (is_granted('ROLE_SUPER_ADMIN') == false)) %}
             <h2>Liste des observations à valider</h2>
-            <ul>
+            <ul class="list-group">
             {% for observation in ObservNonValide %}
-                <li>
+                <li class="list-group-item">
                     <p>Date de l'observation: {{ observation.dateObs|date('d/m/Y H:i') }} </p>
                     <p>Nom de l'espèce : {{ observation.especeNomVern.nomVern }} </p>
                     <p>Coordonnées GPS : {{ observation.lat }}, {{ observation.lon }} </p>
@@ -56,15 +57,16 @@
     <div>
         {% if is_granted('ROLE_SUPER_ADMIN') %}
             <h2>Liste des comptes naturalistes à valider</h2>
-            <ul>
+            <ul class="list-group">
                 {% for compte in comptesNatNonValides %}
-                    <li>
+                    <li class="list-group-item">
                         <p>nom : {{ compte.nom }} prenom: {{ compte.prenom }} profession: {{ compte.profession }} <button>Voir plus</button></p>
                     </li>
                 {% endfor %}
             </ul>
         {% endif %}
     </div>
+</div>
 </div>
 {% endblock fos_user_content %}
 
