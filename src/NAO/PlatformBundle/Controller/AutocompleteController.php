@@ -3,23 +3,22 @@
 namespace NAO\PlatformBundle\Controller;
 
 use NAO\PlatformBundle\Entity\EspeceNomVern;
-use NAO\PlatformBundle\Entity\Observation;
-use NAO\PlatformBundle\Entity\User;
-use NAO\PlatformBundle\Form\EspeceNomVernType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
-use NAO\PlatformBundle\Form\ObservationType;
-use NAO\PlatformBundle\Form\UserType;
-use NAO\PlatformBundle\Form\UserParticulierType;
 use Symfony\Component\HttpFoundation\Request;
 
 class AutocompleteController extends Controller {
 
-    public function autosearchAction(){
+    public function autosearchAction(Request $request){
+        $q = $request->query->get('q');
+        $results = $this->getDoctrine()->getRepository('NAOPlatformBundle:EspeceNomVern')->findLikeName($q);
+        return $this->render('@NAOPlatform/Autocomplete/autocomplete.html.twig', ['results' => $results]);
 
     }
 
-    public function autogetAction(){
+    public function autogetAction($id = null){
+        $espece= $this->getDoctrine()->getRepository('NAOPlatformBundle:EspeceNomVern')->find($id);
 
+        return new Response($espece->getNomVern());
     }
 }
