@@ -10,4 +10,15 @@ namespace NAO\PlatformBundle\Repository;
  */
 class EspeceNomVernRepository extends \Doctrine\ORM\EntityRepository
 {
+    function findLikeByName($name){
+        $qb = $this->createQueryBuilder('e')
+            ->where('e.nomVern LIKE :name')
+            ->setParameter('name', "%$name%")
+            ->orderBy('e.nomVern')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->execute();
+        return $qb->getQuery()->getResult();
+    }
 }
+
