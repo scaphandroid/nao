@@ -4,12 +4,12 @@
 {% endblock %}
 
 {% block body %}
-    <div class="row well col-lg-offset-4 col-lg-4 col-lg-offset-4 col-sm-offset-3 col-sm-6 col-sm-offset-3" style="margin-top: 25px;">
+<div style="margin-top: 25px;" class="col-lg-offset-4 col-lg-4 col-lg-offset-4 col-sm-offset-3 col-sm-6 col-sm-offset-3 ">
     <h2 style="text-align: center">Bonjour, <strong>{{ user.username }}</strong></h2>
-
+</div>
 {% block fos_user_content %}
     {% trans_default_domain 'FOSUserBundle' %}
-    <div class="fos_user_user_show">
+        <div class="fos_user_user_show row well col-lg-offset-4 col-lg-4 col-lg-offset-4 col-sm-offset-3 col-sm-6 col-sm-offset-3">
         <p><strong style="text-decoration: underline">{{ 'profile.show.username'|trans }}</strong> : {{ user.username }}</p>
         <p><strong style="text-decoration: underline">{{ 'profile.show.email'|trans }}</strong> : {{ user.email }}</p>
         <br>
@@ -22,8 +22,8 @@
                 <button class="btn btn-default btn-block">Modifier mon profil</button></a><br>
         </div>
     </div>
-
-    <div>
+<div class="well row col-lg-offset-3 col-lg-6 col-lg-offset-3 ">
+    <div >
         {% if not is_granted('ROLE_SUPER_ADMIN') %} {#Pour tous les user sauf admin#}
             <h2>Vos observations</h2>
                 <!-- Afficher sous forme de tableau -->
@@ -47,7 +47,7 @@
                     <p>Date de l'observation: {{ observation.dateObs|date('d/m/Y H:i') }} </p>
                     <p>Nom de l'espèce : {{ observation.especeNomVern.nomVern }} </p>
                     <p>Coordonnées GPS : {{ observation.lat }}, {{ observation.lon }} </p>
-                    <button>Voir plus</button>
+                    <button class="btn btn-primary">Voir plus</button>
                 </li>
             {% endfor %}
             </ul>
@@ -65,7 +65,7 @@
             </ul>
         {% endif %}
     </div>
+</div>
 {% endblock fos_user_content %}
-
 
 {% endblock %}
