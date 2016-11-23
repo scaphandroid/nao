@@ -4,12 +4,12 @@
 {% endblock %}
 
 {% block body %}
-<div class="row well col-lg-offset-4 col-lg-4 col-lg-offset-4 col-sm-offset-3 col-sm-6 col-sm-offset-3" style="margin-top: 25px;">
+<div style="margin-top: 25px;">
     <h2 style="text-align: center">Bonjour, <strong>{{ user.username }}</strong></h2>
 
 {% block fos_user_content %}
     {% trans_default_domain 'FOSUserBundle' %}
-        <div class="fos_user_user_show">
+        <div class="fos_user_user_show row well col-lg-offset-4 col-lg-4 col-lg-offset-4 col-sm-offset-3 col-sm-6 col-sm-offset-3">
         <p><strong style="text-decoration: underline">{{ 'profile.show.username'|trans }}</strong> : {{ user.username }}</p>
         <p><strong style="text-decoration: underline">{{ 'profile.show.email'|trans }}</strong> : {{ user.email }}</p>
         <br>
