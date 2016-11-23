@@ -96,6 +96,13 @@ class User extends BaseUser
      */
     protected $dateInscription;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="type_compte", type="integer")
+     */
+    protected $typeCompte; //0: particulier 1:naturaliste 2:admin
+
 
     public function __construct()
     {
@@ -284,5 +291,30 @@ class User extends BaseUser
     {
         return $this->dateInscription;
     }
+   
 
+
+    /**
+     * Set typeCompte
+     *
+     * @param integer $typeCompte
+     *
+     * @return User
+     */
+    public function setTypeCompte($typeCompte)
+    {
+        $this->typeCompte = $typeCompte;
+
+        return $this;
+    }
+
+    /**
+     * Get typeCompte
+     *
+     * @return integer
+     */
+    public function getTypeCompte()
+    {
+        return $this->typeCompte;
+    }
 }

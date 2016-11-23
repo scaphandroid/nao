@@ -32,7 +32,9 @@ class LoadUser extends AbstractFixture implements OrderedFixtureInterface, Conta
                 'email' => 'admin@nao.com',
                 'username' => 'admin',
                 'password' => 'admin',
+                'profession' => 'naturaliste',
                 'enabled' => true,
+                'typeCompte' => 2,
                 'role' => 'ROLE_SUPER_ADMIN',
                 'reference' => 'user-admin'),
             array(
@@ -41,7 +43,9 @@ class LoadUser extends AbstractFixture implements OrderedFixtureInterface, Conta
                 'email' => 'naturaliste@nao.com',
                 'username' => 'naturaliste',
                 'password' => 'naturaliste',
+                'profession' => 'Biologiste',
                 'enabled' => true,
+                'typeCompte' => 1,
                 'role' => 'ROLE_ADMIN',
                 'reference' => 'user-nat'),
             array(
@@ -50,7 +54,9 @@ class LoadUser extends AbstractFixture implements OrderedFixtureInterface, Conta
                 'email' => 'particulier1@nao.com',
                 'username' => 'particulier1',
                 'password' => 'particulier1',
+                'profession' => 'medecin',
                 'enabled' => true,
+                'typeCompte' => 0,
                 'role' => 'ROLE_USER',
                 'reference' => 'user-part1'),
             array(
@@ -59,9 +65,22 @@ class LoadUser extends AbstractFixture implements OrderedFixtureInterface, Conta
                 'email' => 'particulier2@nao.com',
                 'username' => 'particulier2',
                 'password' => 'particulier2',
+                'profession' => 'chercheur',
                 'enabled' => true,
+                'typeCompte' => 0,
                 'role' => 'ROLE_USER',
                 'reference' => 'user-part2'),
+            array(
+                'nom' => 'particulierendevenir',
+                'prenom' => 'particulier',
+                'email' => 'particulier3@nao.com',
+                'username' => 'particulier3',
+                'password' => 'particulier3',
+                'profession' => 'chercheur bis',
+                'enabled' => false,
+                'typeCompte' => 1,
+                'role' => 'ROLE_USER',
+                'reference' => 'user-part3')
         );
 
         foreach ($listUsers as $listUser) {
@@ -71,7 +90,9 @@ class LoadUser extends AbstractFixture implements OrderedFixtureInterface, Conta
             $user->setEmail($listUser['email']);
             $user->setUserName($listUser['username']);
             $user->setPlainPassword($listUser['password']);
+            $user->setProfession($listUser['profession']);
             $user->setEnabled($listUser['enabled']);
+            $user->setTypeCompte($listUser['typeCompte']);
             $user->addRole($listUser['role']);
             $this->addReference($listUser['reference'], $user);
             $userManager->updateUser($user);
