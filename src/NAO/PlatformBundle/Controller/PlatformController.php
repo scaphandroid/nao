@@ -60,18 +60,36 @@ class PlatformController extends Controller
 
     public function observerAction(Request $request)
     {
+
+        $user = $this->getUser();
+
+        if($user === null){
+            $request->getSession()->getFlashBag()->add('notice', 'Merci de vous enregistrer pour réaliser une observation !');
+            return $this->redirectToRoute('fos_user_security_login');
+        }
+
         $observation = new Observation();
         $form = $this->createForm(ObservationType::class, $observation);
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
 
+            if($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN'))
+            {
+                $observation->setValide(true);
+                $request->getSession()->getFlashBag()->add('notice', 'Observation bien enregistrée.');
+            }
+            else
+            {
+                $observation->setValide(false);
+                $request->getSession()->getFlashBag()->add('notice', 'Observation bien enregistrée. En attente de validation.');
+            }
+            $observation->setUser($user);
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($observation);
             $em->flush();
-            /*Faire une disctinction du message si particulier ou naturaliste */
-            $request->getSession()->getFlashBag()->add('notice', 'Observation bien enregistrée.');
-            return $this->redirectToRoute('nao_platform_home');
 
+            return $this->redirectToRoute('nao_platform_home');
         }
 
         return $this->render('NAOPlatformBundle:Platform:observer.html.twig', array(
