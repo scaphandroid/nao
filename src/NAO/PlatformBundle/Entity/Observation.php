@@ -49,6 +49,10 @@ class Observation
     /**
      * @var string
      *
+     * @Assert\Type(
+     *     type="float",
+     *     message="Latitude incohérente !"
+     * )
      * @ORM\Column(name="lat", type="float")
      */
     private $lat;
@@ -56,6 +60,10 @@ class Observation
     /**
      * @var string
      *
+     * @Assert\Type(
+     *     type="float",
+     *     message="Latitude incohérente !"
+     * )
      * @ORM\Column(name="lon", type="float")
      */
     private $lon;
@@ -64,6 +72,11 @@ class Observation
      * @var \DateTime
      *
      * @ORM\Column(name="date_obs", type="datetimetz")
+     * @Assert\DateTime()
+     * @Assert\LessThanOrEqual(
+     *      "now UTC",
+     *      message = "merci de vérifier la date de l'observation, nous n'enregistrons pas les observations du futur.."
+     * )
      */
     private $dateObs;
 
