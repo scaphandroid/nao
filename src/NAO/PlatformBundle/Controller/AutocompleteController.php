@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class AutocompleteController extends Controller {
 
+    //pour le traitement de la requête en autocomplete
     public function autosearchAction(Request $request){
         $q = $request->query->get('term');
         $results = $this->getDoctrine()->getRepository('NAOPlatformBundle:EspeceNomVern')->findLikeByName($q);

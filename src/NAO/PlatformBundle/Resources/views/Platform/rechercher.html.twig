@@ -20,6 +20,9 @@
             </div>
             {{ form_rest(form) }}
             {{ form_end(form) }}
+            {# liens masqués pour l'autocomplete #}
+            <a href="{{ path('nao_platform_autosearch') }}" id="url-list" class="hidden"></a>
+            <a href="{{ path('nao_platform_autoget') }}" id ="url-get" class="hidden"></a>
         </div>
         <div>
             {% if espece is defined %}

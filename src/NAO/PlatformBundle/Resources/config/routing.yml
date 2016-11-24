@@ -25,7 +25,7 @@ nao_platform_autosearch:
 
 nao_platform_autoget:
     path:    /autoget/{id}
-    defaults: { _controller: NAOPlatformBundle:Autocomplete:autoget}
+    defaults: { _controller: NAOPlatformBundle:Autocomplete:autoget, id: null}
     methods: [GET]
 
 fos_user_security_login:

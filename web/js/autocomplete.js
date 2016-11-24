@@ -1,3 +1,6 @@
-$('#nao_platformbundle_especeNomVern_nomVern').autocompleter({
-    url_list: '/app_dev.php/autosearch'
-});
+var options = {
+    url_list: $('#url-list').attr('href'),
+    url_get: $('#url-get').attr('href')
+};
+
+$('#nao_platformbundle_especeNomVern_nomVern').autocompleter(options);
