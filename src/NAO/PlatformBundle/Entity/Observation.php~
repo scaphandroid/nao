@@ -49,6 +49,10 @@ class Observation
     /**
      * @var string
      *
+     * @Assert\Type(
+     *     type="float",
+     *     message="Latitude incohérente !"
+     * )
      * @ORM\Column(name="lat", type="float")
      */
     private $lat;
@@ -56,6 +60,10 @@ class Observation
     /**
      * @var string
      *
+     * @Assert\Type(
+     *     type="float",
+     *     message="Latitude incohérente !"
+     * )
      * @ORM\Column(name="lon", type="float")
      */
     private $lon;
@@ -64,6 +72,11 @@ class Observation
      * @var \DateTime
      *
      * @ORM\Column(name="date_obs", type="datetimetz")
+     * @Assert\DateTime()
+     * @Assert\LessThanOrEqual(
+     *      "now UTC",
+     *      message = "merci de vérifier la date de l'observation, nous n'enregistrons pas les observations du futur.."
+     * )
      */
     private $dateObs;
 
@@ -107,6 +120,28 @@ class Observation
      * @ORM\Column(name="valide", type="boolean")
      */
     private $valide;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="commentaire_p", type="text")
+     */
+    private $commentaireP;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="commentaire_n", type="text")
+     */
+    private $commentaireN;
+
+    /**
+     * @var string
+     *
+     * @ORM\ManyToOne(targetEntity="NAO\PlatformBundle\Entity\User")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $validateur;
 
 
     public function __construct()
@@ -340,4 +375,28 @@ class Observation
     }
     
 
+
+    /**
+     * Set especeNomLatin
+     *
+     * @param EspeceNomLatin $especeNomLatin
+     *
+     * @return Observation
+     */
+    public function setEspeceNomLatin(EspeceNomLatin $especeNomLatin = null)
+    {
+        $this->especeNomLatin = $especeNomLatin;
+
+        return $this;
+    }
+
+    /**
+     * Get especeNomLatin
+     *
+     * @return \NAO\PlatformBundle\Entity\EspeceNomLatin
+     */
+    public function getEspeceNomLatin()
+    {
+        return $this->especeNomLatin;
+    }
 }

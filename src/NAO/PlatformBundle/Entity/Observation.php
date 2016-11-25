@@ -121,6 +121,28 @@ class Observation
      */
     private $valide;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="commentaire_p", type="text", nullable=true)
+     */
+    private $commentaireP;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="commentaire_n", type="text", nullable=true)
+     */
+    private $commentaireN;
+
+    /**
+     * @var string
+     *
+     * @ORM\ManyToOne(targetEntity="NAO\PlatformBundle\Entity\User")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $validateur;
+
 
     public function __construct()
     {
@@ -376,5 +398,77 @@ class Observation
     public function getEspeceNomLatin()
     {
         return $this->especeNomLatin;
+    }
+
+    /**
+     * Set commentaireP
+     *
+     * @param string $commentaireP
+     *
+     * @return Observation
+     */
+    public function setCommentaireP($commentaireP)
+    {
+        $this->commentaireP = $commentaireP;
+
+        return $this;
+    }
+
+    /**
+     * Get commentaireP
+     *
+     * @return string
+     */
+    public function getCommentaireP()
+    {
+        return $this->commentaireP;
+    }
+
+    /**
+     * Set commentaireN
+     *
+     * @param string $commentaireN
+     *
+     * @return Observation
+     */
+    public function setCommentaireN($commentaireN)
+    {
+        $this->commentaireN = $commentaireN;
+
+        return $this;
+    }
+
+    /**
+     * Get commentaireN
+     *
+     * @return string
+     */
+    public function getCommentaireN()
+    {
+        return $this->commentaireN;
+    }
+
+    /**
+     * Set validateur
+     *
+     * @param \NAO\PlatformBundle\Entity\User $validateur
+     *
+     * @return Observation
+     */
+    public function setValidateur(\NAO\PlatformBundle\Entity\User $validateur = null)
+    {
+        $this->validateur = $validateur;
+
+        return $this;
+    }
+
+    /**
+     * Get validateur
+     *
+     * @return \NAO\PlatformBundle\Entity\User
+     */
+    public function getValidateur()
+    {
+        return $this->validateur;
     }
 }

@@ -29,6 +29,7 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
                 'lat' => 48.172402,
                 'long' => 6.449403,
                 'valide' => false,
+                'validateur' => null,
                 'user' => 'user-admin'),
             array(
                 'dateObserv' => new \DateTime('2016-11-15'),
@@ -37,6 +38,7 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
                 'lat' => 108.172402,
                 'long' => 26.449403,
                 'valide' => false,
+                'validateur' => null,
                 'user' => 'user-part2'),
             array(
                 'dateObserv' => new \DateTime('2016-11-11'),
@@ -45,6 +47,7 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
                 'lat' => 78.172402,
                 'long' => 96.449403,
                 'valide' => true,
+                'validateur' => 'user-nat',
                 'user' => 'user-part1'),
             array(
                 'dateObserv' => new \DateTime('2016-11-12'),
@@ -53,6 +56,7 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
                 'lat' => 118.172402,
                 'long' => 106.449403,
                 'valide' => true,
+                'validateur' => null,
                 'user' => 'user-nat')
         );
 
@@ -64,6 +68,9 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
             $observation->setLat($listObservation['lat']);
             $observation->setLon($listObservation['long']);
             $observation->setValide($listObservation['valide']);
+            if ($listObservation['validateur'] !== null) {
+                $observation->setValidateur($this->getReference($listObservation['validateur']));
+            }
             $observation->setUser($this->getReference($listObservation['user']));
             $manager->persist($observation);
         }

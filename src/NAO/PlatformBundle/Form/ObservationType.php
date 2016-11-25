@@ -34,7 +34,9 @@ class ObservationType extends AbstractType
                 'date_format' => 'dd-MM-yyyy',
                 'date_widget' => 'choice'
             ))
-            ->add('photo', FileType::class )
+            ->add('photo', FileType::class, array(
+                'required' => false
+            ))
             ->add('valider',SubmitType::class);
     }
     
