@@ -337,11 +337,6 @@ ol, ul {
     display: block;
 }
 
-.carte{
-    margin-top: 40px;
-    margin-bottom: 20px;
-}
-
 .bloc-texte{
     background-color: #ffffff;
     color: #000000;
@@ -362,6 +357,43 @@ padding-top: 20px;
     font-weight: bold;
     text-decoration: underline;
     color:#8FCA33;
+}
+
+/*MAP */
+#map {
+    width : 600px;
+    margin : 40px auto 20px auto;
+    height : 600px;
+}
+
+#iw-container .iw-title {
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    padding: 5px;
+    background-color: #00a368;
+    color: #ececec;
+    margin: 0;
+    border-radius: 2px 2px 0 0;
+}
+#iw-container .iw-content {
+    font-size: 13px;
+    line-height: 18px;
+    font-weight: 400;
+    margin-right: 1px;
+    max-height: 140px;
+}
+.iw-content img {
+    float: left;
+    margin: 0 5px 5px 10px;
+}
+.iw-content p {
+    text-align: left;
+}
+
+hr {
+    margin-bottom: 6px;
+    margin-top: 6px;
 }
 
 /*REPONSIVE */

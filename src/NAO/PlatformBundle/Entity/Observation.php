@@ -177,7 +177,7 @@ class Observation
     /**
      * Get especeNomVern
      *
-     * @return string
+     * @return \NAO\PlatformBundle\Entity\especeNomVern
      */
     public function getEspeceNomVern()
     {

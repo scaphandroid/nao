@@ -31,11 +31,25 @@ class PlatformController extends Controller
         $manager = $this->getDoctrine()->getManager();
         $listDerObs = $manager
             ->getRepository('NAOPlatformBundle:Observation')
-            ->getDerObs(10); //Observation des 10 derniers jours
+            ->getDerObs(30); //Observation des X derniers jours
+        /*Encode en JSON les coordonnées de ces dernières observations */
+        $observation = [];
+        for ($i=0; $i<count($listDerObs); $i++) {
+            $observation[$i] = array(
+                "username" => $listDerObs[$i]->getUser()->getUsername(),
+                "date" => $listDerObs[$i]->getDateObs()->format('d-m-Y'),
+                "photoObs" => basename($listDerObs[$i]->getPhoto()),
+                "lat" => $listDerObs[$i]->getLat(),
+                "lon" => $listDerObs[$i]->getLon(),
+                "espece" => $listDerObs[$i]->getEspeceNomVern()->getNomVern()
+            );
+        }
+        $observation_JSON = json_encode($observation);
 
         return $this->render('NAOPlatformBundle:Platform:index.html.twig', array(
             'form' => $form->createView(),
-            'DerObs' => $listDerObs
+            'DerObs' => $listDerObs,
+            'observation_JSON' => $observation_JSON
         ));
     }
 

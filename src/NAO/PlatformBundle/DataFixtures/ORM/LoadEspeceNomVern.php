@@ -13,26 +13,26 @@ class LoadEspeceNomVern extends AbstractFixture implements OrderedFixtureInterfa
     public function load(ObjectManager $manager)
     {
         $listNomVern = array(
-            "Épervier bicolore",
+            "Epervier bicolore",
             "Autour des palombe",
-            "Aigle impérial",
+            "Aigle imperial",
             "Buse pattue",
             "Élanion blanc",
             "Milan des marais",
-            "Canard bridé",
-            "Harle huppé",
+            "Canard bride",
+            "Harle huppe",
             "Colibri tout-vert",
             "Pluvier guignard",
-            "Goéland pontique",
-            "Bécasseau de Bonaparte",
+            "Goeland pontique",
+            "Becasseau de Bonaparte",
             "Pigeon bise",
             "Coucou de Madagasca",
-            "Faucon crécerelle"
+            "Faucon crecerelle"
         );
 
         foreach ($listNomVern as $nomVern) {
-            $espece = new EspeceNomVern();
-            $espece->setNomVern($nomVern);
+            $espece = new EspeceNomVern($nomVern);
+            $this->addReference($nomVern, $espece);
             $manager->persist($espece);
         }
         $manager->flush();
@@ -45,6 +45,6 @@ class LoadEspeceNomVern extends AbstractFixture implements OrderedFixtureInterfa
      */
     function getOrder()
     {
-        return 3;
+        return 2;
     }
 }
