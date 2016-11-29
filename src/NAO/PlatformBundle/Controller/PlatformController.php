@@ -6,6 +6,7 @@ use NAO\PlatformBundle\Entity\EspeceNomVern;
 use NAO\PlatformBundle\Entity\Observation;
 use NAO\PlatformBundle\Entity\User;
 use NAO\PlatformBundle\Form\EspeceNomVernType;
+use NAO\PlatformBundle\Form\RechercheType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use NAO\PlatformBundle\Form\ObservationType;
@@ -49,12 +50,7 @@ class PlatformController extends Controller
 
     public function rechercherAction(Request $request)
     {
-        $defaultData = array('message' => 'Rechercher les observations d\'une espèce');
-        $form = $this->createFormBuilder($defaultData)
-         /*   ->add('nomVern', AutocompleteType::class, ['class' => 'NAO\PlatformBundle\Entity\EspeceNomVern'])*/
-            ->add('nomVern', TextType::class)
-            ->add('rechercher', SubmitType::class)
-            ->getForm();
+        $form=$this->createForm(RechercheType::class);
 
         $form->handleRequest($request);
 
@@ -62,8 +58,6 @@ class PlatformController extends Controller
 
             // data is an array with "nomVern" keys
             $data = $form->getData();
-
-            /* if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {*/
 
             /*Afficher la carte avec l'espece recherchée */
             $manager = $this->getDoctrine()->getManager();
