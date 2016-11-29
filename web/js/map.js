@@ -1,4 +1,5 @@
 var map;
+var markersArray = [];
 /* Affichage sur la page d'accueil*/
 function initMapIndex() {
     map = new google.maps.Map(document.getElementById('map'), {
@@ -14,11 +15,13 @@ function initMapIndex() {
             map:map,
             title: observation_decode[i].espece,
         });
+        var class_title = observation_decode[i].valide ? "title_valide" : "title_invalide";
+
         var content = '<div id="iw-container">' +
-            '<div class="iw-title">' + observation_decode[i].espece + '</div>' + '<hr>' +
+            '<div class="iw-title ' + class_title + '">' + observation_decode[i].espece + '</div>' + '<hr>' +
             '<div class="iw-content row">' +
                 '<div class="col-xs-5">' +
-                    '<img src="../images/' + observation_decode[i].photoObs + '" alt="' + observation_decode[i].espece +'" height="auto" width="100">'+
+                    '<img src="../web/images/' + observation_decode[i].photoObs + '" alt="' + observation_decode[i].espece +'" height="auto" width="100">'+
                 '</div>'+
                 '<div class="col-xs-7">' +
                     '<p>Observé par ' + observation_decode[i].username + '</p>' +
@@ -34,9 +37,6 @@ function initMapIndex() {
 
         google.maps.event.addListener(marker,'click', (function(marker,content, infowindow){
             return function() {
-                if (infowindow) {
-                    infowindow.close();
-                }
                 infowindow.setContent(content);
                 infowindow.open(map,marker);
                 map.setCenter(marker.getPosition());
@@ -57,6 +57,88 @@ function detectBrowser() {
     if (useragent.indexOf('iPhone') != -1 || useragent.indexOf('Android') != -1 ) {
         mapdiv.style.width = '100%';
         mapdiv.style.height = '100%';
+    }
+}
+
+function observerMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: 46.764548, lng: 1.718674999999962}, // coordonnées du centre de la F
+        zoom: 6
+    });
+    var localise = document.getElementById('nao_platformbundle_observation_localise');
+    if(localise.checked) {
+        geolocation();
+    }
+    else {// on rend la carte cliquable pour que l'utilisateur puisse saisir son lieu d'observation
+        map.addListener('click', function(event) {
+            placeMarker(event.latLng);
+            document.getElementById("nao_platformbundle_observation_lat").value = event.latLng.lat();
+            document.getElementById("nao_platformbundle_observation_lon").value = event.latLng.lng();
+        });
+    }
+    $(localise).on( 'click', function() {
+        if(localise.checked) { // si la case "je suis sur place" est cochée
+            geolocation();
+        }
+        else {
+            map.addListener('click', function(event) {
+                placeMarker(event.latLng);
+                // Ajout des coordonnées dans les champs cachés
+                document.getElementById("nao_platformbundle_observation_lat").value = event.latLng.lat();
+                document.getElementById("nao_platformbundle_observation_lon").value = event.latLng.lng();
+            });
+        }
+    });
+}
+
+function geolocation() {
+    // HTML5 geolocation.
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            var pos = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            };
+            placeMarker(pos);
+            // Ajout des coordonnées dans les champs cachés
+            document.getElementById("nao_platformbundle_observation_lat").value = pos.lat;
+            document.getElementById("nao_platformbundle_observation_lon").value = pos.lng;
+        }, function () {
+            handleLocationError(true, infoWindow, map.getCenter());
+        });
+    } else {
+        // Browser doesn't support Geolocation
+        handleLocationError(false, infoWindow, map.getCenter());
+    }
+}
+
+function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+    infoWindow.setPosition(pos);
+    infoWindow.setContent(browserHasGeolocation ?
+        'Error: The Geolocation service failed.' :
+        'Error: Your browser doesn\'t support geolocation.');
+}
+
+function placeMarker(location) {
+    console.log(location);
+    deleteMarkers();
+    var marker = new google.maps.Marker({
+        position: location,
+        map: map,
+    });
+    // ajouter le marqueur dans le tableau
+    markersArray.push(marker);
+    map.setCenter(location);
+
+}
+
+function deleteMarkers() {
+    // Supprimer tous les markers
+    if (markersArray) {
+        for (i in markersArray) {
+            markersArray[i].setMap(null);
+        }
+        markersArray.length = 0;
     }
 }
 
