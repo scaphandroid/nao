@@ -35,20 +35,8 @@ class ProfileController extends Controller
             ->getRepository('NAOPlatformBundle:Observation')
             ->getListObsByUser($user->getId());
 
-        /*Encode en JSON les coordonnées de ces observations FAIRE UN SERVICE (on s'en sert aussi dans indexaction)*/
-        $observation = [];
-        for ($i=0; $i<count($listObserv); $i++) {
-            $observation[$i] = array(
-                "username" => $listObserv[$i]->getUser()->getUsername(),
-                "date" => $listObserv[$i]->getDateObs()->format('d-m-Y'),
-                "photoObs" => basename($listObserv[$i]->getPhoto()),
-                "lat" => $listObserv[$i]->getLat(),
-                "lon" => $listObserv[$i]->getLon(),
-                "valide" => $listObserv[$i]->getValide(),
-                "espece" => $listObserv[$i]->getEspeceNomVern()->getNomVern()
-            );
-        }
-        $observation_JSON = json_encode($observation);
+        // les observations sont encodées en json pour être affichées sur la carte, via le service dédié
+        $observation_JSON = $this->get('service_container')->get('nao_platform.jsonencode')->jsonEncode($listObserv);
 
         if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {
             $comptesNatNonValides = $manager

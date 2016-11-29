@@ -36,20 +36,9 @@ class PlatformController extends Controller
         $listDerObs = $manager
             ->getRepository('NAOPlatformBundle:Observation')
             ->getDerObsValides(30); //Observation des X derniers jours
-        /*Encode en JSON les coordonnées de ces dernières observations */
-        $observation = [];
-        for ($i=0; $i<count($listDerObs); $i++) {
-            $observation[$i] = array(
-                "username" => $listDerObs[$i]->getUser()->getUsername(),
-                "date" => $listDerObs[$i]->getDateObs()->format('d-m-Y'),
-                "photoObs" => basename($listDerObs[$i]->getPhoto()),
-                "lat" => $listDerObs[$i]->getLat(),
-                "lon" => $listDerObs[$i]->getLon(),
-                "valide" => $listDerObs[$i]->getValide(),
-                "espece" => $listDerObs[$i]->getEspeceNomVern()->getNomVern()
-            );
-        }
-        $observation_JSON = json_encode($observation);
+
+        // les observations sont encodées en json pour être affichées sur la carte, via le service dédié
+        $observation_JSON = $this->get('service_container')->get('nao_platform.jsonencode')->jsonEncode($listDerObs);
 
         return $this->render('NAOPlatformBundle:Platform:index.html.twig', array(
             'form' => $form->createView(),
@@ -70,30 +59,21 @@ class PlatformController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             // data is an array with "nomVern" keys
             $data = $form->getData();
 
-    /*    if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {*/
+            /* if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {*/
+
             /*Afficher la carte avec l'espece recherchée */
             $manager = $this->getDoctrine()->getManager();
             $listObserv = $manager
                 ->getRepository('NAOPlatformBundle:Observation')
                 ->getListObsByNomVernValides($data["nomVern"]);
 
-            /*Encode en JSON les coordonnées de ces observations FAIRE UN SERVICE (on s'en sert aussi dans indexaction)*/
-            $observation = [];
-            for ($i=0; $i<count($listObserv); $i++) {
-                $observation[$i] = array(
-                    "username" => $listObserv[$i]->getUser()->getUsername(),
-                    "date" => $listObserv[$i]->getDateObs()->format('d-m-Y'),
-                    "photoObs" => basename($listObserv[$i]->getPhoto()),
-                    "lat" => $listObserv[$i]->getLat(),
-                    "lon" => $listObserv[$i]->getLon(),
-                    "valide" => $listObserv[$i]->getValide(),
-                    "espece" => $listObserv[$i]->getEspeceNomVern()->getNomVern()
-                );
-            }
-            $observation_JSON = json_encode($observation);
+            // les observations sont encodées en json pour être affichées sur la carte, via le service dédié
+            $observation_JSON = $this->get('service_container')->get('nao_platform.jsonencode')->jsonEncode($listObserv);
+
             return $this->render('NAOPlatformBundle:Platform:rechercher.html.twig', array(
                 'form' => $form->createView(),
                 'observation_JSON' => $observation_JSON,
