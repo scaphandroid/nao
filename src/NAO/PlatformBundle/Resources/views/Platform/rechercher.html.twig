@@ -4,7 +4,7 @@
 {% endblock %}
 
 {% block body %}
-
+    <div class="container">
         <h3>Formulaire de recherche</h3>
         <div class="well">
                 {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
@@ -22,9 +22,27 @@
             {{ form_end(form) }}
         </div>
         <div>
-            {% if espece is defined %}
-                <h3>Affichage des résultats de l'espèce {{ espece.nomVern }}</h3>
+            {% if (observation_JSON is defined) %}
+                {%  if (observation_JSON == '[]') %}
+                     <div><p class="text-center">Aucune observation pour ce nom d'espèce "{{ nomEspece }}".</p></div>
+                {%  else %}
+                    <h3 class="text-center">Observations de l'espèce {{ nomEspece }}</h3>
+                    <div id="map"></div>
+                    <div id="observation" class="hidden"> <!-- -->
+                        {{ observation_JSON }}
+                    </div>
+                {% endif %}
             {% endif %}
+
         </div>
+    </div>
+
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQcmtlhakbZxEK68_wVMjV59kWTyPK9eA&region=FR&callback=initMapIndex">
+    </script>
 
 {% endblock %}

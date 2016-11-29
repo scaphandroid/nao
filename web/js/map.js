@@ -1,5 +1,7 @@
 var map;
 var markersArray = [];
+var infowindow = null;
+var infowindowArray = [];
 /* Affichage sur la page d'accueil*/
 function initMapIndex() {
     map = new google.maps.Map(document.getElementById('map'), {
@@ -29,23 +31,31 @@ function initMapIndex() {
                 '</div>'+
             '</div>';
 
-
-        var infowindow = new google.maps.InfoWindow({
+        infowindow = new google.maps.InfoWindow({
             content: content,
             maxWidth : 300
         });
 
         google.maps.event.addListener(marker,'click', (function(marker,content, infowindow){
             return function() {
+                closeAllInfoWindows();
                 infowindow.setContent(content);
                 infowindow.open(map,marker);
-                map.setCenter(marker.getPosition());
+                infowindowArray.push(infowindow);
                 google.maps.event.addListener(map, 'click', function() {
                     infowindow.close();
                 });
             };
         })(marker,content,infowindow));
+    }
+}
 
+function closeAllInfoWindows() {
+    if (infowindowArray) {
+        for (var i = 0; i < infowindowArray.length; i++) {
+            infowindowArray[i].close();
+        }
+        infowindowArray.length = 0;
     }
 }
 

@@ -12,6 +12,10 @@ use NAO\PlatformBundle\Form\ObservationType;
 use NAO\PlatformBundle\Form\UserType;
 use NAO\PlatformBundle\Form\UserParticulierType;
 use Symfony\Component\HttpFoundation\Request;
+use PUGX\AutocompleterBundle\Form\Type\AutocompleteType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\AbstractType;
 
 
 class PlatformController extends Controller
@@ -56,14 +60,44 @@ class PlatformController extends Controller
 
     public function rechercherAction(Request $request)
     {
-        $espece = new EspeceNomVern();
-        $form = $this->createForm(EspeceNomVernType::class, $espece);
+        $defaultData = array('message' => 'Rechercher les observations d\'une espèce');
+        $form = $this->createFormBuilder($defaultData)
+         /*   ->add('nomVern', AutocompleteType::class, ['class' => 'NAO\PlatformBundle\Entity\EspeceNomVern'])*/
+            ->add('nomVern', TextType::class)
+            ->add('rechercher', SubmitType::class)
+            ->getForm();
 
-        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // data is an array with "nomVern" keys
+            $data = $form->getData();
+
+    /*    if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {*/
             /*Afficher la carte avec l'espece recherchée */
+            $manager = $this->getDoctrine()->getManager();
+            $listObserv = $manager
+                ->getRepository('NAOPlatformBundle:Observation')
+                ->getListObsByNomVernValides($data["nomVern"]);
+
+            /*Encode en JSON les coordonnées de ces observations FAIRE UN SERVICE (on s'en sert aussi dans indexaction)*/
+            $observation = [];
+            for ($i=0; $i<count($listObserv); $i++) {
+                $observation[$i] = array(
+                    "username" => $listObserv[$i]->getUser()->getUsername(),
+                    "date" => $listObserv[$i]->getDateObs()->format('d-m-Y'),
+                    "photoObs" => basename($listObserv[$i]->getPhoto()),
+                    "lat" => $listObserv[$i]->getLat(),
+                    "lon" => $listObserv[$i]->getLon(),
+                    "valide" => $listObserv[$i]->getValide(),
+                    "espece" => $listObserv[$i]->getEspeceNomVern()->getNomVern()
+                );
+            }
+            $observation_JSON = json_encode($observation);
             return $this->render('NAOPlatformBundle:Platform:rechercher.html.twig', array(
                 'form' => $form->createView(),
-                'espece' => $espece
+                'observation_JSON' => $observation_JSON,
+                'nomEspece' => $data["nomVern"]
             ));
         }
 

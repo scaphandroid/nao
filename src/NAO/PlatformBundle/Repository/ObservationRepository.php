@@ -43,13 +43,13 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    function getListObsByNomVernValides($id)    {
+    function getListObsByNomVernValides($nomVern)    {
         $qb = $this->createQueryBuilder('obs')
-            ->leftJoin('obs.EspeceNomVern', 'especeNV')
-            ->where('especeNV.id = :id_NV')
+            ->leftJoin('obs.especeNomVern', 'especeNV')
+            ->where('especeNV.nomVern = :nomVern')
             ->andWhere('obs.valide = :valide')
             ->setParameters(array(
-                'id_NV'=> $id,
+                'nomVern'=> $nomVern,
                 'valide' => true
                 ));
         return $qb->getQuery()->getResult();
