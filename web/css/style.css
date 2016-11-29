@@ -435,13 +435,69 @@ hr {
     .container {
         padding : 0;
     }
+    .body-margin{
+        margin-top: 100px;
+    }
     header {
         padding : 0;
     }
     header .container {
         width: 100%;
     }
+    .header-fixed{
+        margin-top: -36px;
+    }
+    #logo-header{
+        display: flex;
+        justify-content: center;
+    }
+    .entete{
+        height: 30px;
+    }
+    .logo a{
+        width: auto;
+    }
+    .logo a img{
+        margin-left: 0;
+        margin-top: 0;
+        width: 90px;
+    }
+    nav{
+        margin-left: -12px;
+    }
+    .nav-decale{
+        margin-left: 75px;
+    }
+    .menu_box_list{
+        min-width: 225px;
+        width: 20%;
+        margin-bottom: 0;
+    }
+    .menu_box_list li{
+        height: 60px;
+        width: 75px;
+        border-bottom: none;
+        min-width: 75px;
+    }
+    .menu_box_list li a{
+        font-size: 0.8em;
+        margin-top: -7px;
+    }
+    .menu_box_list li a > i{
+        height: 30px;
+    }
+    .menu_box_list li a > i{
+        padding: 5px;
+    }
+    .menu_box_list li a span{
+        margin-top: -10px;
+        padding-left: 0;
+        padding-right: 0;
+    }
     .footer_right {
         margin-top : 10px;
+    }
+    .footer_texte{
+        margin-top: -70px;
     }
 }
