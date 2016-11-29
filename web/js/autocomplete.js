@@ -5,3 +5,4 @@ var options = {
 
 $('#nao_platformbundle_especeNomVern_nomVern').autocompleter(options);
 $('#nao_platformbundle_observation_especeNomVern').autocompleter(options);
+$('#recherche_nomVern').autocompleterRecherche(options);
