@@ -30,7 +30,8 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
                 'localise' => true,
                 'lat' => 44.806004,
                 'long' => 4.420166,
-                'valide' => false,
+                'valide' => true,
+                'enAttente' => false,
                 'validateur' => null,
                 'user' => 'user-admin'),
             array(
@@ -40,6 +41,7 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
                 'lat' => 47.246424,
                 'long' => -0.150146,
                 'valide' => false,
+                'enAttente' => true,
                 'validateur' => null,
                 'user' => 'user-part2'),
             array(
@@ -49,6 +51,7 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
                 'lat' => 49.707431,
                 'long' => 4.112549,
                 'valide' => true,
+                'enAttente' => false,
                 'validateur' => 'user-nat',
                 'user' => 'user-part1'),
             array(
@@ -58,6 +61,7 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
                 'lat' => 43.513502,
                 'long' => 6.046143,
                 'valide' => true,
+                'enAttente' => false,
                 'validateur' => null,
                 'user' => 'user-nat')
         );
@@ -72,6 +76,7 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
             $observation->setLat($listObservation['lat']);
             $observation->setLon($listObservation['long']);
             $observation->setValide($listObservation['valide']);
+            $observation->setEnAttente($listObservation['enAttente']);
             if ($listObservation['validateur'] !== null) {
                 $observation->setValidateur($this->getReference($listObservation['validateur']));
             }

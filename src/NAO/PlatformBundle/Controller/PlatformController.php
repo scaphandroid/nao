@@ -31,7 +31,7 @@ class PlatformController extends Controller
         $manager = $this->getDoctrine()->getManager();
         $listDerObs = $manager
             ->getRepository('NAOPlatformBundle:Observation')
-            ->getDerObs(30); //Observation des X derniers jours
+            ->getDerObsValides(30); //Observation des X derniers jours
         /*Encode en JSON les coordonnées de ces dernières observations */
         $observation = [];
         for ($i=0; $i<count($listDerObs); $i++) {
@@ -41,6 +41,7 @@ class PlatformController extends Controller
                 "photoObs" => basename($listDerObs[$i]->getPhoto()),
                 "lat" => $listDerObs[$i]->getLat(),
                 "lon" => $listDerObs[$i]->getLon(),
+                "valide" => $listDerObs[$i]->getValide(),
                 "espece" => $listDerObs[$i]->getEspeceNomVern()->getNomVern()
             );
         }
@@ -90,11 +91,13 @@ class PlatformController extends Controller
             if($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN'))
             {
                 $observation->setValide(true);
+                $observation->setEnAttente(false);
                 $request->getSession()->getFlashBag()->add('notice', 'Observation bien enregistrée.');
             }
             else
             {
                 $observation->setValide(false);
+                $observation->setEnAttente(true);
                 $request->getSession()->getFlashBag()->add('notice', 'Observation bien enregistrée. En attente de validation.');
             }
             $observation->setUser($user);

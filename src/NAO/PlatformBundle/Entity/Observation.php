@@ -122,6 +122,13 @@ class Observation
     private $valide;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(name="en_attente", type="boolean")
+     */
+    private $enAttente;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="commentaire_p", type="text", nullable=true)
@@ -470,5 +477,29 @@ class Observation
     public function getValidateur()
     {
         return $this->validateur;
+    }
+
+    /**
+     * Set enAttente
+     *
+     * @param boolean $enAttente
+     *
+     * @return Observation
+     */
+    public function setEnAttente($enAttente)
+    {
+        $this->enAttente = $enAttente;
+
+        return $this;
+    }
+
+    /**
+     * Get enAttente
+     *
+     * @return boolean
+     */
+    public function getEnAttente()
+    {
+        return $this->enAttente;
     }
 }
