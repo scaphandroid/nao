@@ -9,7 +9,7 @@
 </div>
 {% block fos_user_content %}
     {% trans_default_domain 'FOSUserBundle' %}
-        <div class="fos_user_user_show row well col-lg-offset-4 col-lg-4 col-lg-offset-4 col-sm-offset-3 col-sm-6 col-sm-offset-3">
+    <div class="fos_user_user_show row well col-lg-offset-4 col-lg-4 col-lg-offset-4 col-sm-offset-3 col-sm-6 col-sm-offset-3">
         <p><strong style="text-decoration: underline">{{ 'profile.show.username'|trans }}</strong> : {{ user.username }}</p>
         <p><strong style="text-decoration: underline">{{ 'profile.show.email'|trans }}</strong> : {{ user.email }}</p>
         <br>
@@ -22,52 +22,58 @@
                 <button class="btn btn-default btn-block">Modifier mon profil</button></a><br>
         </div>
     </div>
-<div class="row">
-    <div class="well col-lg-offset-3 col-lg-6 col-lg-offset-3 col-md-12 col-xs-12">
-    <div >
-        {% if not is_granted('ROLE_SUPER_ADMIN') %} {#Pour tous les user sauf admin#}
-            <h2>Vos observations</h2>
-                <!-- Afficher sous forme de tableau -->
-            <ul class="list-group">
-                {% for observation in listObserv %}
+    <div class="row">
+        <div class="well col-lg-offset-3 col-lg-6 col-lg-offset-3 col-md-12 col-xs-12">
+              {% if not is_granted('ROLE_SUPER_ADMIN') %} {#Pour tous les user sauf admin#}
+                <h2>Vos observations</h2>
+                    {% if not is_granted('ROLE_ADMIN') %} {#Pour tous les user sauf admin & naturaliste#}
+                        <span class="bloc_vert">validées</span> <span class="bloc_orange">en attente de validation</span>
+                    {% endif %}
+                    <!-- Afficher sous forme de carte -->
+                <div id="map"></div>
+                <div id="observation" class="hidden">
+                    {{ observation_JSON }}
+                </div>
+              {% endif %}
+        </div>
+    </div>
+
+    <div>
+            {% if (is_granted('ROLE_ADMIN') and (is_granted('ROLE_SUPER_ADMIN') == false)) %}
+                <h2>Liste des observations à valider</h2>
+                <ul class="list-group">
+                {% for observation in ObservNonValide %}
                     <li class="list-group-item">
                         <p>Date de l'observation: {{ observation.dateObs|date('d/m/Y H:i') }} </p>
                         <p>Nom de l'espèce : {{ observation.especeNomVern.nomVern }} </p>
                         <p>Coordonnées GPS : {{ observation.lat }}, {{ observation.lon }} </p>
+                        <button class="btn btn-primary">Voir plus</button>
                     </li>
                 {% endfor %}
-            </ul>
-        {% endif %}
+                </ul>
+            {% endif %}
     </div>
     <div>
-        {% if (is_granted('ROLE_ADMIN') and (is_granted('ROLE_SUPER_ADMIN') == false)) %}
-            <h2>Liste des observations à valider</h2>
-            <ul class="list-group">
-            {% for observation in ObservNonValide %}
-                <li class="list-group-item">
-                    <p>Date de l'observation: {{ observation.dateObs|date('d/m/Y H:i') }} </p>
-                    <p>Nom de l'espèce : {{ observation.especeNomVern.nomVern }} </p>
-                    <p>Coordonnées GPS : {{ observation.lat }}, {{ observation.lon }} </p>
-                    <button class="btn btn-primary">Voir plus</button>
-                </li>
-            {% endfor %}
-            </ul>
-        {% endif %}
+            {% if is_granted('ROLE_SUPER_ADMIN') %}
+                <h2>Liste des comptes naturalistes à valider</h2>
+                <ul class="list-group">
+                    {% for compte in comptesNatNonValides %}
+                        <li class="list-group-item">
+                            <p>nom : {{ compte.nom }} prenom: {{ compte.prenom }} profession: {{ compte.profession }} <button>Voir plus</button></p>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
     </div>
-    <div>
-        {% if is_granted('ROLE_SUPER_ADMIN') %}
-            <h2>Liste des comptes naturalistes à valider</h2>
-            <ul class="list-group">
-                {% for compte in comptesNatNonValides %}
-                    <li class="list-group-item">
-                        <p>nom : {{ compte.nom }} prenom: {{ compte.prenom }} profession: {{ compte.profession }} <button>Voir plus</button></p>
-                    </li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-    </div>
-</div>
-</div>
+
 {% endblock fos_user_content %}
+
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQcmtlhakbZxEK68_wVMjV59kWTyPK9eA&region=FR&callback=initMapIndex">
+    </script>
 
 {% endblock %}

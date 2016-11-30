@@ -35,6 +35,9 @@ class ProfileController extends Controller
             ->getRepository('NAOPlatformBundle:Observation')
             ->getListObsByUser($user->getId());
 
+        // les observations sont encodées en json pour être affichées sur la carte, via le service dédié
+        $observation_JSON = $this->get('service_container')->get('nao_platform.jsonencode')->jsonEncode($listObserv);
+
         if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {
             $comptesNatNonValides = $manager
                 ->getRepository('NAOPlatformBundle:User')
@@ -49,10 +52,10 @@ class ProfileController extends Controller
         if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             $ObservNonValide = $manager
                 ->getRepository('NAOPlatformBundle:Observation')
-                ->getListObsNonvalide();
+                ->getListObsNonvalideEnAttente();
             return $this->render('FOSUserBundle:Profile:show.html.twig', array(
                 'user' => $user,
-                'listObserv' => $listObserv,
+                'observation_JSON' => $observation_JSON,
                 'ObservNonValide' => $ObservNonValide
             ));
         }
@@ -60,7 +63,7 @@ class ProfileController extends Controller
 
         return $this->render('FOSUserBundle:Profile:show.html.twig', array(
             'user' => $user,
-            'listObserv' => $listObserv,
+            'observation_JSON' => $observation_JSON,
         ));
     }
 

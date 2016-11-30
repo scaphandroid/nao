@@ -10,6 +10,7 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use NAO\PlatformBundle\Entity\EspeceNomVern;
 use NAO\PlatformBundle\Entity\EspeceNomLatin;
 use NAO\PlatformBundle\Entity\User;
+use Symfony\Component\HttpFoundation\File\File;
 
 class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
 {
@@ -18,52 +19,67 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
     /*    $user = new User();
         $manager->persist($user);*/
         $espece = new EspeceNomVern('EspeceFixture');
+        $photo = new File(__DIR__ .'/../../../../../web/images/oiseau1.jpg');
         $manager->persist($espece);
         // On crée 4 observations qu'on va assigner à nos user
 
         $listObservations = array(
             array(
                 'dateObserv' => new \DateTime('2016-11-20'),
-                'especeVern' => $espece, // A corriger avec un getnomvern(id) qd on aura fait les repository
+                'especeVern' => 'Aigle imperial',
                 'localise' => true,
-                'lat' => 48.172402,
-                'long' => 6.449403,
-                'valide' => false,
+                'lat' => 44.806004,
+                'long' => 4.420166,
+                'valide' => true,
+                'enAttente' => false,
+                'validateur' => null,
                 'user' => 'user-admin'),
             array(
                 'dateObserv' => new \DateTime('2016-11-15'),
-                'especeVern' => $espece,
+                'especeVern' => 'Colibri tout-vert',
                 'localise' => true,
-                'lat' => 108.172402,
-                'long' => 26.449403,
+                'lat' => 47.246424,
+                'long' => -0.150146,
                 'valide' => false,
+                'enAttente' => true,
+                'validateur' => null,
                 'user' => 'user-part2'),
             array(
                 'dateObserv' => new \DateTime('2016-11-11'),
-                'especeVern' => $espece,
+                'especeVern' => 'Pluvier guignard',
                 'localise' => false,
-                'lat' => 78.172402,
-                'long' => 96.449403,
+                'lat' => 49.707431,
+                'long' => 4.112549,
                 'valide' => true,
+                'enAttente' => false,
+                'validateur' => 'user-nat',
                 'user' => 'user-part1'),
             array(
                 'dateObserv' => new \DateTime('2016-11-12'),
-                'especeVern' => $espece,
+                'especeVern' => 'Becasseau de Bonaparte',
                 'localise' => false,
-                'lat' => 118.172402,
-                'long' => 106.449403,
+                'lat' => 43.513502,
+                'long' => 6.046143,
                 'valide' => true,
+                'enAttente' => false,
+                'validateur' => null,
                 'user' => 'user-nat')
         );
 
         foreach ($listObservations as $listObservation) {
             $observation = new Observation();
             $observation->setDateObs($listObservation['dateObserv']);
-            $observation->setEspeceNomVern($listObservation['especeVern']);
+            $observation->setEspeceNomVern($this->getReference($listObservation['especeVern']));
+        /*    $observation->setEspeceNomVern($listObservation['especeVern']);*/
+            $observation->setPhoto($photo);
             $observation->setLocalise($listObservation['localise']);
             $observation->setLat($listObservation['lat']);
             $observation->setLon($listObservation['long']);
             $observation->setValide($listObservation['valide']);
+            $observation->setEnAttente($listObservation['enAttente']);
+            if ($listObservation['validateur'] !== null) {
+                $observation->setValidateur($this->getReference($listObservation['validateur']));
+            }
             $observation->setUser($this->getReference($listObservation['user']));
             $manager->persist($observation);
         }
@@ -78,7 +94,7 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
      */
     function getOrder()
     {
-        return 2;
+        return 3;
     }
 
 

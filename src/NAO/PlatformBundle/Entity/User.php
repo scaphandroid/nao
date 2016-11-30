@@ -103,6 +103,13 @@ class User extends BaseUser
      */
     protected $typeCompte; //0: particulier 1:naturaliste 2:admin
 
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="en_attente", type="boolean")
+     */
+    protected $enAttente;
+
 
     public function __construct()
     {
@@ -316,5 +323,29 @@ class User extends BaseUser
     public function getTypeCompte()
     {
         return $this->typeCompte;
+    }
+
+    /**
+     * Set enAttente
+     *
+     * @param boolean $enAttente
+     *
+     * @return User
+     */
+    public function setEnAttente($enAttente)
+    {
+        $this->enAttente = $enAttente;
+
+        return $this;
+    }
+
+    /**
+     * Get enAttente
+     *
+     * @return boolean
+     */
+    public function getEnAttente()
+    {
+        return $this->enAttente;
     }
 }
