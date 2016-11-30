@@ -396,4 +396,12 @@ padding-top: 20px;
     .footer_right {
         margin-top : 10px;
     }
+    .form_search{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .btw_form{
+        padding-bottom: 15px;
+    }
 }
