@@ -31,7 +31,7 @@ class ObservationType extends AbstractType
                 'required' => false,
             ))
             ->add('dateObs', DateTimeType::class, array(
-                'date_format' => 'dd-MM-yyyy',
+                'date_format' => 'dd  MM  yyyy',
                 'date_widget' => 'choice'
             ))
             ->add('photo', FileType::class, array(
