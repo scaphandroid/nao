@@ -1,11 +1,13 @@
 {% extends "NAOPlatformBundle::layout.html.twig" %}
 {% block title %}
-    Compte
+    Mes observations
 {% endblock %}
 
 {% block body %}
 
-    {% include "NAOPlatformBundle:Profile:profile-layout.html.twig" %}
+{% block fos_user_content %}
+
+{% include "NAOPlatformBundle:Profile:profile-layout.html.twig" %}
 
 <div class="row">
     <div class="well col-lg-offset-3 col-lg-6 col-lg-offset-3 col-md-12 col-xs-12">
@@ -22,6 +24,8 @@
         {% endif %}
     </div>
 </div>
+
+{% endblock %}
 
 {% endblock %}
 

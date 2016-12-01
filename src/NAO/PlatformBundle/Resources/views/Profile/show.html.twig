@@ -24,7 +24,7 @@
     </div>
 
 
-    <div class="row">
+   <!-- <div class="row">
             {% if (is_granted('ROLE_ADMIN') and (is_granted('ROLE_SUPER_ADMIN') == false)) %}
                 <h2>Liste des observations à valider</h2>
                 <ul class="list-group">
@@ -39,7 +39,7 @@
                 </ul>
             {% endif %}
     </div>
-    <div>
+    <div class="row">
             {% if is_granted('ROLE_SUPER_ADMIN') %}
                 <h2>Liste des comptes naturalistes à valider</h2>
                 <ul class="list-group">
@@ -50,7 +50,7 @@
                     {% endfor %}
                 </ul>
             {% endif %}
-    </div>
+    </div>-->
 
 {% endblock fos_user_content %}
 
