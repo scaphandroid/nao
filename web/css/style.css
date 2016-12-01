@@ -348,10 +348,16 @@ ol, ul {
     padding-bottom: 20px;
 }
 
+/* PROFILS */
+
 .connexion_forms{
 padding-top: 20px;
 }
 
+.layout-profil{
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
 .h2_forms{
     text-align: center;
     font-weight: bold;
