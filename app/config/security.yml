@@ -50,5 +50,6 @@ security:
         - { path: ^/profile/comptesnaturalistes, role: ROLE_SUPER_ADMIN }
         - { path: ^/profile/mesobservations, role: ROLE_USER}
         - { path: ^/profile/observationsenattente, role: ROLE_ADMIN}
+        - { path: ^/profile/observationsrefusees, role: ROLE_ADMIN}
         - { path: ^/profile/admin/^, role: ROLE_SUPER_ADMIN }
         - { path: ^/profile/admin/listenaturaslistes, role: ROLE_SUPER_ADMIN }

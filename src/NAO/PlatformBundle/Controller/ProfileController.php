@@ -114,5 +114,27 @@ class ProfileController extends Controller
         ));
     }
 
+    public function observationRefuseesAction(Request $request)
+    {
+        $user = $this->getUser();
+        if (!is_object($user) || !$user instanceof UserInterface) {
+            $request->getSession()->getFlashBag()->add('notice', 'Cet espace est réservé aux utilisateurs enregistrés !');
+            return $this->redirectToRoute('fos_user_security_login');
+        }
+        // cet espace est réservé aux naturalistes
+        $checker = $this->get('security.authorization_checker');
+        if ($checker->isGranted('ROLE_ADMIN') == false || $checker->isGranted('ROLE_SUPER_ADMIN')){
+            $request->getSession()->getFlashBag()->add('notice', 'Cet espace ne vous est pas accessible !');
+            return $this->redirectToRoute('fos_user_profile_show');
+        }
 
+        $observRefusees = $this->getDoctrine()->getManager()
+            ->getRepository('NAOPlatformBundle:Observation')
+            ->getListObsRefuseesParNaturaliste($user->getId());
+
+        return $this->render('NAOPlatformBundle:Profile:observationsRefusees.html.twig', array(
+           'user'=> $user,
+            'ObservRefusees' => $observRefusees
+        ));
+    }
 }

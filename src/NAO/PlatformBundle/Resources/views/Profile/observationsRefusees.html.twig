@@ -1,0 +1,29 @@
+{% extends "NAOPlatformBundle::layout.html.twig" %}
+{% block title %}
+    Observations en attente de validation
+{% endblock %}
+
+{% block body %}
+
+{% block fos_user_content %}
+
+{% include "NAOPlatformBundle:Profile:profile-layout.html.twig" %}
+
+<div class="row well col-lg-offset-4 col-lg-4 col-lg-offset-4 col-sm-offset-3 col-sm-6 col-sm-offset-3">
+    {% if (is_granted('ROLE_ADMIN') and (is_granted('ROLE_SUPER_ADMIN') == false)) %}
+        <h2>Liste des observations refusées par {{ user.username }}</h2>
+        <ul class="list-group">
+            {% for observation in ObservRefusees %}
+                <li class="list-group-item">
+                    <p>Date de l'observation: {{ observation.dateObs|date('d/m/Y H:i') }} </p>
+                    <p>Nom de l'espèce : {{ observation.especeNomVern.nomVern }} </p>
+                    <p>Coordonnées GPS : {{ observation.lat }}, {{ observation.lon }} </p>
+                    <button class="btn btn-primary">Voir plus</button>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+
+{% endblock %}
+{% endblock %}

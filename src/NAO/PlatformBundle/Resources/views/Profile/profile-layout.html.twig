@@ -17,7 +17,7 @@
         {% endif %}
 
         {% if (is_granted('ROLE_ADMIN') and (is_granted('ROLE_SUPER_ADMIN') == false)) %}
-            <a class="btn btn-default">Observations refusées</a>
+            <a class="btn btn-default" href="{{ path('nao_profile_observationsrefusees') }}">Observations refusées</a>
         {% endif %}
 
         {% if is_granted('ROLE_SUPER_ADMIN') %} {#Pour tous les user sauf admin#}
