@@ -98,14 +98,19 @@ class ProfileController extends Controller
             return $this->redirectToRoute('fos_user_profile_show');
         }
 
-        //on devra récupérer tous les comptes naturalistes et mettre les non validés en premiers
-        $comptesNatNonValides = $this->getDoctrine()->getManager()
-            ->getRepository('NAOPlatformBundle:User')
-            ->getComptesNatNonValides();
 
+        $userRepo = $this->getDoctrine()->getManager()->getRepository('NAOPlatformBundle:User');
+
+        //on récupère les comptes naturalistes en attente à part
+        $comptesNatNonValides = $userRepo->getComptesNatNonValides();
+
+        $comptesNaturalistes = $userRepo->getComptesNat();
+            
         return $this->render('@NAOPlatform/Profile/listeNaturalistes.html.twig', array(
             'user' => $user,
-            'comptesNatNonValides' => $comptesNatNonValides
+            'comptesNatNonValides' => $comptesNatNonValides,
+            'comptesNaturalistes' => $comptesNaturalistes
+            
         ));
     }
 
