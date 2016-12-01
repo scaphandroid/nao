@@ -444,4 +444,9 @@ hr {
     .footer_right {
         margin-top : 10px;
     }
+    #map {
+        width : 375px;
+        margin : 10px auto 0 auto;
+        height : 375px;
+    }
 }
