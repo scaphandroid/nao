@@ -1,12 +1,19 @@
-var map;
+var map, zoom;
 var markersArray = [];
 var infowindow = null;
 var infowindowArray = [];
+if(window.innerWidth <= 800 && window.innerHeight <= 600) {
+     zoom = 5;
+}
+else {
+    zoom = 6;
+}
 /* Affichage sur la page d'accueil*/
 function initMapIndex() {
+    detectBrowser();
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 46.764548, lng: 1.718674999999962}, // coordonnées du centre de la F
-        zoom: 6
+        zoom: zoom
     });
     var observation = $("#observation").text();
     var observation_decode = $.parseJSON(observation);
@@ -15,7 +22,7 @@ function initMapIndex() {
         var marker = new google.maps.Marker({
             position: position,
             map:map,
-            title: observation_decode[i].espece,
+            title: observation_decode[i].espece
         });
         var class_title = observation_decode[i].valide ? "title_valide" : "title_invalide";
 
@@ -71,9 +78,10 @@ function detectBrowser() {
 }
 
 function observerMap() {
+    detectBrowser();
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 46.764548, lng: 1.718674999999962}, // coordonnées du centre de la F
-        zoom: 6
+        zoom: zoom
     });
     var localise = document.getElementById('nao_platformbundle_observation_localise');
     if(localise.checked) {
@@ -134,11 +142,11 @@ function placeMarker(location) {
     deleteMarkers();
     var marker = new google.maps.Marker({
         position: location,
-        map: map,
+        map: map
     });
     // ajouter le marqueur dans le tableau
     markersArray.push(marker);
-    map.setCenter(location);
+ /*   map.setCenter(location);*/
 
 }
 

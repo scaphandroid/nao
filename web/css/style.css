@@ -511,5 +511,9 @@ hr {
     .decal_btn{
         margin: auto;
     }
-
+    #map {
+        width : 375px;
+        margin : 10px auto 0 auto;
+        height : 375px;
+    }
 }
