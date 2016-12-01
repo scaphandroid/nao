@@ -31,12 +31,6 @@ class ProfileController extends Controller
         }
 
         $manager = $this->getDoctrine()->getManager();
-        $listObserv = $manager
-            ->getRepository('NAOPlatformBundle:Observation')
-            ->getListObsByUser($user->getId());
-
-        // les observations sont encodées en json pour être affichées sur la carte, via le service dédié
-        $observation_JSON = $this->get('service_container')->get('nao_platform.jsonencode')->jsonEncode($listObserv);
 
         if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {
             $comptesNatNonValides = $manager
@@ -48,22 +42,8 @@ class ProfileController extends Controller
             ));
         }
 
-
-        if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
-            $ObservNonValide = $manager
-                ->getRepository('NAOPlatformBundle:Observation')
-                ->getListObsNonvalideEnAttente();
-            return $this->render('FOSUserBundle:Profile:show.html.twig', array(
-                'user' => $user,
-                'observation_JSON' => $observation_JSON,
-                'ObservNonValide' => $ObservNonValide
-            ));
-        }
-
-
         return $this->render('FOSUserBundle:Profile:show.html.twig', array(
             'user' => $user,
-            'observation_JSON' => $observation_JSON,
         ));
     }
 
@@ -81,8 +61,7 @@ class ProfileController extends Controller
             return $this->redirectToRoute('fos_user_profile_show');
         }
 
-        $manager = $this->getDoctrine()->getManager();
-        $listObserv = $manager
+        $listObserv = $this->getDoctrine()->getManager()
             ->getRepository('NAOPlatformBundle:Observation')
             ->getListObsByUser($user->getId());
 
@@ -92,6 +71,29 @@ class ProfileController extends Controller
         return $this->render('@NAOPlatform/Profile/mesObservations.html.twig', array(
             'user' => $user,
             'observation_JSON' => $observation_JSON,
+        ));
+    }
+
+    public function observationsEnAttenteAction(Request $request){
+
+        $user = $this->getUser();
+        if (!is_object($user) || !$user instanceof UserInterface) {
+            $request->getSession()->getFlashBag()->add('notice', 'Cet espace est réservé aux utilisateurs enregistrés !');
+            return $this->redirectToRoute('fos_user_security_login');
+        }
+        // cet espace est réservé aux naturalistes
+        $checker = $this->get('security.authorization_checker');
+        if ($checker->isGranted('ROLE_ADMIN') == false || $checker->isGranted('ROLE_SUPER_ADMIN')){
+            $request->getSession()->getFlashBag()->add('notice', 'L\'espace "observations en attente" est réservé aux naturalistes !');
+            return $this->redirectToRoute('fos_user_profile_show');
+        }
+
+        $ObservNonValide = $this->getDoctrine()->getManager()
+            ->getRepository('NAOPlatformBundle:Observation')
+            ->getListObsNonvalideEnAttente();
+        return $this->render('@NAOPlatform/Profile/observationsEnAttente.html.twig', array(
+            'user' => $user,
+            'ObservNonValide' => $ObservNonValide
         ));
     }
 

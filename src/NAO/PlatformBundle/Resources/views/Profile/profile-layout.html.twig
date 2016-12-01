@@ -9,7 +9,7 @@
         {% endif %}
 
         {% if (is_granted('ROLE_ADMIN') and (is_granted('ROLE_SUPER_ADMIN') == false)) %}
-            <a class="btn btn-default">Observations à valider</a>
+            <a class="btn btn-default" href="{{ path('nao_profile_observationsenattente') }}">Observations à valider</a>
         {% endif %}
 
         {% if not is_granted('ROLE_SUPER_ADMIN')%}
