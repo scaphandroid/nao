@@ -48,3 +48,4 @@ security:
         - { path: ^/observer, role: IS_AUTHENTICATED_ANONYMOUSLY } #attention à mettre dans le controlleur qu'en post il faut avoir le role SUPER_ADMIN
         - { path: ^/profile/observationsvalidees, role: ROLE_ADMIN }
         - { path: ^/profile/comptesnaturalistes, role: ROLE_SUPER_ADMIN }
+        - { path: ^/profile/mesobservations, role: ROLE_USER}

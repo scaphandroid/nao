@@ -5,13 +5,18 @@
     <div class="btn-group btn-group-justified">
 
         {% if (is_granted('ROLE_ADMIN') == false and (is_granted('ROLE_SUPER_ADMIN') == false)) %}
-            <a class="btn btn-default">Devenir naturaliste</a>
-            <a class="btn btn-default">Mes observations</a>
+            <a class="btn btn-default" href="{{ path('nao_platform_demande') }}">Devenir naturaliste</a>
         {% endif %}
 
         {% if (is_granted('ROLE_ADMIN') and (is_granted('ROLE_SUPER_ADMIN') == false)) %}
             <a class="btn btn-default">Observations à valider</a>
-            <a class="btn btn-default">Mes observations</a>
+        {% endif %}
+
+        {% if not is_granted('ROLE_SUPER_ADMIN')%}
+            <a class="btn btn-default" href="{{ path('nao_profile_mesobservations') }}">Mes observations</a>
+        {% endif %}
+
+        {% if (is_granted('ROLE_ADMIN') and (is_granted('ROLE_SUPER_ADMIN') == false)) %}
             <a class="btn btn-default">Observations refusées</a>
         {% endif %}
 
