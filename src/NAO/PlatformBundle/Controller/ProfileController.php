@@ -30,26 +30,13 @@ class ProfileController extends Controller
             throw new AccessDeniedException('This user does not have access to this section.');
         }
 
-        $manager = $this->getDoctrine()->getManager();
-
-        if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {
-            $comptesNatNonValides = $manager
-                ->getRepository('NAOPlatformBundle:User')
-                ->getComptesNatNonValides();
-            return $this->render('FOSUserBundle:Profile:show.html.twig', array(
-                'user' => $user,
-                'comptesNatNonValides' => $comptesNatNonValides
-            ));
-        }
-
         return $this->render('FOSUserBundle:Profile:show.html.twig', array(
             'user' => $user,
         ));
     }
 
-
-    public function mesObservationsAction(Request $request){
-
+    public function mesObservationsAction(Request $request)
+    {
         $user = $this->getUser();
         if (!is_object($user) || !$user instanceof UserInterface) {
             $request->getSession()->getFlashBag()->add('notice', 'Cet espace est réservé aux utilisateurs enregistrés !');
@@ -74,8 +61,8 @@ class ProfileController extends Controller
         ));
     }
 
-    public function observationsEnAttenteAction(Request $request){
-
+    public function observationsEnAttenteAction(Request $request)
+    {
         $user = $this->getUser();
         if (!is_object($user) || !$user instanceof UserInterface) {
             $request->getSession()->getFlashBag()->add('notice', 'Cet espace est réservé aux utilisateurs enregistrés !');
@@ -91,9 +78,34 @@ class ProfileController extends Controller
         $ObservNonValide = $this->getDoctrine()->getManager()
             ->getRepository('NAOPlatformBundle:Observation')
             ->getListObsNonvalideEnAttente();
+
         return $this->render('@NAOPlatform/Profile/observationsEnAttente.html.twig', array(
             'user' => $user,
             'ObservNonValide' => $ObservNonValide
+        ));
+    }
+
+    public function listeNaturalistesAction(Request $request)
+    {
+        $user = $this->getUser();
+        if (!is_object($user) || !$user instanceof UserInterface) {
+            $request->getSession()->getFlashBag()->add('notice', 'Cet espace est réservé aux utilisateurs enregistrés !');
+            return $this->redirectToRoute('fos_user_security_login');
+        }
+        // cet espace est réservé aux administrateurs
+        if ( $this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN') == false){
+            $request->getSession()->getFlashBag()->add('notice', 'Cet espace ne vous est pas accessible !');
+            return $this->redirectToRoute('fos_user_profile_show');
+        }
+
+        //on devra récupérer tous les comptes naturalistes et mettre les non validés en premiers
+        $comptesNatNonValides = $this->getDoctrine()->getManager()
+            ->getRepository('NAOPlatformBundle:User')
+            ->getComptesNatNonValides();
+
+        return $this->render('@NAOPlatform/Profile/listeNaturalistes.html.twig', array(
+            'user' => $user,
+            'comptesNatNonValides' => $comptesNatNonValides
         ));
     }
 

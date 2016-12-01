@@ -21,7 +21,7 @@
         {% endif %}
 
         {% if is_granted('ROLE_SUPER_ADMIN') %} {#Pour tous les user sauf admin#}
-            <a class="btn btn-default">Modérer naturalistes</a>
+            <a class="btn btn-default" href="{{ path('nao_profile_listenaturalistes') }}">Modérer naturalistes</a>
             <a class="btn btn-default">Modérer observations</a>
             <a class="btn btn-default">Exporter les données</a>
         {% endif %}
