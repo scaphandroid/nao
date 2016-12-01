@@ -500,4 +500,16 @@ hr {
     .footer_texte{
         margin-top: -70px;
     }
+    .form_search{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .btw_form {
+        padding-bottom: 15px;
+    }
+    .decal_btn{
+        margin: auto;
+    }
+
 }
