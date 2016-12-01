@@ -4,9 +4,9 @@
 {% endblock %}
 
 {% block body %}
-<div style="margin-top: 25px;" class="col-lg-offset-4 col-lg-4 col-lg-offset-4 col-sm-offset-3 col-sm-6 col-sm-offset-3 ">
-    <h2 style="text-align: center">Bonjour, <strong>{{ user.username }}</strong></h2>
-</div>
+
+    {% include "NAOPlatformBundle:Profile:profile-layout.html.twig" %}
+
 {% block fos_user_content %}
     {% trans_default_domain 'FOSUserBundle' %}
     <div class="fos_user_user_show row well col-lg-offset-4 col-lg-4 col-lg-offset-4 col-sm-offset-3 col-sm-6 col-sm-offset-3">
@@ -22,23 +22,9 @@
                 <button class="btn btn-default btn-block">Modifier mon profil</button></a><br>
         </div>
     </div>
-    <div class="row">
-        <div class="well col-lg-offset-3 col-lg-6 col-lg-offset-3 col-md-12 col-xs-12">
-              {% if not is_granted('ROLE_SUPER_ADMIN') %} {#Pour tous les user sauf admin#}
-                <h2>Vos observations</h2>
-                    {% if not is_granted('ROLE_ADMIN') %} {#Pour tous les user sauf admin & naturaliste#}
-                        <span class="bloc_vert">validées</span> <span class="bloc_orange">en attente de validation</span>
-                    {% endif %}
-                    <!-- Afficher sous forme de carte -->
-                <div id="map"></div>
-                <div id="observation" class="hidden">
-                    {{ observation_JSON }}
-                </div>
-              {% endif %}
-        </div>
-    </div>
 
-    <div>
+
+   <!-- <div class="row">
             {% if (is_granted('ROLE_ADMIN') and (is_granted('ROLE_SUPER_ADMIN') == false)) %}
                 <h2>Liste des observations à valider</h2>
                 <ul class="list-group">
@@ -53,7 +39,7 @@
                 </ul>
             {% endif %}
     </div>
-    <div>
+    <div class="row">
             {% if is_granted('ROLE_SUPER_ADMIN') %}
                 <h2>Liste des comptes naturalistes à valider</h2>
                 <ul class="list-group">
@@ -64,16 +50,8 @@
                     {% endfor %}
                 </ul>
             {% endif %}
-    </div>
+    </div>-->
 
 {% endblock fos_user_content %}
-
-{% endblock %}
-
-{% block javascript %}
-    {{ parent() }}
-    <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQcmtlhakbZxEK68_wVMjV59kWTyPK9eA&region=FR&callback=initMapIndex">
-    </script>
 
 {% endblock %}

@@ -67,4 +67,33 @@ class ProfileController extends Controller
         ));
     }
 
+
+    public function mesObservationsAction(Request $request){
+
+        $user = $this->getUser();
+        if (!is_object($user) || !$user instanceof UserInterface) {
+            $request->getSession()->getFlashBag()->add('notice', 'Cet espace est réservé aux utilisateurs enregistrés !');
+            return $this->redirectToRoute('fos_user_security_login');
+        }
+        // l'administrateur ne fait pas d'observations
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')){
+            $request->getSession()->getFlashBag()->add('notice', 'L\'espace "mes observations" est réservé aux particuliers et naturalistes !');
+            return $this->redirectToRoute('fos_user_profile_show');
+        }
+
+        $manager = $this->getDoctrine()->getManager();
+        $listObserv = $manager
+            ->getRepository('NAOPlatformBundle:Observation')
+            ->getListObsByUser($user->getId());
+
+        // les observations sont encodées en json pour être affichées sur la carte, via le service dédié
+        $observation_JSON = $this->get('service_container')->get('nao_platform.jsonencode')->jsonEncode($listObserv);
+
+        return $this->render('@NAOPlatform/Profile/mesObservations.html.twig', array(
+            'user' => $user,
+            'observation_JSON' => $observation_JSON,
+        ));
+    }
+
+
 }
