@@ -83,7 +83,7 @@ class LoadUser extends AbstractFixture implements OrderedFixtureInterface, Conta
                 'profession' => 'chercheur bis',
                 'enabled' => false,
                 'typeCompte' => 1,
-                'enAttente' => false,
+                'enAttente' => true,
                 'role' => 'ROLE_USER',
                 'reference' => 'user-part3')
         );

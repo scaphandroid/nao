@@ -28,6 +28,30 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    //pour récupérer les observations traitées par un naturaliste
+    function getListObsTraiteeParNaturaliste($id) {
+        $qb = $this->createQueryBuilder('obs')
+            ->leftJoin('obs.validateur', 'user')
+            ->where('user.id = :id')
+            ->setParameter('id', $id);
+        return $qb->getQuery()->getResult();
+    }
+
+    //pour récupérer les observations refusées par un naturaliste
+    function getListObsRefuseesParNaturaliste($id) {
+        $qb = $this->createQueryBuilder('obs')
+            ->leftJoin('obs.validateur', 'user')
+            ->where('user.id = :id')
+            ->andWhere('obs.valide = :valid')
+            ->andWhere('obs.enAttente = :enAttente')
+            ->setParameters(array(
+                'id'=> $id,
+                'valid'=>false,
+                'enAttente'=>false
+            ));
+        return $qb->getQuery()->getResult();
+    }
+
     function getAllObserv() { // Pour l'export de toutes les observations
         return $this->createQueryBuilder('obs')->getQuery()->getResult();
     }

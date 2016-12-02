@@ -63,7 +63,17 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
                 'valide' => true,
                 'enAttente' => false,
                 'validateur' => null,
-                'user' => 'user-nat')
+                'user' => 'user-nat'),
+            array(
+                'dateObserv' => new \DateTime('2016-11-19'),
+                'especeVern' => 'Pigeon bise',
+                'localise' => false,
+                'lat' => 41.513502,
+                'long' => 3.046143,
+                'valide' => false,
+                'enAttente' => false,
+                'validateur' => 'user-nat',
+                'user' => 'user-part1')
         );
 
         foreach ($listObservations as $listObservation) {

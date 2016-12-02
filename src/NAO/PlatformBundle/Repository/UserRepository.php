@@ -19,7 +19,18 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
                 'valide' => false,
                 'typeCompte' => 1, //Lors de la soumission de la demande le type de compte évolue de 0 à 1
                 'enAttente' => true
-            ));
+        ));
+        return $qb->getQuery()->getResult();
+    }
+
+    function getComptesNat(){
+        $qb = $this->createQueryBuilder('user')
+            ->where('user.typeCompte = :typeCompte')
+            ->andWhere('user.enAttente = :enAttente')
+            ->setParameters(array(
+                'typeCompte' => 1,
+                'enAttente' => false
+        ));
         return $qb->getQuery()->getResult();
     }
 }
