@@ -16,17 +16,15 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-    /*    $user = new User();
-        $manager->persist($user);*/
-        $espece = new EspeceNomVern('EspeceFixture');
-        $photo = new File(__DIR__ .'/../../../../../web/images/oiseau1.jpg');
-        $manager->persist($espece);
+
         // On crée 4 observations qu'on va assigner à nos user
+
+        $photo = new File(__DIR__ .'/../../../../../web/images/oiseau1.jpg');
 
         $listObservations = array(
             array(
                 'dateObserv' => new \DateTime('2016-11-20'),
-                'especeVern' => 'Aigle imperial',
+                'especeVern' => 'Aigle impérial',
                 'localise' => true,
                 'lat' => 44.806004,
                 'long' => 4.420166,
@@ -36,7 +34,7 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
                 'user' => 'user-admin'),
             array(
                 'dateObserv' => new \DateTime('2016-11-15'),
-                'especeVern' => 'Colibri tout-vert',
+                'especeVern' => 'Colibri tout-vert ',
                 'localise' => true,
                 'lat' => 47.246424,
                 'long' => -0.150146,
@@ -56,7 +54,7 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
                 'user' => 'user-part1'),
             array(
                 'dateObserv' => new \DateTime('2016-11-12'),
-                'especeVern' => 'Becasseau de Bonaparte',
+                'especeVern' => 'Bécasseau de Bonaparte, Bécasseau à croupion blanc',
                 'localise' => false,
                 'lat' => 43.513502,
                 'long' => 6.046143,
@@ -66,7 +64,7 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
                 'user' => 'user-nat'),
             array(
                 'dateObserv' => new \DateTime('2016-11-19'),
-                'especeVern' => 'Pigeon bise',
+                'especeVern' => 'Pigeon biset',
                 'localise' => false,
                 'lat' => 41.513502,
                 'long' => 3.046143,
