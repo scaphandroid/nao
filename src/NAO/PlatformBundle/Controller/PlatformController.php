@@ -23,6 +23,8 @@ class PlatformController extends Controller
 {
     public function indexAction(Request $request)
     {
+        $user = $this->getUser();
+        $typeCompte = ($user == null) ? null : $user->getTypeCompte();
         $espece = new EspeceNomVern();
         $form = $this->createForm(EspeceNomVernType::class, $espece);
 
@@ -44,12 +46,15 @@ class PlatformController extends Controller
         return $this->render('NAOPlatformBundle:Platform:index.html.twig', array(
             'form' => $form->createView(),
             'DerObs' => $listDerObs,
-            'observation_JSON' => $observation_JSON
+            'observation_JSON' => $observation_JSON,
+            'typeCompte' => $typeCompte,
         ));
     }
 
     public function rechercherAction(Request $request)
     {
+        $user = $this->getUser();
+        $typeCompte = ($user == null) ? null : $user->getTypeCompte();
         $form=$this->createForm(RechercheType::class);
 
         $form->handleRequest($request);
@@ -71,6 +76,7 @@ class PlatformController extends Controller
             return $this->render('NAOPlatformBundle:Platform:rechercher.html.twig', array(
                 'form' => $form->createView(),
                 'observation_JSON' => $observation_JSON,
+                'typeCompte' => $typeCompte,
                 'nomEspece' => $data["nomVern"]
             ));
         }
@@ -83,7 +89,6 @@ class PlatformController extends Controller
 
     public function observerAction(Request $request)
     {
-
         $user = $this->getUser();
 
         if($user === null){
