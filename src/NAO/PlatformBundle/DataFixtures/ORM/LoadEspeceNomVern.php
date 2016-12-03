@@ -12,31 +12,6 @@ class LoadEspeceNomVern extends AbstractFixture implements OrderedFixtureInterfa
 {
     public function load(ObjectManager $manager)
     {
-        /*$listNomVern = array(
-            "Epervier bicolore",
-            "Autour des palombe",
-            "Aigle imperial",
-            "Buse pattue",
-            "Élanion blanc",
-            "Milan des marais",
-            "Canard bride",
-            "Harle huppe",
-            "Colibri tout-vert",
-            "Pluvier guignard",
-            "Goeland pontique",
-            "Becasseau de Bonaparte",
-            "Pigeon bise",
-            "Coucou de Madagasca",
-            "Faucon crecerelle"
-        );
-
-        foreach ($listNomVern as $nomVern) {
-            $espece = new EspeceNomVern($nomVern);
-            $this->addReference($nomVern, $espece);
-            $manager->persist($espece);
-        }
-        $manager->flush();*/
-
         $fichierCSV = fopen(dirname(__FILE__).'\Entite_Espece_pour import.csv', 'r');
 
         //on fera un flush toutes les 20 entrées
@@ -58,9 +33,9 @@ class LoadEspeceNomVern extends AbstractFixture implements OrderedFixtureInterfa
                 $espece->setNomConcat($ligne[3]);
                 $espece->setUrl($ligne[4]);
 
-                //pour récupérer dans la fixtures suivante
-                $lignePourRef = array( '32', '516', '580','827','1002');
-                if(in_array($ligne[0], $lignePourRef)){
+                //pour récupérer dans la fixture suivante
+                $lignesPourRef = array( '32', '516', '580','827','1002');
+                if(in_array($ligne[0], $lignesPourRef)){
                     $this->addReference($ligne[1], $espece);
                 }
 
@@ -75,7 +50,6 @@ class LoadEspeceNomVern extends AbstractFixture implements OrderedFixtureInterfa
 
         $manager->flush();
         $manager->clear();
-
     }
 
     /**
