@@ -78,7 +78,6 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
             $observation = new Observation();
             $observation->setDateObs($listObservation['dateObserv']);
             $observation->setEspeceNomVern($this->getReference($listObservation['especeVern']));
-        /*    $observation->setEspeceNomVern($listObservation['especeVern']);*/
             $observation->setPhoto($photo);
             $observation->setLocalise($listObservation['localise']);
             $observation->setLat($listObservation['lat']);

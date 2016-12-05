@@ -12,7 +12,7 @@ class LoadEspeceNomVern extends AbstractFixture implements OrderedFixtureInterfa
 {
     public function load(ObjectManager $manager)
     {
-        $fichierCSV = fopen(dirname(__FILE__).'\Entite_Espece_pour import.csv', 'r');
+        $fichierCSV = fopen(dirname(__FILE__).'\Entite_Espece_NOMCOMPLET_pour import.csv', 'r');
 
         //on fera un flush toutes les 20 entrées
         $batchSize = 20;
@@ -22,21 +22,23 @@ class LoadEspeceNomVern extends AbstractFixture implements OrderedFixtureInterfa
 
             $i++;
 
-            $ligne = fgetcsv($fichierCSV, 300, ';');
+            $ligne = fgetcsv($fichierCSV, 350, ';');
 
             //en cas de ligne vide
-            if($ligne[0] !== null || $ligne[0] === ''){
+            if($ligne[0] !== null || $ligne[0] !== ''){
+
                 $espece = new EspeceNomVern();
 
-                $espece->setNomVern($ligne[1]);
-                $espece->setNomLatin($ligne[2]);
+                $espece->setCdNom($ligne[0]);
+                $espece->setNomComplet($ligne[1]);
+                $espece->setNomVern($ligne[2]);
                 $espece->setNomConcat($ligne[3]);
                 $espece->setUrl($ligne[4]);
 
                 //pour récupérer dans la fixture suivante
-                $lignesPourRef = array( '32', '516', '580','827','1002');
+                $lignesPourRef = array( '2643', '442259', '3153','3218','3420');
                 if(in_array($ligne[0], $lignesPourRef)){
-                    $this->addReference($ligne[1], $espece);
+                    $this->addReference($ligne[2], $espece);
                 }
 
                 $manager->persist($espece);

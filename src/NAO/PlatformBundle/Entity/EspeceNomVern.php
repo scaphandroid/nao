@@ -24,6 +24,13 @@ class EspeceNomVern
     /**
      * @var string
      *
+     * @ORM\Column(name="cd_nom", type="bigint", unique=true, nullable=false)
+     */
+    private $cd_nom;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="nomVern", type="string", length=255, unique=false, nullable = true)
      */
     private $nomVern;
@@ -31,14 +38,14 @@ class EspeceNomVern
     /**
      * @var string
      *
-     * @ORM\Column(name="nomLatin", type="string", length=255, unique=false, nullable=true)
+     * @ORM\Column(name="nomComplet", type="string", length=255, unique=true, nullable=false)
      */
-    private $nomLatin;
+    private $nomComplet;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="nomConcat", type="string", length=255, unique=false)
+     * @ORM\Column(name="nomConcat", type="string", length=255, unique=true, nullable=false)
      */
     private $nomConcat;
 
@@ -87,30 +94,6 @@ class EspeceNomVern
     }
 
     /**
-     * Set nomLatin
-     *
-     * @param string $nomLatin
-     *
-     * @return EspeceNomVern
-     */
-    public function setNomLatin($nomLatin)
-    {
-        $this->nomLatin = $nomLatin;
-
-        return $this;
-    }
-
-    /**
-     * Get nomLatin
-     *
-     * @return string
-     */
-    public function getNomLatin()
-    {
-        return $this->nomLatin;
-    }
-
-    /**
      * Set nomConcat
      *
      * @param string $nomConcat
@@ -156,5 +139,53 @@ class EspeceNomVern
     public function getUrl()
     {
         return $this->url;
+    }
+
+    /**
+     * Set cdNom
+     *
+     * @param integer $cdNom
+     *
+     * @return EspeceNomVern
+     */
+    public function setCdNom($cdNom)
+    {
+        $this->cd_nom = $cdNom;
+
+        return $this;
+    }
+
+    /**
+     * Get cdNom
+     *
+     * @return integer
+     */
+    public function getCdNom()
+    {
+        return $this->cd_nom;
+    }
+
+    /**
+     * Set nomComplet
+     *
+     * @param string $nomComplet
+     *
+     * @return EspeceNomVern
+     */
+    public function setNomComplet($nomComplet)
+    {
+        $this->nomComplet = $nomComplet;
+
+        return $this;
+    }
+
+    /**
+     * Get nomComplet
+     *
+     * @return string
+     */
+    public function getNomComplet()
+    {
+        return $this->nomComplet;
     }
 }
