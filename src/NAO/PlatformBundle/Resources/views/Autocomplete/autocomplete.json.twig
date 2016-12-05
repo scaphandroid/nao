@@ -1,4 +1,9 @@
 [{% for espece in results -%}
-    {{ {id: espece.id, label: espece.nomVern}|json_encode|raw }}
+    {% if espece.nomVern is not empty %}
+    {% set pourLabel = espece.nomVern ~ " (" ~ espece.nomComplet ~ ")" %}
+    {% else %}
+    {% set pourLabel = espece.nomComplet %}
+    {% endif %}
+    {{ {id: espece.id, label: pourLabel}|json_encode|raw }}
     {%- if not loop.last %},{% endif -%}
 {%- endfor %}]
