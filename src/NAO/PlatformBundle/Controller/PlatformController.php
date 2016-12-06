@@ -64,11 +64,16 @@ class PlatformController extends Controller
             // data is an array with "nomVern" keys
             $data = $form->getData();
 
-            /*Afficher la carte avec l'espece recherchée */
             $manager = $this->getDoctrine()->getManager();
+
+            //on récupère les espèces correspondant à la recherche
+            $listeEspeces = $manager->getRepository('NAOPlatformBundle:EspeceNomVern')
+                ->findLikeByName($data["nomConcat"], 100);
+
+            //on récupère les observations valides correspondants aux espèces
             $listObserv = $manager
                 ->getRepository('NAOPlatformBundle:Observation')
-                ->getListObsByNomConcatValides($data["nomConcat"]);
+                ->getListObsByEspeceValides($listeEspeces);
 
             // les observations sont encodées en json pour être affichées sur la carte, via le service dédié
             $observation_JSON = $this->get('service_container')->get('nao_platform.jsonencode')->jsonEncode($listObserv);

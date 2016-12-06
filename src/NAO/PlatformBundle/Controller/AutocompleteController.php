@@ -13,7 +13,7 @@ class AutocompleteController extends Controller {
     public function autosearchAction(Request $request){
         $q = $request->query->get('term');
         if($request->isXmlHttpRequest()){
-            $results = $this->getDoctrine()->getRepository('NAOPlatformBundle:EspeceNomVern')->findLikeByName($q);
+            $results = $this->getDoctrine()->getRepository('NAOPlatformBundle:EspeceNomVern')->findLikeByName($q, 10);
             return $this->render('NAOPlatformBundle:Autocomplete:autocomplete.json.twig', ['results' => $results]);
         }
         return $this->redirectToRoute('nao_platform_home');
