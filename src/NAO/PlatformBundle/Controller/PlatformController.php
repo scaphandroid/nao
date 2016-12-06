@@ -75,14 +75,25 @@ class PlatformController extends Controller
                 ->getRepository('NAOPlatformBundle:Observation')
                 ->getListObsByEspeceValides($listeEspeces);
 
+            //liste des espèces observées - pas top
+            $idsEspecesObservees = [];
+            $listEspecesObservees = [];
+            foreach ($listObserv as $obs){
+                if(!in_array($obs->getEspeceNomVern()->getId(), $idsEspecesObservees)){
+                    array_push($listEspecesObservees, $obs->getEspeceNomVern());
+                    array_push($idsEspecesObservees, $obs->getEspeceNomVern()->getId());
+                }
+            }
+
             // les observations sont encodées en json pour être affichées sur la carte, via le service dédié
             $observation_JSON = $this->get('service_container')->get('nao_platform.jsonencode')->jsonEncode($listObserv);
 
             return $this->render('NAOPlatformBundle:Platform:rechercher.html.twig', array(
                 'form' => $form->createView(),
+                'listEspecesObservees' =>$listEspecesObservees,
                 'observation_JSON' => $observation_JSON,
                 'typeCompte' => $typeCompte,
-                'nomEspece' => $data["nomConcat"]
+                'recherche' => $data["nomConcat"]
             ));
         }
 
