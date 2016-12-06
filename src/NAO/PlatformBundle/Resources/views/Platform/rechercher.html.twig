@@ -25,7 +25,7 @@
             {% if (observation_JSON is defined) %}
 
                 {%  if (observation_JSON == '[]') %}
-                    <div><p class="text-center">Aucune observation pour cette recherche : "{{ recherche }}".</p></div>
+                    <h3 class="text-center">Aucune observation pour cette recherche : "{{ recherche }}".</h3>
                 {%  else %}
 
                     <h3 class="text-center">Observations pour votre recherche "{{ recherche }}"</h3>
