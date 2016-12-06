@@ -1,23 +1,51 @@
-<div class="layout-profil col-lg-offset-4 col-lg-4 col-lg-offset-4 col-sm-offset-3 col-sm-6 col-sm-offset-3 ">
+<div class="layout-profil col-lg-offset-2 col-lg-8 col-lg-offset-2 col-sm-offset-2 col-sm-8 col-sm-offset-2 ">
 
     <h2 style="text-align: center">Bonjour, <strong>{{ user.username }}</strong></h2>
 
-    <div class="btn-group btn-group-justified">
+        <div class="btn-group btn-group-justified hidden-xs text-center">
+
+            {% if (is_granted('ROLE_ADMIN') == false and (is_granted('ROLE_SUPER_ADMIN') == false)) %}
+                <a class="btn btn-default" href="{{ path('nao_platform_demande') }}">Devenir naturaliste</a>
+            {% endif %}
+
+            {% if (is_granted('ROLE_ADMIN') and (is_granted('ROLE_SUPER_ADMIN') == false)) %}
+                <a class="btn btn-default" href="{{ path('nao_profile_observationsenattente') }}">Observations à
+                    valider</a>
+            {% endif %}
+
+            {% if not is_granted('ROLE_SUPER_ADMIN') %}
+                <a class="btn btn-default" href="{{ path('nao_profile_mesobservations') }}">Mes observations</a>
+            {% endif %}
+
+            {% if (is_granted('ROLE_ADMIN') and (is_granted('ROLE_SUPER_ADMIN') == false)) %}
+                <a class="btn btn-default" href="{{ path('nao_profile_observationsrefusees') }}">Observations
+                    refusées</a>
+            {% endif %}
+
+            {% if is_granted('ROLE_SUPER_ADMIN') %} {#Pour tous les user sauf admin#}
+                <a class="btn btn-default" href="{{ path('nao_profile_listenaturalistes') }}">Modérer naturalistes</a>
+                <a class="btn btn-default">Modérer observations</a>
+                <a class="btn btn-default">Exporter les données</a>
+            {% endif %}
+        </div>
+    <div class="btn-group-vertical visible-xs">
 
         {% if (is_granted('ROLE_ADMIN') == false and (is_granted('ROLE_SUPER_ADMIN') == false)) %}
             <a class="btn btn-default" href="{{ path('nao_platform_demande') }}">Devenir naturaliste</a>
         {% endif %}
 
         {% if (is_granted('ROLE_ADMIN') and (is_granted('ROLE_SUPER_ADMIN') == false)) %}
-            <a class="btn btn-default" href="{{ path('nao_profile_observationsenattente') }}">Observations à valider</a>
+            <a class="btn btn-default" href="{{ path('nao_profile_observationsenattente') }}">Observations à
+                valider</a>
         {% endif %}
 
-        {% if not is_granted('ROLE_SUPER_ADMIN')%}
+        {% if not is_granted('ROLE_SUPER_ADMIN') %}
             <a class="btn btn-default" href="{{ path('nao_profile_mesobservations') }}">Mes observations</a>
         {% endif %}
 
         {% if (is_granted('ROLE_ADMIN') and (is_granted('ROLE_SUPER_ADMIN') == false)) %}
-            <a class="btn btn-default" href="{{ path('nao_profile_observationsrefusees') }}">Observations refusées</a>
+            <a class="btn btn-default" href="{{ path('nao_profile_observationsrefusees') }}">Observations
+                refusées</a>
         {% endif %}
 
         {% if is_granted('ROLE_SUPER_ADMIN') %} {#Pour tous les user sauf admin#}
@@ -26,6 +54,5 @@
             <a class="btn btn-default">Exporter les données</a>
         {% endif %}
     </div>
+    </div>
 
-
-</div>
