@@ -55,8 +55,8 @@ class PlatformController extends Controller
     {
         $user = $this->getUser();
         $typeCompte = ($user == null) ? null : $user->getTypeCompte();
-        $form=$this->createForm(RechercheType::class);
 
+        $form=$this->createForm(RechercheType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -68,7 +68,7 @@ class PlatformController extends Controller
             $manager = $this->getDoctrine()->getManager();
             $listObserv = $manager
                 ->getRepository('NAOPlatformBundle:Observation')
-                ->getListObsByNomVernValides($data["nomVern"]);
+                ->getListObsByNomConcatValides($data["nomConcat"]);
 
             // les observations sont encodées en json pour être affichées sur la carte, via le service dédié
             $observation_JSON = $this->get('service_container')->get('nao_platform.jsonencode')->jsonEncode($listObserv);
@@ -77,7 +77,7 @@ class PlatformController extends Controller
                 'form' => $form->createView(),
                 'observation_JSON' => $observation_JSON,
                 'typeCompte' => $typeCompte,
-                'nomEspece' => $data["nomVern"]
+                'nomEspece' => $data["nomConcat"]
             ));
         }
 

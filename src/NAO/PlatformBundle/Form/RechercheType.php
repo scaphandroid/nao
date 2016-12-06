@@ -17,7 +17,7 @@ class RechercheType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nomVern', SearchType::class)
+            ->add('nomConcat', SearchType::class)
             ->add('rechercher', SubmitType::class);
     }
 

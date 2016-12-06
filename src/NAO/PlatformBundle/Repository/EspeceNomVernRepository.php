@@ -12,7 +12,7 @@ class EspeceNomVernRepository extends \Doctrine\ORM\EntityRepository
 {
     function findLikeByName($name){
         $qb = $this->createQueryBuilder('e')
-            ->where('e.nomVern LIKE :name OR e.nomComplet LIKE :name')
+            ->where('e.nomConcat LIKE :name')
             ->setParameter('name', "%$name%")
             ->orderBy('e.nomVern')
             ->setMaxResults(10);

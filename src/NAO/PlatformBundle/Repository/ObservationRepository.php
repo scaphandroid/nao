@@ -79,6 +79,18 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    function getListObsByNomConcatValides($nomConcat){
+        $qb = $this->createQueryBuilder('obs')
+            ->leftJoin('obs.especeNomVern', 'especeNV')
+            ->where('especeNV.nomConcat = :nomConcat')
+            ->andWhere('obs.valide = :valide')
+            ->setParameters(array(
+                'nomConcat'=> $nomConcat,
+                'valide' => true
+            ));
+        return $qb->getQuery()->getResult();
+    }
+
  /*   function getListObsByNomLatin($id)    {
         $qb = $this->createQueryBuilder('obs')
             ->leftJoin('obs.EspeceNomLatin', 'especeNL')
