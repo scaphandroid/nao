@@ -5,3 +5,7 @@ services:
 
     nao_platform.jsonencode:
         class: NAO\PlatformBundle\Services\JsonEncode\NAOJsonEncode
+
+    nao_platform.fileuploader:
+        class: NAO\PlatformBundle\Services\FileUploader\NAOFileUploader
+        arguments: ['%photos_directory%']

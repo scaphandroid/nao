@@ -290,11 +290,11 @@ class Observation
     /**
      * Set photo
      *
-     * @param File $photo
+     * @param String $photo
      *
      * @return Observation
      */
-    public function setPhoto(File $photo)
+    public function setPhoto($photo)
     {
         $this->photo = $photo;
 
