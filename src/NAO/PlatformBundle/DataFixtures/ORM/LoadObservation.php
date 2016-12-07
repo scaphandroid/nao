@@ -17,10 +17,7 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
     public function load(ObjectManager $manager)
     {
 
-        // On crée 4 observations qu'on va assigner à nos user
-
-        $photo = new File(__DIR__ .'/../../../../../web/images/oiseau1.jpg');
-
+        // On crée 5 observations qu'on va assigner à nos user
         $listObservations = array(
             array(
                 'dateObserv' => new \DateTime('2016-11-20'),
@@ -31,7 +28,8 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
                 'valide' => true,
                 'enAttente' => false,
                 'validateur' => null,
-                'user' => 'user-admin'),
+                'user' => 'user-admin',
+                'photo' => 'oiseau1.jpg',),
             array(
                 'dateObserv' => new \DateTime('2016-11-15'),
                 'especeVern' => 'Colibri tout-vert ',
@@ -41,7 +39,8 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
                 'valide' => false,
                 'enAttente' => true,
                 'validateur' => null,
-                'user' => 'user-part2'),
+                'user' => 'user-part2',
+                'photo' => 'oiseau2.jpg',),
             array(
                 'dateObserv' => new \DateTime('2016-11-11'),
                 'especeVern' => 'Pluvier guignard',
@@ -51,7 +50,8 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
                 'valide' => true,
                 'enAttente' => false,
                 'validateur' => 'user-nat',
-                'user' => 'user-part1'),
+                'user' => 'user-part1',
+                'photo' => 'oiseau3.jpg',),
             array(
                 'dateObserv' => new \DateTime('2016-11-12'),
                 'especeVern' => 'Bécasseau de Bonaparte, Bécasseau à croupion blanc',
@@ -61,7 +61,8 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
                 'valide' => true,
                 'enAttente' => false,
                 'validateur' => null,
-                'user' => 'user-nat'),
+                'user' => 'user-nat',
+                'photo' => 'oiseau4.jpg',),
             array(
                 'dateObserv' => new \DateTime('2016-11-19'),
                 'especeVern' => 'Pigeon biset',
@@ -71,14 +72,15 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
                 'valide' => false,
                 'enAttente' => false,
                 'validateur' => 'user-nat',
-                'user' => 'user-part1')
+                'user' => 'user-part1',
+                'photo' => 'oiseau4.jpg',),
         );
 
         foreach ($listObservations as $listObservation) {
             $observation = new Observation();
             $observation->setDateObs($listObservation['dateObserv']);
             $observation->setEspeceNomVern($this->getReference($listObservation['especeVern']));
-            $observation->setPhoto($photo);
+            $observation->setPhoto($listObservation['photo']);
             $observation->setLocalise($listObservation['localise']);
             $observation->setLat($listObservation['lat']);
             $observation->setLon($listObservation['long']);
