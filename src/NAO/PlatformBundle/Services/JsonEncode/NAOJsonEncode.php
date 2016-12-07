@@ -12,7 +12,7 @@ class NAOJsonEncode
             $observation[$i] = array(
                 "username" => $listObserv[$i]->getUser()->getUsername(),
                 "date" => $listObserv[$i]->getDateObs()->format('d-m-Y'),
-                "photoObs" => basename($listObserv[$i]->getPhoto()),
+                "photoObs" => $listObserv[$i]->getPhoto(),
                 "lat" => $listObserv[$i]->getLat(),
                 "lon" => $listObserv[$i]->getLon(),
                 "valide" => $listObserv[$i]->getValide(),
