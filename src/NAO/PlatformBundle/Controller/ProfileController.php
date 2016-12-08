@@ -10,6 +10,7 @@ use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
 use NAO\PlatformBundle\Entity\User;
+use NAO\PlatformBundle\Form\NaturalisteType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -217,6 +218,18 @@ class ProfileController extends Controller
         return $this->render('FOSUserBundle:Profile:devenirNaturaliste.html.twig', array(
             'user'=> $user,
             'form' => $form->createView(),
+        ));
+    }
+
+    public function detailCompteNaturalisteAction(Request $request, User $naturaliste) {
+        $user = $this->getUser();
+        $form = $this->createForm(NaturalisteType::class, $naturaliste);
+
+
+        return $this->render('FOSUserBundle:Profile:detailCompteNaturaliste.html.twig', array(
+            'user'=> $user,
+            'naturaliste' => $naturaliste,
+            'form' => $form->createView()
         ));
     }
 }

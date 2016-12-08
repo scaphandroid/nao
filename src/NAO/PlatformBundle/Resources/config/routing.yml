@@ -42,6 +42,13 @@ nao_profile_listenaturalistes:
     path:    /profile/admin/listenaturalistes
     defaults: { _controller: NAOPlatformBundle:Profile:listeNaturalistes}
 
+nao_profile_detailCompteNaturaliste:
+    path:    /profile/admin/detailnaturaliste/{id}
+    defaults: { _controller: NAOPlatformBundle:Profile:detailCompteNaturaliste}
+    methods:  [GET, POST]
+    requirements:
+            id : \d+
+
 nao_profile_observationsrefusees:
     path:    /profile/observationsrefusees
     defaults: { _controller: NAOPlatformBundle:Profile:observationRefusees}
