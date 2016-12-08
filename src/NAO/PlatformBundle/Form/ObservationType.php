@@ -23,16 +23,20 @@ class ObservationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('especeNomVern', TextType::class) // il existe des bundle d'autocompletion AutocompleteType
+            ->add('especeNomVern', 'PUGX\AutocompleterBundle\Form\Type\AutocompleteType', ['class' => 'NAO\PlatformBundle\Entity\EspeceNomVern'])
+            ->add('lat', NumberType::class)
+            ->add('lon', NumberType::class)
             ->add('localise', CheckboxType::class, array(
                 'label'    => 'Je suis sur place',
                 'required' => false,
             ))
             ->add('dateObs', DateTimeType::class, array(
-                'date_format' => 'dd-MM-yyyy',
+                'date_format' => 'dd  MM  yyyy',
                 'date_widget' => 'choice'
             ))
-            ->add('photo', FileType::class )
+            ->add('photo', FileType::class, array(
+                'required' => false
+            ))
             ->add('valider',SubmitType::class);
     }
     

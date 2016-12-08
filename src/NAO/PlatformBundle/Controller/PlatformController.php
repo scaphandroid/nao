@@ -6,18 +6,36 @@ use NAO\PlatformBundle\Entity\EspeceNomVern;
 use NAO\PlatformBundle\Entity\Observation;
 use NAO\PlatformBundle\Entity\User;
 use NAO\PlatformBundle\Form\EspeceNomVernType;
+use NAO\PlatformBundle\Form\RechercheType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use NAO\PlatformBundle\Form\ObservationType;
 use NAO\PlatformBundle\Form\UserType;
 use NAO\PlatformBundle\Form\UserParticulierType;
 use Symfony\Component\HttpFoundation\Request;
+use PUGX\AutocompleterBundle\Form\Type\AutocompleteType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\HttpFoundation\Cookie;
 
 
 class PlatformController extends Controller
 {
-    public function indexAction(Request $request)
+    public function indexAction(Request $request, Cookie $cookie)
     {
+        $cookie_info = array(
+            'name' => 'charte',
+            'value' => 'accepted',
+            'time' => time() + 3600 * 24 * 7
+        );
+        $cookie = new Cookie($cookie_info['name'], $cookie_info['value'], $cookie_info['value']);
+        $response = new Response();
+        $response->headers->setCookie($cookie);
+        $response->send();
+
+        $user = $this->getUser();
+        $typeCompte = ($user == null) ? null : $user->getTypeCompte();
         $espece = new EspeceNomVern();
         $form = $this->createForm(EspeceNomVernType::class, $espece);
 
@@ -31,24 +49,46 @@ class PlatformController extends Controller
         $manager = $this->getDoctrine()->getManager();
         $listDerObs = $manager
             ->getRepository('NAOPlatformBundle:Observation')
-            ->getDerObs(10); //Observation des 10 derniers jours
+            ->getDerObsValides(30); //Observation des X derniers jours
+
+        // les observations sont encodées en json pour être affichées sur la carte, via le service dédié
+        $observation_JSON = $this->get('service_container')->get('nao_platform.jsonencode')->jsonEncode($listDerObs);
 
         return $this->render('NAOPlatformBundle:Platform:index.html.twig', array(
             'form' => $form->createView(),
-            'DerObs' => $listDerObs
+            'DerObs' => $listDerObs,
+            'observation_JSON' => $observation_JSON,
+            'typeCompte' => $typeCompte,
         ));
     }
 
     public function rechercherAction(Request $request)
     {
-        $espece = new EspeceNomVern();
-        $form = $this->createForm(EspeceNomVernType::class, $espece);
+        $user = $this->getUser();
+        $typeCompte = ($user == null) ? null : $user->getTypeCompte();
+        $form=$this->createForm(RechercheType::class);
 
-        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            // data is an array with "nomVern" keys
+            $data = $form->getData();
+
             /*Afficher la carte avec l'espece recherchée */
+            $manager = $this->getDoctrine()->getManager();
+            $listObserv = $manager
+                ->getRepository('NAOPlatformBundle:Observation')
+                ->getListObsByNomVernValides($data["nomVern"]);
+
+            // les observations sont encodées en json pour être affichées sur la carte, via le service dédié
+            $observation_JSON = $this->get('service_container')->get('nao_platform.jsonencode')->jsonEncode($listObserv);
+
             return $this->render('NAOPlatformBundle:Platform:rechercher.html.twig', array(
                 'form' => $form->createView(),
-                'espece' => $espece
+                'observation_JSON' => $observation_JSON,
+                'typeCompte' => $typeCompte,
+                'nomEspece' => $data["nomVern"]
             ));
         }
 
@@ -60,18 +100,37 @@ class PlatformController extends Controller
 
     public function observerAction(Request $request)
     {
+        $user = $this->getUser();
+
+        if($user === null){
+            $request->getSession()->getFlashBag()->add('notice', 'Merci de vous enregistrer pour réaliser une observation !');
+            return $this->redirectToRoute('fos_user_security_login');
+        }
+
         $observation = new Observation();
         $form = $this->createForm(ObservationType::class, $observation);
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
 
+            if($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN'))
+            {
+                $observation->setValide(true);
+                $observation->setEnAttente(false);
+                $request->getSession()->getFlashBag()->add('notice', 'Observation bien enregistrée.');
+            }
+            else
+            {
+                $observation->setValide(false);
+                $observation->setEnAttente(true);
+                $request->getSession()->getFlashBag()->add('notice', 'Observation bien enregistrée. En attente de validation.');
+            }
+            $observation->setUser($user);
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($observation);
             $em->flush();
-            /*Faire une disctinction du message si particulier ou naturaliste */
-            $request->getSession()->getFlashBag()->add('notice', 'Observation bien enregistrée.');
-            return $this->redirectToRoute('nao_platform_home');
 
+            return $this->redirectToRoute('nao_platform_home');
         }
 
         return $this->render('NAOPlatformBundle:Platform:observer.html.twig', array(

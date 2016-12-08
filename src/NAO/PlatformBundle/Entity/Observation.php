@@ -49,6 +49,10 @@ class Observation
     /**
      * @var string
      *
+     * @Assert\Type(
+     *     type="float",
+     *     message="Latitude incohérente !"
+     * )
      * @ORM\Column(name="lat", type="float")
      */
     private $lat;
@@ -56,6 +60,10 @@ class Observation
     /**
      * @var string
      *
+     * @Assert\Type(
+     *     type="float",
+     *     message="Latitude incohérente !"
+     * )
      * @ORM\Column(name="lon", type="float")
      */
     private $lon;
@@ -64,6 +72,11 @@ class Observation
      * @var \DateTime
      *
      * @ORM\Column(name="date_obs", type="datetimetz")
+     * @Assert\DateTime()
+     * @Assert\LessThanOrEqual(
+     *      "now UTC",
+     *      message = "merci de vérifier la date de l'observation, nous n'enregistrons pas les observations du futur.."
+     * )
      */
     private $dateObs;
 
@@ -108,6 +121,35 @@ class Observation
      */
     private $valide;
 
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="en_attente", type="boolean")
+     */
+    private $enAttente;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="commentaire_p", type="text", nullable=true)
+     */
+    private $commentaireP;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="commentaire_n", type="text", nullable=true)
+     */
+    private $commentaireN;
+
+    /**
+     * @var string
+     *
+     * @ORM\ManyToOne(targetEntity="NAO\PlatformBundle\Entity\User")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $validateur;
+
 
     public function __construct()
     {
@@ -142,7 +184,7 @@ class Observation
     /**
      * Get especeNomVern
      *
-     * @return string
+     * @return \NAO\PlatformBundle\Entity\especeNomVern
      */
     public function getEspeceNomVern()
     {
@@ -363,5 +405,101 @@ class Observation
     public function getEspeceNomLatin()
     {
         return $this->especeNomLatin;
+    }
+
+    /**
+     * Set commentaireP
+     *
+     * @param string $commentaireP
+     *
+     * @return Observation
+     */
+    public function setCommentaireP($commentaireP)
+    {
+        $this->commentaireP = $commentaireP;
+
+        return $this;
+    }
+
+    /**
+     * Get commentaireP
+     *
+     * @return string
+     */
+    public function getCommentaireP()
+    {
+        return $this->commentaireP;
+    }
+
+    /**
+     * Set commentaireN
+     *
+     * @param string $commentaireN
+     *
+     * @return Observation
+     */
+    public function setCommentaireN($commentaireN)
+    {
+        $this->commentaireN = $commentaireN;
+
+        return $this;
+    }
+
+    /**
+     * Get commentaireN
+     *
+     * @return string
+     */
+    public function getCommentaireN()
+    {
+        return $this->commentaireN;
+    }
+
+    /**
+     * Set validateur
+     *
+     * @param \NAO\PlatformBundle\Entity\User $validateur
+     *
+     * @return Observation
+     */
+    public function setValidateur(\NAO\PlatformBundle\Entity\User $validateur = null)
+    {
+        $this->validateur = $validateur;
+
+        return $this;
+    }
+
+    /**
+     * Get validateur
+     *
+     * @return \NAO\PlatformBundle\Entity\User
+     */
+    public function getValidateur()
+    {
+        return $this->validateur;
+    }
+
+    /**
+     * Set enAttente
+     *
+     * @param boolean $enAttente
+     *
+     * @return Observation
+     */
+    public function setEnAttente($enAttente)
+    {
+        $this->enAttente = $enAttente;
+
+        return $this;
+    }
+
+    /**
+     * Get enAttente
+     *
+     * @return boolean
+     */
+    public function getEnAttente()
+    {
+        return $this->enAttente;
     }
 }

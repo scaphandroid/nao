@@ -18,12 +18,37 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    function getListObsNonvalide() {
+    function getListObsNonvalideEnAttente() {
         $qb = $this->createQueryBuilder('obs')
             ->leftJoin('obs.user', 'user')
             ->where('obs.valide = :valide')
             ->andWhere('user.typeCompte = :typeCompte')
-            ->setParameters(array('valide' => false, 'typeCompte' => 0));
+            ->andWhere('obs.enAttente = :enAttente')
+            ->setParameters(array('valide' => false, 'typeCompte' => 0, 'enAttente' => true));
+        return $qb->getQuery()->getResult();
+    }
+
+    //pour récupérer les observations traitées par un naturaliste
+    function getListObsTraiteeParNaturaliste($id) {
+        $qb = $this->createQueryBuilder('obs')
+            ->leftJoin('obs.validateur', 'user')
+            ->where('user.id = :id')
+            ->setParameter('id', $id);
+        return $qb->getQuery()->getResult();
+    }
+
+    //pour récupérer les observations refusées par un naturaliste
+    function getListObsRefuseesParNaturaliste($id) {
+        $qb = $this->createQueryBuilder('obs')
+            ->leftJoin('obs.validateur', 'user')
+            ->where('user.id = :id')
+            ->andWhere('obs.valide = :valid')
+            ->andWhere('obs.enAttente = :enAttente')
+            ->setParameters(array(
+                'id'=> $id,
+                'valid'=>false,
+                'enAttente'=>false
+            ));
         return $qb->getQuery()->getResult();
     }
 
@@ -31,26 +56,34 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
         return $this->createQueryBuilder('obs')->getQuery()->getResult();
     }
 
-    function getDerObs($jours) { // Observation des X derniers jours / à mettre sur la page d'accueil ?
+    function getDerObsValides($jours) { // Observation des X derniers jours / à mettre sur la page d'accueil ?
         $qb = $this->createQueryBuilder('obs')
             ->where('obs.dateObs > :todayMoinsJours')
-            ->setParameter('todayMoinsJours', (new \Datetime())->sub(new \DateInterval('P'.$jours.'D')) );
+            ->andWhere('obs.valide = :valide')
+            ->setParameters(array(
+                'todayMoinsJours' => (new \Datetime())->sub(new \DateInterval('P'.$jours.'D')),
+                'valide' => true
+                ));
         return $qb->getQuery()->getResult();
     }
 
-    function getListObsByNomVern($id)    {
+    function getListObsByNomVernValides($nomVern)    {
         $qb = $this->createQueryBuilder('obs')
-            ->leftJoin('obs.EspeceNomVern', 'especeNV')
-            ->where('especeNV.id = :id_NV')
-            ->setParameter('id_NV', $id);
+            ->leftJoin('obs.especeNomVern', 'especeNV')
+            ->where('especeNV.nomVern = :nomVern')
+            ->andWhere('obs.valide = :valide')
+            ->setParameters(array(
+                'nomVern'=> $nomVern,
+                'valide' => true
+                ));
         return $qb->getQuery()->getResult();
     }
 
-    function getListObsByNomLatin($id)    {
+ /*   function getListObsByNomLatin($id)    {
         $qb = $this->createQueryBuilder('obs')
             ->leftJoin('obs.EspeceNomLatin', 'especeNL')
             ->where('especeNL.id = :id_NL')
             ->setParameter('id_NL', $id);
         return $qb->getQuery()->getResult();
-    }
+    }*/
 }

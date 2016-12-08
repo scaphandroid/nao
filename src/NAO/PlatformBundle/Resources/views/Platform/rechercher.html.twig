@@ -4,28 +4,48 @@
 {% endblock %}
 
 {% block body %}
-
+    <div class="container">
         <h3>Formulaire de recherche</h3>
         <div class="well">
                 {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
                 {{ form_errors(form) }}
 
-            <div class="form-group">
-                    {{ form_label(form.nomVern, "Nom vernaculaire de l'espèce", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+            <div class="form-group form_search">
+                    {{ form_label(form.nomVern, "Veuillez saisir le nom d'une espèce :", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
                     {{ form_errors(form.nomVern) }}
-                <div class="col-sm-3">
+                <div class="col-sm-3 btw_form">
                         {{ form_widget(form.nomVern, {'attr': {'class': 'form-control'}}) }}
                 </div>
-                {{ form_widget(form.rechercher, {'attr': {'class': 'btn btn-primary'}}) }}
+                {{ form_widget(form.rechercher, {'attr': {'class': 'btn btn-primary col-xs-3 decal_btn'}}) }}
             </div>
             {{ form_rest(form) }}
             {{ form_end(form) }}
         </div>
         <div>
-            {% if espece is defined %}
-                <h3>Affichage des résultats de l'espèce {{ espece.nomVern }}</h3>
+            {% if (observation_JSON is defined) %}
+                {%  if (observation_JSON == '[]') %}
+                     <div><p class="text-center">Aucune observation pour ce nom d'espèce "{{ nomEspece }}".</p></div>
+                {%  else %}
+                    <h3 class="text-center">Observations de l'espèce {{ nomEspece }}</h3>
+                    <div id="map"></div>
+                    <div id="observation" class="hidden"> <!-- -->
+                        {{ observation_JSON }}
+                    </div>
+                    <div id="typeCompte" > <!-- class="hidden" -->
+                        {{ typeCompte }}
+                    </div>
+                {% endif %}
             {% endif %}
 
         </div>
+    </div>
+
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQcmtlhakbZxEK68_wVMjV59kWTyPK9eA&region=FR&callback=initMapHomeRechercher">
+    </script>
 
 {% endblock %}

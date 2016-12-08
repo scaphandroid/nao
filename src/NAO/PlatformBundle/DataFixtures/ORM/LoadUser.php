@@ -35,6 +35,7 @@ class LoadUser extends AbstractFixture implements OrderedFixtureInterface, Conta
                 'profession' => 'naturaliste',
                 'enabled' => true,
                 'typeCompte' => 2,
+                'enAttente' => false,
                 'role' => 'ROLE_SUPER_ADMIN',
                 'reference' => 'user-admin'),
             array(
@@ -46,6 +47,7 @@ class LoadUser extends AbstractFixture implements OrderedFixtureInterface, Conta
                 'profession' => 'Biologiste',
                 'enabled' => true,
                 'typeCompte' => 1,
+                'enAttente' => false,
                 'role' => 'ROLE_ADMIN',
                 'reference' => 'user-nat'),
             array(
@@ -57,6 +59,7 @@ class LoadUser extends AbstractFixture implements OrderedFixtureInterface, Conta
                 'profession' => 'medecin',
                 'enabled' => true,
                 'typeCompte' => 0,
+                'enAttente' => false,
                 'role' => 'ROLE_USER',
                 'reference' => 'user-part1'),
             array(
@@ -68,6 +71,7 @@ class LoadUser extends AbstractFixture implements OrderedFixtureInterface, Conta
                 'profession' => 'chercheur',
                 'enabled' => true,
                 'typeCompte' => 0,
+                'enAttente' => false,
                 'role' => 'ROLE_USER',
                 'reference' => 'user-part2'),
             array(
@@ -79,6 +83,7 @@ class LoadUser extends AbstractFixture implements OrderedFixtureInterface, Conta
                 'profession' => 'chercheur bis',
                 'enabled' => false,
                 'typeCompte' => 1,
+                'enAttente' => true,
                 'role' => 'ROLE_USER',
                 'reference' => 'user-part3')
         );
@@ -93,6 +98,7 @@ class LoadUser extends AbstractFixture implements OrderedFixtureInterface, Conta
             $user->setProfession($listUser['profession']);
             $user->setEnabled($listUser['enabled']);
             $user->setTypeCompte($listUser['typeCompte']);
+            $user->setEnAttente($listUser['enAttente']);
             $user->addRole($listUser['role']);
             $this->addReference($listUser['reference'], $user);
             $userManager->updateUser($user);
