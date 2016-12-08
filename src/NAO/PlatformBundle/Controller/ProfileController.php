@@ -137,4 +137,33 @@ class ProfileController extends Controller
             'ObservRefusees' => $observRefusees
         ));
     }
+
+    public function observationAction($id, Request $request){
+
+        $user = $this->getUser();
+        if (!is_object($user) || !$user instanceof UserInterface) {
+            $request->getSession()->getFlashBag()->add('notice', 'Cet espace est réservé aux utilisateurs enregistrés !');
+            return $this->redirectToRoute('fos_user_security_login');
+        }
+
+        $observation = $this->getDoctrine()->getManager()->getRepository('NAOPlatformBundle:Observation')->find($id);
+
+        // vérification des accès
+        $checker = $this->get('security.authorization_checker');
+        // un particulier ne peut consulter que sa propre observation
+        if ($checker->isGranted('ROLE_ADMIN') == false && $observation->getUser() !== $user->getId())
+        {
+            $request->getSession()->getFlashBag()->add('notice', 'Cet espace ne vous est pas accessible !');
+            return $this->redirectToRoute('fos_user_profile_show');
+        }
+        // TODO Mettre d'autres limitations?
+
+        $observation_JSON = $this->get('nao_platform.jsonencode')->jsonEncode(array($observation));
+        
+        return $this->render('@NAOPlatform/Profile/observation.html.twig', array(
+            "observation" => $observation,
+            "user" => $user,
+            'observation_JSON' => $observation_JSON,
+        ));
+    }
 }

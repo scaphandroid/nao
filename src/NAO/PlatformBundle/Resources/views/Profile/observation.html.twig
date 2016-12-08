@@ -1,0 +1,41 @@
+{% extends "NAOPlatformBundle::layout.html.twig" %}
+{% block title %}
+    Observation
+{% endblock %}
+
+{% block body %}
+
+    {% block fos_user_content %}
+
+        {% include "NAOPlatformBundle:Profile:profile-layout.html.twig" %}
+
+        <div class="row well col-lg-offset-4 col-lg-4 col-lg-offset-4 col-sm-offset-3 col-sm-6 col-sm-offset-3">
+            <h2>Observation {{ observation.id }}</h2>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <p>Date de l'observation: {{ observation.dateObs|date('d/m/Y H:i') }} </p>
+                    <p>Date de saisie: {{ observation.dateSaisie|date('d/m/Y H:i') }}</p>
+                    <p>Nom de l'espèce : {{ observation.especeNomVern.nomVern }} </p>
+                    <p>Coordonnées GPS : {{ observation.lat }}, {{ observation.lon }} </p>
+                    <div id="map"></div>
+                    <div id="observation" class="hidden">
+                        {{ observation_JSON }}
+                    </div>
+                    <p>Photo: <img class="img-responsive" src="{{ asset('uploads/photos/' ~ observation.photo) }}"></p>
+                    <p>Commentaire de l'observateur : {{ observation.commentaireP }}</p>
+                    <p>Statut : {% if observation.valide %}Valide{% elseif observation.enAttente %}En attente{% else %}Invalide{% endif %}</p>
+                    <a class="btn btn-primary" href="#">Valider l'observation</a>
+                </li>
+            </ul>
+        </div>
+
+    {% endblock %}
+
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQcmtlhakbZxEK68_wVMjV59kWTyPK9eA&region=FR&callback=initMapProfile">
+    </script>
+{% endblock %}
