@@ -12,12 +12,10 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
 {
     function getComptesNatNonValides() {
         $qb = $this->createQueryBuilder('user')
-            ->where('user.enabled = :valide')
-            ->andWhere('user.typeCompte = :typeCompte')
+            ->where('user.typeCompte = :typeCompte')
             ->andWhere('user.enAttente = :enAttente')
             ->setParameters(array(
-                'valide' => false,
-                'typeCompte' => 1, //Lors de la soumission de la demande le type de compte évolue de 0 à 1
+                'typeCompte' => 0,
                 'enAttente' => true
         ));
         return $qb->getQuery()->getResult();

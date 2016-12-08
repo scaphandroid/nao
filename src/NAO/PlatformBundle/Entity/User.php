@@ -92,7 +92,7 @@ class User extends BaseUser
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_demande", type="datetimetz")
+     * @ORM\Column(name="date_inscription", type="datetimetz")
      */
     protected $dateInscription;
 

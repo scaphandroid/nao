@@ -46,6 +46,10 @@ nao_profile_observationsrefusees:
     path:    /profile/observationsrefusees
     defaults: { _controller: NAOPlatformBundle:Profile:observationRefusees}
 
+nao_profile_devenirnaturaliste:
+    path:    /profile/devenirnaturaliste
+    defaults: { _controller: NAOPlatformBundle:Profile:devenirNaturaliste}
+
 fos_user_security_login:
     path:     /connexion
     defaults: { _controller: NAOPlatformBundle:Security:login}
@@ -59,6 +63,11 @@ fos_user_security_check:
 fos_user_security_logout:
     path:     /deconnexion
     defaults: { _controller: FOSUserBundle:Security:logout}
+    methods:  [GET, POST]
+
+fos_user_registration_register:
+    path:     /
+    defaults: { _controller: NAOPlatformBundle:Registration:register}
     methods:  [GET, POST]
 
 fos_user_profile:

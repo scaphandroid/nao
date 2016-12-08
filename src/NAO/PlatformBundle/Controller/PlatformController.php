@@ -10,7 +10,7 @@ use NAO\PlatformBundle\Form\RechercheType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use NAO\PlatformBundle\Form\ObservationType;
-use NAO\PlatformBundle\Form\UserType;
+use NAO\PlatformBundle\Form\NaturalisteType;
 use NAO\PlatformBundle\Form\UserParticulierType;
 use Symfony\Component\HttpFoundation\Request;
 use PUGX\AutocompleterBundle\Form\Type\AutocompleteType;
@@ -143,36 +143,21 @@ class PlatformController extends Controller
         ));
     }
 
-/*    public function compteAction(Request $request)
-    {
-        $particulier = new User();
-        $form = $this->createForm(UserParticulierType::class, $particulier);
-
-        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-            /* modifier certains attributs comme "valide", "role"*/
- /*           $em = $this->getDoctrine()->getManager();
-            $em->persist($particulier);
-            $em->flush();
-            $request->getSession()->getFlashBag()->add('notice', 'Compte enregistré. Vous allez recevoir un email de confirmation.');
-            // Faire une page avec message du type : Vous allez recevoir un email vous demandant de cliquer pour valider la création de votre compte ?
-            return $this->redirectToRoute('nao_platform_home');
-        }
-
-        return $this->render('NAOPlatformBundle:Platform:compte.html.twig', array(
-            'formInscription' => $form->createView()
-        ));
-    }*/
+    /* devenir naturaliste */
 
     public function demandeAction(Request $request)
     {
-        $naturaliste = new User();
-        $form = $this->createForm(UserType::class, $naturaliste);
+        $userManager = $this->get('fos_user.user_manager');
+        $naturaliste = $userManager->createUser();
+
+        $form = $this->createForm(NaturalisteType::class, $naturaliste);
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-            /* modifier certains attributs comme "valide"*/
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($naturaliste);
-            $em->flush();
+            $naturaliste->setEnabled(false);
+            $naturaliste->setValide(false);
+            $naturaliste->setTypeCompte(0); /* a modifier qd l'admin le valide*/
+            $naturaliste->setEnAttente(true);
+            $userManager->updateUser($naturaliste);
 
             $request->getSession()->getFlashBag()->add('notice', 'Demande de compte naturaliste bien enregistrée. Vous allez être contacter par nos équipes.');
             return $this->redirectToRoute('nao_platform_home');

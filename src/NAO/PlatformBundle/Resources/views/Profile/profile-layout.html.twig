@@ -5,7 +5,7 @@
         <div class="btn-group btn-group-justified hidden-xs text-center">
 
             {% if (is_granted('ROLE_ADMIN') == false and (is_granted('ROLE_SUPER_ADMIN') == false)) %}
-                <a class="btn btn-default" href="{{ path('nao_platform_demande') }}">Devenir naturaliste</a>
+                <a class="btn btn-default" href="{{ path('nao_profile_devenirnaturaliste') }}">Devenir naturaliste</a>
             {% endif %}
 
             {% if (is_granted('ROLE_ADMIN') and (is_granted('ROLE_SUPER_ADMIN') == false)) %}
@@ -31,7 +31,7 @@
     <div class="btn-group-vertical visible-xs">
 
         {% if (is_granted('ROLE_ADMIN') == false and (is_granted('ROLE_SUPER_ADMIN') == false)) %}
-            <a class="btn btn-default" href="{{ path('nao_platform_demande') }}">Devenir naturaliste</a>
+            <a class="btn btn-default" href="{{ path('nao_profile_devenirnaturaliste') }}">Devenir naturaliste</a>
         {% endif %}
 
         {% if (is_granted('ROLE_ADMIN') and (is_granted('ROLE_SUPER_ADMIN') == false)) %}
