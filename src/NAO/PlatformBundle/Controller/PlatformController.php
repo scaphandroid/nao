@@ -22,18 +22,14 @@ use Symfony\Component\HttpFoundation\Cookie;
 
 class PlatformController extends Controller
 {
-    public function indexAction(Request $request, Cookie $cookie)
+    public function indexAction(Request $request)
     {
-        $cookie_info = array(
-            'name' => 'charte',
-            'value' => 'accepted',
-            'time' => time() + 3600 * 24 * 7
-        );
-        $cookie = new Cookie($cookie_info['name'], $cookie_info['value'], $cookie_info['value']);
-        $response = new Response();
-        $response->headers->setCookie($cookie);
-        $response->send();
-
+        $first_visit = $request->cookies->has('popup_first_visit');
+        if(!$first_visit) {
+            $response = new Response();
+            $response->headers->setCookie(new Cookie('popup_first_visit', 'charte_not_approved', time() + 3600 * 24 * 365, '/'));
+            $response->send();
+        }
         $user = $this->getUser();
         $typeCompte = ($user == null) ? null : $user->getTypeCompte();
         $espece = new EspeceNomVern();
@@ -59,6 +55,7 @@ class PlatformController extends Controller
             'DerObs' => $listDerObs,
             'observation_JSON' => $observation_JSON,
             'typeCompte' => $typeCompte,
+            'first_visit' => $first_visit
         ));
     }
 

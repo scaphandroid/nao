@@ -4,25 +4,33 @@
 {% endblock %}
 
 {% block body %}
-    {# Début de la charte en pop up non bloquante#}
-    <div id="charte_popup" title="Charte d'engagement">
-        <h4 class="text-center">Charte d'engagement</h4>
-        <div class="well text-center" style="overflow-y: scroll; max-height: 250px;">
-        <p>Ac ne quis a nobis hoc ita dici forte miretur, quod alia quaedam in hoc
-            facultas sit ingeni, neque
-            haec dicendi ratio aut disciplina, ne nos quidem huic uni studio penitus umquam dediti fuimus. Etenim omnes
-            artes, quae ad humanitatem pertinent, habent quoddam commune vinculum, et quasi cognatione quadam inter se
-            continentur.</p>
-        <p>Ac ne quis a nobis hoc ita dici forte miretur, quod alia quaedam in hoc
-            facultas sit ingeni, neque
-            haec dicendi ratio aut disciplina, ne nos quidem huic uni studio penitus umquam dediti fuimus. Etenim omnes
-            artes, quae ad humanitatem pertinent, habent quoddam commune vinculum, et quasi cognatione quadam inter se
-            continentur.</p>
+    {% if first_visit is defined and first_visit == true %}
+        {{ dump(first_visit) }}
+        {# Début de la charte en pop up non bloquante#}
+        <div id="charte_popup" title="Charte d'engagement">
+            <h4 class="text-center">Charte d'engagement</h4>
+            <div class="well text-center" style="overflow-y: scroll; max-height: 250px;">
+                <p>Ac ne quis a nobis hoc ita dici forte miretur, quod alia quaedam in hoc
+                    facultas sit ingeni, neque
+                    haec dicendi ratio aut disciplina, ne nos quidem huic uni studio penitus umquam dediti fuimus.
+                    Etenim omnes
+                    artes, quae ad humanitatem pertinent, habent quoddam commune vinculum, et quasi cognatione quadam
+                    inter se
+                    continentur.</p>
+                <p>Ac ne quis a nobis hoc ita dici forte miretur, quod alia quaedam in hoc
+                    facultas sit ingeni, neque
+                    haec dicendi ratio aut disciplina, ne nos quidem huic uni studio penitus umquam dediti fuimus.
+                    Etenim omnes
+                    artes, quae ad humanitatem pertinent, habent quoddam commune vinculum, et quasi cognatione quadam
+                    inter se
+                    continentur.</p>
+            </div>
+            <div class="text-center">
+                    <button class="charte_popup_close btn btn-success" onClick="{% set first_visit = 'true' %}">J'accepte</button>
+            </div>
         </div>
-        <div class="text-center"><button class="charte_popup_close">J'accepte</button></div>
-    </div>
-    {# Fin de la charte en pop up non bloquante#}
-
+        {# Fin de la charte en pop up non bloquante#}
+    {% endif %}
 
     <section id="bloc_observer" class="row fond-vert">
         <div class="col-md-offset-3 col-md-6 text-center">
@@ -86,5 +94,15 @@
     {{ parent() }}
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQcmtlhakbZxEK68_wVMjV59kWTyPK9eA&region=FR&callback=initMapHomeRechercher">
+    </script>
+    <script>
+        function setCookie(name, value, days2expire, path) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days2expire * 24 * 60 * 60 * 1000));
+            var expires = date.toUTCString();
+            document.cookie = name + '=' + value + ';' +
+                    'expires=' + expires + ';' +
+                    'path=' + path + ';';
+        }
     </script>
 {% endblock %}
