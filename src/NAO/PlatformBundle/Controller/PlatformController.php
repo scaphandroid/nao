@@ -17,12 +17,23 @@ use PUGX\AutocompleterBundle\Form\Type\AutocompleteType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\HttpFoundation\Cookie;
 
 
 class PlatformController extends Controller
 {
-    public function indexAction(Request $request)
+    public function indexAction(Request $request, Cookie $cookie)
     {
+        $cookie_info = array(
+            'name' => 'charte',
+            'value' => 'accepted',
+            'time' => time() + 3600 * 24 * 7
+        );
+        $cookie = new Cookie($cookie_info['name'], $cookie_info['value'], $cookie_info['value']);
+        $response = new Response();
+        $response->headers->setCookie($cookie);
+        $response->send();
+
         $user = $this->getUser();
         $typeCompte = ($user == null) ? null : $user->getTypeCompte();
         $espece = new EspeceNomVern();

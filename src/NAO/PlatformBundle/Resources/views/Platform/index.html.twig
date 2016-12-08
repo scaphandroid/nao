@@ -4,57 +4,87 @@
 {% endblock %}
 
 {% block body %}
-
-<section id="bloc_observer" class="row fond-vert">
-    <div class="col-md-offset-3 col-md-6 text-center">
-        <h1>Découvrez l'ornithologie <span class="saut-de-ligne">et alimentez</span> un projet de recherche innovant.</h1>
-        <h2>Partout en France, partez à la découverte des oiseaux <span class="saut-de-ligne">et enregistrez vos observations.</span></h2>
-        <button class="btn btn-lg bouton-main"><span class="texte-bouton">PARTICIPER</span></button>
-    </div>
-</section>
-
-<section id="bloc_dernieres_obs" class="row">
-    <div class="col-md-offset-3 col-md-6 text-center">
-        <h1>Les dernières observations</h1>
-        <div id="map"></div>
-        <div id="observation" class="hidden"> <!-- -->
-            {{ observation_JSON }}
+    {# Début de la charte en pop up non bloquante#}
+    <div id="charte_popup" title="Charte d'engagement">
+        <h4 class="text-center">Charte d'engagement</h4>
+        <div class="well text-center" style="overflow-y: scroll; max-height: 250px;">
+        <p>Ac ne quis a nobis hoc ita dici forte miretur, quod alia quaedam in hoc
+            facultas sit ingeni, neque
+            haec dicendi ratio aut disciplina, ne nos quidem huic uni studio penitus umquam dediti fuimus. Etenim omnes
+            artes, quae ad humanitatem pertinent, habent quoddam commune vinculum, et quasi cognatione quadam inter se
+            continentur.</p>
+        <p>Ac ne quis a nobis hoc ita dici forte miretur, quod alia quaedam in hoc
+            facultas sit ingeni, neque
+            haec dicendi ratio aut disciplina, ne nos quidem huic uni studio penitus umquam dediti fuimus. Etenim omnes
+            artes, quae ad humanitatem pertinent, habent quoddam commune vinculum, et quasi cognatione quadam inter se
+            continentur.</p>
         </div>
-        <div id="typeCompte" class="hidden"> <!--  -->
-            {{ typeCompte }}
-        </div>
-        <button class="btn btn-lg bouton-main"><span class="texte-bouton">VOIR PLUS</span></button>
+        <div class="text-center"><button class="charte_popup_close">J'accepte</button></div>
     </div>
-</section>
+    {# Fin de la charte en pop up non bloquante#}
 
-<section id="bloc_naturalistes" class="row fond-vert">
-    <div class="col-md-offset-3 col-md-6 text-center">
-        <h1>Naturaliste, <span class="saut-de-ligne">professionnel de l’ornithologie</span> ou amateur éclairé ?</h1>
-        <h2>Aidez notre projet <span class="saut-de-ligne">en participant à la validation des observations.</span></h2>
-        <div class = "row">
-            <div class="col-md-5 bloc-texte">
-                <h3>Notre Projet</h3>
-                <p>
-                    Morbi malesuada mauris sed nibh placerat sit amet posuere libero egestas. Vestibulum consectetur iaculis est, at dapibus purus malesuada vitae. Mauris sollicitudin aliquam scelerisque. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec et mi sem. Duis tristique elementum tristique. Sed ac magna quis erat sagittis suscipit. Phasellus faucibus rhoncus massa, non laoreet lorem fringilla non.
-                </p>
+
+    <section id="bloc_observer" class="row fond-vert">
+        <div class="col-md-offset-3 col-md-6 text-center">
+            <h1>Découvrez l'ornithologie <span class="saut-de-ligne">et alimentez</span> un projet de recherche
+                innovant.</h1>
+            <h2>Partout en France, partez à la découverte des oiseaux <span class="saut-de-ligne">et enregistrez vos observations.</span>
+            </h2>
+            <button class="btn btn-lg bouton-main"><span class="texte-bouton">PARTICIPER</span></button>
+        </div>
+    </section>
+
+    <section id="bloc_dernieres_obs" class="row">
+        <div class="col-md-offset-3 col-md-6 text-center">
+            <h1>Les dernières observations</h1>
+            <div id="map"></div>
+            <div id="observation" class="hidden"> <!-- -->
+                {{ observation_JSON }}
             </div>
-            <div class="col-md-offset-2 col-md-5 bloc-texte">
-                <h3>Notre Charte</h3>
-                <p>
-                    Morbi malesuada mauris sed nibh placerat sit amet posuere libero egestas. Vestibulum consectetur iaculis est, at dapibus purus malesuada vitae. Mauris sollicitudin aliquam scelerisque. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec et mi sem. Duis tristique elementum tristique. Sed ac magna quis erat sagittis suscipit. Phasellus faucibus rhoncus massa, non laoreet lorem fringilla non.
-                </p>
+            <div id="typeCompte" class="hidden"> <!--  -->
+                {{ typeCompte }}
             </div>
+            <button class="btn btn-lg bouton-main"><span class="texte-bouton">VOIR PLUS</span></button>
         </div>
-        <button class="btn btn-lg bouton-main"><span class="texte-bouton">PARTICIPER</span></button>
-    </div>
-</section>
+    </section>
+
+    <section id="bloc_naturalistes" class="row fond-vert">
+        <div class="col-md-offset-3 col-md-6 text-center">
+            <h1>Naturaliste, <span class="saut-de-ligne">professionnel de l’ornithologie</span> ou amateur éclairé ?
+            </h1>
+            <h2>Aidez notre projet <span class="saut-de-ligne">en participant à la validation des observations.</span>
+            </h2>
+            <div class="row">
+                <div class="col-md-5 bloc-texte">
+                    <h3>Notre Projet</h3>
+                    <p>
+                        Morbi malesuada mauris sed nibh placerat sit amet posuere libero egestas. Vestibulum consectetur
+                        iaculis est, at dapibus purus malesuada vitae. Mauris sollicitudin aliquam scelerisque.
+                        Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec et
+                        mi sem. Duis tristique elementum tristique. Sed ac magna quis erat sagittis suscipit. Phasellus
+                        faucibus rhoncus massa, non laoreet lorem fringilla non.
+                    </p>
+                </div>
+                <div class="col-md-offset-2 col-md-5 bloc-texte">
+                    <h3>Notre Charte</h3>
+                    <p>
+                        Morbi malesuada mauris sed nibh placerat sit amet posuere libero egestas. Vestibulum consectetur
+                        iaculis est, at dapibus purus malesuada vitae. Mauris sollicitudin aliquam scelerisque.
+                        Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec et
+                        mi sem. Duis tristique elementum tristique. Sed ac magna quis erat sagittis suscipit. Phasellus
+                        faucibus rhoncus massa, non laoreet lorem fringilla non.
+                    </p>
+                </div>
+            </div>
+            <button class="btn btn-lg bouton-main"><span class="texte-bouton">PARTICIPER</span></button>
+        </div>
+    </section>
 
 {% endblock %}
 
 {% block javascript %}
-{{ parent() }}
+    {{ parent() }}
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQcmtlhakbZxEK68_wVMjV59kWTyPK9eA&region=FR&callback=initMapHomeRechercher">
     </script>
-
 {% endblock %}
