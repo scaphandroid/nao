@@ -68,11 +68,10 @@ class SecurityController extends Controller
 
         $form = $formFactory->createForm();
         $form->setData($user);
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            if ($form->isValid()) {
+               if ($form->isValid()) {
                 $event = new FormEvent($form, $request);
                 $dispatcher->dispatch(UserBundle\FOSUserEvents::REGISTRATION_SUCCESS, $event);
 

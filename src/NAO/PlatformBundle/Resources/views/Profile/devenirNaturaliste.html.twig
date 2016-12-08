@@ -1,0 +1,28 @@
+{% extends "NAOPlatformBundle::layout.html.twig" %}
+{% block title %}
+    Demande de compte naturaliste
+{% endblock %}
+
+
+{% block body %}
+
+    {% block fos_user_content %}
+
+        {% include "NAOPlatformBundle:Profile:profile-layout.html.twig" %}
+
+        <div class="container">
+            <div class="row well">
+                {% if (user.enAttente == true) %}
+                    <p>Vous avez déjà une demande en cours. Merci d'attendre la réponse de nos équipes.</p>
+
+                {% else %}
+                <p>Vous souhaitez faire une demande de compte naturaliste ? Remplissez ce formulaire et nous vous répondrons dans les meilleurs délais.</p>
+                     {{ form(form) }}
+                {% endif %}
+            </div>
+        </div>
+
+    {% endblock %}
+
+{% endblock %}
+
