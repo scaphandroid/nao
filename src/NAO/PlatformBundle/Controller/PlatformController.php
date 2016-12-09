@@ -24,12 +24,8 @@ class PlatformController extends Controller
 {
     public function indexAction(Request $request)
     {
-        $first_visit = $request->cookies->has('popup_first_visit');
-        if(!$first_visit) {
-            $response = new Response();
-            $response->headers->setCookie(new Cookie('popup_first_visit', 'charte_not_approved', time() + 3600 * 24 * 365, '/'));
-            $response->send();
-        }
+        $first_visit = $request->cookies->has('charte');
+
         $user = $this->getUser();
         $typeCompte = ($user == null) ? null : $user->getTypeCompte();
         $espece = new EspeceNomVern();
