@@ -361,7 +361,7 @@ padding-top: 20px;
 .h2_forms{
     text-align: center;
     font-weight: bold;
-    text-decoration: underline;
+    /*text-decoration: underline;*/ /*Special @phil*/
     color:#8FCA33;
 }
 
