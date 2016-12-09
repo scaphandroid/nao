@@ -31,15 +31,7 @@ class Observation
      */
     private $especeNomVern;
 
-    /**
-     * @var string
-     *
-     * @ORM\ManyToOne(targetEntity="NAO\PlatformBundle\Entity\EspeceNomLatin")
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $especeNomLatin;
-
-    /**
+      /**
      * @var bool
      *
      * @ORM\Column(name="localise", type="boolean")
@@ -379,32 +371,6 @@ class Observation
     public function getLocalise()
     {
         return $this->localise;
-    }
-    
-
-
-    /**
-     * Set especeNomLatin
-     *
-     * @param EspeceNomLatin $especeNomLatin
-     *
-     * @return Observation
-     */
-    public function setEspeceNomLatin(EspeceNomLatin $especeNomLatin = null)
-    {
-        $this->especeNomLatin = $especeNomLatin;
-
-        return $this;
-    }
-
-    /**
-     * Get especeNomLatin
-     *
-     * @return \NAO\PlatformBundle\Entity\EspeceNomLatin
-     */
-    public function getEspeceNomLatin()
-    {
-        return $this->especeNomLatin;
     }
 
     /**
