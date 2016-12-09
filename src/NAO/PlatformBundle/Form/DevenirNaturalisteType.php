@@ -23,7 +23,7 @@ class DevenirNaturalisteType extends AbstractType
     {
         $builder
             ->remove('email')
-            ->remove('password')
+            ->remove('plainPassword')
             ->remove('username')
         ;
     }
