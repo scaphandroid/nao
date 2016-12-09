@@ -17,12 +17,19 @@ use PUGX\AutocompleterBundle\Form\Type\AutocompleteType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\HttpFoundation\Cookie;
 
 
 class PlatformController extends Controller
 {
     public function indexAction(Request $request)
     {
+        $first_visit = $request->cookies->has('popup_first_visit');
+        if(!$first_visit) {
+            $response = new Response();
+            $response->headers->setCookie(new Cookie('popup_first_visit', 'charte_not_approved', time() + 3600 * 24 * 365, '/'));
+            $response->send();
+        }
         $user = $this->getUser();
         $typeCompte = ($user == null) ? null : $user->getTypeCompte();
         $espece = new EspeceNomVern();
@@ -48,6 +55,7 @@ class PlatformController extends Controller
             'DerObs' => $listDerObs,
             'observation_JSON' => $observation_JSON,
             'typeCompte' => $typeCompte,
+            'first_visit' => $first_visit
         ));
     }
 
