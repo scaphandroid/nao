@@ -10,7 +10,6 @@ use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
 use NAO\PlatformBundle\Entity\User;
-use NAO\PlatformBundle\Form\NaturalisteType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -18,6 +17,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use NAO\PlatformBundle\Form\DevenirNaturalisteType;
+use NAO\PlatformBundle\Form\ValiderType;
+
 
 
 
@@ -209,7 +210,6 @@ class ProfileController extends Controller
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             $user->setEnAttente(true);
             $em = $this->getDoctrine()->getManager();
-        /*    $em->persist($user);*/
             $em->flush();
 
             $request->getSession()->getFlashBag()->add('notice', 'Demande de compte naturaliste bien enregistrée. Vous allez être contacter par nos équipes.');
@@ -223,8 +223,24 @@ class ProfileController extends Controller
 
     public function detailCompteNaturalisteAction(Request $request, User $naturaliste) {
         $user = $this->getUser();
-        $form = $this->createForm(NaturalisteType::class, $naturaliste);
+        $form = $this->createForm(ValiderType::class);
 
+        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+            $naturaliste->setEnAttente(false);
+            if ($form->get('valider')->isClicked()) {
+                $naturaliste->setTypeCompte(1);
+                $message = "Compte naturaliste validé.";
+              }
+            if ($form->get('invalider')->isClicked()) {
+                $naturaliste->setTypeCompte(0);
+                $message = "Compte naturaliste invalidé.";
+            }
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+            $request->getSession()->getFlashBag()->add('notice', $message);
+            return $this->redirectToRoute('nao_profile_listenaturalistes');
+            /*envoyer un mail*/
+        }
 
         return $this->render('FOSUserBundle:Profile:detailCompteNaturaliste.html.twig', array(
             'user'=> $user,
@@ -232,8 +248,6 @@ class ProfileController extends Controller
             'form' => $form->createView()
         ));
     }
-
-    
 
     public function observationAction($id, Request $request){
 
