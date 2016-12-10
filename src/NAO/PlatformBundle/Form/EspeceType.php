@@ -8,7 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-class EspeceNomVernType extends AbstractType
+class EspeceType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -16,7 +16,7 @@ class EspeceNomVernType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nomVern', AutocompleteType::class, ['class' => 'NAO\PlatformBundle\Entity\EspeceNomVern'])
+            ->add('nomConcat', AutocompleteType::class, ['class' => 'NAO\PlatformBundle\Entity\Espece'])
             ->add('rechercher', SubmitType::class);
     }
     
@@ -26,7 +26,7 @@ class EspeceNomVernType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'NAO\PlatformBundle\Entity\EspeceNomVern'
+            'data_class' => 'NAO\PlatformBundle\Entity\Espece'
         ));
     }
 
@@ -35,7 +35,7 @@ class EspeceNomVernType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'nao_platformbundle_especeNomVern';
+        return 'nao_platformbundle_espece';
     }
 
 

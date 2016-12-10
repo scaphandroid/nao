@@ -21,7 +21,7 @@ class NAOJsonEncode
                 "lat" => $listObserv[$i]->getLat(),
                 "lon" => $listObserv[$i]->getLon(),
                 "valide" => $listObserv[$i]->getValide(),
-                "espece" => $listObserv[$i]->getEspeceNomVern()->getNomConcat()
+                "espece" => $listObserv[$i]->getEspece()->getNomConcat()
             );
         }
 

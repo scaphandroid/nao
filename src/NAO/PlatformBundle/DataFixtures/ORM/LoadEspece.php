@@ -5,10 +5,10 @@ namespace NAO\PlatformBundle\DataFixtures\ORM;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
-use NAO\PlatformBundle\Entity\EspeceNomVern;
+use NAO\PlatformBundle\Entity\Espece;
 
 
-class LoadEspeceNomVern extends AbstractFixture implements OrderedFixtureInterface
+class LoadEspece extends AbstractFixture implements OrderedFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
@@ -27,7 +27,7 @@ class LoadEspeceNomVern extends AbstractFixture implements OrderedFixtureInterfa
             //en cas de ligne vide
             if($ligne[0] !== null || $ligne[0] !== ''){
 
-                $espece = new EspeceNomVern();
+                $espece = new Espece();
 
                 $espece->setCdNom($ligne[0]);
                 $espece->setNomComplet($ligne[1]);

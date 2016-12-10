@@ -20,7 +20,7 @@ class ObservationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('especeNomVern', 'PUGX\AutocompleterBundle\Form\Type\AutocompleteType', ['class' => 'NAO\PlatformBundle\Entity\EspeceNomVern'])
+            ->add('espece', 'PUGX\AutocompleterBundle\Form\Type\AutocompleteType', ['class' => 'NAO\PlatformBundle\Entity\Espece'])
             ->add('lat', NumberType::class)
             ->add('lon', NumberType::class)
             ->add('localise', CheckboxType::class, array(

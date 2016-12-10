@@ -26,10 +26,10 @@ class Observation
     /**
      * @var string
      *
-     * @ORM\ManyToOne(targetEntity="NAO\PlatformBundle\Entity\EspeceNomVern")
+     * @ORM\ManyToOne(targetEntity="NAO\PlatformBundle\Entity\Espece")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $especeNomVern;
+    private $espece;
 
       /**
      * @var bool
@@ -161,26 +161,26 @@ class Observation
 
 
     /**
-     * Set especeNomVern
+     * Set espece
      *
-     * @param EspeceNomVern $especeNomVern
+     * @param Espece $espece
      *
      * @return Observation
      */
-    public function setEspeceNomVern(EspeceNomVern $especeNomVern)
+    public function setEspece(Espece $espece)
     {
-        $this->especeNomVern = $especeNomVern;
+        $this->espece = $espece;
         return $this;
     }
 
     /**
-     * Get especeNomVern
+     * Get espece
      *
-     * @return \NAO\PlatformBundle\Entity\especeNomVern
+     * @return \NAO\PlatformBundle\Entity\espece
      */
-    public function getEspeceNomVern()
+    public function getEspece()
     {
-        return $this->especeNomVern;
+        return $this->espece;
     }
 
     /**

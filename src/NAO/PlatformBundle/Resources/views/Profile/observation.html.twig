@@ -15,7 +15,7 @@
                 <li class="list-group-item">
                     <p>Date de l'observation: {{ observation.dateObs|date('d/m/Y H:i') }} </p>
                     <p>Date de saisie: {{ observation.dateSaisie|date('d/m/Y H:i') }}</p>
-                    <p>Nom de l'espèce : {{ observation.especeNomVern.nomVern }} </p>
+                    <p>Nom de l'espèce : {{ observation.espece.nomConcat }} </p>
                     <p>Coordonnées GPS : {{ observation.lat }}, {{ observation.lon }} </p>
                     <div id="map"></div>
                     <div id="observation" class="hidden">

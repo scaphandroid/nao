@@ -2,22 +2,14 @@
 
 namespace NAO\PlatformBundle\Controller;
 
-use NAO\PlatformBundle\Entity\EspeceNomVern;
+use NAO\PlatformBundle\Entity\Espece;
 use NAO\PlatformBundle\Entity\Observation;
-use NAO\PlatformBundle\Entity\User;
-use NAO\PlatformBundle\Form\EspeceNomVernType;
+use NAO\PlatformBundle\Form\EspeceType;
 use NAO\PlatformBundle\Form\RechercheType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
 use NAO\PlatformBundle\Form\ObservationType;
 use NAO\PlatformBundle\Form\NaturalisteType;
-use NAO\PlatformBundle\Form\UserParticulierType;
 use Symfony\Component\HttpFoundation\Request;
-use PUGX\AutocompleterBundle\Form\Type\AutocompleteType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\HttpFoundation\Cookie;
 
 
 class PlatformController extends Controller
@@ -28,8 +20,8 @@ class PlatformController extends Controller
 
         $user = $this->getUser();
         $typeCompte = ($user == null) ? null : $user->getTypeCompte();
-        $espece = new EspeceNomVern();
-        $form = $this->createForm(EspeceNomVernType::class, $espece);
+        $espece = new Espece();
+        $form = $this->createForm(EspeceType::class, $espece);
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             return $this->render('NAOPlatformBundle:Platform:rechercher.html.twig', array(
@@ -65,13 +57,13 @@ class PlatformController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            // data is an array with "nomVern" keys
+            // on récupère les données de recherche
             $data = $form->getData();
 
             $manager = $this->getDoctrine()->getManager();
 
             //on récupère les espèces correspondant à la recherche
-            $listeEspeces = $manager->getRepository('NAOPlatformBundle:EspeceNomVern')
+            $listeEspeces = $manager->getRepository('NAOPlatformBundle:Espece')
                 ->findLikeByName($data["nomConcat"], 100);
 
             //on récupère les observations valides correspondants aux espèces
@@ -83,9 +75,9 @@ class PlatformController extends Controller
             $idsEspecesObservees = [];
             $listEspecesObservees = [];
             foreach ($listObserv as $obs){
-                if(!in_array($obs->getEspeceNomVern()->getId(), $idsEspecesObservees)){
-                    array_push($listEspecesObservees, $obs->getEspeceNomVern());
-                    array_push($idsEspecesObservees, $obs->getEspeceNomVern()->getId());
+                if(!in_array($obs->getEspece()->getId(), $idsEspecesObservees)){
+                    array_push($listEspecesObservees, $obs->getEspece());
+                    array_push($idsEspecesObservees, $obs->getEspece()->getId());
                 }
             }
 

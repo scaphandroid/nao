@@ -5,12 +5,12 @@ namespace NAO\PlatformBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * EspeceNomVern
+ * Espece
  *
- * @ORM\Table(name="espece_nom_vern")
- * @ORM\Entity(repositoryClass="NAO\PlatformBundle\Repository\EspeceNomVernRepository")
+ * @ORM\Table(name="espece")
+ * @ORM\Entity(repositoryClass="NAO\PlatformBundle\Repository\EspeceRepository")
  */
-class EspeceNomVern
+class Espece
 {
     /**
      * @var int
@@ -74,7 +74,7 @@ class EspeceNomVern
      *
      * @param string $nomVern
      *
-     * @return EspeceNomVern
+     * @return Espece
      */
     public function setNomVern($nomVern)
     {
@@ -98,7 +98,7 @@ class EspeceNomVern
      *
      * @param string $nomConcat
      *
-     * @return EspeceNomVern
+     * @return Espece
      */
     public function setNomConcat($nomConcat)
     {
@@ -122,7 +122,7 @@ class EspeceNomVern
      *
      * @param string $url
      *
-     * @return EspeceNomVern
+     * @return Espece
      */
     public function setUrl($url)
     {
@@ -146,7 +146,7 @@ class EspeceNomVern
      *
      * @param integer $cdNom
      *
-     * @return EspeceNomVern
+     * @return Espece
      */
     public function setCdNom($cdNom)
     {
@@ -170,7 +170,7 @@ class EspeceNomVern
      *
      * @param string $nomComplet
      *
-     * @return EspeceNomVern
+     * @return Esoece
      */
     public function setNomComplet($nomComplet)
     {
