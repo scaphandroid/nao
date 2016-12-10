@@ -67,23 +67,17 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    function getListObsByNomVernValides($nomVern)    {
-        $qb = $this->createQueryBuilder('obs')
-            ->leftJoin('obs.especeNomVern', 'especeNV')
-            ->where('especeNV.nomVern = :nomVern')
-            ->andWhere('obs.valide = :valide')
+    //récupère les observations valides pour une liste d'id d'espèces
+    function getListObsByEspeceValides($listEspece) {
+        $listEspeceId = [];
+        foreach ($listEspece as $espece){
+            array_push($listEspeceId, $espece->getId());
+        }
+        $qb = $this->_em->createQuery("SELECT obs FROM NAOPlatformBundle:Observation obs JOIN obs.espece esp WHERE esp.id IN(:listeEspeceId) AND obs.valide=:valide")
             ->setParameters(array(
-                'nomVern'=> $nomVern,
-                'valide' => true
-                ));
-        return $qb->getQuery()->getResult();
+                'valide' => true,
+                'listeEspeceId' => $listEspece
+            ));
+        return $qb->getResult();
     }
-
- /*   function getListObsByNomLatin($id)    {
-        $qb = $this->createQueryBuilder('obs')
-            ->leftJoin('obs.EspeceNomLatin', 'especeNL')
-            ->where('especeNL.id = :id_NL')
-            ->setParameter('id_NL', $id);
-        return $qb->getQuery()->getResult();
-    }*/
 }

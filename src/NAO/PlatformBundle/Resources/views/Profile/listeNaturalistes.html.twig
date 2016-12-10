@@ -15,7 +15,7 @@
             <ul class="list-group">
                 {% for compte in comptesNatNonValides %}
                     <li class="list-group-item">
-                        <p>nom : {{ compte.nom }} prenom: {{ compte.prenom }} profession: {{ compte.profession }} <button>Voir plus</button></p>
+                        <p>nom : {{ compte.nom }} prenom: {{ compte.prenom }} profession: {{ compte.profession }} <a class="btn btn-default" href="{{ path('nao_profile_detailCompteNaturaliste', {'id': compte.id }) }}">Voir plus</a></p>
                     </li>
                 {% endfor %}
             </ul>
@@ -27,7 +27,7 @@
         <ul class="list-group">
             {% for compte in comptesNaturalistes %}
                 <li class="list-group-item">
-                    <p>nom : {{ compte.nom }} prenom: {{ compte.prenom }} profession: {{ compte.profession }} <button>Voir plus</button></p>
+                    <p>nom : {{ compte.nom }} prenom: {{ compte.prenom }} profession: {{ compte.profession }} <a class="btn btn-default" href="{{ path('nao_profile_detailCompteNaturaliste', {'id': compte.id }) }}">Voir plus</a></p>
                 </li>
             {% endfor %}
         </ul>

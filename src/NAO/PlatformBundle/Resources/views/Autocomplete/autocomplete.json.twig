@@ -1,4 +1,4 @@
 [{% for espece in results -%}
-    {{ {id: espece.id, label: espece.nomVern}|json_encode|raw }}
+      {{ {id: espece.id, label: espece.nomConcat}|json_encode|raw }}
     {%- if not loop.last %},{% endif -%}
 {%- endfor %}]

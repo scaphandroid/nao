@@ -26,20 +26,12 @@ class Observation
     /**
      * @var string
      *
-     * @ORM\ManyToOne(targetEntity="NAO\PlatformBundle\Entity\EspeceNomVern")
+     * @ORM\ManyToOne(targetEntity="NAO\PlatformBundle\Entity\Espece")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $especeNomVern;
+    private $espece;
 
-    /**
-     * @var string
-     *
-     * @ORM\ManyToOne(targetEntity="NAO\PlatformBundle\Entity\EspeceNomLatin")
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $especeNomLatin;
-
-    /**
+      /**
      * @var bool
      *
      * @ORM\Column(name="localise", type="boolean")
@@ -169,26 +161,26 @@ class Observation
 
 
     /**
-     * Set especeNomVern
+     * Set espece
      *
-     * @param EspeceNomVern $especeNomVern
+     * @param Espece $espece
      *
      * @return Observation
      */
-    public function setEspeceNomVern(EspeceNomVern $especeNomVern)
+    public function setEspece(Espece $espece)
     {
-        $this->especeNomVern = $especeNomVern;
+        $this->espece = $espece;
         return $this;
     }
 
     /**
-     * Get especeNomVern
+     * Get espece
      *
-     * @return \NAO\PlatformBundle\Entity\especeNomVern
+     * @return \NAO\PlatformBundle\Entity\espece
      */
-    public function getEspeceNomVern()
+    public function getEspece()
     {
-        return $this->especeNomVern;
+        return $this->espece;
     }
 
     /**
@@ -290,11 +282,11 @@ class Observation
     /**
      * Set photo
      *
-     * @param File $photo
+     * @param String $photo
      *
      * @return Observation
      */
-    public function setPhoto(File $photo)
+    public function setPhoto($photo)
     {
         $this->photo = $photo;
 
@@ -379,32 +371,6 @@ class Observation
     public function getLocalise()
     {
         return $this->localise;
-    }
-    
-
-
-    /**
-     * Set especeNomLatin
-     *
-     * @param EspeceNomLatin $especeNomLatin
-     *
-     * @return Observation
-     */
-    public function setEspeceNomLatin(EspeceNomLatin $especeNomLatin = null)
-    {
-        $this->especeNomLatin = $especeNomLatin;
-
-        return $this;
-    }
-
-    /**
-     * Get especeNomLatin
-     *
-     * @return \NAO\PlatformBundle\Entity\EspeceNomLatin
-     */
-    public function getEspeceNomLatin()
-    {
-        return $this->especeNomLatin;
     }
 
     /**

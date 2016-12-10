@@ -18,124 +18,151 @@
             {% endstylesheets %}
 
           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">#}
-        <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}" type="text/css" />
-        <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
-        <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.12.1/themes/black-tie/jquery-ui.css" />
-        <link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css" />
-        <link rel="icon" type="image/x-icon" href="" />
+        <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}" type="text/css"/>
+        <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans"/>
+        <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.12.1/themes/black-tie/jquery-ui.css"/>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css"/>
+        <link rel="icon" type="image/x-icon" href=""/>
 
     {% endblock %}
 </head>
 
 <body class="container-fluid">
-    <header>
-        <div class="container">
-            <div class="row entete">
-                <div id="logo-header" class="col-sm-4 logo">
-                    <a href="{{ path('nao_platform_home') }}">
-                        <img src="{{ asset('images/Logo-def.png') }}" alt="Logo de Nos Amis les Oiseaux" />
-                    </a>
-                </div>
-                <div id="barre-recherche" class="col-sm-offset-4 col-sm-3 hidden-xs recherche">
-                 {#   {{ form_start(form) }}
-                    {{ form_errors(form) }}
-                    {{ form_widget(form.nomVern) }}
-                    {{ form_rest(form) }}
-                    {{ form_end(form) }}#}
-                    <form>
-                        <input type="text" placeholder="Entrez une espèce d'oiseaux" value="">
-                        <input type="submit" value="">
-                    </form>
-                </div>
+<header>
+    <div class="container">
+        <div class="row entete">
+            <div id="logo-header" class="col-sm-4 logo">
+                <a href="{{ path('nao_platform_home') }}">
+                    <img src="{{ asset('images/Logo-def.png') }}" alt="Logo de Nos Amis les Oiseaux"/>
+                </a>
             </div>
+            <div id="barre-recherche" class="col-sm-offset-4 col-sm-3 hidden-xs recherche">
+                {#   {{ form_start(form) }}
+                   {{ form_errors(form) }}
+                   {{ form_widget(form.nomVern) }}
+                   {{ form_rest(form) }}
+                   {{ form_end(form) }}#}
+                <form>
+                    <input type="text" placeholder="Entrez une espèce d'oiseaux" value="">
+                    <input type="submit" value="">
+                </form>
+            </div>
+        </div>
         {% block nav %}
             <!-- Navigation -->
             <nav id="boutons-nav" class="">
                 <div class="menu_box_list">
                     <ul>
-                        <li class="bouton_menu"><a href="{{ path('nao_platform_rechercher') }}"><i class="icon_rechercher"> </i><span>Rechercher</span></a></li>
-                        <li class="bouton_menu"><a href="{{ path('nao_platform_observer') }}"><i class="icon_observer"> </i><span>Observer</span></a></li>
+                        <li class="bouton_menu"><a href="{{ path('nao_platform_rechercher') }}"><i
+                                        class="icon_rechercher"> </i><span>Rechercher</span></a></li>
+                        <li class="bouton_menu"><a href="{{ path('nao_platform_observer') }}"><i
+                                        class="icon_observer"> </i><span>Observer</span></a></li>
                         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                            <li class="bouton_menu"><a href="{{ path('fos_user_profile_show') }}"><i class="icon_naturalistes"> </i><span>Mon compte</span></a></li>
+                            <li class="bouton_menu"><a href="{{ path('fos_user_profile_show') }}"><i
+                                            class="icon_naturalistes"> </i><span>Mon compte</span></a></li>
                         {% else %}
-                            <li class="bouton_menu"><a href="{{ path('fos_user_security_login') }}"><i class="icon_naturalistes"> </i><span>Se connecter</span></a></li>
+                            <li class="bouton_menu"><a href="{{ path('fos_user_security_login') }}"><i
+                                            class="icon_naturalistes"> </i><span>Se connecter</span></a></li>
                         {% endif %}
                     </ul>
                 </div>
             </nav>
         {% endblock %}
-        </div>
-    </header>
+    </div>
+</header>
 <div>
 
 </div>
-    <div class="body">
-        {% block message %}
-            {% for type, messages in app.session.flashBag.all %}
-                {% for message in messages %}
-                    <div class="{{ type }} well col-sm-offset-3 col-sm-6 col-sm-offset-3 sm" style="text-align: center; margin-top: 25px; font-weight:bold; background-color: #89FAB6; text-decoration: underline; ">
-                       {{ message|trans({}, 'FOSUserBundle') }}
-                    </div>
-                {% endfor %}
+<div class="body">
+    {% block message %}
+        {% for type, messages in app.session.flashBag.all %}
+            {% for message in messages %}
+                <div class="{{ type }} well col-sm-offset-3 col-sm-6 col-sm-offset-3 sm"
+                     style="text-align: center; margin-top: 25px; font-weight:bold; background-color: #89FAB6; text-decoration: underline; ">
+                    {{ message|trans({}, 'FOSUserBundle') }}
+                </div>
             {% endfor %}
-        {% endblock %}
-
-        {% block body %}
-            <div class="well col-lg-offset-4 col-lg-4 col-lg-offset-4 col-sm-offset-3 col-sm-6 col-sm-offset-3" style="margin-top: 25px;">
-                {% block fos_user_content %}
-                {% endblock fos_user_content %}
-            </div>
-        {% endblock %}
-    </div>
-
-
-    <!-- Pied de page  -->
-    {% block footer %}
-    <footer>
-            <div class="row wrap">
-                <div class="footer_left col-sm-6">
-                    <div class="row logo">
-                        <a href="{{ path('nao_platform_home') }}">
-                            <img src="{{ asset('images/Logo-def.png') }}" alt="Logo de Nos Amis les Oiseaux" />
-                        </a>
-                    </div>
-                    <div class="row footer_texte">
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                    </div>
-                </div>
-
-                <div class="col-sm-offset-1 footer_right col-sm-5">
-                    <div class="row footer_liens">
-                        <ul class="footer_nav">
-                            <li><a href="#">Découvrir</a></li> |
-                            <li><a  href="#">Observer</a></li> |
-                            <li><a href="#">S'inscrire</a></li> |
-                            <li><a href="#">Contact</a></li>
-                        </ul>
-                    </div>
-                    <div class="row footer_rs">
-                        <ul>
-                            <li><a href="#"> <i class="iconTwitter"> </i><span>Twitter</span></a></li>
-                            <li><a href="#"> <i class="iconFacebook"> </i> <span>Facebook</span></a></li>
-                         <!--   <li><a href="#"> <i class="iconRss"> </i><span>Rss</span></a></li> -->
-                            <li><a href="#"> <i class="iconMail"> </i><span>Mail</span></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        {# liens masqués pour l'autocomplete #}
-        <a href="{{ path('nao_platform_autosearch') }}" id="url-list" class="hidden"></a>
-        <a href="{{ path('nao_platform_autoget') }}" id ="url-get" class="hidden"></a>
-    </footer>
+        {% endfor %}
     {% endblock %}
 
+    {% block body %}
+        <div class="well col-lg-offset-4 col-lg-4 col-lg-offset-4 col-sm-offset-3 col-sm-6 col-sm-offset-3"
+             style="margin-top: 25px;">
+            {% block fos_user_content %}
+            {% endblock fos_user_content %}
+        </div>
+    {% endblock %}
+</div>
+
+
+<!-- Pied de page  -->
+{% block footer %}
+    <footer>
+        <div class="row wrap">
+            <div class="footer_left col-sm-6">
+                <div class="row logo">
+                    <a href="{{ path('nao_platform_home') }}">
+                        <img src="{{ asset('images/Logo-def.png') }}" alt="Logo de Nos Amis les Oiseaux"/>
+                    </a>
+                </div>
+                <div class="row footer_texte">
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
+                        the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
+                        of type and scrambled it to make a type specimen book.</p>
+                </div>
+            </div>
+
+            <div class="col-sm-offset-1 footer_right col-sm-5">
+                <div class="row footer_liens">
+                    <ul class="footer_nav">
+                        <li><a href="#">Découvrir</a></li>
+                        |
+                        <li><a href="#">Observer</a></li>
+                        |
+                        <li><a href="#">S'inscrire</a></li>
+                        |
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="row footer_rs">
+                    <ul>
+                        <li><a href="#"> <i class="iconTwitter"> </i><span>Twitter</span></a></li>
+                        <li><a href="#"> <i class="iconFacebook"> </i> <span>Facebook</span></a></li>
+                        <!--   <li><a href="#"> <i class="iconRss"> </i><span>Rss</span></a></li> -->
+                        <li><a href="#"> <i class="iconMail"> </i><span>Mail</span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {# liens masqués pour l'autocomplete #}
+        <a href="{{ path('nao_platform_autosearch') }}" id="url-list" class="hidden"></a>
+        <a href="{{ path('nao_platform_autoget') }}" id="url-get" class="hidden"></a>
+    </footer>
+{% endblock %}
+
 {% block javascript %}
-    <script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
-    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <script src="{{ asset('js/autocompleter-jqueryui.js') }}"></script>
     <script src="{{ asset("js/header.js") }}"></script>
     <script src="{{ asset('js/autocomplete.js') }}"></script>
     <script src="{{ asset('js/map.js') }}"></script>
+    <script src="{{ asset('js/jquery.popupoverlay.js') }}"></script>
+    <script>
+        $(function () {
+                    $("#charte_popup").popup({
+                        autoopen: true,
+                        backgroundactive: true,
+                        autozindex: true,
+                        closeelement: '.charte_close',
+                        blur: true,
+
+
+                    });
+                }
+        );
+    </script>
 {% endblock %}
 
 </body>

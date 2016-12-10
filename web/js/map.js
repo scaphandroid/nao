@@ -1,19 +1,25 @@
-var map, zoom;
+var map, zoom, maxZoom;
 var markersArray = [];
 var infowindow = null;
 var infowindowArray = [];
-if(window.innerWidth <= 800 && window.innerHeight <= 600) {
-     zoom = 5;
+zoom = (window.innerWidth <= 800 && window.innerHeight <= 600) ? 5 : 6;
+/* Affichage sur les pages accueil, rechercher*/
+/* Le zoom dépend du type de compte*/
+function initMapHomeRechercher() {
+    maxZoom = (($("#typeCompte").text()) > 0) ? null : 8;
+    afficherCartePictos(maxZoom);
 }
-else {
-    zoom = 6;
+/* Affichage sur la page mes observations de Profile*/
+function initMapProfile() {
+    maxZoom = null;
+    afficherCartePictos(maxZoom);
 }
-/* Affichage sur la page d'accueil*/
-function initMapIndex() {
-    detectBrowser();
+function afficherCartePictos(maxZoom) {
+/*    detectBrowser();*/
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 46.764548, lng: 1.718674999999962}, // coordonnées du centre de la F
-        zoom: zoom
+        zoom: zoom,
+        maxZoom: maxZoom //null si particulier
     });
     var observation = $("#observation").text();
     var observation_decode = $.parseJSON(observation);
@@ -30,7 +36,7 @@ function initMapIndex() {
             '<div class="iw-title ' + class_title + '">' + observation_decode[i].espece + '</div>' + '<hr>' +
             '<div class="iw-content row">' +
                 '<div class="col-xs-5">' +
-                    '<img src="../web/images/' + observation_decode[i].photoObs + '" alt="' + observation_decode[i].espece +'" height="auto" width="100">'+
+                    '<img src="' + observation_decode[i].photoObs + '" alt="' + observation_decode[i].espece +'" height="auto" width="100">'+
                 '</div>'+
                 '<div class="col-xs-7">' +
                     '<p>Observé par ' + observation_decode[i].username + '</p>' +

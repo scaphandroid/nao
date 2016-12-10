@@ -42,9 +42,25 @@ nao_profile_listenaturalistes:
     path:    /profile/admin/listenaturalistes
     defaults: { _controller: NAOPlatformBundle:Profile:listeNaturalistes}
 
+nao_profile_detailCompteNaturaliste:
+    path:    /profile/admin/detailnaturaliste/{id}
+    defaults: { _controller: NAOPlatformBundle:Profile:detailCompteNaturaliste}
+    methods:  [GET, POST]
+    requirements:
+            id : \d+
+
 nao_profile_observationsrefusees:
     path:    /profile/observationsrefusees
     defaults: { _controller: NAOPlatformBundle:Profile:observationRefusees}
+
+nao_profile_devenirnaturaliste:
+    path:    /profile/devenirnaturaliste
+    defaults: { _controller: NAOPlatformBundle:Profile:devenirNaturaliste}
+
+nao_profile_observation:
+    path:   /profile/observation/{id}
+    defaults: {_controller: NAOPlatformBundle:Profile:observation}
+    methods: [GET]
 
 fos_user_security_login:
     path:     /connexion
@@ -59,6 +75,11 @@ fos_user_security_check:
 fos_user_security_logout:
     path:     /deconnexion
     defaults: { _controller: FOSUserBundle:Security:logout}
+    methods:  [GET, POST]
+
+fos_user_registration_register:
+    path:     /
+    defaults: { _controller: NAOPlatformBundle:Registration:register}
     methods:  [GET, POST]
 
 fos_user_profile:

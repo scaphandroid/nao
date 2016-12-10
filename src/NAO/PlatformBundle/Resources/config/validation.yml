@@ -1,0 +1,52 @@
+# src/NAO/PlatformBundle/Resources/config/validation.yml
+NAO\PlatformBundle\Entity\User:
+    properties:
+        email:
+            - Length:
+                min: 5
+                minMessage: "Votre email doit faire au moins {{ limit }} caractères."
+                max: 255
+                maxMessage: "Votre email est trop long."
+            - NotBlank:
+                message: "Merci de saisir un email"
+        username:
+            - Length:
+                min: 4
+                minMessage: "Votre nom d'utilisateur doit faire un moins {{ limit }} caractères."
+                max: 255
+                maxMessage: "Votre nom d'utilisateur est trop long."
+            - NotBlank:
+                message: "Merci de saisir un nom d'utilisateur"
+        plainPassword:
+            - Length:
+                min: 8
+                minMessage: "Votre mot de passe doit faire un moins {{ limit }} caractères."
+                max: 255
+                maxMessage: "Votre mot de passe est trop long."
+
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+                fields: [email]
+                message: 'Cet email est déjà utilisé.'
+
+NAO\PlatformBundle\Form\Model\ChangePassword:
+    properties:
+        new:
+            - Length:
+                min: 8
+                minMessage: "Votre mot de passe doit faire un moins {{ limit }} caractères."
+                max: 255
+                maxMessage: "Votre mot de passe est trop long."
+            - NotBlank:
+                message: "Merci de saisir un mot de passe"
+
+NAO\PlatformBundle\Form\Model\ResetPassword:
+    properties:
+        new:
+            - Length:
+                min: 8
+                minMessage: "Votre mot de passe doit faire un moins {{ limit }} caractères."
+                max: 255
+                maxMessage: "Votre mot de passe est trop long."
+            - NotBlank:
+                message: "Merci de saisir un mot de passe"

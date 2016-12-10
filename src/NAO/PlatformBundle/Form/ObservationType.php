@@ -4,14 +4,11 @@ namespace NAO\PlatformBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -23,7 +20,7 @@ class ObservationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('especeNomVern', 'PUGX\AutocompleterBundle\Form\Type\AutocompleteType', ['class' => 'NAO\PlatformBundle\Entity\EspeceNomVern'])
+            ->add('espece', 'PUGX\AutocompleterBundle\Form\Type\AutocompleteType', ['class' => 'NAO\PlatformBundle\Entity\Espece'])
             ->add('lat', NumberType::class)
             ->add('lon', NumberType::class)
             ->add('localise', CheckboxType::class, array(
@@ -35,6 +32,9 @@ class ObservationType extends AbstractType
                 'date_widget' => 'choice'
             ))
             ->add('photo', FileType::class, array(
+                'required' => false
+            ))
+            ->add('commentaireP', TextareaType::class, array(
                 'required' => false
             ))
             ->add('valider',SubmitType::class);

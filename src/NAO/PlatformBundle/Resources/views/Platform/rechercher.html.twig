@@ -11,10 +11,10 @@
                 {{ form_errors(form) }}
 
             <div class="form-group form_search">
-                    {{ form_label(form.nomVern, "Veuillez saisir le nom d'une espèce :", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
-                    {{ form_errors(form.nomVern) }}
+                    {{ form_label(form.nomConcat, "Veuillez saisir le nom d'une espèce :", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+                    {{ form_errors(form.nomConcat) }}
                 <div class="col-sm-3 btw_form">
-                        {{ form_widget(form.nomVern, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_widget(form.nomConcat, {'attr': {'class': 'form-control'}}) }}
                 </div>
                 {{ form_widget(form.rechercher, {'attr': {'class': 'btn btn-primary col-xs-3 decal_btn'}}) }}
             </div>
@@ -23,14 +23,34 @@
         </div>
         <div>
             {% if (observation_JSON is defined) %}
+
                 {%  if (observation_JSON == '[]') %}
-                     <div><p class="text-center">Aucune observation pour ce nom d'espèce "{{ nomEspece }}".</p></div>
+                    <h3 class="text-center">Aucune observation pour cette recherche : "{{ recherche }}".</h3>
                 {%  else %}
-                    <h3 class="text-center">Observations de l'espèce {{ nomEspece }}</h3>
+
+                    <h3 class="text-center">Observations pour votre recherche "{{ recherche }}"</h3>
+
+                    {% if listEspecesObservees|length > 1 %}
+                        <h4>Espèces observées correspondantes :</h4>
+                    {% else %}
+                        <h4>Espèce observée correspondant :</h4>
+                    {% endif %}
+
+                    <ul>
+                        {% for espece in listEspecesObservees %}
+                            <li>{{ espece.nomConcat }} <a target="_blank" href="{{ espece.url }}">voir le descriptif INPN</a></li>
+                        {% endfor %}
+                    </ul>
+
+
                     <div id="map"></div>
                     <div id="observation" class="hidden"> <!-- -->
                         {{ observation_JSON }}
                     </div>
+                    <div id="typeCompte" > <!-- class="hidden" -->
+                        {{ typeCompte }}
+                    </div>
+
                 {% endif %}
             {% endif %}
 
@@ -42,7 +62,7 @@
 {% block javascript %}
     {{ parent() }}
     <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQcmtlhakbZxEK68_wVMjV59kWTyPK9eA&region=FR&callback=initMapIndex">
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQcmtlhakbZxEK68_wVMjV59kWTyPK9eA&region=FR&callback=initMapHomeRechercher">
     </script>
 
 {% endblock %}

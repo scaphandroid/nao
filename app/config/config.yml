@@ -8,6 +8,7 @@ imports:
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: fr
+    photos_directory: '%kernel.root_dir%/../web/uploads/photos'
 
 framework:
     #esi:             ~
@@ -97,7 +98,7 @@ fos_user:
             validation_groups:  [ChangePassword, Default]
     registration:
         confirmation:
-            enabled:    false # change to true for required email confirmation
+            enabled:    true # change to true for required email confirmation
             template:   FOSUserBundle:Registration:email.txt.twig
         form:
             type:               FOS\UserBundle\Form\Type\RegistrationFormType

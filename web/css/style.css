@@ -361,7 +361,7 @@ padding-top: 20px;
 .h2_forms{
     text-align: center;
     font-weight: bold;
-    text-decoration: underline;
+    /*text-decoration: underline;*/ /*Special @phil*/
     color:#8FCA33;
 }
 
@@ -417,7 +417,26 @@ hr {
     margin-bottom: 6px;
     margin-top: 6px;
 }
+#charte_popup{
+    margin-right: 2% !important;
+    /*margin-left:270px !important;*/
+    /*position: fixed !important;*/
+    padding: 10px !important;
+    float: right !important;
+    top: 10px !important;
+    max-width: 320px !important;
+    background-color: whitesmoke !important;
+    border: 4px solid rgba(144, 200, 64, 0.4) !important;
+    border-radius: 5px !important;
+    /*z-index: 9999 !important;*/
+}
 
+.charte_content{
+    overflow: scroll;
+    max-width: 450px !important;
+    max-height: 200px;
+
+}
 /*REPONSIVE */
 
 @media (max-width: 1200px){
@@ -435,6 +454,7 @@ hr {
     .recherche-decale{
         margin-left: 210px;
     }
+
 }
 
 @media (max-width: 768px) {
