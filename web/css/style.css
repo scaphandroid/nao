@@ -1,6 +1,6 @@
 /*GENERALITES*/
 
-body{
+body {
     font-family: "Open Sans", Arial;
     background-color: #ededed;
 }
@@ -9,43 +9,41 @@ body{
     z-index: 9000;
 }
 
-.body-margin{
+.body-margin {
     margin-top: 210px;
 }
 
-section{
+section {
     padding-top: 30px;
     padding-bottom: 60px;
 }
 
-h2{
+h2 {
     font-size: 20px;
 }
-
 
 /*HEADER*/
 
 header {
-    left:0;
-    right:0;
+    left: 0;
+    right: 0;
     top: 0;
-    margin:auto;
-    z-index:9998;
+    margin: auto;
+    z-index: 9998;
     background-color: #ededed;
 }
 
-.header-fixed{
+.header-fixed {
     position: fixed;
     margin-top: -110px;
 }
-
 
 .entete {
     border: 0 none;
     font: inherit;
     margin: 0;
     vertical-align: baseline;
-    height : 105px;
+    height: 105px;
 }
 
 .logo {
@@ -70,8 +68,8 @@ a {
 
 .logo a img {
     width: 250px;
-    height : auto;
-    width: auto\9; /* ie8 */
+    height: auto;
+    width: auto \9; /* ie8 */
     margin-top: 15px;
     margin-left: 25px;
 }
@@ -79,7 +77,7 @@ a {
 .recherche {
     background: #ffffff none repeat scroll 0 0;
     box-shadow: 0 -1px 2px 0 rgba(201, 201, 201, 1) inset;
-    margin-top : 55px;
+    margin-top: 55px;
 }
 
 .recherche form {
@@ -111,27 +109,25 @@ a {
     width: 80%;
 }
 
-
-
 /*NAV*/
 
 nav {
-    margin-top : 10px;
+    margin-top: 10px;
     z-index: 9999;
 }
 
 .menu_box_list {
     background: rgba(0, 0, 0, 0) linear-gradient(to bottom, #ffffff 0%, #fefefe 10%, #fdfdfd 22%, #f0f0f0 41%, #e9e9e9 63%, #e7e7e7 82%, #e5e5e5 100%) repeat scroll 0 0;
     box-shadow: 0 5px 5px 0 rgba(10, 10, 10, 1);
-    width : 50%;
+    width: 50%;
     min-width: 315px;
-    margin-left : auto;
-    margin-right : auto;
-    margin-bottom : -7px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: -7px;
 }
 
 .menu_box_list ul {
-    padding-left :0;
+    padding-left: 0;
     margin-right: -10px;
 }
 
@@ -146,7 +142,7 @@ nav {
     border-bottom: 8px solid #f1ec75;
 }
 
-.menu_box_list li:hover{
+.menu_box_list li:hover {
     background-color: white;
     transform: scale(1.1);
     /* semble provoquer un bug sur firefox
@@ -160,9 +156,11 @@ nav {
 .menu_box_list li.bouton_menu:hover .icon_observer {
     background: url("../images/pictogramme_hover.png") no-repeat 0 0;
 }
+
 .menu_box_list li.bouton_menu:hover .icon_rechercher {
     background: url("../images/loupe_hover.png") no-repeat 0 0;
 }
+
 .menu_box_list li.bouton_menu:hover .icon_naturalistes {
     background: url("../images/naturaliste_hover.png") no-repeat 0 0;
 }
@@ -186,7 +184,7 @@ nav {
     display: inline-block;
     height: 32px;
     margin: 0 auto;
-    transition: none 0s ease 0s ;
+    transition: none 0s ease 0s;
     vertical-align: middle;
     width: 30px;
 }
@@ -194,9 +192,11 @@ nav {
 .icon_rechercher {
     background: url("../images/loupe.png") no-repeat 0 0;
 }
+
 .icon_observer {
     background: url("../images/pictogramme.png") no-repeat 0 0;
 }
+
 .icon_naturalistes {
     background: url("../images/naturaliste.png") no-repeat 0 0;
 }
@@ -211,18 +211,16 @@ nav {
     margin: 0 auto;
 }
 
-
-
 /*FOOTER*/
 
 footer .logo {
     height: 120px;
-    margin-left : -50px;
+    margin-left: -50px;
 }
 
 footer p {
-    color : #90C840;
-    font-size : 0.8em;
+    color: #90C840;
+    font-size: 0.8em;
     text-align: justify;
 }
 
@@ -233,11 +231,11 @@ ol, ul {
 }
 
 .footer_right {
-    margin-top : 70px;
+    margin-top: 70px;
 }
 
 .footer_nav {
-    color : #90C840;
+    color: #90C840;
 }
 
 .footer_nav li, .footer_rs li {
@@ -248,56 +246,61 @@ ol, ul {
     margin: 0 10px;
     padding-bottom: 15px;
 }
+
 .footer_nav li a, .footer_rs li a {
     color: #90C840;
     display: block;
     font-size: 0.8em;
     transition: all 0.9s ease 0s;
 }
+
 .footer_rs {
     margin-top: 2%;
 }
+
 .footer_rs li a {
     padding: 14px 10px;
     transition: all 0.5s linear 0s;
 }
 
 .footer_nav li a:hover, .footer_rs li a:hover {
-    color : #00A468;
+    color: #00A468;
     text-decoration: none;
 }
 
 .footer_rs li a > i.iconTwitter {
     background-position: 0 0;
 }
+
 .footer_rs li a > i {
     display: inline-block;
     height: 18px;
     margin: 0 auto;
-    transition: none 0s ease 0s ;
+    transition: none 0s ease 0s;
     vertical-align: middle;
     width: 20px;
 }
+
 .iconTwitter {
     background: url("../images/twitter.png") no-repeat 0 0;
 }
+
 .iconFacebook {
     background: url("../images/facebook.png") no-repeat 0 0;
 }
+
 .iconMail {
     background: url("../images/mail.png") no-repeat 0 0;
 }
 
-
-
 /* ACCUEIL */
 
-#bloc_observer{
+#bloc_observer {
     background-image: url('../images/background-NAO.jpg');
     background-size: cover;
 }
 
-#bloc_dernieres_obs{
+#bloc_dernieres_obs {
     color: #00A468;
 }
 
@@ -306,11 +309,11 @@ ol, ul {
     color: #ffffff;
 }
 
-.saut-de-ligne{
+.saut-de-ligne {
     display: block;
 }
 
-.bouton-main{
+.bouton-main {
     background-color: #90C840;
     color: #ffffff;
     background-image: url('../images/oiseau_blanc.png');
@@ -324,20 +327,20 @@ ol, ul {
     margin-top: 30px;
 }
 
-.bouton-main:hover{
+.bouton-main:hover {
     color: #ffffff;
 }
 
-.texte-bouton{
+.texte-bouton {
     position: relative;
     top: -8px;
 }
 
-.bouton-main img{
+.bouton-main img {
     display: block;
 }
 
-.bloc-texte{
+.bloc-texte {
     background-color: #ffffff;
     color: #000000;
     text-align: left;
@@ -350,26 +353,27 @@ ol, ul {
 
 /* PROFILS */
 
-.connexion_forms{
-padding-top: 20px;
+.connexion_forms {
+    padding-top: 20px;
 }
 
-.layout-profil{
+.layout-profil {
     margin-top: 25px;
     margin-bottom: 25px;
 }
-.h2_forms{
+
+.h2_forms {
     text-align: center;
     font-weight: bold;
     /*text-decoration: underline;*/ /*Special @phil*/
-    color:#8FCA33;
+    color: #8FCA33;
 }
 
 /*MAP */
 #map {
-    width : 600px;
-    margin : 40px auto 20px auto;
-    height : 600px;
+    width: 600px;
+    margin: 40px auto 20px auto;
+    height: 600px;
 }
 
 #iw-container .iw-title {
@@ -380,6 +384,7 @@ padding-top: 20px;
     margin: 0;
     border-radius: 2px 2px 0 0;
 }
+
 .title_valide {
     background-color: #00a368;
     color: #ececec;
@@ -391,11 +396,15 @@ padding-top: 20px;
 }
 
 .bloc_vert {
-    background-color: #00A368 ;
+    background-color: #00A368;
+    /*font-weight: 600;*/
+    padding: 0 10px 0 10px;
 }
 
 .bloc_orange {
     background-color: #ffae19;
+    /*font-weight: 600;*/
+    padding: 0 10px 0 10px;
 }
 
 #iw-container .iw-content {
@@ -405,10 +414,12 @@ padding-top: 20px;
     margin-right: 1px;
     max-height: 140px;
 }
+
 .iw-content img {
     float: left;
     margin: 0 5px 5px 10px;
 }
+
 .iw-content p {
     text-align: left;
 }
@@ -417,7 +428,8 @@ hr {
     margin-bottom: 6px;
     margin-top: 6px;
 }
-#charte_popup{
+
+#charte_popup {
     margin-right: 2% !important;
     /*margin-left:270px !important;*/
     /*position: fixed !important;*/
@@ -431,27 +443,50 @@ hr {
     /*z-index: 9999 !important;*/
 }
 
-.charte_content{
+.charte_content {
     overflow: scroll;
     max-width: 450px !important;
     max-height: 200px;
 
 }
+
+.statut_obs {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.vos_obs::after {
+    content: "";
+    width: auto;
+    height: 2px;
+    background: lightgray;
+    display: block;
+}
+
+.vos_obs::after {
+    content: "";
+    width: auto;
+    height: 2px;
+    background: lightgray;
+    display: block;
+}
+
 /*REPONSIVE */
 
-@media (max-width: 1200px){
-    .logo a img{
+@media (max-width: 1200px) {
+    .logo a img {
         margin-left: -20px;
     }
 }
 
-@media (max-width: 992px){
-    .logo a img{
+@media (max-width: 992px) {
+    .logo a img {
         margin-left: -40px;
         width: 220px;
     }
 
-    .recherche-decale{
+    .recherche-decale {
         margin-left: 210px;
     }
 
@@ -459,87 +494,109 @@ hr {
 
 @media (max-width: 768px) {
     .container {
-        padding : 0;
+        padding: 0;
     }
-    .body-margin{
+
+    .body-margin {
         margin-top: 100px;
     }
+
     header {
-        padding : 0;
+        padding: 0;
     }
+
     header .container {
         width: 100%;
     }
-    .header-fixed{
+
+    .header-fixed {
         margin-top: -36px;
     }
-    #logo-header{
+
+    #logo-header {
         display: flex;
         justify-content: center;
     }
-    .entete{
+
+    .entete {
         height: 30px;
     }
-    .logo a{
+
+    .logo a {
         width: auto;
     }
-    .logo a img{
+
+    .logo a img {
         margin-left: 0;
         margin-top: 0;
         width: 90px;
     }
-    nav{
+
+    nav {
         margin-left: -12px;
     }
-    .nav-decale{
+
+    .nav-decale {
         margin-left: 75px;
     }
-    .menu_box_list{
+
+    .menu_box_list {
         min-width: 225px;
         width: 20%;
         margin-bottom: 0;
     }
-    .menu_box_list li{
+
+    .menu_box_list li {
         height: 60px;
         width: 75px;
         border-bottom: none;
         min-width: 75px;
     }
-    .menu_box_list li a{
+
+    .menu_box_list li a {
         font-size: 0.8em;
         margin-top: -7px;
     }
-    .menu_box_list li a > i{
+
+    .menu_box_list li a > i {
         height: 30px;
     }
-    .menu_box_list li a > i{
+
+    .menu_box_list li a > i {
         padding: 5px;
     }
-    .menu_box_list li a span{
+
+    .menu_box_list li a span {
         margin-top: -10px;
         padding-left: 0;
         padding-right: 0;
     }
+
     .footer_right {
-        margin-top : 10px;
+        margin-top: 10px;
     }
-    .footer_texte{
+
+    .footer_texte {
         margin-top: -70px;
     }
-    .form_search{
+
+    .form_search {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
     }
+
     .btw_form {
         padding-bottom: 15px;
     }
-    .decal_btn{
+
+    .decal_btn {
         margin: auto;
     }
+
     #map {
-        width : 375px;
-        margin : 10px auto 0 auto;
-        height : 375px;
+        width: 375px;
+        margin: 10px auto 0 auto;
+        height: 375px;
     }
 }
