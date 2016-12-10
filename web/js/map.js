@@ -36,7 +36,7 @@ function afficherCartePictos(maxZoom) {
             '<div class="iw-title ' + class_title + '">' + observation_decode[i].espece + '</div>' + '<hr>' +
             '<div class="iw-content row">' +
                 '<div class="col-xs-5">' +
-                    '<img src="../uploads/photos/' + observation_decode[i].photoObs + '" alt="' + observation_decode[i].espece +'" height="auto" width="100">'+
+                    '<img src="' + observation_decode[i].photoObs + '" alt="' + observation_decode[i].espece +'" height="auto" width="100">'+
                 '</div>'+
                 '<div class="col-xs-7">' +
                     '<p>Observé par ' + observation_decode[i].username + '</p>' +

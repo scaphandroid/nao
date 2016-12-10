@@ -44,7 +44,7 @@ class PlatformController extends Controller
             ->getDerObsValides(30); //Observation des X derniers jours
 
         // les observations sont encodées en json pour être affichées sur la carte, via le service dédié
-        $observation_JSON = $this->get('service_container')->get('nao_platform.jsonencode')->jsonEncode($listDerObs);
+        $observation_JSON = $this->get('service_container')->get('nao_platform.jsonencode')->jsonEncode($listDerObs, $request->getSchemeAndHttpHost());
 
         return $this->render('NAOPlatformBundle:Platform:index.html.twig', array(
             'form' => $form->createView(),
@@ -90,7 +90,7 @@ class PlatformController extends Controller
             }
 
             // les observations sont encodées en json pour être affichées sur la carte, via le service dédié
-            $observation_JSON = $this->get('service_container')->get('nao_platform.jsonencode')->jsonEncode($listObserv);
+            $observation_JSON = $this->get('service_container')->get('nao_platform.jsonencode')->jsonEncode($listObserv, $request->getSchemeAndHttpHost());
 
             return $this->render('NAOPlatformBundle:Platform:rechercher.html.twig', array(
                 'form' => $form->createView(),
