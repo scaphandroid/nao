@@ -472,6 +472,32 @@ hr {
     display: block;
 }
 
+.btn-primary {
+    background-color: #a6d023;
+}
+
+.btn-primary:hover {
+    background-color: #97BF20;
+    font-weight: 600;
+}
+
+.btn-default {
+    background-color: #b1e16b;
+    border-color: #f1ec75;
+}
+
+.btn-default:hover {
+    background-color: #a1dc49;
+    font-weight: 600;
+}
+
+#loading {
+    background:
+            url('http://www.hsi.com.hk/HSI-Net/pages/images/en/share/ajax-loader.gif')
+            no-repeat
+            right center;
+}
+
 /*REPONSIVE */
 
 @media (max-width: 1200px) {

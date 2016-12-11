@@ -14,12 +14,14 @@
                     {{ form_label(form.nomConcat, "Veuillez saisir le nom d'une espèce :", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
                     {{ form_errors(form.nomConcat) }}
                 <div class="col-sm-3 btw_form">
+
                         {{ form_widget(form.nomConcat, {'attr': {'class': 'form-control'}}) }}
                 </div>
                 {{ form_widget(form.rechercher, {'attr': {'class': 'btn btn-primary col-xs-3 decal_btn'}}) }}
             </div>
             {{ form_rest(form) }}
             {{ form_end(form) }}
+
         </div>
         <div>
             {% if (observation_JSON is defined) %}
@@ -33,7 +35,7 @@
                     {% if listEspecesObservees|length > 1 %}
                         <h4>Espèces observées correspondantes :</h4>
                     {% else %}
-                        <h4>Espèce observée correspondant :</h4>
+                        <h4>Espèce observée correspondante :</h4>
                     {% endif %}
 
                     <ul>
@@ -64,5 +66,16 @@
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQcmtlhakbZxEK68_wVMjV59kWTyPK9eA&region=FR&callback=initMapHomeRechercher">
     </script>
+    <script>
+        $(function () {
+            $(document).ajaxStart(function(){
+                $("#loading").css("display", "block");
+            });
 
+            $(document).ajaxStop(function(){
+                $("#loading").css("display", "none");
+            });
+
+        })
+    </script>
 {% endblock %}
