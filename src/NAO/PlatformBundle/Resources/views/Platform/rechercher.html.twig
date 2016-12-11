@@ -14,15 +14,15 @@
                     {{ form_label(form.nomConcat, "Veuillez saisir le nom d'une espèce :", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
                     {{ form_errors(form.nomConcat) }}
                 <div class="col-sm-3 btw_form">
-
                         {{ form_widget(form.nomConcat, {'attr': {'class': 'form-control'}}) }}
                 </div>
+                <div>
                 {{ form_widget(form.rechercher, {'attr': {'class': 'btn btn-primary col-xs-3 decal_btn'}}) }}
             </div>
             {{ form_rest(form) }}
             {{ form_end(form) }}
-
         </div>
+            <span class="loader"></span>
         <div>
             {% if (observation_JSON is defined) %}
 
@@ -69,11 +69,11 @@
     <script>
         $(function () {
             $(document).ajaxStart(function(){
-                $("#loading").css("display", "block");
+                $(".loader").css("display", "block");
             });
 
             $(document).ajaxStop(function(){
-                $("#loading").css("display", "none");
+                $(".loader").css("display", "none");
             });
 
         })
