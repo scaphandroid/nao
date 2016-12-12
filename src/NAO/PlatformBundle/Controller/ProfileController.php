@@ -57,7 +57,7 @@ class ProfileController extends Controller
             ->getListObsByUser($user->getId());
 
         // les observations sont encodées en json pour être affichées sur la carte, via le service dédié
-        $observation_JSON = $this->get('service_container')->get('nao_platform.jsonencode')->jsonEncode($listObserv);
+        $observation_JSON = $this->get('service_container')->get('nao_platform.jsonencode')->jsonEncode($listObserv, $request->getSchemeAndHttpHost());
 
         return $this->render('@NAOPlatform/Profile/mesObservations.html.twig', array(
             'user' => $user,
@@ -269,7 +269,7 @@ class ProfileController extends Controller
         }
         // TODO Mettre d'autres limitations?
 
-        $observation_JSON = $this->get('nao_platform.jsonencode')->jsonEncode(array($observation));
+        $observation_JSON = $this->get('nao_platform.jsonencode')->jsonEncode(array($observation), $request->getSchemeAndHttpHost());
         
         return $this->render('@NAOPlatform/Profile/observation.html.twig', array(
             "observation" => $observation,

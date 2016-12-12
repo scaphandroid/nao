@@ -4,11 +4,13 @@
 {% endblock %}
 
 {% block body %}
-    {% if first_visit is defined and first_visit == true %}
-        {{ dump(first_visit) }}
+    {% if not first_visit %}
         {# Début de la charte en pop up non bloquante#}
-        <div id="charte_popup" title="Charte d'engagement">
-            <h4 class="text-center">Charte d'engagement</h4>
+        <div id="charte_popup">
+            <div>
+                <button type="button" class="close charte_close" data-dismiss="modal"  title="Plus Tard">&times;</button>
+                <h4 class="text-center">Charte d'engagement</h4>
+            </div>
             <div class="well text-center" style="overflow-y: scroll; max-height: 250px;">
                 <p>Ac ne quis a nobis hoc ita dici forte miretur, quod alia quaedam in hoc
                     facultas sit ingeni, neque
@@ -26,7 +28,9 @@
                     continentur.</p>
             </div>
             <div class="text-center">
-                    <button class="charte_popup_close btn btn-success" onClick="{% set first_visit = 'true' %}">J'accepte</button>
+                <button class="charte_close btn btn-success"
+                        onClick="setCookie('charte','charte_approved', 3600 * 24 * 365, '/')">J'accepte
+                </button>
             </div>
         </div>
         {# Fin de la charte en pop up non bloquante#}

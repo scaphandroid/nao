@@ -73,7 +73,7 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
         foreach ($listEspece as $espece){
             array_push($listEspeceId, $espece->getId());
         }
-        $qb = $this->_em->createQuery("SELECT obs FROM NAOPlatformBundle:Observation obs JOIN obs.especeNomVern esp WHERE esp.id IN(:listeEspeceId) AND obs.valide=:valide")
+        $qb = $this->_em->createQuery("SELECT obs FROM NAOPlatformBundle:Observation obs JOIN obs.espece esp WHERE esp.id IN(:listeEspeceId) AND obs.valide=:valide")
             ->setParameters(array(
                 'valide' => true,
                 'listeEspeceId' => $listEspece

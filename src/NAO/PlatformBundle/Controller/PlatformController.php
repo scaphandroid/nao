@@ -2,38 +2,26 @@
 
 namespace NAO\PlatformBundle\Controller;
 
-use NAO\PlatformBundle\Entity\EspeceNomVern;
+use NAO\PlatformBundle\Entity\Espece;
 use NAO\PlatformBundle\Entity\Observation;
-use NAO\PlatformBundle\Entity\User;
-use NAO\PlatformBundle\Form\EspeceNomVernType;
+use NAO\PlatformBundle\Form\EspeceType;
 use NAO\PlatformBundle\Form\RechercheType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
 use NAO\PlatformBundle\Form\ObservationType;
 use NAO\PlatformBundle\Form\NaturalisteType;
-use NAO\PlatformBundle\Form\UserParticulierType;
 use Symfony\Component\HttpFoundation\Request;
-use PUGX\AutocompleterBundle\Form\Type\AutocompleteType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\HttpFoundation\Cookie;
 
 
 class PlatformController extends Controller
 {
     public function indexAction(Request $request)
     {
-        $first_visit = $request->cookies->has('popup_first_visit');
-        if(!$first_visit) {
-            $response = new Response();
-            $response->headers->setCookie(new Cookie('popup_first_visit', 'charte_not_approved', time() + 3600 * 24 * 365, '/'));
-            $response->send();
-        }
+        $first_visit = $request->cookies->has('charte');
+
         $user = $this->getUser();
         $typeCompte = ($user == null) ? null : $user->getTypeCompte();
-        $espece = new EspeceNomVern();
-        $form = $this->createForm(EspeceNomVernType::class, $espece);
+        $espece = new Espece();
+        $form = $this->createForm(EspeceType::class, $espece);
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             return $this->render('NAOPlatformBundle:Platform:rechercher.html.twig', array(
@@ -48,7 +36,7 @@ class PlatformController extends Controller
             ->getDerObsValides(30); //Observation des X derniers jours
 
         // les observations sont encodées en json pour être affichées sur la carte, via le service dédié
-        $observation_JSON = $this->get('service_container')->get('nao_platform.jsonencode')->jsonEncode($listDerObs);
+        $observation_JSON = $this->get('service_container')->get('nao_platform.jsonencode')->jsonEncode($listDerObs, $request->getSchemeAndHttpHost());
 
         return $this->render('NAOPlatformBundle:Platform:index.html.twig', array(
             'form' => $form->createView(),
@@ -69,13 +57,13 @@ class PlatformController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            // data is an array with "nomVern" keys
+            // on récupère les données de recherche
             $data = $form->getData();
 
             $manager = $this->getDoctrine()->getManager();
 
             //on récupère les espèces correspondant à la recherche
-            $listeEspeces = $manager->getRepository('NAOPlatformBundle:EspeceNomVern')
+            $listeEspeces = $manager->getRepository('NAOPlatformBundle:Espece')
                 ->findLikeByName($data["nomConcat"], 100);
 
             //on récupère les observations valides correspondants aux espèces
@@ -87,14 +75,14 @@ class PlatformController extends Controller
             $idsEspecesObservees = [];
             $listEspecesObservees = [];
             foreach ($listObserv as $obs){
-                if(!in_array($obs->getEspeceNomVern()->getId(), $idsEspecesObservees)){
-                    array_push($listEspecesObservees, $obs->getEspeceNomVern());
-                    array_push($idsEspecesObservees, $obs->getEspeceNomVern()->getId());
+                if(!in_array($obs->getEspece()->getId(), $idsEspecesObservees)){
+                    array_push($listEspecesObservees, $obs->getEspece());
+                    array_push($idsEspecesObservees, $obs->getEspece()->getId());
                 }
             }
 
             // les observations sont encodées en json pour être affichées sur la carte, via le service dédié
-            $observation_JSON = $this->get('service_container')->get('nao_platform.jsonencode')->jsonEncode($listObserv);
+            $observation_JSON = $this->get('service_container')->get('nao_platform.jsonencode')->jsonEncode($listObserv, $request->getSchemeAndHttpHost());
 
             return $this->render('NAOPlatformBundle:Platform:rechercher.html.twig', array(
                 'form' => $form->createView(),

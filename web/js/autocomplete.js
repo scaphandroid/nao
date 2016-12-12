@@ -3,6 +3,6 @@ var options = {
     url_get: $('#url-get').attr('href')
 };
 
-$('#nao_platformbundle_especeNomVern_nomVern').autocompleter(options);
-$('#nao_platformbundle_observation_especeNomVern').autocompleter(options);
+$('#nao_platformbundle_espece_nomVern').autocompleter(options);
+$('#nao_platformbundle_observation_espece').autocompleter(options);
 $('#recherche_nomConcat').autocompleterRecherche(options);

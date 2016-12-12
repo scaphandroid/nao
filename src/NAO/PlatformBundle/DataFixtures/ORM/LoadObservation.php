@@ -2,15 +2,10 @@
 
 namespace NAO\PlatformBundle\DataFixtures\ORM;
 
-use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use NAO\PlatformBundle\Entity\Observation;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
-use NAO\PlatformBundle\Entity\EspeceNomVern;
-use NAO\PlatformBundle\Entity\EspeceNomLatin;
-use NAO\PlatformBundle\Entity\User;
-use Symfony\Component\HttpFoundation\File\File;
 
 class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
 {
@@ -21,7 +16,7 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
         $listObservations = array(
             array(
                 'dateObserv' => new \DateTime('2016-11-20'),
-                'especeVern' => 'Aigle impérial',
+                'espece' => 'Aigle impérial',
                 'localise' => true,
                 'lat' => 44.806004,
                 'long' => 4.420166,
@@ -32,7 +27,7 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
                 'photo' => 'oiseau1.jpg',),
             array(
                 'dateObserv' => new \DateTime('2016-11-15'),
-                'especeVern' => 'Colibri tout-vert ',
+                'espece' => 'Colibri tout-vert ',
                 'localise' => true,
                 'lat' => 47.246424,
                 'long' => -0.150146,
@@ -43,7 +38,7 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
                 'photo' => 'oiseau2.jpg',),
             array(
                 'dateObserv' => new \DateTime('2016-11-11'),
-                'especeVern' => 'Pluvier guignard',
+                'espece' => 'Pluvier guignard',
                 'localise' => false,
                 'lat' => 49.707431,
                 'long' => 4.112549,
@@ -54,7 +49,7 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
                 'photo' => 'oiseau3.jpg',),
             array(
                 'dateObserv' => new \DateTime('2016-11-12'),
-                'especeVern' => 'Bécasseau de Bonaparte, Bécasseau à croupion blanc',
+                'espece' => 'Bécasseau de Bonaparte, Bécasseau à croupion blanc',
                 'localise' => false,
                 'lat' => 43.513502,
                 'long' => 6.046143,
@@ -65,7 +60,7 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
                 'photo' => 'oiseau4.jpg',),
             array(
                 'dateObserv' => new \DateTime('2016-11-19'),
-                'especeVern' => 'Pigeon biset',
+                'espece' => 'Pigeon biset',
                 'localise' => false,
                 'lat' => 41.513502,
                 'long' => 3.046143,
@@ -79,7 +74,7 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
         foreach ($listObservations as $listObservation) {
             $observation = new Observation();
             $observation->setDateObs($listObservation['dateObserv']);
-            $observation->setEspeceNomVern($this->getReference($listObservation['especeVern']));
+            $observation->setEspece($this->getReference($listObservation['espece']));
             $observation->setPhoto($listObservation['photo']);
             $observation->setLocalise($listObservation['localise']);
             $observation->setLat($listObservation['lat']);
