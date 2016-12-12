@@ -313,7 +313,7 @@ ol, ul {
     display: block;
 }
 
-.bouton-main {
+.bouton-main, .bouton-main:visited, .bouton-main:focus, .bouton-main:active{
     background-color: #90C840;
     color: #ffffff;
     background-image: url('../images/oiseau_blanc.png');
@@ -346,9 +346,8 @@ ol, ul {
     text-align: left;
     margin-top: 40px;
     margin-bottom: 20px;
-    padding-left: 30px;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding:20px 30px;
+    border-radius: 6px;
 }
 
 /* PROFILS */
@@ -486,7 +485,9 @@ hr {
 .btn-group-justified{
     border-spacing: 1px;
 }
-
+a:-webkit-any-link  {
+    text-decoration: none;
+}
 /*REPONSIVE */
 
 @media (max-width: 1200px) {
