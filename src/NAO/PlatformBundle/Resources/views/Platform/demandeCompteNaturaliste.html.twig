@@ -4,10 +4,19 @@
 {% endblock %}
 
 {% block body %}
-<div class="container">
-    <p>Vous avez déjà un compte particulier et vous souhaitez faire une demande de compte naturaliste ? <a href="{{ path('fos_user_security_login') }}">Connectez-vous</a> et cliquer sur le lien "Devenir naturaliste".</p>
-    {{ form(form) }}
-</div>
+    <div class="container connexion_forms">
+        <div class="row well col-sm-offset-1 col-sm-9 col-md-offset-2 col-md-8">
+            <p class="text-center well">Vous avez déjà un compte particulier et vous souhaitez faire une demande de
+                compte
+                naturaliste ? <a href="{{ path('fos_user_security_login') }}">Connectez-vous</a> et cliquer sur le lien
+                "Devenir naturaliste".</p>
+            {{ form_start(form) }}
+            <div class="form-group form_search">
+
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
 
 
 {% endblock %}

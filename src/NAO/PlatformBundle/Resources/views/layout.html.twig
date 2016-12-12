@@ -116,21 +116,40 @@
             <div class="col-sm-offset-1 footer_right col-sm-5">
                 <div class="row footer_liens">
                     <ul class="footer_nav">
-                        <li><a href="#">Découvrir</a></li>
+                        <li><a href="{{ path('nao_platform_rechercher') }}">Découvrir</a></li>
                         |
-                        <li><a href="#">Observer</a></li>
+                        <li><a href="{{ path('nao_platform_observer') }}">Observer</a></li>
                         |
-                        <li><a href="#">S'inscrire</a></li>
+                        <li><a href="{{ path('fos_user_security_login') }}">S'inscrire</a></li>
                         |
-                        <li><a href="#">Contact</a></li>
+                        <li><a href="#" data-target="#myModal" data-toggle="modal">Contact</a></li>
                     </ul>
+                </div>
+                <div id="myModal" class="modal fade" role="dialog" style="z-index: 9999">
+                    <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title text-center">Adresse de Contact : </h4>
+                            </div>
+                            <div class="modal-body" style="font-size: large">
+                                <p class="text-center">Envoyez nous un mail à : <a href="mailto:naoiseaux@gmail.com"> naoiseaux@gmail.com </a></p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-custom" data-dismiss="modal">Fermer</button>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
                 <div class="row footer_rs">
                     <ul>
-                        <li><a href="#"> <i class="iconTwitter"> </i><span>Twitter</span></a></li>
-                        <li><a href="#"> <i class="iconFacebook"> </i> <span>Facebook</span></a></li>
+                        <li><a href="twitter.com/nao"> <i class="iconTwitter"> </i><span>Twitter</span></a></li>
+                        <li><a href="facebook.com/nao"> <i class="iconFacebook"> </i> <span>Facebook</span></a></li>
                         <!--   <li><a href="#"> <i class="iconRss"> </i><span>Rss</span></a></li> -->
-                        <li><a href="#"> <i class="iconMail"> </i><span>Mail</span></a></li>
+                        <li><a href="mailto:naoiseaux@gmail.com"> <i class="iconMail"> </i><span>Mail</span></a></li>
                     </ul>
                 </div>
             </div>
@@ -144,6 +163,7 @@
 {% block javascript %}
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="{{ asset('js/autocompleter-jqueryui.js') }}"></script>
     <script src="{{ asset("js/header.js") }}"></script>
     <script src="{{ asset('js/autocomplete.js') }}"></script>
