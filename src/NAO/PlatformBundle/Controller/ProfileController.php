@@ -10,6 +10,7 @@ use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
 use NAO\PlatformBundle\Entity\User;
+use NAO\PlatformBundle\Form\ObservationsSearchType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -193,7 +194,7 @@ class ProfileController extends Controller
             return $response;
         }
 
-        return $this->render('FOSUserBundle:Profile:edit.html.twig', array(
+        return $this->render('NAOPlatformBundle:Profile:edit.html.twig', array(
             'form' => $form->createView(),
         ));
     }
@@ -215,7 +216,7 @@ class ProfileController extends Controller
             $request->getSession()->getFlashBag()->add('notice', 'Demande de compte naturaliste bien enregistrée. Vous allez être contacter par nos équipes.');
             return $this->redirectToRoute('nao_platform_home');
         }
-        return $this->render('FOSUserBundle:Profile:devenirNaturaliste.html.twig', array(
+        return $this->render('NAOPlatformBundle:Profile:devenirNaturaliste.html.twig', array(
             'user'=> $user,
             'form' => $form->createView(),
         ));
@@ -224,27 +225,67 @@ class ProfileController extends Controller
     public function detailCompteNaturalisteAction(Request $request, User $naturaliste) {
         $user = $this->getUser();
         $form = $this->createForm(ValiderType::class);
+        $validation = false;
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             $naturaliste->setEnAttente(false);
+            $naturaliste->setEnabled(true); // Même si une demande de compte naturaliste sans compte particulier a été faite, un compte particulier est crée
             if ($form->get('valider')->isClicked()) {
                 $naturaliste->setTypeCompte(1);
+                $naturaliste->addRole('ROLE_ADMIN');
                 $message = "Compte naturaliste validé.";
+                $validation = true;
               }
             if ($form->get('invalider')->isClicked()) {
                 $naturaliste->setTypeCompte(0);
                 $message = "Compte naturaliste invalidé.";
+                $validation = false;
             }
             $em = $this->getDoctrine()->getManager();
             $em->flush();
+            /* envoi du mail au particulier avec le service sendMail*/
+            $this->get('nao_platform.sendmail')->sendMail($naturaliste, $validation);
             $request->getSession()->getFlashBag()->add('notice', $message);
+
             return $this->redirectToRoute('nao_profile_listenaturalistes');
-            /*envoyer un mail*/
         }
 
-        return $this->render('FOSUserBundle:Profile:detailCompteNaturaliste.html.twig', array(
+        return $this->render('NAOPlatformBundle:Profile:detailCompteNaturaliste.html.twig', array(
             'user'=> $user,
             'naturaliste' => $naturaliste,
+            'form' => $form->createView()
+        ));
+    }
+
+    public function modererObservationsAction(Request $request) {
+        $user = $this->getUser();
+
+        $form=$this->createForm(ObservationsSearchType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            // on récupère les données de recherche
+            $data = $form->getData();
+
+            $manager = $this->getDoctrine()->getManager();
+
+            //on récupère les espèces correspondant à la recherche
+            $listObserv = $manager->getRepository('NAOPlatformBundle:Observation')
+                ->getListObsByParameters($data);
+
+            var_dump($listObserv);
+            /*    $listeEspeces = $manager->getRepository('NAOPlatformBundle:Espece')
+                    ->findLikeByName($data["nomConcat"], 100);*/
+
+            //on récupère les observations valides correspondants aux espèces
+            /*    $listObserv = $manager
+                    ->getRepository('NAOPlatformBundle:Observation')
+                    ->getListObsByEspeceValides($listeEspeces);*/
+        }
+
+        return $this->render('NAOPlatformBundle:Profile:modererObservations.html.twig', array(
+            'user'=> $user,
             'form' => $form->createView()
         ));
     }

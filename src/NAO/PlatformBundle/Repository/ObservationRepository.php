@@ -80,4 +80,31 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
             ));
         return $qb->getResult();
     }
+
+    //récupère toutes les observations selon les critères de recherche
+    function getListObsByParameters($data) {
+        /* faire un traitement pour la date*/
+        $qb = $this->createQueryBuilder('obs')
+            ->leftJoin('obs.validateur', 'user')
+            ->leftJoin('obs.espece', 'espece')
+            ->where('obs.id > 0'); // condition bidon pour pouvoir écrire des andWhere après
+
+        // Si la recherche porte sur toutes les espèces
+        if($data['espece'] != '') {
+            $qb->andWhere('espece.nomConcat = :espece')
+                ->setParameter('espece', $data['espece']);
+        }
+        // Si la recherche porte sur toutes les dates
+        if($data['dateObs'] != '') {
+            $qb->andwhere('obs.dateObs = :dateObs')
+                ->setParameter('dateObs', $data['dateObs']);
+        }
+        // Si la recherche porte sur tous les validateurs
+        if($data['validateur'] != '') {
+            $qb->andWhere('user.username = :validateur')
+                ->setParameter('validateur', $data['validateur']);
+        }
+
+        return $qb->getQuery()->getResult();
+    }
 }

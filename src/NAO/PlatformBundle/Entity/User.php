@@ -116,6 +116,7 @@ class User extends BaseUser
         parent::__construct();
         $this->dateInscription   = new \Datetime();
         $this->setValide(false);
+        $this->roles = array('ROLE_USER');
     }
     /**
      * Get id

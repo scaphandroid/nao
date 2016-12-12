@@ -9,3 +9,7 @@ services:
     nao_platform.fileuploader:
         class: NAO\PlatformBundle\Services\FileUploader\NAOFileUploader
         arguments: ['%photos_directory%']
+
+    nao_platform.sendmail:
+        class: NAO\PlatformBundle\Services\SendMail\NAOSendMail
+        arguments: ['@mailer']
