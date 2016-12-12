@@ -10,14 +10,20 @@
 
         {% include "NAOPlatformBundle:Profile:profile-layout.html.twig" %}
 
-        <div class="container">
-            <div class="row well">
+        <div class="container connexion_forms">
+            <div class="row well col-sm-offset-1 col-sm-9 col-md-offset-2 col-md-8">
                 {% if (user.enAttente == true) %}
                     <p>Vous avez déjà une demande en cours. Merci d'attendre la réponse de nos équipes.</p>
 
                 {% else %}
-                <p>Vous souhaitez faire une demande de compte naturaliste ? Remplissez ce formulaire et nous vous répondrons dans les meilleurs délais.</p>
-                     {{ form(form) }}
+                    <p class="text-center">Vous souhaitez faire une demande de compte naturaliste ? Remplissez ce formulaire et nous vous
+                        répondrons dans les meilleurs délais.</p>
+                    {{ form_start(form) }}
+                    {{ form_label(form) }}
+                    {{ form_errors(form) }}
+                    {{ form_widget(form) }}
+                    {{ form_end(form) }}
+
                 {% endif %}
             </div>
         </div>

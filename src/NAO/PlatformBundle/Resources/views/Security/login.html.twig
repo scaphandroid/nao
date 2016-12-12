@@ -28,7 +28,7 @@
             <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
             <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label><br>
 
-            <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" class="btn btn-primary"/>
+            <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" class="btn btn-customp"/>
         </form>
     {% endblock %}
         <br><a href="{{ path('fos_user_resetting_request') }}">Mot de passe oublié ?</a>
@@ -41,7 +41,7 @@
         {{ form_start(formInscription, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
         {{ form_widget(formInscription) }}
         <div>
-            <input type="submit" value="{{ 'registration.submit'|trans }}" class="btn btn-primary"/>
+            <input type="submit" value="{{ 'registration.submit'|trans }}" class="btn btn-customp"/>
         </div>
         {{ form_end(formInscription) }}
         <br><p>Faire une <a href="{{ path('nao_platform_demande') }}">Demande de compte naturaliste</a> pour valider les observations des particuliers</p>

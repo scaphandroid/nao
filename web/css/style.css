@@ -472,68 +472,19 @@ hr {
     display: block;
 }
 
-.btn-primary {
-    background-color: #a6d023;
-}
-
-.btn-primary:hover {
-    background-color: #97BF20;
-    font-weight: 600;
-}
-.btn-primary.disabled:hover,
-.btn-primary.disabled:focus,
-.btn-primary.disabled:active,
-.btn-primary.disabled.active,
-.btn-primary[disabled]:hover,
-.btn-primary[disabled]:focus,
-.btn-primary[disabled]:active,
-.btn-primary[disabled].active,
-fieldset[disabled] .btn-primary:hover,
-fieldset[disabled] .btn-primary:focus,
-fieldset[disabled] .btn-primary:active,
-fieldset[disabled] .btn-primary.active{
-    background-color: #30d03e;
-    border-color: #91d035;
-}
-
-.btn-default {
-    background-color: #b1e16b;
-    border-color: #f1ec75;
-}
-
-.btn-default:hover,
-.btn-default:focus,
-.btn-default:active,
-.btn-default.active {
-    background-color: #a1dc49;
-    font-weight: 600;
-}
-.btn-default.disabled:hover,
-.btn-default.disabled:focus,
-.btn-default.disabled:active,
-.btn-default.disabled.active,
-.btn-default[disabled]:hover,
-.btn-default[disabled]:focus,
-.btn-default[disabled]:active,
-.btn-default[disabled].active,
-fieldset[disabled] .btn-default:hover,
-fieldset[disabled] .btn-default:focus,
-fieldset[disabled] .btn-default:active,
-fieldset[disabled] .btn-default.active {
-    background-color: #91d035;
-    border-color: #91d035;
-}
-
 .loader {
     display: none;
     position : fixed;
     z-index: 9999;
     background : url('../images/default.gif') 50% 50% no-repeat;
-    top : 0px;
-    left : 0px;
+    top : 0;
+    left : 0;
     height : 100%;
     width : 100%;
     cursor : wait;
+}
+.btn-group-justified{
+    border-spacing: 1px;
 }
 
 /*REPONSIVE */
