@@ -204,11 +204,11 @@ class User extends BaseUser
     /**
      * Set cv
      *
-     * @param File $cv
+     * @param String $cv
      *
      * @return User
      */
-    public function setCv(File $cv)
+    public function setCv($cv)
     {
         $this->cv = $cv;
 

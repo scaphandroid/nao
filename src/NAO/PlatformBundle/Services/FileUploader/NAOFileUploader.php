@@ -6,18 +6,26 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class NAOFileUploader{
 
-    private $targetDir;
+    private $photoDir;
+    private $pdfDir;
 
-    public function __construct($targetDir)
+    public function __construct($photoDir, $pdfDir)
     {
-        $this->targetDir = $targetDir;
+        $this->photoDir = $photoDir;
+        $this->pdfDir = $pdfDir;
     }
 
-    public function upload(UploadedFile $file)
+    public function upload(UploadedFile $file, $directory)
     {
+        if($directory === 'pdfDirectory'){
+            $targetDir = $this->pdfDir;
+        }else{
+            $targetDir = $this->photoDir;
+        }
+
         $fileName = md5(uniqid()).'.'.$file->guessExtension();
 
-        $file->move($this->targetDir, $fileName);
+        $file->move($targetDir, $fileName);
 
         return $fileName;
     }
