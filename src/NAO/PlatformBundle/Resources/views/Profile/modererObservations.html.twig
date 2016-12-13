@@ -14,6 +14,65 @@
                 {{ form(form) }}
 
                 <p><em>Les champs vides renverront l'ensemble des observations.</em></p>
+            {% endif %}
+        </div>
+        <div class="container">
+            {% if is_granted('ROLE_SUPER_ADMIN') %}
+                {% if listObserv is defined %}
+                    <h2>Résultats de la recherche ({{ listObserv|length }})</h2>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Espece observé</th>
+                                <th>Date d'observation</th>
+                                <th>Observé par</th>
+                                <th>Status</th>
+                                <th>Traitée par</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                        {% if listObserv|length == 0 %}
+                            <p>Aucun résultat correspondant aux critères de recherche.</p>
+                        {%  else %}
+                            {% for observ in listObserv %}
+                                <tr>
+                                    <td>{{ observ.espece.nomConcat }}</td>
+                                    <td>{{ observ.dateObs|date('d/m/Y H:i') }}</td>
+                                    <td>{{ observ.user.username }}</td>
+                                    <td>
+                                        {% if observ.valide %}
+                                            validée
+                                        {%  elseif observ.enAttente  %}
+                                            en attente
+                                        {%  else %}
+                                            refusée
+                                        {% endif %}
+                                    </td>
+                                    <td>{% if observ.validateur.username is defined %}
+                                            {{ observ.validateur.username }}
+                                        {%  elseif observ.user.typeCompte == 0  %}
+                                            en attente
+                                        {%  else %}
+                                            -
+                                        {% endif %}
+
+                                    </td>
+                                    <td>
+                                        {% if observ.valide  %}
+                                            <a class="btn btn-default" href="{{ path('nao_profile_admin_traiterobservation', {'id': observ.id }) }}">Invalider</a>
+                                        {%  else %}
+                                            <a class="btn btn-default" href="{{ path('nao_profile_admin_traiterobservation', {'id': observ.id }) }}">Valider</a>
+                                        {% endif %}
+                                       </td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                        </tbody>
+                    </table>
+
+                {% endif %}
 
             {% endif %}
         </div>

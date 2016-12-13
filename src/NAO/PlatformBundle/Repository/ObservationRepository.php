@@ -1,6 +1,7 @@
 <?php
 
 namespace NAO\PlatformBundle\Repository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * ObservationRepository
@@ -85,26 +86,38 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
     function getListObsByParameters($data) {
         /* faire un traitement pour la date*/
         $qb = $this->createQueryBuilder('obs')
-            ->leftJoin('obs.validateur', 'user')
+            ->leftJoin('obs.validateur', 'validateur')
+            ->leftJoin('obs.user', 'user')
             ->leftJoin('obs.espece', 'espece')
             ->where('obs.id > 0'); // condition bidon pour pouvoir écrire des andWhere après
 
-        // Si la recherche porte sur toutes les espèces
+        // Si la recherche ne porte pas sur toutes les espèces
         if($data['espece'] != '') {
             $qb->andWhere('espece.nomConcat = :espece')
                 ->setParameter('espece', $data['espece']);
         }
-        // Si la recherche porte sur toutes les dates
+        // Si la recherche ne porte pas sur toutes les dates
         if($data['dateObs'] != '') {
-            $qb->andwhere('obs.dateObs = :dateObs')
-                ->setParameter('dateObs', $data['dateObs']);
+            $date = new \DateTime($data['dateObs']);
+            $date->format('Y-m-d');
+            $qb->andwhere('obs.dateObs > :dateObs_start')
+                ->andwhere('obs.dateObs < :dateObs_end')
+                ->setParameter('dateObs_start', $date->format('Y-m-d 00:00:00'))
+                ->setParameter('dateObs_end', $date->format('Y-m-d 23:59:59'));
         }
-        // Si la recherche porte sur tous les validateurs
+
+        // Si la recherche ne porte pas sur tous les user
+        if($data['user'] != '') {
+            $qb->andWhere('user.username = :user')
+                ->setParameter('user', $data['user']);
+        }
+        // Si la recherche ne porte pas sur tous les validateurs
         if($data['validateur'] != '') {
-            $qb->andWhere('user.username = :validateur')
+            $qb->andWhere('validateur.username = :validateur')
                 ->setParameter('validateur', $data['validateur']);
         }
 
+        $qb->orderBy('obs.dateObs', 'DESC');
         return $qb->getQuery()->getResult();
     }
 }

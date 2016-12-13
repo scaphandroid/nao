@@ -21,12 +21,16 @@ class ObservationsSearchType extends AbstractType
                 'label'=> 'Nom de l\'espèce',
                 'required' => false
             ))
-            ->add('validateur', SearchType::class, array(
-                'label'=> 'Nom d\'utilisateur du naturaliste ayant validé l\'observation',
+            ->add('dateObs', SearchType::class, array(
+                'label'=> 'Jour de l\'observation (format JJ-MM-AAAA)',
                 'required' => false
             ))
-            ->add('dateObs', SearchType::class, array(
-                'label'=> 'Date de l\'observation (format JJ/MM/AAAA)',
+            ->add('user', SearchType::class, array(
+                'label'=> 'Nom d\'utilisateur de l\'observateur',
+                'required' => false
+            ))
+            ->add('validateur', SearchType::class, array(
+                'label'=> 'Nom d\'utilisateur du naturaliste ayant traité l\'observation',
                 'required' => false
             ))
             ->add('rechercher', SubmitType::class);
