@@ -94,6 +94,11 @@ fos_user_registration_register:
     defaults: { _controller: NAOPlatformBundle:Registration:register}
     methods:  [GET, POST]
 
+fos_user_resetting_send_email:
+    path:     /send-email
+    defaults: { _controller: NAOPlatformBundle:Resetting:sendEmail}
+    methods:  [POST]
+
 fos_user_profile:
     resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
     prefix: /profile
@@ -109,3 +114,5 @@ fos_user_resetting:
 fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
     prefix: /profile
+
+
