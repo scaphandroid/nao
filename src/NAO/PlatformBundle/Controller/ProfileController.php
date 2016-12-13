@@ -252,6 +252,7 @@ class ProfileController extends Controller
             if ($form->get('invalider')->isClicked()) {
                 $naturaliste->setTypeCompte(0);
                 $message = "Compte naturaliste invalidé.";
+                $naturaliste->removeRole('ROLE_ADMIN');
                 $validation = false;
             }
             $em = $this->getDoctrine()->getManager();
