@@ -27,7 +27,7 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="prenom", type="string", length=255)
+     * @ORM\Column(name="prenom", type="string", length=255, nullable=true)
      * @Assert\Length(
      *     min=2,
      *     minMessage = "Votre prénom doit contenir au moins {{ limit }} caractères",
@@ -38,7 +38,7 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="nom", type="string", length=255)
+     * @ORM\Column(name="nom", type="string", length=255, nullable=true)
      * @Assert\Length(
      *     min=2,
      *     minMessage = "Votre nom doit contenir au moins {{ limit }} caractères",
@@ -115,9 +115,8 @@ class User extends BaseUser
     {
         parent::__construct();
         $this->dateInscription   = new \Datetime();
-        $this->setNom('Toto');
-        $this->setPrenom('Titi');
-        $this->setValide(true);
+        $this->setValide(false);
+        $this->roles = array('ROLE_USER');
     }
     /**
      * Get id

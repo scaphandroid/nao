@@ -45,7 +45,7 @@ class NaturalisteType extends AbstractType
                 'required' => true,
                 'first_options'  => array('label' => 'Mot de passe'),
                 'second_options' => array('label' => 'Vérification du mot de passe')))*/
-            ->add('valider',SubmitType::class);
+            ->add('valider',SubmitType::class, array('attr' => ['class' => 'btn-custom']));
         ;
     }
     
