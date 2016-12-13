@@ -16,9 +16,9 @@
                 <p>Nom : {{ naturaliste.nom }} <p>
                 <p>Prenom : {{ naturaliste.prenom }} </p>
                 <p>Email : {{ naturaliste.email }} </p>
-                </p>Profession: {{ naturaliste.profession }} </p>
+                <p>Profession: {{ naturaliste.profession }} </p>
                 <p>Motivation : {{ naturaliste.motivation }}</p>
-                <p>CV : {{ naturaliste.cv }}</p>
+                <a href="{{ asset('uploads/pdf/' ~ naturaliste.cv)}}" download="cv - {{ naturaliste.nom }} - {{ naturaliste.prenom }}">Téléchargez le cv (PDF)</a>
 
               {{ form(form) }}
 

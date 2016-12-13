@@ -9,6 +9,7 @@ imports:
 parameters:
     locale: fr
     photos_directory: '%kernel.root_dir%/../web/uploads/photos'
+    pdf_directory: '%kernel.root_dir%/../web/uploads/pdf'
 
 framework:
     #esi:             ~
