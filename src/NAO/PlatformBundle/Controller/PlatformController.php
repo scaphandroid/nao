@@ -128,9 +128,10 @@ class PlatformController extends Controller
             $observation->setUser($user);
 
             //traitement de la photo , le traitement de l'upload(déplacement, nouveau nom) se fait via le service
-            $photo = $observation->getPhoto();
-            $fichierPhoto = $this->get('nao_platform.fileuploader')->upload($photo);
-            $observation->setPhoto($fichierPhoto);
+            if ($observation->getPhoto() != null) {
+                $fichierPhoto = $this->get('nao_platform.fileuploader')->upload($observation->getPhoto());
+                $observation->setPhoto($fichierPhoto);
+            }
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($observation);
