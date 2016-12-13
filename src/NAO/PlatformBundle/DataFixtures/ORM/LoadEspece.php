@@ -12,7 +12,7 @@ class LoadEspece extends AbstractFixture implements OrderedFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-        $fichierCSV = fopen(dirname(__FILE__).'\Entite_Espece_NOMCOMPLET_pour import.csv', 'r');
+        $fichierCSV = fopen(dirname(__FILE__).'/Entite_Espece_NOMCOMPLET_pour import.csv', 'r');
 
         //on fera un flush toutes les 20 entrées
         $batchSize = 20;
