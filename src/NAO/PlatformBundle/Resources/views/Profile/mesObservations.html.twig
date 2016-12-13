@@ -5,27 +5,30 @@
 
 {% block body %}
 
-{% block fos_user_content %}
+    {% block fos_user_content %}
 
-{% include "NAOPlatformBundle:Profile:profile-layout.html.twig" %}
+        {% include "NAOPlatformBundle:Profile:profile-layout.html.twig" %}
 
-<div class="row">
-    <div class="well col-lg-offset-3 col-lg-6 col-lg-offset-3 col-md-12 col-xs-12">
-        {% if not is_granted('ROLE_SUPER_ADMIN') %} {#Pour tous les user sauf admin#}
-            <h2>Vos observations</h2>
-            {% if not is_granted('ROLE_ADMIN') %} {#Pour tous les user sauf admin & naturaliste#}
-                <span class="bloc_vert">validées</span> <span class="bloc_orange">en attente de validation</span>
-            {% endif %}
-            <!-- Afficher sous forme de carte -->
-            <div id="map"></div>
-            <div id="observation" class="hidden">
-                {{ observation_JSON }}
+        <div class="row">
+            <div class="well col-lg-offset-3 col-lg-6 col-lg-offset-3 col-md-12 col-xs-12">
+                {% if not is_granted('ROLE_SUPER_ADMIN') %} {#Pour tous les user sauf admin#}
+                    <h2 class="vos_obs">Vos observations :</h2>
+                    {% if not is_granted('ROLE_ADMIN') %} {#Pour tous les user sauf admin & naturaliste#}
+                        <div class="statut_obs">
+                            <h4><span class="bloc_vert"> Validées </span></h4>
+                            <h4><span class="bloc_orange"> En attente de validation </span></h4>
+                        </div>
+                    {% endif %}
+                    <!-- Afficher sous forme de carte -->
+                    <div id="map"></div>
+                    <div id="observation" class="hidden">
+                        {{ observation_JSON }}
+                    </div>
+                {% endif %}
             </div>
-        {% endif %}
-    </div>
-</div>
+        </div>
 
-{% endblock %}
+    {% endblock %}
 
 {% endblock %}
 
