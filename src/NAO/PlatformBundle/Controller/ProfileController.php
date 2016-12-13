@@ -107,16 +107,18 @@ class ProfileController extends Controller
 
         $userRepo = $this->getDoctrine()->getManager()->getRepository('NAOPlatformBundle:User');
 
-        //on récupère les comptes naturalistes en attente à part
+        //on récupère les comptes naturalistes en attente et invalidés à part
         $comptesNatNonValides = $userRepo->getComptesNatNonValides();
-
+        $compteNatRefuses = $userRepo->getComptesNatRefuses();
         $comptesNaturalistes = $userRepo->getComptesNat();
+
+
             
         return $this->render('@NAOPlatform/Profile/listeNaturalistes.html.twig', array(
             'user' => $user,
             'comptesNatNonValides' => $comptesNatNonValides,
-            'comptesNaturalistes' => $comptesNaturalistes
-            
+            'comptesNaturalistes' => $comptesNaturalistes,
+            'compteNatRefuses' => $compteNatRefuses
         ));
     }
 
