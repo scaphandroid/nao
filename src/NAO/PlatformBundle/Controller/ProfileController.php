@@ -9,8 +9,10 @@ use FOS\UserBundle\Form\Factory\FactoryInterface;
 use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
+use NAO\PlatformBundle\Entity\Espece;
+use NAO\PlatformBundle\Entity\Observation;
 use NAO\PlatformBundle\Entity\User;
-use NAO\PlatformBundle\Form\NaturalisteType;
+use NAO\PlatformBundle\Form\ObservationsSearchType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -18,6 +20,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use NAO\PlatformBundle\Form\DevenirNaturalisteType;
+use NAO\PlatformBundle\Form\ValiderType;
+
 
 
 
@@ -101,7 +105,6 @@ class ProfileController extends Controller
             return $this->redirectToRoute('fos_user_profile_show');
         }
 
-
         $userRepo = $this->getDoctrine()->getManager()->getRepository('NAOPlatformBundle:User');
 
         //on récupère les comptes naturalistes en attente à part
@@ -152,7 +155,7 @@ class ProfileController extends Controller
     {
         $user = $this->getUser();
         if (!is_object($user) || !$user instanceof UserInterface) {
-            throw new AccessDeniedException('This user does not have access to this section.');
+            throw new AccessDeniedException('Cet espace est réservé aux utilisateurs enregistrés !');
         }
 
         /** @var $dispatcher EventDispatcherInterface */
@@ -192,7 +195,7 @@ class ProfileController extends Controller
             return $response;
         }
 
-        return $this->render('FOSUserBundle:Profile:edit.html.twig', array(
+        return $this->render('NAOPlatformBundle:Profile:edit.html.twig', array(
             'form' => $form->createView(),
         ));
     }
@@ -209,13 +212,12 @@ class ProfileController extends Controller
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             $user->setEnAttente(true);
             $em = $this->getDoctrine()->getManager();
-        /*    $em->persist($user);*/
             $em->flush();
 
             $request->getSession()->getFlashBag()->add('notice', 'Demande de compte naturaliste bien enregistrée. Vous allez être contacter par nos équipes.');
             return $this->redirectToRoute('nao_platform_home');
         }
-        return $this->render('FOSUserBundle:Profile:devenirNaturaliste.html.twig', array(
+        return $this->render('NAOPlatformBundle:Profile:devenirNaturaliste.html.twig', array(
             'user'=> $user,
             'form' => $form->createView(),
         ));
@@ -223,17 +225,116 @@ class ProfileController extends Controller
 
     public function detailCompteNaturalisteAction(Request $request, User $naturaliste) {
         $user = $this->getUser();
-        $form = $this->createForm(NaturalisteType::class, $naturaliste);
+        if (!is_object($user) || !$user instanceof UserInterface) {
+            $request->getSession()->getFlashBag()->add('notice', 'Cet espace est réservé aux utilisateurs enregistrés !');
+            return $this->redirectToRoute('fos_user_security_login');
+        }
+        // cet espace est réservé aux administrateurs
+        if ( $this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN') == false){
+            $request->getSession()->getFlashBag()->add('notice', 'Cet espace ne vous est pas accessible !');
+            return $this->redirectToRoute('fos_user_profile_show');
+        }
 
+        $form = $this->createForm(ValiderType::class);
+        $validation = false;
 
-        return $this->render('FOSUserBundle:Profile:detailCompteNaturaliste.html.twig', array(
+        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+            $naturaliste->setEnAttente(false);
+            $naturaliste->setEnabled(true); // Même si une demande de compte naturaliste sans compte particulier a été faite, un compte particulier est crée
+            if ($form->get('valider')->isClicked()) {
+                $naturaliste->setTypeCompte(1);
+                $naturaliste->addRole('ROLE_ADMIN');
+                $message = "Compte naturaliste validé.";
+                $validation = true;
+              }
+            if ($form->get('invalider')->isClicked()) {
+                $naturaliste->setTypeCompte(0);
+                $message = "Compte naturaliste invalidé.";
+                $validation = false;
+            }
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+            /* envoi du mail au particulier avec le service sendMail*/
+            $this->get('nao_platform.sendmail')->sendMail($naturaliste, $validation);
+            $request->getSession()->getFlashBag()->add('notice', $message);
+
+            return $this->redirectToRoute('nao_profile_listenaturalistes');
+        }
+
+        return $this->render('NAOPlatformBundle:Profile:detailCompteNaturaliste.html.twig', array(
             'user'=> $user,
             'naturaliste' => $naturaliste,
             'form' => $form->createView()
         ));
     }
 
-    
+    public function modererObservationsAction(Request $request) {
+        $user = $this->getUser();
+        if (!is_object($user) || !$user instanceof UserInterface) {
+            $request->getSession()->getFlashBag()->add('notice', 'Cet espace est réservé aux utilisateurs enregistrés !');
+            return $this->redirectToRoute('fos_user_security_login');
+        }
+        // cet espace est réservé aux administrateurs
+        if ( $this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN') == false){
+            $request->getSession()->getFlashBag()->add('notice', 'Cet espace ne vous est pas accessible !');
+            return $this->redirectToRoute('fos_user_profile_show');
+        }
+
+        $form=$this->createForm(ObservationsSearchType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // on récupère les données de recherche
+            $data = $form->getData();
+            $manager = $this->getDoctrine()->getManager();
+
+            //on récupère les espèces correspondant à la recherche
+            $listObserv = $manager->getRepository('NAOPlatformBundle:Observation')
+                ->getListObsByParameters($data);
+
+            /*    var_dump($listObserv);*/
+            return $this->render('NAOPlatformBundle:Profile:modererObservations.html.twig', array(
+                'user' => $user,
+                'form' => $form->createView(),
+                'listObserv' => $listObserv
+            ));
+        }
+
+        return $this->render('NAOPlatformBundle:Profile:modererObservations.html.twig', array(
+            'user'=> $user,
+            'form' => $form->createView()
+        ));
+    }
+
+    public function traiterObservationAction(Request $request, Observation $observation) {
+        $user = $this->getUser();
+        if (!is_object($user) || !$user instanceof UserInterface) {
+            $request->getSession()->getFlashBag()->add('notice', 'Cet espace est réservé aux utilisateurs enregistrés !');
+            return $this->redirectToRoute('fos_user_security_login');
+        }
+        // cet espace est réservé aux administrateurs
+        if ( $this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN') == false){
+            $request->getSession()->getFlashBag()->add('notice', 'Cet espace ne vous est pas accessible !');
+            return $this->redirectToRoute('fos_user_profile_show');
+        }
+        if ($observation == null) {
+            throw $this->createNotFoundException("L'observation n°" . $observation->getId() . " n'existe pas.");
+        }
+     /*   $observation->setEnAttente(true);*/
+        $message = null;
+        if ($observation->getValide()) {
+            $observation->setValide(false);
+            $message = "L'observation a bien été invalidée.";
+        }
+        else {
+            $observation->setValide(true);
+            $message = "L'observation a bien été validée.";
+        }
+        $em = $this->getDoctrine()->getManager();
+        $em->flush();
+        $request->getSession()->getFlashBag()->add('notice', $message);
+        return $this->redirectToRoute('nao_profile_modererobservations');
+    }
 
     public function observationAction($id, Request $request){
 

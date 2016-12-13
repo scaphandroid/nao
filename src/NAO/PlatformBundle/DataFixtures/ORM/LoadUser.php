@@ -81,11 +81,23 @@ class LoadUser extends AbstractFixture implements OrderedFixtureInterface, Conta
                 'username' => 'particulier3',
                 'password' => 'particulier3',
                 'profession' => 'chercheur bis',
-                'enabled' => false,
-                'typeCompte' => 1,
+                'enabled' => true,
+                'typeCompte' => 0,
                 'enAttente' => true,
                 'role' => 'ROLE_USER',
-                'reference' => 'user-part3')
+                'reference' => 'user-part3'),
+            array(
+                'nom' => 'particulier4',
+                'prenom' => 'particulier4',
+                'email' => 'particulier4@nao.com',
+                'username' => 'particulier4',
+                'password' => 'particulier4',
+                'profession' => 'chercheur bis',
+                'enabled' => true,
+                'typeCompte' => 0,
+                'enAttente' => true,
+                'role' => 'ROLE_USER',
+                'reference' => 'user-part4')
         );
 
         foreach ($listUsers as $listUser) {

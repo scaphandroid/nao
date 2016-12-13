@@ -4,48 +4,54 @@
 {% endblock %}
 
 {% block body %}
-   <div class="connexion_forms container">
-    <div class="col-sm-6 well">
-        <h2 class="h2_forms">Formulaire de connexion</h2>
-    {% block fos_user_content %}
-        {% trans_default_domain 'FOSUserBundle' %}
+    <div class="connexion_forms container">
+        <div class="col-sm-6 well">
+            <h2 class="h2_forms">Formulaire de connexion</h2>
+            {% block fos_user_content %}
+                {% trans_default_domain 'FOSUserBundle' %}
 
-        {% if error %}
-            <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
+                {% if error %}
+                    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
 
-        <form action="{{ path("fos_user_security_check") }}" method="post">
-            {% if csrf_token %}
-                <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
-            {% endif %}
-
-            <label for="username">{{ 'security.login.username'|trans }}</label>
-            <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" class="form-control"/>
-
-            <label for="password">{{ 'security.login.password'|trans }}</label>
-            <input type="password" id="password" name="_password" required="required" class="form-control" /><br>
-
-            <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
-            <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label><br>
-
-            <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" class="btn btn-primary"/>
-        </form>
-    {% endblock %}
-        <br><a href="{{ path('fos_user_resetting_request') }}">Mot de passe oublié ?</a>
-    </div>
-
-    <div class="col-sm-6 well">
-        <h2 class="h2_forms">Formulaire d'inscription pour saisir des observations</h2>
-        {% trans_default_domain 'FOSUserBundle' %}
-
-        {{ form_start(formInscription, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
-        {{ form_widget(formInscription) }}
-        <div>
-            <input type="submit" value="{{ 'registration.submit'|trans }}" class="btn btn-primary"/>
+                <form action="{{ path("fos_user_security_check") }}" method="post" class="form-group">
+                    {% if csrf_token %}
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
+                    {% endif %}
+                    <div class="form-group">
+                        <label for="username">{{ 'security.login.username'|trans }}</label>
+                        <input type="text" id="username" name="_username" value="{{ last_username }}"
+                               required="required" class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">{{ 'security.login.password'|trans }}</label>
+                        <input type="password" id="password" name="_password" required="required" class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox" id="remember_me" name="_remember_me" value="on"/>
+                        <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label><br>
+                    </div>
+                    <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}"
+                           class="btn btn-customp"/>
+                </form>
+            {% endblock %}
+            <br><a href="{{ path('fos_user_resetting_request') }}">Mot de passe oublié ?</a>
         </div>
-        {{ form_end(formInscription) }}
-        <br><p>Faire une <a href="{{ path('nao_platform_demande') }}">Demande de compte naturaliste</a> pour valider les observations des particuliers</p>
+
+        <div class="col-sm-6 well">
+            <h2 class="h2_forms">Formulaire d'inscription pour saisir des observations</h2>
+            {% trans_default_domain 'FOSUserBundle' %}
+
+            {{ form_start(formInscription, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
+            {{ form_widget(formInscription) }}
+            <div>
+                <input type="submit" value="{{ 'registration.submit'|trans }}" class="btn btn-customp"/>
+            </div>
+            {{ form_end(formInscription) }}
+            <br>
+            <p class="text-center">Faire une <a href="{{ path('nao_platform_demande') }}">Demande de compte
+                    naturaliste</a> pour valider les observations des particuliers</p>
+        </div>
     </div>
-   </div>
 
 {% endblock %}
