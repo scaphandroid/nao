@@ -60,11 +60,7 @@
 
                                     </td>
                                     <td>
-                                        {% if observ.valide  %}
-                                            <a class="btn btn-default" href="{{ path('nao_profile_admin_traiterobservation', {'id': observ.id }) }}">Invalider</a>
-                                        {%  else %}
-                                            <a class="btn btn-default" href="{{ path('nao_profile_admin_traiterobservation', {'id': observ.id }) }}">Valider</a>
-                                        {% endif %}
+                                        <a class="btn btn-customp" href="{{ path('nao_profile_observation', {'id': observ.id}) }}">Voir plus</a>
                                        </td>
                                 </tr>
                             {% endfor %}
