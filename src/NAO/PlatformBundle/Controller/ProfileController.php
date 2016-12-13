@@ -353,12 +353,18 @@ class ProfileController extends Controller
         // vérification des accès, en fonction notamment de l'auteur de l'observation
         $checker = $this->get('security.authorization_checker');
         //on vérifie si l'observation est consultée par son propre auteur
-        $observationPerso = ( $observation->getUser() === $user->getId() ) ? true : false ;
+        $observationPerso = ( $observation->getUser() === $user ) ? true : false ;
         // un particulier ne peut consulter que sa propre observation
-        //TODO un naturaliste ne peut consulter que les observations non en attente qu'il a traité et les siennes
         if (($checker->isGranted('ROLE_ADMIN') == false && !$observationPerso))
         {
             $request->getSession()->getFlashBag()->add('notice', 'Cet espace ne vous est pas accessible !');
+            return $this->redirectToRoute('fos_user_profile_show');
+        }
+        //un naturaliste ne peut consulter que les observations non en attente qu'il a traité et les siennes
+        //on lui indique néamoins qui a traité l'observation
+        if($checker->isGranted('ROLE_SUPER_ADMIN') == false && !$observation->getEnAttente() && !$observationPerso && $observation->getValidateur() !== $user)
+        {
+            $request->getSession()->getFlashBag()->add('notice', 'Cet observation est déjà traitée par '.$observation->getValidateur()->getUsername().' !');
             return $this->redirectToRoute('fos_user_profile_show');
         }
 
