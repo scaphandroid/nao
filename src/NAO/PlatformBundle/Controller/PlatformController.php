@@ -10,6 +10,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use NAO\PlatformBundle\Form\ObservationType;
 use NAO\PlatformBundle\Form\NaturalisteType;
 use Symfony\Component\HttpFoundation\Request;
+use FOS\UserBundle\Event\FilterUserResponseEvent;
+use FOS\UserBundle\Event\FormEvent;
+use FOS\UserBundle\Event\GetResponseUserEvent;
+use FOS\UserBundle\FOSUserEvents;
+use FOS\UserBundle\Model\UserManagerInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 
 class PlatformController extends Controller
@@ -153,26 +159,30 @@ class PlatformController extends Controller
         $naturaliste = $userManager->createUser();
 
         $form = $this->createForm(NaturalisteType::class, $naturaliste);
+        $form->setData($naturaliste);
+        $form->handleRequest($request);
 
-        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-            $naturaliste->setEnabled(false);
-            $naturaliste->setValide(false);
-            $naturaliste->setTypeCompte(0); /* a modifier qd l'admin le valide*/
-            $naturaliste->setEnAttente(true);
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                $naturaliste->setEnabled(false);
+                $naturaliste->setValide(false);
+                $naturaliste->setTypeCompte(0); /* a modifier qd l'admin le valide*/
+                $naturaliste->setEnAttente(true);
 
-            //traitement du pdf , le traitement de l'upload(déplacement, nouveau nom) se fait via le service
-            if($naturaliste->getCv()!== null){
-                $pdf = $naturaliste->getCv();
-                $fichierPdf = $this->get('nao_platform.fileuploader')->upload($pdf, 'pdfDirectory');
-                $naturaliste->setCv($fichierPdf);
+                //traitement du pdf , le traitement de l'upload(déplacement, nouveau nom) se fait via le service
+                if($naturaliste->getCv()!== null){
+                        $pdf = $naturaliste->getCv();
+                        $fichierPdf = $this->get('nao_platform.fileuploader')->upload($pdf, 'pdfDirectory');
+                        $naturaliste->setCv($fichierPdf);
+                }
+
+                $userManager->updateUser($naturaliste);
+
+                $request->getSession()->getFlashBag()->add('notice', 'Demande de compte naturaliste bien enregistrée. Vous allez être contacter par nos équipes.');
+                return $this->redirectToRoute('nao_platform_home');
             }
 
-            $userManager->updateUser($naturaliste);
-
-            $request->getSession()->getFlashBag()->add('notice', 'Demande de compte naturaliste bien enregistrée. Vous allez être contacter par nos équipes.');
-            return $this->redirectToRoute('nao_platform_home');
         }
-
         return $this->render('NAOPlatformBundle:Platform:demandeCompteNaturaliste.html.twig', array(
             'form' => $form->createView()
         ));

@@ -4,6 +4,7 @@ namespace NAO\PlatformBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use FOS\UserBundle\Model\User as BaseUser;
 
@@ -11,6 +12,14 @@ use FOS\UserBundle\Model\User as BaseUser;
  * User
  *
  * @ORM\Table(name="fos_user")
+ * @UniqueEntity(
+ *     fields={"email"},
+ *     message="Cet email est déjà utilisé."
+ * )
+ * @UniqueEntity(
+ *     fields={"username"},
+ *     message="Ce nom d'utilisateur est déjà utilisé."
+ * )
  * @ORM\Entity(repositoryClass="NAO\PlatformBundle\Repository\UserRepository")
  */
 class User extends BaseUser
