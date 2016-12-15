@@ -128,9 +128,10 @@ class PlatformController extends Controller
             $observation->setUser($user);
 
             //traitement de la photo , le traitement de l'upload(déplacement, nouveau nom) se fait via le service
-            $photo = $observation->getPhoto();
-            $fichierPhoto = $this->get('nao_platform.fileuploader')->upload($photo);
-            $observation->setPhoto($fichierPhoto);
+            if ($observation->getPhoto() != null) {
+                $fichierPhoto = $this->get('nao_platform.fileuploader')->upload($observation->getPhoto(), 'photoDirectory');
+                $observation->setPhoto($fichierPhoto);
+            }
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($observation);
@@ -158,6 +159,14 @@ class PlatformController extends Controller
             $naturaliste->setValide(false);
             $naturaliste->setTypeCompte(0); /* a modifier qd l'admin le valide*/
             $naturaliste->setEnAttente(true);
+
+            //traitement du pdf , le traitement de l'upload(déplacement, nouveau nom) se fait via le service
+            if($naturaliste->getCv()!== null){
+                $pdf = $naturaliste->getCv();
+                $fichierPdf = $this->get('nao_platform.fileuploader')->upload($pdf, 'pdfDirectory');
+                $naturaliste->setCv($fichierPdf);
+            }
+
             $userManager->updateUser($naturaliste);
 
             $request->getSession()->getFlashBag()->add('notice', 'Demande de compte naturaliste bien enregistrée. Vous allez être contacter par nos équipes.');

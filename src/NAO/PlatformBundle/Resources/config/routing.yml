@@ -49,6 +49,18 @@ nao_profile_detailCompteNaturaliste:
     requirements:
             id : \d+
 
+nao_profile_modererobservations:
+    path:    /profile/admin/modererobservations
+    defaults: {_controller: NAOPlatformBundle:Profile:modererObservations}
+    methods:  [GET, POST]
+
+nao_profile_admin_traiterobservation:
+    path:    /profile/admin/traiterobservations/{id}
+    defaults: { _controller: NAOPlatformBundle:Profile:traiterObservation}
+    methods:  [GET]
+    requirements:
+            id : \d+
+
 nao_profile_observationsrefusees:
     path:    /profile/observationsrefusees
     defaults: { _controller: NAOPlatformBundle:Profile:observationRefusees}
