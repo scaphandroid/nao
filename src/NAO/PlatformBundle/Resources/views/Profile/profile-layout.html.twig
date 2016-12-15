@@ -25,7 +25,20 @@
             {% if is_granted('ROLE_SUPER_ADMIN') %} {#Pour tous les user sauf admin#}
                 <a class="btn btn-default" href="{{ path('nao_profile_listenaturalistes') }}">Modérer naturalistes</a>
                 <a class="btn btn-default" href="{{ path('nao_profile_modererobservations') }}">Modérer observations</a>
-                <a class="btn btn-default">Exporter les données</a>
+
+                <div class="btn-group btn-group-justified">
+                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Exporter les données
+                        <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item " href="{{ path('nao_profile_export_csv') }}">Export
+                                des Observations</a></li>
+                        <li><a class="dropdown-item " href="{{ path('nao_profile_export_csv') }}">Export
+                                des Utilisateurs</a></li>
+                        <li><a class="dropdown-item " href="{{ path('nao_profile_export_csv') }}">Export
+                                des Especes</a></li>
+                    </ul>
+                </div>
+
             {% endif %}
         </div>
 
