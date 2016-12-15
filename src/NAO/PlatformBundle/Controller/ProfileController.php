@@ -20,7 +20,6 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use NAO\PlatformBundle\Form\DevenirNaturalisteType;
 
 
-
 class ProfileController extends Controller
 {
     /**
@@ -46,7 +45,7 @@ class ProfileController extends Controller
             return $this->redirectToRoute('fos_user_security_login');
         }
         // l'administrateur ne fait pas d'observations
-        if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')){
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {
             $request->getSession()->getFlashBag()->add('notice', 'L\'espace "mes observations" est réservé aux particuliers et naturalistes !');
             return $this->redirectToRoute('fos_user_profile_show');
         }
@@ -73,7 +72,7 @@ class ProfileController extends Controller
         }
         // cet espace est réservé aux naturalistes
         $checker = $this->get('security.authorization_checker');
-        if ($checker->isGranted('ROLE_ADMIN') == false || $checker->isGranted('ROLE_SUPER_ADMIN')){
+        if ($checker->isGranted('ROLE_ADMIN') == false || $checker->isGranted('ROLE_SUPER_ADMIN')) {
             $request->getSession()->getFlashBag()->add('notice', 'L\'espace "observations en attente" est réservé aux naturalistes !');
             return $this->redirectToRoute('fos_user_profile_show');
         }
@@ -96,7 +95,7 @@ class ProfileController extends Controller
             return $this->redirectToRoute('fos_user_security_login');
         }
         // cet espace est réservé aux administrateurs
-        if ( $this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN') == false){
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN') == false) {
             $request->getSession()->getFlashBag()->add('notice', 'Cet espace ne vous est pas accessible !');
             return $this->redirectToRoute('fos_user_profile_show');
         }
@@ -108,12 +107,12 @@ class ProfileController extends Controller
         $comptesNatNonValides = $userRepo->getComptesNatNonValides();
 
         $comptesNaturalistes = $userRepo->getComptesNat();
-            
+
         return $this->render('@NAOPlatform/Profile/listeNaturalistes.html.twig', array(
             'user' => $user,
             'comptesNatNonValides' => $comptesNatNonValides,
             'comptesNaturalistes' => $comptesNaturalistes
-            
+
         ));
     }
 
@@ -126,7 +125,7 @@ class ProfileController extends Controller
         }
         // cet espace est réservé aux naturalistes
         $checker = $this->get('security.authorization_checker');
-        if ($checker->isGranted('ROLE_ADMIN') == false || $checker->isGranted('ROLE_SUPER_ADMIN')){
+        if ($checker->isGranted('ROLE_ADMIN') == false || $checker->isGranted('ROLE_SUPER_ADMIN')) {
             $request->getSession()->getFlashBag()->add('notice', 'Cet espace ne vous est pas accessible !');
             return $this->redirectToRoute('fos_user_profile_show');
         }
@@ -136,7 +135,7 @@ class ProfileController extends Controller
             ->getListObsRefuseesParNaturaliste($user->getId());
 
         return $this->render('NAOPlatformBundle:Profile:observationsRefusees.html.twig', array(
-           'user'=> $user,
+            'user' => $user,
             'ObservRefusees' => $observRefusees
         ));
     }
@@ -197,7 +196,8 @@ class ProfileController extends Controller
         ));
     }
 
-    public function devenirNaturalisteAction(Request $request) {
+    public function devenirNaturalisteAction(Request $request)
+    {
         $user = $this->getUser();
         if (!is_object($user) || !$user instanceof UserInterface) {
             $request->getSession()->getFlashBag()->add('notice', 'Cet espace est réservé aux utilisateurs enregistrés !');
@@ -209,33 +209,34 @@ class ProfileController extends Controller
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             $user->setEnAttente(true);
             $em = $this->getDoctrine()->getManager();
-        /*    $em->persist($user);*/
+            /*    $em->persist($user);*/
             $em->flush();
 
             $request->getSession()->getFlashBag()->add('notice', 'Demande de compte naturaliste bien enregistrée. Vous allez être contacter par nos équipes.');
             return $this->redirectToRoute('nao_platform_home');
         }
         return $this->render('FOSUserBundle:Profile:devenirNaturaliste.html.twig', array(
-            'user'=> $user,
+            'user' => $user,
             'form' => $form->createView(),
         ));
     }
 
-    public function detailCompteNaturalisteAction(Request $request, User $naturaliste) {
+    public function detailCompteNaturalisteAction(Request $request, User $naturaliste)
+    {
         $user = $this->getUser();
         $form = $this->createForm(NaturalisteType::class, $naturaliste);
 
 
         return $this->render('FOSUserBundle:Profile:detailCompteNaturaliste.html.twig', array(
-            'user'=> $user,
+            'user' => $user,
             'naturaliste' => $naturaliste,
             'form' => $form->createView()
         ));
     }
 
-    
 
-    public function observationAction($id, Request $request){
+    public function observationAction($id, Request $request)
+    {
 
         $user = $this->getUser();
         if (!is_object($user) || !$user instanceof UserInterface) {
@@ -248,19 +249,34 @@ class ProfileController extends Controller
         // vérification des accès
         $checker = $this->get('security.authorization_checker');
         // un particulier ne peut consulter que sa propre observation
-        if ($checker->isGranted('ROLE_ADMIN') == false && $observation->getUser() !== $user->getId())
-        {
+        if ($checker->isGranted('ROLE_ADMIN') == false && $observation->getUser() !== $user->getId()) {
             $request->getSession()->getFlashBag()->add('notice', 'Cet espace ne vous est pas accessible !');
             return $this->redirectToRoute('fos_user_profile_show');
         }
         // TODO Mettre d'autres limitations?
 
         $observation_JSON = $this->get('nao_platform.jsonencode')->jsonEncode(array($observation), $request->getSchemeAndHttpHost());
-        
+
         return $this->render('@NAOPlatform/Profile/observation.html.twig', array(
             "observation" => $observation,
             "user" => $user,
             'observation_JSON' => $observation_JSON,
         ));
+    }
+
+    public function exportCSVAction()
+    {
+        $user = $this->getUser();
+        $repository = $this->getDoctrine()->getRepository('NAOPlatformBundle:Observation');
+        $data = $repository->findAll();
+        $filename = "export_" . date("Y_m_d_His") . ".csv";
+
+        $response = $this->render('NAOPlatformBundle:Profile:adminCsv.html.twig', array(
+            'data' => $data,
+            'user' => $user));
+        $response->headers->set('Content-Type', 'text/csv');
+
+        $response->headers->set('Content-Disposition', 'attachment; filename=' . $filename);
+        return $response;
     }
 }

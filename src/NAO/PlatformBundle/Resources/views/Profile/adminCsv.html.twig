@@ -1,0 +1,6 @@
+{% block body %}
+    "id"lat"lon"dateobs"
+    {% for row in data %}
+        "{{ row.id }}"{{ row.lat }}"{{ row.lon }}"{{ row.dateObs|date('Y-m-d') }}"{{ row.espece.id }}"
+    {% endfor %}
+{% endblock %}

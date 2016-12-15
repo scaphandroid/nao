@@ -62,6 +62,10 @@ nao_profile_observation:
     defaults: {_controller: NAOPlatformBundle:Profile:observation}
     methods: [GET]
 
+nao_profile_export_csv:
+    path: /profile/export
+    defaults: {_controller: NAOPlatformBundle:Profile:exportCSV}
+
 fos_user_security_login:
     path:     /connexion
     defaults: { _controller: NAOPlatformBundle:Security:login}
