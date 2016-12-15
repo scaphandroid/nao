@@ -264,14 +264,44 @@ class ProfileController extends Controller
         ));
     }
 
-    public function exportCSVAction()
+    public function exportCSVObsAction()
     {
         $user = $this->getUser();
         $repository = $this->getDoctrine()->getRepository('NAOPlatformBundle:Observation');
         $data = $repository->findAll();
-        $filename = "export_" . date("Y_m_d_His") . ".csv";
+        $filename = "export_obs_" . date("Y_m_d_His") . ".csv";
 
-        $response = $this->render('NAOPlatformBundle:Profile:adminCsv.html.twig', array(
+        $response = $this->render('NAOPlatformBundle:Exports:adminCsvObs.html.twig', array(
+            'data' => $data,
+            'user' => $user));
+        $response->headers->set('Content-Type', 'text/csv');
+
+        $response->headers->set('Content-Disposition', 'attachment; filename=' . $filename);
+        return $response;
+    }
+    public function exportCSVUsersAction()
+    {
+        $user = $this->getUser();
+        $repository = $this->getDoctrine()->getRepository('NAOPlatformBundle:User');
+        $data = $repository->findAll();
+        $filename = "export_usr_" . date("Y_m_d_His") . ".csv";
+
+        $response = $this->render('NAOPlatformBundle:Exports:adminCsvUsr.html.twig', array(
+            'data' => $data,
+            'user' => $user));
+        $response->headers->set('Content-Type', 'text/csv');
+
+        $response->headers->set('Content-Disposition', 'attachment; filename=' . $filename);
+        return $response;
+    }
+    public function exportCSVEspecesAction()
+    {
+        $user = $this->getUser();
+        $repository = $this->getDoctrine()->getRepository('NAOPlatformBundle:Espece');
+        $data = $repository->findAll();
+        $filename = "export_esp_" . date("Y_m_d_His") . ".csv";
+
+        $response = $this->render('NAOPlatformBundle:Exports:adminCsvEsp.html.twig', array(
             'data' => $data,
             'user' => $user));
         $response->headers->set('Content-Type', 'text/csv');
