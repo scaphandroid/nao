@@ -33,6 +33,18 @@
         </ul>
     {% endif %}
 </div>
+<div class="row well col-lg-offset-4 col-lg-4 col-lg-offset-4 col-sm-offset-3 col-sm-6 col-sm-offset-3">
+    {% if is_granted('ROLE_SUPER_ADMIN') %}
+        <h2>Liste des comptes naturalistes refusés</h2>
+        <ul class="list-group">
+            {% for compte in compteNatRefuses %}
+                <li class="list-group-item">
+                    <p>nom : {{ compte.nom }} prenom: {{ compte.prenom }} profession: {{ compte.profession }} <a class="btn btn-custom" href="{{ path('nao_profile_detailCompteNaturaliste', {'id': compte.id }) }}">Voir plus</a></p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
 
 {% endblock %}
 

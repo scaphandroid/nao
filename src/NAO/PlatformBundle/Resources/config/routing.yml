@@ -72,7 +72,7 @@ nao_profile_devenirnaturaliste:
 nao_profile_observation:
     path:   /profile/observation/{id}
     defaults: {_controller: NAOPlatformBundle:Profile:observation}
-    methods: [GET]
+    methods: [GET, POST]
 
 fos_user_security_login:
     path:     /connexion

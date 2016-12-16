@@ -107,16 +107,18 @@ class ProfileController extends Controller
 
         $userRepo = $this->getDoctrine()->getManager()->getRepository('NAOPlatformBundle:User');
 
-        //on récupère les comptes naturalistes en attente à part
+        //on récupère les comptes naturalistes en attente et invalidés à part
         $comptesNatNonValides = $userRepo->getComptesNatNonValides();
-
+        $compteNatRefuses = $userRepo->getComptesNatRefuses();
         $comptesNaturalistes = $userRepo->getComptesNat();
+
+
             
         return $this->render('@NAOPlatform/Profile/listeNaturalistes.html.twig', array(
             'user' => $user,
             'comptesNatNonValides' => $comptesNatNonValides,
-            'comptesNaturalistes' => $comptesNaturalistes
-            
+            'comptesNaturalistes' => $comptesNaturalistes,
+            'compteNatRefuses' => $compteNatRefuses
         ));
     }
 
@@ -250,6 +252,7 @@ class ProfileController extends Controller
             if ($form->get('invalider')->isClicked()) {
                 $naturaliste->setTypeCompte(0);
                 $message = "Compte naturaliste invalidé.";
+                $naturaliste->removeRole('ROLE_ADMIN');
                 $validation = false;
             }
             $em = $this->getDoctrine()->getManager();
@@ -337,31 +340,66 @@ class ProfileController extends Controller
     }
 
     public function observationAction($id, Request $request){
-
         $user = $this->getUser();
+
+        //on vérifie si l'utilisateur est enregistré, sinon il n'a dans tous les cas pas accès à cette page
         if (!is_object($user) || !$user instanceof UserInterface) {
             $request->getSession()->getFlashBag()->add('notice', 'Cet espace est réservé aux utilisateurs enregistrés !');
             return $this->redirectToRoute('fos_user_security_login');
         }
 
-        $observation = $this->getDoctrine()->getManager()->getRepository('NAOPlatformBundle:Observation')->find($id);
+        //on récupère l'observation, et on prépare son affichage sur la carte
+        $em = $this->getDoctrine()->getManager();
+        $observation = $em->getRepository('NAOPlatformBundle:Observation')->find($id);
+        $observation_JSON = $this->get('nao_platform.jsonencode')->jsonEncode(array($observation), $request->getSchemeAndHttpHost());
 
-        // vérification des accès
+        // vérification des accès, en fonction notamment de l'auteur de l'observation
         $checker = $this->get('security.authorization_checker');
+        //on vérifie si l'observation est consultée par son propre auteur
+        $observationPerso = ( $observation->getUser() === $user ) ? true : false ;
         // un particulier ne peut consulter que sa propre observation
-        if ($checker->isGranted('ROLE_ADMIN') == false && $observation->getUser() !== $user->getId())
+        if (($checker->isGranted('ROLE_ADMIN') == false && !$observationPerso))
         {
             $request->getSession()->getFlashBag()->add('notice', 'Cet espace ne vous est pas accessible !');
             return $this->redirectToRoute('fos_user_profile_show');
         }
-        // TODO Mettre d'autres limitations?
+        //un naturaliste ne peut consulter que les observations non en attente qu'il a traité et les siennes
+        //on lui indique néamoins qui a traité l'observation
+        if($checker->isGranted('ROLE_SUPER_ADMIN') == false && !$observation->getEnAttente() && !$observationPerso && $observation->getValidateur() !== $user)
+        {
+            $request->getSession()->getFlashBag()->add('notice', 'Cet observation est déjà traitée par '.$observation->getValidateur()->getUsername().' !');
+            return $this->redirectToRoute('fos_user_profile_show');
+        }
 
-        $observation_JSON = $this->get('nao_platform.jsonencode')->jsonEncode(array($observation), $request->getSchemeAndHttpHost());
-        
+        //pour la validation/invalidation, le formulaire n'est pas accessible au particulier, ni au naturaliste si il s'agit de sa propre observation
+        $form = null;
+        if($checker->isGranted('ROLE_ADMIN') || !$observationPerso){
+            $form = $this->createForm(ValiderType::class);
+            $form->handleRequest($request);
+
+            if($form->isSubmitted() && $form->isValid()){
+                if($form->get('valider')->isClicked()){
+                    $observation->setValide(true);
+                    $observation->setEnAttente(false);
+                    $message = "Observation validée";
+                }
+                elseif($form->get('invalider')->isClicked()){
+                    $observation->setValide(false);
+                    $observation->setEnAttente(false);
+                    $message = "Observation invalidée";
+                }
+                $observation->setValidateur($user);
+                $em->persist($observation);
+                $em->flush();
+                if (isset($message)) $this->addFlash('notice', $message);
+            }
+        }
+
         return $this->render('@NAOPlatform/Profile/observation.html.twig', array(
             "observation" => $observation,
             "user" => $user,
             'observation_JSON' => $observation_JSON,
+            'form' => $form->createView()
         ));
     }
 }
