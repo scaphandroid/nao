@@ -24,7 +24,11 @@
                     <p>Photo: <img class="img-responsive" src="{{ asset('uploads/photos/' ~ observation.photo) }}"></p>
                     <p>Commentaire de l'observateur : {{ observation.commentaireP }}</p>
                     <p>Statut : {% if observation.valide %}Valide{% elseif observation.enAttente %}En attente{% else %}Invalide{% endif %}</p>
-                    <a class="btn btn-customp" href="#">Valider l'observation</a>
+
+                    {% if form is defined %}
+                        {{ form(form) }}
+                    {% endif %}
+
                 </li>
             </ul>
         </div>

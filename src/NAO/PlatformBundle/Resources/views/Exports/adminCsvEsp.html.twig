@@ -1,0 +1,6 @@
+{% block body %}
+    id"nom_vernaculaire"cd_nom"nom_complet"nom_concatene"url
+    {% for row in data %}
+        {{ row.id }}"{{ row.nomVern }}"{{ row.cdnom }}"{{ row.nomComplet }}"{{ row.nomConcat }}"{{ row.url }}
+    {% endfor %}
+{% endblock %}

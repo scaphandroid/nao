@@ -9,20 +9,15 @@ use FOS\UserBundle\Form\Factory\FactoryInterface;
 use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
-use NAO\PlatformBundle\Entity\Espece;
-use NAO\PlatformBundle\Entity\Observation;
 use NAO\PlatformBundle\Entity\User;
-use NAO\PlatformBundle\Form\ObservationsSearchType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use NAO\PlatformBundle\Form\DevenirNaturalisteType;
+use NAO\PlatformBundle\Entity\Observation;
+use NAO\PlatformBundle\Form\ObservationsSearchType;
 use NAO\PlatformBundle\Form\ValiderType;
-
-
 
 
 class ProfileController extends Controller
@@ -50,7 +45,7 @@ class ProfileController extends Controller
             return $this->redirectToRoute('fos_user_security_login');
         }
         // l'administrateur ne fait pas d'observations
-        if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')){
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {
             $request->getSession()->getFlashBag()->add('notice', 'L\'espace "mes observations" est réservé aux particuliers et naturalistes !');
             return $this->redirectToRoute('fos_user_profile_show');
         }
@@ -77,7 +72,7 @@ class ProfileController extends Controller
         }
         // cet espace est réservé aux naturalistes
         $checker = $this->get('security.authorization_checker');
-        if ($checker->isGranted('ROLE_ADMIN') == false || $checker->isGranted('ROLE_SUPER_ADMIN')){
+        if ($checker->isGranted('ROLE_ADMIN') == false || $checker->isGranted('ROLE_SUPER_ADMIN')) {
             $request->getSession()->getFlashBag()->add('notice', 'L\'espace "observations en attente" est réservé aux naturalistes !');
             return $this->redirectToRoute('fos_user_profile_show');
         }
@@ -100,23 +95,24 @@ class ProfileController extends Controller
             return $this->redirectToRoute('fos_user_security_login');
         }
         // cet espace est réservé aux administrateurs
-        if ( $this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN') == false){
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN') == false) {
             $request->getSession()->getFlashBag()->add('notice', 'Cet espace ne vous est pas accessible !');
             return $this->redirectToRoute('fos_user_profile_show');
         }
 
+
         $userRepo = $this->getDoctrine()->getManager()->getRepository('NAOPlatformBundle:User');
 
-        //on récupère les comptes naturalistes en attente à part
+        //on récupère les comptes naturalistes en attente et invalidés à part
         $comptesNatNonValides = $userRepo->getComptesNatNonValides();
-
+        $compteNatRefuses = $userRepo->getComptesNatRefuses();
         $comptesNaturalistes = $userRepo->getComptesNat();
-            
+
         return $this->render('@NAOPlatform/Profile/listeNaturalistes.html.twig', array(
             'user' => $user,
             'comptesNatNonValides' => $comptesNatNonValides,
-            'comptesNaturalistes' => $comptesNaturalistes
-            
+            'comptesNaturalistes' => $comptesNaturalistes,
+            'compteNatRefuses' => $compteNatRefuses
         ));
     }
 
@@ -129,7 +125,7 @@ class ProfileController extends Controller
         }
         // cet espace est réservé aux naturalistes
         $checker = $this->get('security.authorization_checker');
-        if ($checker->isGranted('ROLE_ADMIN') == false || $checker->isGranted('ROLE_SUPER_ADMIN')){
+        if ($checker->isGranted('ROLE_ADMIN') == false || $checker->isGranted('ROLE_SUPER_ADMIN')) {
             $request->getSession()->getFlashBag()->add('notice', 'Cet espace ne vous est pas accessible !');
             return $this->redirectToRoute('fos_user_profile_show');
         }
@@ -139,7 +135,7 @@ class ProfileController extends Controller
             ->getListObsRefuseesParNaturaliste($user->getId());
 
         return $this->render('NAOPlatformBundle:Profile:observationsRefusees.html.twig', array(
-           'user'=> $user,
+            'user' => $user,
             'ObservRefusees' => $observRefusees
         ));
     }
@@ -195,12 +191,13 @@ class ProfileController extends Controller
             return $response;
         }
 
-        return $this->render('NAOPlatformBundle:Profile:edit.html.twig', array(
+        return $this->render('FOSUserBundle:Profile:edit.html.twig', array(
             'form' => $form->createView(),
         ));
     }
 
-    public function devenirNaturalisteAction(Request $request) {
+    public function devenirNaturalisteAction(Request $request)
+    {
         $user = $this->getUser();
         if (!is_object($user) || !$user instanceof UserInterface) {
             $request->getSession()->getFlashBag()->add('notice', 'Cet espace est réservé aux utilisateurs enregistrés !');
@@ -217,13 +214,14 @@ class ProfileController extends Controller
             $request->getSession()->getFlashBag()->add('notice', 'Demande de compte naturaliste bien enregistrée. Vous allez être contacter par nos équipes.');
             return $this->redirectToRoute('nao_platform_home');
         }
-        return $this->render('NAOPlatformBundle:Profile:devenirNaturaliste.html.twig', array(
-            'user'=> $user,
+        return $this->render('FOSUserBundle:Profile:devenirNaturaliste.html.twig', array(
+            'user' => $user,
             'form' => $form->createView(),
         ));
     }
 
-    public function detailCompteNaturalisteAction(Request $request, User $naturaliste) {
+    public function detailCompteNaturalisteAction(Request $request, User $naturaliste)
+    {
         $user = $this->getUser();
         if (!is_object($user) || !$user instanceof UserInterface) {
             $request->getSession()->getFlashBag()->add('notice', 'Cet espace est réservé aux utilisateurs enregistrés !');
@@ -250,6 +248,7 @@ class ProfileController extends Controller
             if ($form->get('invalider')->isClicked()) {
                 $naturaliste->setTypeCompte(0);
                 $message = "Compte naturaliste invalidé.";
+                $naturaliste->removeRole('ROLE_ADMIN');
                 $validation = false;
             }
             $em = $this->getDoctrine()->getManager();
@@ -337,31 +336,112 @@ class ProfileController extends Controller
     }
 
     public function observationAction($id, Request $request){
-
         $user = $this->getUser();
+
+        //on vérifie si l'utilisateur est enregistré, sinon il n'a dans tous les cas pas accès à cette page
         if (!is_object($user) || !$user instanceof UserInterface) {
             $request->getSession()->getFlashBag()->add('notice', 'Cet espace est réservé aux utilisateurs enregistrés !');
             return $this->redirectToRoute('fos_user_security_login');
         }
 
-        $observation = $this->getDoctrine()->getManager()->getRepository('NAOPlatformBundle:Observation')->find($id);
+        //on récupère l'observation, et on prépare son affichage sur la carte
+        $em = $this->getDoctrine()->getManager();
+        $observation = $em->getRepository('NAOPlatformBundle:Observation')->find($id);
+        $observation_JSON = $this->get('nao_platform.jsonencode')->jsonEncode(array($observation), $request->getSchemeAndHttpHost());
 
-        // vérification des accès
+        // vérification des accès, en fonction notamment de l'auteur de l'observation
         $checker = $this->get('security.authorization_checker');
+        //on vérifie si l'observation est consultée par son propre auteur
+        $observationPerso = ( $observation->getUser() === $user ) ? true : false ;
         // un particulier ne peut consulter que sa propre observation
-        if ($checker->isGranted('ROLE_ADMIN') == false && $observation->getUser() !== $user->getId())
+        if (($checker->isGranted('ROLE_ADMIN') == false && !$observationPerso))
         {
             $request->getSession()->getFlashBag()->add('notice', 'Cet espace ne vous est pas accessible !');
             return $this->redirectToRoute('fos_user_profile_show');
         }
-        // TODO Mettre d'autres limitations?
+        //un naturaliste ne peut consulter que les observations non en attente qu'il a traité et les siennes
+        //on lui indique néamoins qui a traité l'observation
+        if($checker->isGranted('ROLE_SUPER_ADMIN') == false && !$observation->getEnAttente() && !$observationPerso && $observation->getValidateur() !== $user)
+        {
+            $request->getSession()->getFlashBag()->add('notice', 'Cet observation est déjà traitée par '.$observation->getValidateur()->getUsername().' !');
+            return $this->redirectToRoute('fos_user_profile_show');
+        }
 
-        $observation_JSON = $this->get('nao_platform.jsonencode')->jsonEncode(array($observation), $request->getSchemeAndHttpHost());
-        
+        //pour la validation/invalidation, le formulaire n'est pas accessible au particulier, ni au naturaliste si il s'agit de sa propre observation
+        $form = null;
+        if($checker->isGranted('ROLE_ADMIN') || !$observationPerso){
+            $form = $this->createForm(ValiderType::class);
+            $form->handleRequest($request);
+
+            if($form->isSubmitted() && $form->isValid()){
+                if($form->get('valider')->isClicked()){
+                    $observation->setValide(true);
+                    $observation->setEnAttente(false);
+                    $message = "Observation validée";
+                }
+                elseif($form->get('invalider')->isClicked()){
+                    $observation->setValide(false);
+                    $observation->setEnAttente(false);
+                    $message = "Observation invalidée";
+                }
+                $observation->setValidateur($user);
+                $em->persist($observation);
+                $em->flush();
+                if (isset($message)) $this->addFlash('notice', $message);
+            }
+        }
+
         return $this->render('@NAOPlatform/Profile/observation.html.twig', array(
             "observation" => $observation,
             "user" => $user,
             'observation_JSON' => $observation_JSON,
+            'form' => $form->createView()
         ));
+    }
+
+    public function exportCSVObsAction()
+    {
+        $user = $this->getUser();
+        $repository = $this->getDoctrine()->getRepository('NAOPlatformBundle:Observation');
+        $data = $repository->findAll();
+        $filename = "export_obs_" . date("Y_m_d_His") . ".csv";
+
+        $response = $this->render('NAOPlatformBundle:Exports:adminCsvObs.html.twig', array(
+            'data' => $data,
+            'user' => $user));
+        $response->headers->set('Content-Type', 'text/csv');
+
+        $response->headers->set('Content-Disposition', 'attachment; filename=' . $filename);
+        return $response;
+    }
+    public function exportCSVUsersAction()
+    {
+        $user = $this->getUser();
+        $repository = $this->getDoctrine()->getRepository('NAOPlatformBundle:User');
+        $data = $repository->findAll();
+        $filename = "export_usr_" . date("Y_m_d_His") . ".csv";
+
+        $response = $this->render('NAOPlatformBundle:Exports:adminCsvUsr.html.twig', array(
+            'data' => $data,
+            'user' => $user));
+        $response->headers->set('Content-Type', 'text/csv');
+
+        $response->headers->set('Content-Disposition', 'attachment; filename=' . $filename);
+        return $response;
+    }
+    public function exportCSVEspecesAction()
+    {
+        $user = $this->getUser();
+        $repository = $this->getDoctrine()->getRepository('NAOPlatformBundle:Espece');
+        $data = $repository->findAll();
+        $filename = "export_esp_" . date("Y_m_d_His") . ".csv";
+
+        $response = $this->render('NAOPlatformBundle:Exports:adminCsvEsp.html.twig', array(
+            'data' => $data,
+            'user' => $user));
+        $response->headers->set('Content-Type', 'text/csv');
+
+        $response->headers->set('Content-Disposition', 'attachment; filename=' . $filename);
+        return $response;
     }
 }

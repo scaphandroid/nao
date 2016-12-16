@@ -1,0 +1,6 @@
+{% block body %}
+    id"espece.id"espece.nomVern"espece.cd_nom"espece.nomComplet"espece.nomConcat"espece.url"user.id"user.username"user.email"user.prenom"user.nom"user.profession"user.date_inscription|format('d-m-Y')"user.type_compte"lat"lon"dateObs"dateSaisie"photo"valide"enAttente"commentaireP"commentaireN
+    {% for row in data %}
+        {{ row.id }}"{{ row.espece.id }}"{{ row.espece.nomVern }}"{{ row.espece.cdnom }}"{{ row.espece.nomComplet }}"{{ row.espece.nomConcat }}"{{ row.espece.url }}"{{ row.user.id }}"{{ row.user.username }}"{{ row.user.email }}"{{ row.user.prenom }}"{{ row.user.nom }}"{{ row.user.profession }}"{{ row.user.dateinscription|date('d-m-Y') }}"{{ row.user.typecompte }}{#"{{ row.validateurid }}#}"{{ row.lat }}"{{ row.lon }}"{{ row.dateObs|date('d-m-Y') }}"{{ row.dateSaisie|date('d-m-Y') }}"{{ row.photo }}"{{ row.valide }}"{{ row.enAttente }}"{{ row.commentaireP }}"{{ row.commentaireN }}
+    {% endfor %}
+{% endblock %}

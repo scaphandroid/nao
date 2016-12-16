@@ -72,7 +72,19 @@ nao_profile_devenirnaturaliste:
 nao_profile_observation:
     path:   /profile/observation/{id}
     defaults: {_controller: NAOPlatformBundle:Profile:observation}
-    methods: [GET]
+    methods: [GET, POST]
+
+nao_profile_export_obs:
+    path: /profile/exporto
+    defaults: {_controller: NAOPlatformBundle:Profile:exportCSVObs}
+
+nao_profile_export_users:
+    path: /profile/exportu
+    defaults: {_controller: NAOPlatformBundle:Profile:exportCSVUsers}
+
+nao_profile_export_especes:
+    path: /profile/exporte
+    defaults: {_controller: NAOPlatformBundle:Profile:exportCSVEspeces}
 
 fos_user_security_login:
     path:     /connexion
