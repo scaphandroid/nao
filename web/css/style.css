@@ -611,8 +611,8 @@ a:-webkit-any-link  {
     }
 
     #map {
-        width: 375px;
+        width: 320px;
         margin: 10px auto 0 auto;
-        height: 375px;
+        height: 320px;
     }
 }
