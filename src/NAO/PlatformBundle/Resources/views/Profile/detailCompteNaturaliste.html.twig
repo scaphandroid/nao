@@ -9,7 +9,7 @@
 
         {% include "NAOPlatformBundle:Profile:profile-layout.html.twig" %}
 
-        <div class="row well col-lg-offset-4 col-lg-4 col-lg-offset-4 col-sm-offset-3 col-sm-6 col-sm-offset-3">
+        <div class="row well col-lg-offset-3 col-lg-6 col-lg-offset-3 col-sm-offset-3 col-sm-6 col-sm-offset-3">
             {% if is_granted('ROLE_SUPER_ADMIN') %}
                 <h2>Détail du compte naturaliste {{ naturaliste.username }}</h2>
 
@@ -20,7 +20,25 @@
                 <p>Motivation : {{ naturaliste.motivation }}</p>
                 <a href="{{ asset('uploads/pdf/' ~ naturaliste.cv)}}" download="cv - {{ naturaliste.nom }} - {{ naturaliste.prenom }}">Téléchargez le cv (PDF)</a>
 
-              {{ form(form) }}
+                {{ form_start(form) }}
+                {{ form_errors(form) }}
+                <div class="text-center">
+                    {#Cas ou le naturaliste a fait une demande de compte naturaliste#}
+                    {% if (naturaliste.typeCompte == 0) and (naturaliste.enAttente)  %}
+                        {{ form_widget(form.valider, {'attr': {'class': 'btn btn-custom'}}) }}
+                        {{ form_widget(form.invalider, {'attr': {'class': 'btn btn-danger'}}) }}
+                    {#Cas du compte naturaliste déjà validé#}
+                    {% elseif (naturaliste.typeCompte == 1) and (naturaliste.enAttente == false) %}
+                        {{ form_widget(form.valider, {'attr': {'class': 'btn btn-custom hidden'}}) }}
+                        {{ form_widget(form.invalider, {'attr': {'class': 'btn btn-danger'}}) }}
+                    {#Cas du compte naturaliste refusé#}
+                    {% elseif (naturaliste.typeCompte == 0) and (naturaliste.valide == false) and (naturaliste.enAttente == false) %}
+                        {{ form_widget(form.valider, {'attr': {'class': 'btn btn-custom'}}) }}
+                        {{ form_widget(form.invalider, {'attr': {'class': 'btn btn-danger hidden'}}) }}
+                    {% endif %}
+                </div>
+                {{ form_rest(form) }}
+                {{ form_end(form) }}
 
             {% endif %}
         </div>

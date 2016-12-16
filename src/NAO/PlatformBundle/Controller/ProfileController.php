@@ -241,12 +241,14 @@ class ProfileController extends Controller
             $naturaliste->setEnabled(true); // Même si une demande de compte naturaliste sans compte particulier a été faite, un compte particulier est crée
             if ($form->get('valider')->isClicked()) {
                 $naturaliste->setTypeCompte(1);
+                $naturaliste->setValide(true);
                 $naturaliste->addRole('ROLE_ADMIN');
                 $message = "Compte naturaliste validé.";
                 $validation = true;
               }
             if ($form->get('invalider')->isClicked()) {
                 $naturaliste->setTypeCompte(0);
+                $naturaliste->setValide(false);
                 $message = "Compte naturaliste invalidé.";
                 $naturaliste->removeRole('ROLE_ADMIN');
                 $validation = false;

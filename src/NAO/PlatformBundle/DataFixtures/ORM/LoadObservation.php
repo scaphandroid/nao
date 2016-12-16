@@ -15,7 +15,7 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
         // On crée 5 observations qu'on va assigner à nos user
         $listObservations = array(
             array(
-                'dateObserv' => new \DateTime('2016-11-20 11:00:00'),
+                'dateObserv' => new \DateTime('2016-12-16 11:00:00'),
                 'espece' => 'Aigle impérial',
                 'localise' => true,
                 'lat' => 44.806004,
@@ -26,7 +26,7 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
                 'user' => 'user-admin',
                 'photo' => 'oiseau1.jpg',),
             array(
-                'dateObserv' => new \DateTime('2016-11-15 12:00:00'),
+                'dateObserv' => new \DateTime('2016-12-15 12:00:00'),
                 'espece' => 'Colibri tout-vert ',
                 'localise' => true,
                 'lat' => 47.246424,
@@ -37,7 +37,7 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
                 'user' => 'user-part2',
                 'photo' => 'oiseau2.jpg',),
             array(
-                'dateObserv' => new \DateTime('2016-11-11 14:00:00'),
+                'dateObserv' => new \DateTime('2016-12-11 14:00:00'),
                 'espece' => 'Pluvier guignard',
                 'localise' => false,
                 'lat' => 49.707431,
@@ -48,7 +48,7 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
                 'user' => 'user-part1',
                 'photo' => 'oiseau3.jpg',),
             array(
-                'dateObserv' => new \DateTime('2016-11-12 02:00:00'),
+                'dateObserv' => new \DateTime('2016-12-13 02:00:00'),
                 'espece' => 'Bécasseau de Bonaparte, Bécasseau à croupion blanc',
                 'localise' => false,
                 'lat' => 43.513502,
@@ -59,7 +59,18 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
                 'user' => 'user-nat',
                 'photo' => 'oiseau4.jpg',),
             array(
-                'dateObserv' => new \DateTime('2016-11-19 04:00:00'),
+                'dateObserv' => new \DateTime('2016-12-12 04:00:00'),
+                'espece' => 'Bécasseau de Bonaparte, Bécasseau à croupion blanc',
+                'localise' => false,
+                'lat' => 45.513502,
+                'long' => 3.046143,
+                'valide' => true,
+                'enAttente' => false,
+                'validateur' => null,
+                'user' => 'user-nat',
+                'photo' => 'oiseau4.jpg',),
+            array(
+                'dateObserv' => new \DateTime('2016-12-01 04:00:00'),
                 'espece' => 'Pigeon biset',
                 'localise' => false,
                 'lat' => 41.513502,
@@ -70,7 +81,7 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
                 'user' => 'user-part1',
                 'photo' => 'oiseau4.jpg',),
             array(
-                'dateObserv' => new \DateTime('2016-11-19 04:00:00'),
+                'dateObserv' => new \DateTime('2016-12-09 04:00:00'),
                 'espece' => 'Pigeon biset',
                 'localise' => false,
                 'lat' => 41.513502,
