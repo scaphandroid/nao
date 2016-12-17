@@ -8,6 +8,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta property="og:url"           content="" />
+    <meta property="og:type"          content="website" />
+    <meta property="og:title"         content="NAO" />
+    <meta property="og:description"   content="Découvrez l'ornithologie et alimentez un projet de recherche innovant." />
+    <meta property="og:image"         content="" />
 
     <title>{% block title %}NAO{% endblock %}</title>
 
@@ -29,6 +34,14 @@
 </head>
 
 <body class="container-fluid">
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.8";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
 <header>
     <div class="container">
         <div class="row entete">
@@ -100,34 +113,10 @@
 {% block footer %}
     <footer>
         <div class="row wrap">
-            <div class="footer_left col-sm-6">
-                <div class="row logo">
-                    <a href="{{ path('nao_platform_home') }}">
-                        <img src="{{ asset('images/Logo-def.png') }}" alt="Logo de Nos Amis les Oiseaux"/>
-                    </a>
-                </div>
-                <div class="row footer_texte">
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
-                        of type and scrambled it to make a type specimen book.</p>
-                </div>
-            </div>
 
-            <div class="col-sm-offset-1 footer_right col-sm-5">
-                <div class="row footer_liens">
-                    <ul class="footer_nav">
-                        <li><a href="{{ path('nao_platform_rechercher') }}">Découvrir</a></li>
-                        |
-                        <li><a href="{{ path('nao_platform_observer') }}">Observer</a></li>
-                        |
-                        <li><a href="{{ path('fos_user_security_login') }}">S'inscrire</a></li>
-                        |
-                        <li><a href="#" data-target="#myModal" data-toggle="modal">Contact</a></li>
-                    </ul>
-                </div>
+            <div class="text-center">
                 <div id="myModal" class="modal fade" role="dialog" style="z-index: 9999">
                     <div class="modal-dialog">
-
                         <!-- Modal content-->
                         <div class="modal-content">
                             <div class="modal-header">
@@ -145,11 +134,48 @@
                     </div>
                 </div>
                 <div class="row footer_rs">
-                    <ul>
-                        <li><a href="twitter.com/nao"> <i class="iconTwitter"> </i><span>Twitter</span></a></li>
-                        <li><a href="facebook.com/nao"> <i class="iconFacebook"> </i> <span>Facebook</span></a></li>
-                        <!--   <li><a href="#"> <i class="iconRss"> </i><span>Rss</span></a></li> -->
+                    <ul class="bouton-sociaux col-xs-10" >
+                        <li><a class="twitter-share-button"
+                               href="https://twitter.com/intent/tweet?text=Découvrez%20l'ornithologie%20et%20alimentez%20un%20projet%20de%20rechercher%20innovant!"
+                               data-size="large">
+                                Tweet
+                            </a>
+                        </li>
+                        <li><div class="fb-share-button"
+                                 data-href="https://raphaeloff.net/nao/web"
+                                 data-layout="button_count"
+                                 data-mobile-iframe="true">
+                                <a class="fb-xfbml-parse-ignore"
+                                   target="_blank"
+                                   href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fraphaeloff.net%2Fnao%2Fweb&amp;src=sdkpreparse">
+                                    Partager
+                                </a>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="https://www.pinterest.com/pin/create/button/">
+                                <img src="//assets.pinterest.com/images/pidgets/pinit_fg_en_rect_gray_20.png" />
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="{{ asset('images/instagram-logo.png')}}">
+                            </a>
+                        </li>
                         <li><a href="mailto:naoiseaux@gmail.com"> <i class="iconMail"> </i><span>Mail</span></a></li>
+                    </ul>
+                </div>
+                <div class="row footer_liens">
+                    <ul class="footer_nav">
+                        <li><a href="{{ path('nao_platform_rechercher') }}">Découvrir</a></li>
+                        |
+                        <li><a href="{{ path('nao_platform_observer') }}">Observer</a></li>
+                        |
+                        <li><a href="{{ path('fos_user_security_login') }}">S'inscrire</a></li>
+                        |
+                        <li><a href="#" data-target="#myModal" data-toggle="modal">Contact</a></li>
+                        |
+                        <li><a href="#">Mentions légales</a></li>
                     </ul>
                 </div>
             </div>
@@ -169,6 +195,30 @@
     <script src="{{ asset('js/autocomplete.js') }}"></script>
     <script src="{{ asset('js/map.js') }}"></script>
     <script src="{{ asset('js/jquery.popupoverlay.js') }}"></script>
+    <!--Tweeter-->
+    <script>window.twttr = (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0],
+                    t = window.twttr || {};
+            if (d.getElementById(id)) return t;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://platform.twitter.com/widgets.js";
+            fjs.parentNode.insertBefore(js, fjs);
+
+            t._e = [];
+            t.ready = function(f) {
+                t._e.push(f);
+            };
+
+            return t;
+        }(document, "script", "twitter-wjs"));
+    </script>
+    <!--Pinterest-->
+    <script
+            type="text/javascript"
+            async defer
+            src="//assets.pinterest.com/js/pinit.js"
+    ></script>
     <script>
         $(function () {
                     $("#charte_popup").popup({
