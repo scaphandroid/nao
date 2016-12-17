@@ -18,6 +18,7 @@ use NAO\PlatformBundle\Form\DevenirNaturalisteType;
 use NAO\PlatformBundle\Entity\Observation;
 use NAO\PlatformBundle\Form\ObservationsSearchType;
 use NAO\PlatformBundle\Form\ValiderType;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 
 class ProfileController extends Controller
