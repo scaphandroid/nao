@@ -9,25 +9,52 @@
 
 {% include "NAOPlatformBundle:Profile:profile-layout.html.twig" %}
 
-<div class="row well col-lg-offset-4 col-lg-4 col-lg-offset-4 col-sm-offset-3 col-sm-6 col-sm-offset-3">
+<div class="row well col-lg-offset-3 col-lg-6 col-lg-offset-3 col-sm-offset-3 col-sm-6 col-sm-offset-3">
         {% if is_granted('ROLE_SUPER_ADMIN') %}
-            <h2>Liste des comptes naturalistes à valider</h2>
+            <h2>Liste des comptes naturalistes à valider ({{ comptesNatNonValides|length }})</h2>
             <ul class="list-group">
                 {% for compte in comptesNatNonValides %}
-                    <li class="list-group-item">
-                        <p>nom : {{ compte.nom }} prenom: {{ compte.prenom }} profession: {{ compte.profession }} <a class="btn btn-custom" href="{{ path('nao_profile_detailCompteNaturaliste', {'id': compte.id }) }}">Voir plus</a></p>
+                    <li class="row list-group-item">
+                        <div class="colmd- 10 col-sm-9 col-xs-8">
+                            nom : {{ compte.nom }}, prenom: {{ compte.prenom }}, profession: {{ compte.profession }}
+                        </div>
+                        <div class="col-md-2 col-sm-3 col-xs-4">
+                            <a class="btn btn-custom" href="{{ path('nao_profile_detailCompteNaturaliste', {'id': compte.id }) }}">Voir plus</a></p>
+                        </div>
                     </li>
                 {% endfor %}
             </ul>
         {% endif %}
 </div>
-<div class="row well col-lg-offset-4 col-lg-4 col-lg-offset-4 col-sm-offset-3 col-sm-6 col-sm-offset-3">
+<div class="row well col-lg-offset-3 col-lg-6 col-lg-offset-3 col-sm-offset-3 col-sm-6 col-sm-offset-3">
     {% if is_granted('ROLE_SUPER_ADMIN') %}
-        <h2>Liste des comptes naturalistes</h2>
+        <h2>Liste des comptes naturalistes validés ({{ comptesNaturalistes|length }})</h2>
         <ul class="list-group">
             {% for compte in comptesNaturalistes %}
-                <li class="list-group-item">
-                    <p>nom : {{ compte.nom }} prenom: {{ compte.prenom }} profession: {{ compte.profession }} <a class="btn btn-custom" href="{{ path('nao_profile_detailCompteNaturaliste', {'id': compte.id }) }}">Voir plus</a></p>
+                <li class="row list-group-item">
+                    <div class="colmd- 10 col-sm-9 col-xs-8">
+                        nom : {{ compte.nom }}, prenom: {{ compte.prenom }}, profession: {{ compte.profession }}
+                    </div>
+                    <div class="col-md-2 col-sm-3 col-xs-4">
+                        <a class="btn btn-custom" href="{{ path('nao_profile_detailCompteNaturaliste', {'id': compte.id }) }}">Voir plus</a></p>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+<div class="row well col-lg-offset-3 col-lg-6 col-lg-offset-3 col-sm-offset-3 col-sm-6 col-sm-offset-3">
+    {% if is_granted('ROLE_SUPER_ADMIN') %}
+        <h2>Liste des comptes naturalistes refusés ({{ compteNatRefuses|length }})</h2>
+        <ul class="list-group">
+            {% for compte in compteNatRefuses %}
+                <li class="row list-group-item">
+                    <div class="colmd- 10 col-sm-9 col-xs-8">
+                        nom : {{ compte.nom }}, prenom: {{ compte.prenom }}, profession: {{ compte.profession }}
+                    </div>
+                    <div class="col-md-2 col-sm-3 col-xs-4">
+                        <a class="btn btn-custom" href="{{ path('nao_profile_detailCompteNaturaliste', {'id': compte.id }) }}">Voir plus</a></p>
+                    </div>
                 </li>
             {% endfor %}
         </ul>

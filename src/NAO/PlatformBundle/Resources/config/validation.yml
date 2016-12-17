@@ -24,11 +24,6 @@ NAO\PlatformBundle\Entity\User:
                 max: 255
                 maxMessage: "Votre mot de passe est trop long."
 
-    constraints:
-        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
-                fields: [email]
-                message: 'Cet email est déjà utilisé.'
-
 NAO\PlatformBundle\Form\Model\ChangePassword:
     properties:
         new:

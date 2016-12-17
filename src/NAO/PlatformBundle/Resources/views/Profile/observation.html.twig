@@ -8,25 +8,51 @@
     {% block fos_user_content %}
 
         {% include "NAOPlatformBundle:Profile:profile-layout.html.twig" %}
-
-        <div class="row well col-lg-offset-4 col-lg-4 col-lg-offset-4 col-sm-offset-3 col-sm-6 col-sm-offset-3">
-            <h2>Observation {{ observation.id }}</h2>
+        <div class="well col-lg-offset-2 col-lg-8 col-lg-offset-2 col-md-offset-2 col-md-8 col-md-offset-2 col-xs-12">
+            <h2>Observation n°{{ observation.id }} par {{ observation.user.username }}</h2>
             <ul class="list-group">
-                <li class="list-group-item">
-                    <p>Date de l'observation: {{ observation.dateObs|date('d/m/Y H:i') }} </p>
-                    <p>Date de saisie: {{ observation.dateSaisie|date('d/m/Y H:i') }}</p>
-                    <p>Nom de l'espèce : {{ observation.espece.nomConcat }} </p>
-                    <p>Coordonnées GPS : {{ observation.lat }}, {{ observation.lon }} </p>
-                    <div id="map"></div>
-                    <div id="observation" class="hidden">
-                        {{ observation_JSON }}
+                <li class="row list-group-item">
+                    <div class="col-sm-8">
+                        <p>Nom de l'espèce : {{ observation.espece.nomConcat }} </p>
+                        <p>Date de l'observation: {{ observation.dateObs|date('d/m/Y H:i') }} </p>
+                        <p>Date de saisie: {{ observation.dateSaisie|date('d/m/Y H:i') }}</p>
+                        <p>Statut : {% if observation.valide %}Valide{% elseif observation.enAttente %}En attente{% else %}Invalide{% endif %}</p>
                     </div>
-                    <p>Photo: <img class="img-responsive" src="{{ asset('uploads/photos/' ~ observation.photo) }}"></p>
-                    <p>Commentaire de l'observateur : {{ observation.commentaireP }}</p>
-                    <p>Statut : {% if observation.valide %}Valide{% elseif observation.enAttente %}En attente{% else %}Invalide{% endif %}</p>
-                    <a class="btn btn-customp" href="#">Valider l'observation</a>
+
+                    <div class="col-sm-4">
+                        <p><img class="img-responsive" src="{{ asset('uploads/photos/' ~ observation.photo) }}"></p>
+                    </div>
                 </li>
-            </ul>
+                <div id="map"></div>
+                <div id="observation" class="hidden">
+                        {{ observation_JSON }}
+                </div>
+                <li class="row list-group-item">
+                 <p>Commentaire de l'observateur : {{ observation.commentaireP }}</p>
+                </li>
+                </ul>
+
+                 {% if form is defined %}
+                     {{ form_start(form) }}
+                     {{ form_errors(form) }}
+                     <div class="text-center">
+                         {#Cas où l'observation n'a pas encore été validé#}
+                         {% if (observation.enAttente)  %}
+                             {{ form_widget(form.valider, {'attr': {'class': 'btn btn-custom'}}) }}
+                             {{ form_widget(form.invalider, {'attr': {'class': 'btn btn-danger'}}) }}
+                          {#Cas où l'observation a été validé par un naturaliste#}
+                         {% elseif (observation.enAttente == false) and (observation.valide) %}
+                             {{ form_widget(form.valider, {'attr': {'class': 'btn btn-custom hidden'}}) }}
+                             {{ form_widget(form.invalider, {'attr': {'class': 'btn btn-danger'}}) }}
+                         {#Cas où l'observation a été refusé par un naturaliste#}
+                         {% elseif (observation.enAttente == false) and (observation.valide == false) %}
+                             {{ form_widget(form.valider, {'attr': {'class': 'btn btn-custom'}}) }}
+                             {{ form_widget(form.invalider, {'attr': {'class': 'btn btn-danger hidden'}}) }}
+                         {% endif %}
+                     </div>
+                     {{ form_rest(form) }}
+                     {{ form_end(form) }}
+                 {% endif %}
         </div>
 
     {% endblock %}
