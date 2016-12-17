@@ -362,7 +362,7 @@ class ProfileController extends Controller
         }
         //un naturaliste ne peut consulter que les observations non en attente qu'il a traité et les siennes
         //on lui indique néamoins qui a traité l'observation
-        if($checker->isGranted('ROLE_SUPER_ADMIN') == false && !$observation->getEnAttente() && !$observationPerso && $observation->getValidateur() !== $user)
+        if( $checker->isGranted('ROLE_ADMIN') && $checker->isGranted('ROLE_SUPER_ADMIN') == false && !$observation->getEnAttente() && !$observationPerso && $observation->getValidateur() !== $user)
         {
             $request->getSession()->getFlashBag()->add('notice', 'Cette observation est déjà traitée par '.$observation->getValidateur()->getUsername().' !');
             return $this->redirectToRoute('fos_user_profile_show');
