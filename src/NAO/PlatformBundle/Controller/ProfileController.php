@@ -219,7 +219,7 @@ class ProfileController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->flush();
 
-            $request->getSession()->getFlashBag()->add('notice', 'Demande de compte naturaliste bien enregistrée. Vous allez être contacter par nos équipes.');
+            $request->getSession()->getFlashBag()->add('notice', 'Demande de compte naturaliste bien enregistrée. Vous allez être contacté par nos équipes.');
             return $this->redirectToRoute('nao_platform_home');
         }
         return $this->render('FOSUserBundle:Profile:devenirNaturaliste.html.twig', array(
