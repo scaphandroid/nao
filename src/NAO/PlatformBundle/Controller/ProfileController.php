@@ -208,6 +208,14 @@ class ProfileController extends Controller
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             $user->setEnAttente(true);
+
+            //traitement du pdf , le traitement de l'upload(déplacement, nouveau nom) se fait via le service
+            if($user->getCv()!== null){
+                $pdf = $user->getCv();
+                $fichierPdf = $this->get('nao_platform.fileuploader')->upload($pdf, 'pdfDirectory');
+                $user->setCv($fichierPdf);
+            }
+
             $em = $this->getDoctrine()->getManager();
             $em->flush();
 
