@@ -135,11 +135,8 @@
                 </div>
                 <div class="row footer_rs">
                     <ul class="bouton-sociaux col-xs-10" >
-                        <li><a class="twitter-share-button"
-                               href="https://twitter.com/intent/tweet?text=Découvrez%20l'ornithologie%20et%20alimentez%20un%20projet%20de%20rechercher%20innovant!"
-                               data-size="large">
-                                Tweet
-                            </a>
+                        <li><a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+                            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
                         </li>
                         <li><div class="fb-share-button"
                                  data-href="https://raphaeloff.net/nao/web"
@@ -159,7 +156,7 @@
                         </li>
                         <li>
                             <a href="#">
-                                <img src="{{ asset('images/instagram-logo.png')}}">
+                                <img style="margin-top: -4px" src="{{ asset('images/instagram-logo.png')}}">
                             </a>
                         </li>
                         <li><a href="mailto:naoiseaux@gmail.com"> <i class="iconMail"> </i><span>Mail</span></a></li>
@@ -195,24 +192,6 @@
     <script src="{{ asset('js/autocomplete.js') }}"></script>
     <script src="{{ asset('js/map.js') }}"></script>
     <script src="{{ asset('js/jquery.popupoverlay.js') }}"></script>
-    <!--Tweeter-->
-    <script>window.twttr = (function(d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0],
-                    t = window.twttr || {};
-            if (d.getElementById(id)) return t;
-            js = d.createElement(s);
-            js.id = id;
-            js.src = "https://platform.twitter.com/widgets.js";
-            fjs.parentNode.insertBefore(js, fjs);
-
-            t._e = [];
-            t.ready = function(f) {
-                t._e.push(f);
-            };
-
-            return t;
-        }(document, "script", "twitter-wjs"));
-    </script>
     <!--Pinterest-->
     <script
             type="text/javascript"

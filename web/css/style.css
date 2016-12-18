@@ -263,7 +263,6 @@ ol, ul {
 }
 
 .footer_rs li a {
-    padding: 14px 10px;
     transition: all 0.5s linear 0s;
 }
 
@@ -288,7 +287,6 @@ ol, ul {
 .bouton-sociaux{
     display: flex;
     display: -webkit-flex; /* Safari */
-    align-items: center;
     justify-content: space-between;
     -webkit-justify-content: space-between; /* Safari 6.1+ */
     flex-wrap: wrap;
