@@ -553,6 +553,7 @@ a:-webkit-any-link  {
         display: -webkit-flex;
         justify-content: center;
         -webkit-justify-content: center;
+        float:none;
     }
 
     .entete {
@@ -569,12 +570,17 @@ a:-webkit-any-link  {
         width: 90px;
     }
 
+    .recherche{
+        display: none;
+    }
+
     nav {
         margin-left: -12px;
     }
 
     .nav-decale {
         margin-left: 75px;
+        position: relative;
     }
 
     .menu_box_list {
