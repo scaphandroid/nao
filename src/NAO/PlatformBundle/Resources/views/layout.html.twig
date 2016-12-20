@@ -56,10 +56,11 @@
                    {{ form_widget(form.nomVern) }}
                    {{ form_rest(form) }}
                    {{ form_end(form) }}#}
-                <form>
+                <!--<form>
                     <input type="text" placeholder="Entrez une espèce d'oiseaux" value="">
                     <input type="submit" value="">
-                </form>
+                </form>-->
+                {{ render(controller('NAOPlatformBundle:Autocomplete:formulaireDeRecherche')) }}
             </div>
         </div>
         {% block nav %}
