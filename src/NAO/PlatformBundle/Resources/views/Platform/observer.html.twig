@@ -16,6 +16,7 @@
                 <div class="col-sm-6">
                     {{ form_widget(form.espece, {'attr': {'class': 'form-control'}}) }}
                 </div>
+                <span class="loader"></span>
             </div>
 
             <div class="form-group">
@@ -74,6 +75,18 @@
     {{ parent() }}
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQcmtlhakbZxEK68_wVMjV59kWTyPK9eA&region=FR&callback=observerMap">
+    </script>
+    <script>
+        $(function () {
+            $(document).ajaxStart(function(){
+                $(".loader").css("display", "block");
+            });
+
+            $(document).ajaxStop(function(){
+                $(".loader").css("display", "none");
+            });
+
+        })
     </script>
 
 {% endblock %}

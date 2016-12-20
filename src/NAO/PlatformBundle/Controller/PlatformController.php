@@ -89,7 +89,8 @@ class PlatformController extends Controller
                 'listEspecesObservees' =>$listEspecesObservees,
                 'observation_JSON' => $observation_JSON,
                 'typeCompte' => $typeCompte,
-                'recherche' => $data["nomConcat"]
+                'recherche' => $data["nomConcat"],
+                'especes' => $listeEspeces
             ));
         }
 
