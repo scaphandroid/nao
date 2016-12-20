@@ -31,17 +31,12 @@
         <link rel="icon" type="image/x-icon" href=""/>
 
     {% endblock %}
+
 </head>
 
 <body class="container-fluid">
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.8";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));</script>
+
+
 <header>
     <div class="container">
         <div class="row entete">
@@ -107,6 +102,7 @@
         <div class="row col-xs-12">
 
             <div class="text-center">
+                <h4 class="row">Partagez l'application</h4>
                 <div id="myModal" class="modal fade" role="dialog" style="z-index: 9999">
                     <div class="modal-dialog">
                         <!-- Modal content-->
@@ -126,7 +122,18 @@
                     </div>
                 </div>
                 <div class="row footer_rs">
-                    <ul class="bouton-sociaux col-xs-10" >
+                    <ul class="row bouton-sociaux col-xs-10" >
+                        <div id="fb-root"></div>
+                        <script>(function(d, s, id) {
+                                var js, fjs = d.getElementsByTagName(s)[0];
+                                if (d.getElementById(id)) return;
+                                js = d.createElement(s); js.id = id;
+                                js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.8";
+                                fjs.parentNode.insertBefore(js, fjs);
+                            }(document, 'script', 'facebook-jssdk'));</script>
+                        <script type="text/javascript" src="https://apis.google.com/js/plusone.js">
+                            {lang: 'fr'}
+                        </script>
                         <li><a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
                             <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
                         </li>
@@ -151,7 +158,9 @@
                                 <img style="margin-top: -4px" src="{{ asset('images/instagram-logo.png')}}">
                             </a>
                         </li>
-                        <li><a href="mailto:naoiseaux@gmail.com"> <i class="iconMail"> </i><span>Mail</span></a></li>
+                        <li>
+                            <div class="g-plusone" data-size="medium" data-annotation="none"></div>
+                        </li>
                     </ul>
                 </div>
                 <div class="row footer_liens">
@@ -165,6 +174,8 @@
                         <li><a href="#" data-target="#myModal" data-toggle="modal">Contact</a></li>
                         |
                         <li><a href="#">Mentions légales</a></li>
+                        |
+                        <li><a href="mailto:naoiseaux@gmail.com"> <img src="{{ asset('images/mail.png') }}"><span>Mail</span></a></li>
                     </ul>
                 </div>
             </div>

@@ -247,6 +247,11 @@ nav {
 
 /*FOOTER*/
 
+footer{
+    color: #90C840;
+    padding-top: 10px;
+}
+
 footer .logo {
     height: 120px;
     margin-left: -50px;
@@ -332,6 +337,8 @@ ol, ul {
 
 .bouton-sociaux li{
     margin-right: 10px;
+    margin-left: 10px;
+    margin-bottom: 5px;
 }
 
 .iconTwitter {
