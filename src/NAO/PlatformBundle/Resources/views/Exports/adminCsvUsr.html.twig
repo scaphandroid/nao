@@ -1,0 +1,6 @@
+{% block body %}
+    id"username"email"prenom"nom"profession"date_inscription"type_compte
+    {% for row in data %}
+        {{ row.id }}"{{ row.username }}"{{ row.email }}"{{ row.prenom }}"{{ row.nom }}"{{ row.profession }}"{{ row.dateinscription|date('d-m-Y') }}"{{ row.typecompte }}
+    {% endfor %}
+{% endblock %}

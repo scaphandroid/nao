@@ -2,34 +2,45 @@
 
     <h2 style="text-align: center">Bonjour, <strong>{{ user.username }}</strong></h2>
 
-    {#Boutons hidden XS#}
+        <div class="btn-group btn-group-justified hidden-xs text-center">
 
-    <div class="btn-group btn-group-justified hidden-xs text-center">
+            {% if (is_granted('ROLE_ADMIN') == false and (is_granted('ROLE_SUPER_ADMIN') == false)) %}
+                <a class="btn btn-default" href="{{ path('nao_profile_devenirnaturaliste') }}">Devenir naturaliste</a>
+            {% endif %}
 
-        {% if (is_granted('ROLE_ADMIN') == false and (is_granted('ROLE_SUPER_ADMIN') == false)) %}
-            <a class="btn btn-default" href="{{ path('nao_profile_devenirnaturaliste') }}">Devenir naturaliste</a>
-        {% endif %}
+            {% if (is_granted('ROLE_ADMIN') and (is_granted('ROLE_SUPER_ADMIN') == false)) %}
+                <a class="btn btn-default" href="{{ path('nao_profile_observationsenattente') }}">Observations à
+                    valider</a>
+            {% endif %}
 
-        {% if (is_granted('ROLE_ADMIN') and (is_granted('ROLE_SUPER_ADMIN') == false)) %}
-            <a class="btn btn-default" href="{{ path('nao_profile_observationsenattente') }}">Observations à
-                valider</a>
-        {% endif %}
+            {% if not is_granted('ROLE_SUPER_ADMIN') %}
+                <a class="btn btn-default" href="{{ path('nao_profile_mesobservations') }}">Mes observations</a>
+            {% endif %}
 
-        {% if not is_granted('ROLE_SUPER_ADMIN') %}
-            <a class="btn btn-default" href="{{ path('nao_profile_mesobservations') }}">Mes observations</a>
-        {% endif %}
+            {% if (is_granted('ROLE_ADMIN') and (is_granted('ROLE_SUPER_ADMIN') == false)) %}
+                <a class="btn btn-default" href="{{ path('nao_profile_observationsrefusees') }}">Observations
+                    refusées</a>
+            {% endif %}
 
-        {% if (is_granted('ROLE_ADMIN') and (is_granted('ROLE_SUPER_ADMIN') == false)) %}
-            <a class="btn btn-default" href="{{ path('nao_profile_observationsrefusees') }}">Observations
-                refusées</a>
-        {% endif %}
+            {% if is_granted('ROLE_SUPER_ADMIN') %} {#Pour tous les user sauf admin#}
+                <a class="btn btn-default" href="{{ path('nao_profile_listenaturalistes') }}">Modérer naturalistes</a>
+                <a class="btn btn-default" href="{{ path('nao_profile_modererobservations') }}">Modérer observations</a>
 
-        {% if is_granted('ROLE_SUPER_ADMIN') %} {#Pour tous les user sauf admin#}
-            <a class="btn btn-default" href="{{ path('nao_profile_listenaturalistes') }}">Modérer naturalistes</a>
-            <a class="btn btn-default">Modérer observations</a>
-            <a class="btn btn-default">Exporter les données</a>
-        {% endif %}
-    </div>
+                <div class="btn-group btn-group-justified">
+                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Exporter les données
+                        <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item " href="{{ path('nao_profile_export_obs') }}">Export
+                                des Observations</a></li>
+                        <li><a class="dropdown-item " href="{{ path('nao_profile_export_users') }}">Export
+                                des Utilisateurs</a></li>
+                        <li><a class="dropdown-item " href="{{ path('nao_profile_export_especes') }}">Export
+                                des Especes</a></li>
+                    </ul>
+                </div>
+
+            {% endif %}
+        </div>
 
     {#Boutons Visible XS#}
 
@@ -56,7 +67,18 @@
         {% if is_granted('ROLE_SUPER_ADMIN') %} {#Pour tous les user sauf admin#}
             <a class="btn btn-default" href="{{ path('nao_profile_listenaturalistes') }}">Modérer naturalistes</a>
             <a class="btn btn-default">Modérer observations</a>
-            <a class="btn btn-default">Exporter les données</a>
+            <div class="btn-group btn-group-justified">
+                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Exporter les données
+                    <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item " href="{{ path('nao_profile_export_obs') }}">Export
+                            des Observations</a></li>
+                    <li><a class="dropdown-item " href="{{ path('nao_profile_export_users') }}">Export
+                            des Utilisateurs</a></li>
+                    <li><a class="dropdown-item " href="{{ path('nao_profile_export_especes') }}">Export
+                            des Especes</a></li>
+                </ul>
+            </div>
         {% endif %}
     </div>
 </div>

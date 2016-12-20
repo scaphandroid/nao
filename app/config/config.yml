@@ -9,6 +9,7 @@ imports:
 parameters:
     locale: fr
     photos_directory: '%kernel.root_dir%/../web/uploads/photos'
+    pdf_directory: '%kernel.root_dir%/../web/uploads/pdf'
 
 framework:
     #esi:             ~
@@ -84,7 +85,7 @@ fos_user:
     firewall_name: main                      # Le nom du firewall derrière lequel on utilisera ces utilisateurs
     user_class:    NAO\PlatformBundle\Entity\User # La classe de l'entité User que nous utilisons
     from_email:
-        address:        nosamislesoiseaux@nao.fr
+        address:        nosamislesoiseaux@gmail.com
         sender_name:    Nos Amis les Oiseaux
     profile:
         form:

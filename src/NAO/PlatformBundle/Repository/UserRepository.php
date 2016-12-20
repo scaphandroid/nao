@@ -31,4 +31,17 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
         ));
         return $qb->getQuery()->getResult();
     }
+
+    function getComptesNatRefuses(){
+        $qb = $this->createQueryBuilder('user')
+            ->where('user.typeCompte = :typeCompte')
+            ->andWhere('user.enAttente = :enAttente')
+            ->andWhere('user.valide = :valide')
+            ->setParameters(array(
+                'typeCompte' => 0,
+                'enAttente' => false,
+                'valide' => false
+            ));
+        return $qb->getQuery()->getResult();
+    }
 }

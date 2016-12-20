@@ -49,6 +49,18 @@ nao_profile_detailCompteNaturaliste:
     requirements:
             id : \d+
 
+nao_profile_modererobservations:
+    path:    /profile/admin/modererobservations
+    defaults: {_controller: NAOPlatformBundle:Profile:modererObservations}
+    methods:  [GET, POST]
+
+nao_profile_admin_traiterobservation:
+    path:    /profile/admin/traiterobservations/{id}
+    defaults: { _controller: NAOPlatformBundle:Profile:traiterObservation}
+    methods:  [GET]
+    requirements:
+            id : \d+
+
 nao_profile_observationsrefusees:
     path:    /profile/observationsrefusees
     defaults: { _controller: NAOPlatformBundle:Profile:observationRefusees}
@@ -60,7 +72,19 @@ nao_profile_devenirnaturaliste:
 nao_profile_observation:
     path:   /profile/observation/{id}
     defaults: {_controller: NAOPlatformBundle:Profile:observation}
-    methods: [GET]
+    methods: [GET, POST]
+
+nao_profile_export_obs:
+    path: /profile/exporto
+    defaults: {_controller: NAOPlatformBundle:Profile:exportCSVObs}
+
+nao_profile_export_users:
+    path: /profile/exportu
+    defaults: {_controller: NAOPlatformBundle:Profile:exportCSVUsers}
+
+nao_profile_export_especes:
+    path: /profile/exporte
+    defaults: {_controller: NAOPlatformBundle:Profile:exportCSVEspeces}
 
 fos_user_security_login:
     path:     /connexion
@@ -82,6 +106,11 @@ fos_user_registration_register:
     defaults: { _controller: NAOPlatformBundle:Registration:register}
     methods:  [GET, POST]
 
+fos_user_resetting_send_email:
+    path:     /send-email
+    defaults: { _controller: NAOPlatformBundle:Resetting:sendEmail}
+    methods:  [POST]
+
 fos_user_profile:
     resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
     prefix: /profile
@@ -97,3 +126,5 @@ fos_user_resetting:
 fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
     prefix: /profile
+
+

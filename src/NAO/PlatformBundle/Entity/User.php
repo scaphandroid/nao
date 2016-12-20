@@ -4,6 +4,7 @@ namespace NAO\PlatformBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use FOS\UserBundle\Model\User as BaseUser;
 
@@ -11,6 +12,14 @@ use FOS\UserBundle\Model\User as BaseUser;
  * User
  *
  * @ORM\Table(name="fos_user")
+ * @UniqueEntity(
+ *     fields={"email"},
+ *     message="Cet email est déjà utilisé."
+ * )
+ * @UniqueEntity(
+ *     fields={"username"},
+ *     message="Ce nom d'utilisateur est déjà utilisé."
+ * )
  * @ORM\Entity(repositoryClass="NAO\PlatformBundle\Repository\UserRepository")
  */
 class User extends BaseUser
@@ -27,7 +36,7 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="prenom", type="string", length=255)
+     * @ORM\Column(name="prenom", type="string", length=255, nullable=true)
      * @Assert\Length(
      *     min=2,
      *     minMessage = "Votre prénom doit contenir au moins {{ limit }} caractères",
@@ -38,7 +47,7 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="nom", type="string", length=255)
+     * @ORM\Column(name="nom", type="string", length=255, nullable=true)
      * @Assert\Length(
      *     min=2,
      *     minMessage = "Votre nom doit contenir au moins {{ limit }} caractères",
@@ -115,9 +124,8 @@ class User extends BaseUser
     {
         parent::__construct();
         $this->dateInscription   = new \Datetime();
-        $this->setNom('Toto');
-        $this->setPrenom('Titi');
-        $this->setValide(true);
+        $this->setValide(false);
+        $this->roles = array('ROLE_USER');
     }
     /**
      * Get id
@@ -205,11 +213,11 @@ class User extends BaseUser
     /**
      * Set cv
      *
-     * @param File $cv
+     * @param String $cv
      *
      * @return User
      */
-    public function setCv(File $cv)
+    public function setCv($cv)
     {
         $this->cv = $cv;
 
