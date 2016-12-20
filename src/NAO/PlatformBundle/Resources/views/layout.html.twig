@@ -51,15 +51,6 @@
                 </a>
             </div>
             <div id="barre-recherche" class="col-sm-offset-4 col-sm-3 hidden-xs recherche">
-                {#   {{ form_start(form) }}
-                   {{ form_errors(form) }}
-                   {{ form_widget(form.nomVern) }}
-                   {{ form_rest(form) }}
-                   {{ form_end(form) }}#}
-                <!--<form>
-                    <input type="text" placeholder="Entrez une espèce d'oiseaux" value="">
-                    <input type="submit" value="">
-                </form>-->
                 {{ render(controller('NAOPlatformBundle:Autocomplete:formulaireDeRecherche')) }}
             </div>
         </div>
