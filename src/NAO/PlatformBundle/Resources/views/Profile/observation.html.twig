@@ -32,7 +32,7 @@
                 </li>
                 </ul>
 
-                 {% if form is defined %}
+                 {% if form is defined  and form is not null %}
                      {{ form_start(form) }}
                      {{ form_errors(form) }}
                      <div class="text-center">

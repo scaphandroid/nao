@@ -209,10 +209,18 @@ class ProfileController extends Controller
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             $user->setEnAttente(true);
+
+            //traitement du pdf , le traitement de l'upload(déplacement, nouveau nom) se fait via le service
+            if($user->getCv()!== null){
+                $pdf = $user->getCv();
+                $fichierPdf = $this->get('nao_platform.fileuploader')->upload($pdf, 'pdfDirectory');
+                $user->setCv($fichierPdf);
+            }
+
             $em = $this->getDoctrine()->getManager();
             $em->flush();
 
-            $request->getSession()->getFlashBag()->add('notice', 'Demande de compte naturaliste bien enregistrée. Vous allez être contacter par nos équipes.');
+            $request->getSession()->getFlashBag()->add('notice', 'Demande de compte naturaliste bien enregistrée. Vous allez être contacté par nos équipes.');
             return $this->redirectToRoute('nao_platform_home');
         }
         return $this->render('FOSUserBundle:Profile:devenirNaturaliste.html.twig', array(
@@ -347,10 +355,9 @@ class ProfileController extends Controller
             return $this->redirectToRoute('fos_user_security_login');
         }
 
-        //on récupère l'observation, et on prépare son affichage sur la carte
+        //on récupère l'observation
         $em = $this->getDoctrine()->getManager();
         $observation = $em->getRepository('NAOPlatformBundle:Observation')->find($id);
-        $observation_JSON = $this->get('nao_platform.jsonencode')->jsonEncode(array($observation), $request->getSchemeAndHttpHost());
 
         // vérification des accès, en fonction notamment de l'auteur de l'observation
         $checker = $this->get('security.authorization_checker');
@@ -364,15 +371,18 @@ class ProfileController extends Controller
         }
         //un naturaliste ne peut consulter que les observations non en attente qu'il a traité et les siennes
         //on lui indique néamoins qui a traité l'observation
-        if($checker->isGranted('ROLE_SUPER_ADMIN') == false && !$observation->getEnAttente() && !$observationPerso && $observation->getValidateur() !== $user)
+        if( $checker->isGranted('ROLE_ADMIN') && $checker->isGranted('ROLE_SUPER_ADMIN') == false && !$observation->getEnAttente() && !$observationPerso && $observation->getValidateur() !== $user)
         {
-            $request->getSession()->getFlashBag()->add('notice', 'Cet observation est déjà traitée par '.$observation->getValidateur()->getUsername().' !');
+            $request->getSession()->getFlashBag()->add('notice', 'Cette observation est déjà traitée par '.$observation->getValidateur()->getUsername().' !');
             return $this->redirectToRoute('fos_user_profile_show');
         }
 
-        //pour la validation/invalidation, le formulaire n'est pas accessible au particulier, ni au naturaliste si il s'agit de sa propre observation
+        //on prépare l'affichage de l'observation sur la carte
+        $observation_JSON = $this->get('nao_platform.jsonencode')->jsonEncode(array($observation), $request->getSchemeAndHttpHost());
+
+        //pour la validation/invalidation, le formulaire n'est pas accessible au particulier, ni au naturaliste si il s'agit de sa propre observation ou si l'observation est déjà traitée
         $form = null;
-        if($checker->isGranted('ROLE_ADMIN') || !$observationPerso){
+        if(($checker->isGranted('ROLE_ADMIN') && !$observationPerso && $observation->getEnAttente()) || $checker->isGranted('ROLE_SUPER_ADMIN')){
             $form = $this->createForm(ValiderType::class);
             $form->handleRequest($request);
 
@@ -392,13 +402,14 @@ class ProfileController extends Controller
                 $em->flush();
                 if (isset($message)) $this->addFlash('notice', $message);
             }
+            $form = $form->createView();
         }
 
         return $this->render('@NAOPlatform/Profile/observation.html.twig', array(
             "observation" => $observation,
             "user" => $user,
             'observation_JSON' => $observation_JSON,
-            'form' => $form->createView()
+            'form' => $form
         ));
     }
 

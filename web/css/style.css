@@ -256,10 +256,13 @@ ol, ul {
 
 .footer_rs {
     margin-top: 2%;
+    display: flex;
+    display: -webkit-flex; /* Safari */
+    justify-content: center;
+    -webkit-justify-content: center; /* Safari 6.1+ */
 }
 
 .footer_rs li a {
-    padding: 14px 10px;
     transition: all 0.5s linear 0s;
 }
 
@@ -279,6 +282,22 @@ ol, ul {
     transition: none 0s ease 0s;
     vertical-align: middle;
     width: 20px;
+}
+
+.bouton-sociaux{
+    display: flex;
+    display: -webkit-flex; /* Safari */
+    justify-content: space-between;
+    -webkit-justify-content: space-between; /* Safari 6.1+ */
+    flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    max-width: 500px;
+}
+
+.bouton-sociaux li{
+    margin-right: 10px;
 }
 
 .iconTwitter {
@@ -531,7 +550,10 @@ a:-webkit-any-link  {
 
     #logo-header {
         display: flex;
+        display: -webkit-flex;
         justify-content: center;
+        -webkit-justify-content: center;
+        float:none;
     }
 
     .entete {
@@ -548,12 +570,17 @@ a:-webkit-any-link  {
         width: 90px;
     }
 
+    .recherche{
+        display: none;
+    }
+
     nav {
         margin-left: -12px;
     }
 
     .nav-decale {
         margin-left: 75px;
+        position: relative;
     }
 
     .menu_box_list {
@@ -598,8 +625,11 @@ a:-webkit-any-link  {
 
     .form_search {
         display: flex;
+        display: -webkit-flex;
         flex-direction: column;
+        -webkit-flex-direction: column;
         justify-content: space-between;
+        -webkit-justify-content: space-between;
     }
 
     .btw_form {
