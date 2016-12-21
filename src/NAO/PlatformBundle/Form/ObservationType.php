@@ -4,7 +4,7 @@ namespace NAO\PlatformBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -27,9 +27,11 @@ class ObservationType extends AbstractType
                 'label'    => 'Je suis sur place',
                 'required' => false,
             ))
-            ->add('dateObs', DateTimeType::class, array(
-                'date_format' => 'dd  MM  yyyy',
-                'date_widget' => 'choice'
+            ->add('dateObs', DateType::class, array(
+                'input' => 'datetime',
+                'format' => 'dd/MM/yyyy',
+                'widget' => 'single_text'
+
             ))
             ->add('photo', FileType::class, array(
                 'required' => false

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta property="og:url" content=""/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="NAO"/>
+    <meta property="og:description" content="Découvrez l'ornithologie et alimentez un projet de recherche innovant."/>
+    <meta property="og:image" content=""/>
+
+    <title>{% block title %}NAO{% endblock %}</title>
+
+    {% block stylesheets %}
+
+        <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}" type="text/css"/>
+        <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans"/>
+        <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.12.1/themes/black-tie/jquery-ui.css"/>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link rel="stylesheet"
+              href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css"/>
+        <link rel="icon" type="image/x-icon" href=""/>
+
+    {% endblock %}
+</head>
+
+<body class="container-fluid">
+<div id="fb-root"></div>
+<script>(function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.8";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+<header>
+    <div class="container">
+        <div class="row entete">
+            <div id="logo-header" class="col-sm-4 logo">
+                <a href="{{ path('nao_platform_home') }}">
+                    <img src="{{ asset('images/Logo-def.png') }}" alt="Logo de Nos Amis les Oiseaux"/>
+                </a>
+            </div>
+            <div id="barre-recherche" class="col-sm-offset-4 col-sm-3 hidden-xs recherche">
+                <form>
+                    <input type="text" placeholder="Entrez une espèce d'oiseaux" value="">
+                    <input type="submit" value="">
+                </form>
+            </div>
+        </div>
+        {% block nav %}
+            <!-- Navigation -->
+            <nav id="boutons-nav" class="">
+                <div class="menu_box_list">
+                    <ul>
+                        <li class="bouton_menu"><a href="{{ path('nao_platform_rechercher') }}"><i
+                                        class="icon_rechercher"> </i><span>Rechercher</span></a></li>
+                        <li class="bouton_menu"><a href="{{ path('nao_platform_observer') }}"><i
+                                        class="icon_observer"> </i><span>Observer</span></a></li>
+                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                            <li class="bouton_menu"><a href="{{ path('fos_user_profile_show') }}"><i
+                                            class="icon_naturalistes"> </i><span>Mon compte</span></a></li>
+                        {% else %}
+                            <li class="bouton_menu"><a href="{{ path('fos_user_security_login') }}"><i
+                                            class="icon_naturalistes"> </i><span>Se connecter</span></a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </nav>
+        {% endblock %}
+    </div>
+</header>
+<div>
+
+</div>
+<div class="body">
+    {% block message %}
+        {% for type, messages in app.session.flashBag.all %}
+            {% for message in messages %}
+                <div class="{{ type }} well col-sm-offset-3 col-sm-6 col-sm-offset-3 sm"
+                     style="text-align: center; margin-top: 25px; font-weight:bold; background-color: #89FAB6; text-decoration: underline; ">
+                    {{ message|trans({}, 'FOSUserBundle') }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+    {% endblock %}
+
+    {% block body %}
+        <div class="well col-xs-offset-2 col-xs-8 col-xs-offset-2 "
+             style="margin-top: 25px;">
+            {% block fos_user_content %}
+            {% endblock fos_user_content %}
+            <div class="jumbotron bg-birds">
+                <p class="text-center">Désolé cette page n'existe pas - Erreur {{ status_code }} - <a href="{{ path('nao_platform_home') }}">Retour à l'Accueil</a></p>
+            </div>
+        </div>
+    {% endblock %}
+</div>
+
+
+<!-- Pied de page  -->
+{% block footer %}
+    <footer>
+        <div class="row col-xs-12">
+
+            <div class="text-center">
+                <div id="myModal" class="modal fade" role="dialog" style="z-index: 9999">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title text-center">Adresse de Contact : </h4>
+                            </div>
+                            <div class="modal-body" style="font-size: large">
+                                <p class="text-center">Envoyez nous un mail à : <a href="mailto:naoiseaux@gmail.com">
+                                        naoiseaux@gmail.com </a></p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-custom" data-dismiss="modal">Fermer</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row footer_rs">
+                    <ul class="bouton-sociaux col-xs-10">
+                        <li><a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+                            <script>!function (d, s, id) {
+                                    var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+                                    if (!d.getElementById(id)) {
+                                        js = d.createElement(s);
+                                        js.id = id;
+                                        js.src = p + '://platform.twitter.com/widgets.js';
+                                        fjs.parentNode.insertBefore(js, fjs);
+                                    }
+                                }(document, 'script', 'twitter-wjs');</script>
+                        </li>
+                        <li>
+                            <div class="fb-share-button"
+                                 data-href="https://raphaeloff.net/nao/web"
+                                 data-layout="button_count"
+                                 data-mobile-iframe="true">
+                                <a class="fb-xfbml-parse-ignore"
+                                   target="_blank"
+                                   href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fraphaeloff.net%2Fnao%2Fweb&amp;src=sdkpreparse">
+                                    Partager
+                                </a>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="https://www.pinterest.com/pin/create/button/">
+                                <img src="//assets.pinterest.com/images/pidgets/pinit_fg_en_rect_gray_20.png"/>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img style="margin-top: -4px" src="{{ asset('images/instagram-logo.png') }}">
+                            </a>
+                        </li>
+                        <li><a href="mailto:naoiseaux@gmail.com"> <i class="iconMail"> </i><span>Mail</span></a></li>
+                    </ul>
+                </div>
+                <div class="row footer_liens">
+                    <ul class="footer_nav">
+                        <li><a href="{{ path('nao_platform_rechercher') }}">Découvrir</a></li>
+                        |
+                        <li><a href="{{ path('nao_platform_observer') }}">Observer</a></li>
+                        |
+                        <li><a href="{{ path('fos_user_security_login') }}">S'inscrire</a></li>
+                        |
+                        <li><a href="#" data-target="#myModal" data-toggle="modal">Contact</a></li>
+                        |
+                        <li><a href="#">Mentions légales</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {# liens masqués pour l'autocomplete #}
+        <a href="{{ path('nao_platform_autosearch') }}" id="url-list" class="hidden"></a>
+        <a href="{{ path('nao_platform_autoget') }}" id="url-get" class="hidden"></a>
+    </footer>
+{% endblock %}
+
+{% block javascript %}
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="{{ asset('js/autocompleter-jqueryui.js') }}"></script>
+    <script src="{{ asset("js/header.js") }}"></script>
+    <script src="{{ asset('js/autocomplete.js') }}"></script>
+    <script src="{{ asset('js/map.js') }}"></script>
+    <script src="{{ asset('js/jquery.popupoverlay.js') }}"></script>
+    <script src="{{ asset('js/datepicker-fr.js') }}"></script>
+
+    <!--Pinterest-->
+    <script
+            type="text/javascript"
+            async defer
+            src="//assets.pinterest.com/js/pinit.js"
+    ></script>
+    <script>
+        $(function () {
+                $("#charte_popup").popup({
+                    autoopen: true,
+                    backgroundactive: true,
+                    autozindex: true,
+                    closeelement: '.charte_close',
+                    blur: true,
+
+
+                });
+                $('.datepicker').datepicker();
+            }
+        );
+    </script>
+{% endblock %}
+
+</body>
+
+</html>

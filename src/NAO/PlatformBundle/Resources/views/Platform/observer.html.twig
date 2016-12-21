@@ -2,7 +2,11 @@
 {% block title %}
     Observer
 {% endblock %}
-
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/css/bootstrap-datetimepicker.min.css">
+{% endblock %}
 {% block body %}
     <div class="container">
         <h3 class="text-center" style="text-decoration: underline;">Formulaire de saisie</h3>
@@ -32,7 +36,9 @@
             <div class="form-group">
                 {{ form_label(form.dateObs, "Date de l'observation :", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
                 {{ form_errors(form.dateObs) }}
-                {{ form_widget(form.dateObs) }}
+                <div class="col-sm-6 ">
+                    {{ form_widget(form.dateObs) }}
+                </div>
 
             </div>
 
@@ -62,13 +68,11 @@
                 {{ form_widget(form.lon) }}
             </div>
 
-        {#    {{ form_rest(form) }} #}
             {{ form_widget(form.valider, {'attr': {'class': 'col-sm-offset-5 col-sm-2 btn btn-customp'}}) }}
 
             {{ form_end(form) }}
         </div>
     </div>
-
 {% endblock %}
 
 {% block javascript %}
@@ -76,17 +80,22 @@
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQcmtlhakbZxEK68_wVMjV59kWTyPK9eA&region=FR&callback=observerMap">
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/locale/fr.js"></script>
+    <script src="{{ asset('js/bootstrap-datetimepicker.js') }}"></script>
     <script>
         $(function () {
-            $(document).ajaxStart(function(){
+            $(document).ajaxStart(function () {
                 $(".loader").css("display", "block");
             });
 
-            $(document).ajaxStop(function(){
+            $(document).ajaxStop(function () {
                 $(".loader").css("display", "none");
             });
+            $('#nao_platformbundle_observation_dateObs').datetimepicker();
 
-        })
+        });
+
     </script>
 
 {% endblock %}

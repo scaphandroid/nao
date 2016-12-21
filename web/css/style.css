@@ -507,6 +507,13 @@ hr {
 a:-webkit-any-link  {
     text-decoration: none;
 }
+
+.bg-birds{
+    margin:0;
+    padding:0;
+    background: url('../images/birds-404.png') no-repeat center ;
+    height: 250px;
+}
 /*RESPONSIVE */
 
 @media (max-width: 1200px) {
