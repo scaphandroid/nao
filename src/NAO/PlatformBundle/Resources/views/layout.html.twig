@@ -8,11 +8,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <meta property="og:url"           content="" />
-    <meta property="og:type"          content="website" />
-    <meta property="og:title"         content="NAO" />
-    <meta property="og:description"   content="Découvrez l'ornithologie et alimentez un projet de recherche innovant." />
-    <meta property="og:image"         content="" />
+    <meta property="og:url" content=""/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="NAO"/>
+    <meta property="og:description" content="Découvrez l'ornithologie et alimentez un projet de recherche innovant."/>
+    <meta property="og:image" content=""/>
 
     <title>{% block title %}NAO{% endblock %}</title>
 
@@ -112,7 +112,8 @@
                                 <h4 class="modal-title text-center">Adresse de Contact : </h4>
                             </div>
                             <div class="modal-body" style="font-size: large">
-                                <p class="text-center">Envoyez nous un mail à : <a href="mailto:naoiseaux@gmail.com"> naoiseaux@gmail.com </a></p>
+                                <p class="text-center">Envoyez nous un mail à : <a href="mailto:naoiseaux@gmail.com">
+                                        naoiseaux@gmail.com </a></p>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-custom" data-dismiss="modal">Fermer</button>
@@ -124,18 +125,29 @@
                 <div class="row footer_rs">
                     <ul class="row bouton-sociaux col-xs-10">
                         <div id="fb-root"></div>
-                        <script>(function(d, s, id) {
+                        <script>(function (d, s, id) {
                                 var js, fjs = d.getElementsByTagName(s)[0];
                                 if (d.getElementById(id)) return;
-                                js = d.createElement(s); js.id = id;
+                                js = d.createElement(s);
+                                js.id = id;
                                 js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.8";
                                 fjs.parentNode.insertBefore(js, fjs);
                             }(document, 'script', 'facebook-jssdk'));</script>
                         <script type="text/javascript" src="https://apis.google.com/js/plusone.js">
-                            {lang: 'fr'}
+                            {
+                                lang: 'fr'
+                            }
                         </script>
                         <li><a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
-                            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+                            <script>!function (d, s, id) {
+                                    var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+                                    if (!d.getElementById(id)) {
+                                        js = d.createElement(s);
+                                        js.id = id;
+                                        js.src = p + '://platform.twitter.com/widgets.js';
+                                        fjs.parentNode.insertBefore(js, fjs);
+                                    }
+                                }(document, 'script', 'twitter-wjs');</script>
                         </li>
                         <li>
                             <div class="fb-share-button"
@@ -149,13 +161,14 @@
                             </div>
                         </li>
                         <li>
-                            <a href="https://www.pinterest.com/pin/create/button/" data-pin-do="buttonPin" data-pin-media="{{ asset('images/Logo-def.png') }}">
+                            <a href="https://www.pinterest.com/pin/create/button/" data-pin-do="buttonPin"
+                               data-pin-media="{{ asset('images/Logo-def.png') }}">
                                 <img src="//assets.pinterest.com/images/pidgets/pinit_fg_en_rect_gray_20.png"/>
                             </a>
                         </li>
                         <li>
                             <a href="#">
-                                <img style="margin-top: -4px" src="{{ asset('images/instagram-logo.png')}}">
+                                <img style="margin-top: -4px" src="{{ asset('images/instagram-logo.png') }}">
                             </a>
                         </li>
                         <li>
@@ -175,7 +188,8 @@
                         |
                         <li><a href="#">Mentions légales</a></li>
                         |
-                        <li><a href="mailto:naoiseaux@gmail.com"> <img src="{{ asset('images/mail.png') }}"><span>Mail</span></a></li>
+                        <li><a href="mailto:naoiseaux@gmail.com"> <img
+                                        src="{{ asset('images/mail.png') }}"><span>Mail</span></a></li>
                     </ul>
                 </div>
             </div>
@@ -214,7 +228,23 @@
 
 
                 });
-                $('.datepicker').datepicker();
+                // JS pour le datepicker
+                $('.datepicker').datepicker({
+                    dateFormat: "dd-mm-yy",
+                    timeFormat: 'H:mm'
+                });
+
+                // JS pour le loader à chaque requête AJAX
+                $(document).ajaxStart(function () {
+                    $(".loader").css("display", "block");
+                });
+
+                $(document).ajaxStop(function () {
+                    $(".loader").css("display", "none");
+                });
+                $('[data-toggle="tooltip"]').tooltip({
+                    placement: 'top'
+                });
             }
         );
     </script>

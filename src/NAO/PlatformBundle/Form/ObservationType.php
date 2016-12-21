@@ -29,7 +29,7 @@ class ObservationType extends AbstractType
             ))
             ->add('dateObs', DateType::class, array(
                 'input' => 'datetime',
-                'format' => 'dd/MM/yyyy',
+                'format' => 'dd/MM/yyyy H:m',
                 'widget' => 'single_text'
 
             ))

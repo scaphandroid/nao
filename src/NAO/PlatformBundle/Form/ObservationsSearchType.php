@@ -25,10 +25,11 @@ class ObservationsSearchType extends AbstractType
             ->add('dateObs', DateType::class, array(
                 'label' => 'Jour de l\'observation (format JJ-MM-AAAA)',
                 'widget' => 'single_text',
-                'input' => 'datetime',
-                'format' => 'dd/MM/yyyy',
+//                'input' => 'datetime',
+                'format' => 'dd-MM-yyyy',
                 'required' => false,
-                'attr' => ['class' => 'datepicker']
+                'attr' => ['class' => 'datepicker'],
+                'html5' => 'false'
             ))
             ->add('user', SearchType::class, array(
                 'label' => 'Nom d\'utilisateur de l\'observateur',

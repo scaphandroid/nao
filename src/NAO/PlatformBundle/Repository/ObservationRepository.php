@@ -98,8 +98,7 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
         }
         // Si la recherche ne porte pas sur toutes les dates
         if($data['dateObs'] != '') {
-            $date = new \DateTime($data['dateObs']);
-            $date->format('Y-m-d');
+            $date = new \DateTime(($data['dateObs']->format('Y-m-d H:i:s')));
             $qb->andwhere('obs.dateObs > :dateObs_start')
                 ->andwhere('obs.dateObs < :dateObs_end')
                 ->setParameter('dateObs_start', $date->format('Y-m-d 00:00:00'))
