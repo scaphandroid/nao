@@ -112,6 +112,7 @@ a {
     padding: 12px 16px;
     position: relative;
     width: 80%;
+    font-family: "Open Sans";
 }
 
 .recherche input[type="search"]::-webkit-input-placeholder { /* Chrome/Opera/Safari */
@@ -120,12 +121,14 @@ a {
     font-size: 13px;
     font-weight: 600;
     outline: medium none;
+    font-family: "Open Sans";
 }
 .recherche input[type="search"]::-moz-placeholder { /* Firefox 19+ */
     color: #c4c4c4;
     color: #c4c4c4;
     font-size: 13px;
     font-weight: 600;
+    font-family: "Open Sans";
     outline: medium none;
 }
 .recherche input[type="search"]:-ms-input-placeholder { /* IE 10+ */
@@ -133,6 +136,7 @@ a {
     color: #c4c4c4;
     font-size: 13px;
     font-weight: 600;
+    font-family: "Open Sans";
     outline: medium none;
 }
 .recherche input[type="search"]:-moz-placeholder { /* Firefox 18- */
@@ -140,8 +144,21 @@ a {
     color: #c4c4c4;
     font-size: 13px;
     font-weight: 600;
+    font-family: "Open Sans";
     outline: medium none;
 }
+
+#ui-id-1{
+    z-index: 10001;
+    color: #c4c4c4;
+    font-size: 13px;
+    font-weight: 600;
+    outline: medium none;
+    padding: 12px 16px;
+    font-family: "Open Sans";
+    position: fixed;
+}
+
 
 /*NAV*/
 
@@ -571,6 +588,10 @@ a:-webkit-any-link  {
 
     .recherche-decale {
         margin-left: 210px;
+    }
+
+    .recherche input[type="search"]{
+        width: 60%;
     }
 
 }
