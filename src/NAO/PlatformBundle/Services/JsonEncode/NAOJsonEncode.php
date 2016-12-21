@@ -11,7 +11,7 @@ class NAOJsonEncode
         $observation = [];
 
         $request = new Request();
-        $url = $baseUrl.'/uploads/photos/' ;
+        $url = $baseUrl.'/Projet_6_NAO/nao/web/uploads/photos/' ;
 
         for ($i=0; $i<count($listObserv); $i++) {
             $observation[$i] = array(

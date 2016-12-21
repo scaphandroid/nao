@@ -535,7 +535,7 @@ hr {
     display: none;
     position : fixed;
     z-index: 9999;
-    background : url('../images/default.gif') 50% 50% no-repeat;
+    background : url('../images/loader.gif') 50% 50% no-repeat;
     top : 0;
     left : 0;
     height : 100%;
@@ -548,7 +548,14 @@ hr {
 a:-webkit-any-link  {
     text-decoration: none;
 }
-/*REPONSIVE */
+
+.bg-birds{
+    margin:0;
+    padding:0;
+    background: url('../images/birds-404.png') no-repeat center ;
+    height: 250px;
+}
+/*RESPONSIVE */
 
 @media (max-width: 1200px) {
     .logo a img {
@@ -678,7 +685,8 @@ a:-webkit-any-link  {
     }
 
     .decal_btn {
-        margin: auto;
+        width: auto;
+        margin: auto auto auto 15px;
     }
 
     #map {

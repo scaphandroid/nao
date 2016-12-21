@@ -1,5 +1,3 @@
-{# src/NAO/PlatformBundle/Resources/views/layout.html.twig #}
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,21 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <meta property="og:url"           content="" />
-    <meta property="og:type"          content="website" />
-    <meta property="og:title"         content="NAO" />
-    <meta property="og:description"   content="Découvrez l'ornithologie et alimentez un projet de recherche innovant." />
-    <meta property="og:image"         content="" />
+    <meta property="og:url" content=""/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="NAO"/>
+    <meta property="og:description" content="Découvrez l'ornithologie et alimentez un projet de recherche innovant."/>
+    <meta property="og:image" content=""/>
 
     <title>{% block title %}NAO{% endblock %}</title>
 
     {% block stylesheets %}
 
-        {#    {% stylesheets '@NAOPlatformBundle/Resources/public/css/*' filter='cssrewrite' %}
-               <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
-            {% endstylesheets %}
-
-          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">#}
         <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}" type="text/css"/>
         <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans"/>
         <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.12.1/themes/black-tie/jquery-ui.css"/>
@@ -36,7 +29,15 @@
 </head>
 
 <body class="container-fluid">
-
+<div id="fb-root"></div>
+<script>(function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.8";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
 <header>
     <div class="container">
         <div class="row entete">
@@ -46,7 +47,10 @@
                 </a>
             </div>
             <div id="barre-recherche" class="col-sm-offset-4 col-sm-3 hidden-xs recherche">
-                {{ render(controller('NAOPlatformBundle:Autocomplete:formulaireDeRecherche')) }}
+                <form>
+                    <input type="text" placeholder="Entrez une espèce d'oiseaux" value="">
+                    <input type="submit" value="">
+                </form>
             </div>
         </div>
         {% block nav %}
@@ -87,10 +91,13 @@
     {% endblock %}
 
     {% block body %}
-        <div class="well col-lg-offset-4 col-lg-4 col-lg-offset-4 col-sm-offset-3 col-sm-6 col-sm-offset-3"
+        <div class="well col-xs-offset-2 col-xs-8 col-xs-offset-2 "
              style="margin-top: 25px;">
             {% block fos_user_content %}
             {% endblock fos_user_content %}
+            <div class="jumbotron bg-birds">
+                <p class="text-center">Désolé cette page n'existe pas - Erreur {{ status_code }} - <a href="{{ path('nao_platform_home') }}">Retour à l'Accueil</a></p>
+            </div>
         </div>
     {% endblock %}
 </div>
@@ -102,7 +109,6 @@
         <div class="row col-xs-12">
 
             <div class="text-center">
-                <h4 class="row">Partagez l'application</h4>
                 <div id="myModal" class="modal fade" role="dialog" style="z-index: 9999">
                     <div class="modal-dialog">
                         <!-- Modal content-->
@@ -112,7 +118,8 @@
                                 <h4 class="modal-title text-center">Adresse de Contact : </h4>
                             </div>
                             <div class="modal-body" style="font-size: large">
-                                <p class="text-center">Envoyez nous un mail à : <a href="mailto:naoiseaux@gmail.com"> naoiseaux@gmail.com </a></p>
+                                <p class="text-center">Envoyez nous un mail à : <a href="mailto:naoiseaux@gmail.com">
+                                        naoiseaux@gmail.com </a></p>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-custom" data-dismiss="modal">Fermer</button>
@@ -122,23 +129,21 @@
                     </div>
                 </div>
                 <div class="row footer_rs">
-                    <ul class="row bouton-sociaux col-xs-10">
-                        <div id="fb-root"></div>
-                        <script>(function(d, s, id) {
-                                var js, fjs = d.getElementsByTagName(s)[0];
-                                if (d.getElementById(id)) return;
-                                js = d.createElement(s); js.id = id;
-                                js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.8";
-                                fjs.parentNode.insertBefore(js, fjs);
-                            }(document, 'script', 'facebook-jssdk'));</script>
-                        <script type="text/javascript" src="https://apis.google.com/js/plusone.js">
-                            {lang: 'fr'}
-                        </script>
+                    <ul class="bouton-sociaux col-xs-10">
                         <li><a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
-                            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+                            <script>!function (d, s, id) {
+                                    var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+                                    if (!d.getElementById(id)) {
+                                        js = d.createElement(s);
+                                        js.id = id;
+                                        js.src = p + '://platform.twitter.com/widgets.js';
+                                        fjs.parentNode.insertBefore(js, fjs);
+                                    }
+                                }(document, 'script', 'twitter-wjs');</script>
                         </li>
                         <li>
                             <div class="fb-share-button"
+                                 data-href="https://raphaeloff.net/nao/web"
                                  data-layout="button_count"
                                  data-mobile-iframe="true">
                                 <a class="fb-xfbml-parse-ignore"
@@ -149,18 +154,16 @@
                             </div>
                         </li>
                         <li>
-                            <a href="https://www.pinterest.com/pin/create/button/" data-pin-do="buttonPin" data-pin-media="{{ asset('images/Logo-def.png') }}">
+                            <a href="https://www.pinterest.com/pin/create/button/">
                                 <img src="//assets.pinterest.com/images/pidgets/pinit_fg_en_rect_gray_20.png"/>
                             </a>
                         </li>
                         <li>
                             <a href="#">
-                                <img style="margin-top: -4px" src="{{ asset('images/instagram-logo.png')}}">
+                                <img style="margin-top: -4px" src="{{ asset('images/instagram-logo.png') }}">
                             </a>
                         </li>
-                        <li>
-                            <div class="g-plusone" data-size="medium" data-annotation="none"></div>
-                        </li>
+                        <li><a href="mailto:naoiseaux@gmail.com"> <i class="iconMail"> </i><span>Mail</span></a></li>
                     </ul>
                 </div>
                 <div class="row footer_liens">
@@ -174,8 +177,6 @@
                         <li><a href="#" data-target="#myModal" data-toggle="modal">Contact</a></li>
                         |
                         <li><a href="#">Mentions légales</a></li>
-                        |
-                        <li><a href="mailto:naoiseaux@gmail.com"> <img src="{{ asset('images/mail.png') }}"><span>Mail</span></a></li>
                     </ul>
                 </div>
             </div>

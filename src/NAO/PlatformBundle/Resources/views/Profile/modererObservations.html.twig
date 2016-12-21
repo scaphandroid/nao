@@ -11,7 +11,8 @@
 
         <div class="row well col-lg-offset-4 col-lg-4 col-lg-offset-4 col-sm-offset-3 col-sm-6 col-sm-offset-3">
             {% if is_granted('ROLE_SUPER_ADMIN') %}
-                {{ form(form) }}
+                {{ form_start(form) }}
+                {{ form_end(form) }}
 
                 <p><em>Les champs vides renverront l'ensemble des observations.</em></p>
             {% endif %}
@@ -25,7 +26,7 @@
                             <tr>
                                 <th>Espece observée</th>
                                 <th>Date d'observation</th>
-                                <th>Observée par</th>
+                                <th>Observé par</th>
                                 <th>Statut</th>
                                 <th>Traitée par</th>
                                 <th>Action</th>
