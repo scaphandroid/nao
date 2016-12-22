@@ -33,7 +33,7 @@ function afficherCartePictos(maxZoom) {
         var class_title = observation_decode[i].valide ? "title_valide" : "title_invalide";
 
         var content = '<div id="iw-container">' +
-            '<div class="iw-title ' + class_title + '">' + observation_decode[i].espece + '</div>' + '<hr>' +
+            '<div class="iw-title text-center ' + class_title + '">' + observation_decode[i].espece + '</div>' + '<hr>' +
             '<div class="iw-content row">' +
                 '<div class="col-xs-5">' +
                     '<img src="' + observation_decode[i].photoObs + '" alt="' + observation_decode[i].espece +'" height="auto" width="100">'+

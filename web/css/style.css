@@ -572,6 +572,28 @@ a:-webkit-any-link  {
     background: url('../images/birds-404.png') no-repeat center ;
     height: 250px;
 }
+
+.green {
+    color: #00a368;
+}
+
+.red {
+    color: #d9534f;
+}
+.green + .tooltip > .tooltip-inner{
+    background-color: #00a368;
+    border-bottom-color: #00a368;
+}
+
+.red + .tooltip > .tooltip-inner{
+    background-color: #d9534f;
+    border-bottom-color: #d9534f;
+}
+
+.help-block{
+    color:red !important;
+    opacity: 0.75;
+}
 /*RESPONSIVE */
 
 @media (max-width: 1200px) {

@@ -67,7 +67,7 @@ class Observation
      * @Assert\DateTime()
      * @Assert\LessThanOrEqual(
      *      "now UTC",
-     *      message = "merci de vérifier la date de l'observation, nous n'enregistrons pas les observations du futur.."
+     *      message = "Merci de vérifier la date de l'observation, nous n'enregistrons pas les observations du futur."
      * )
      */
     private $dateObs;

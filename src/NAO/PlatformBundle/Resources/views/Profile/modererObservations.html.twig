@@ -11,6 +11,9 @@
 
         <div class="row well col-lg-offset-4 col-lg-4 col-lg-offset-4 col-sm-offset-3 col-sm-6 col-sm-offset-3">
             {% if is_granted('ROLE_SUPER_ADMIN') %}
+                {% if listObserv is defined %}
+                    <h2 class="well text-center"><strong>Résultats de la recherche ({{ listObserv|length }})</strong></h2>
+                    {% endif %}
                 {{ form_start(form) }}
                 <span class="loader"></span>
                 {{ form_end(form) }}
@@ -21,8 +24,9 @@
         <div class="container">
             {% if is_granted('ROLE_SUPER_ADMIN') %}
                 {% if listObserv is defined %}
-                    <h2>Résultats de la recherche ({{ listObserv|length }})</h2>
-                    <table class="table table-striped">
+                    {#<h2>Résultats de la recherche ({{ listObserv|length }})</h2>#}
+                    <div class="col-lg-12 col-md-12 col-sm-12 table-responsive">
+                    <table class="table table-striped table-bordered">
                         <thead>
                             <tr>
                                 <th>Espece observée</th>
@@ -69,6 +73,7 @@
                         {% endif %}
                         </tbody>
                     </table>
+                    </div>
 
                 {% endif %}
 

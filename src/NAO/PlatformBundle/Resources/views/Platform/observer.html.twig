@@ -10,23 +10,25 @@
 {% block body %}
     <div class="container">
         <h3 class="text-center" style="text-decoration: underline;">Formulaire de saisie</h3>
-        <div class="well">
+        <div class="well" style="padding-bottom: 45px">
             {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
             {{ form_errors(form) }}
 
             <div class="form-group">
-                <label class="col-sm-3 control-label">Nom de l'espèce : <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-original-title="Obligatoire"> </span></label>
-                {#{{ form_label(form.espece, "", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}#}
-
-                {{ form_errors(form.espece) }}
+                <label class="col-sm-3 control-label">Nom de l'espèce : <span class="glyphicon glyphicon-info-sign red"
+                                                                              data-toggle="tooltip"
+                                                                              data-original-title="Obligatoire"> </span></label>
                 <div class="col-sm-6">
                     {{ form_widget(form.espece, {'attr': {'class': 'form-control' , 'placeholder' : 'Champ obligatoire ...'}}) }}
+                    {{ form_errors(form.espece) }}
                 </div>
                 <span class="loader"></span>
             </div>
 
             <div class="form-group">
-                <label class="col-sm-3 control-label">Lieu de l'observation : <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-original-title="Obligatoire"> </span></label>
+                <label class="col-sm-3 control-label">Lieu de l'observation : <span
+                            class="glyphicon glyphicon-info-sign red" data-toggle="tooltip"
+                            data-original-title="Obligatoire"> </span></label>
                 <div class="checkbox-inline" style="padding-top: 0px;">
                     {{ form_widget(form.localise) }}
                     {{ form_label(form.localise) }}
@@ -36,28 +38,33 @@
             </div>
 
             <div class="form-group">
-                <label class="col-sm-3 control-label">Lieu de l'observation : <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-original-title="Obligatoire"> </span></label>
-                {#{{ form_label(form.dateObs, "Date de l'observation :", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}#}
-                {{ form_errors(form.dateObs) }}
+                <label class="col-sm-3 control-label">Date et heure de l'observation : <span
+                            class="glyphicon glyphicon-info-sign red" data-toggle="tooltip"
+                            data-original-title="Obligatoire"> </span></label>
                 <div class="col-sm-6 ">
                     {{ form_widget(form.dateObs) }}
+                    {{ form_errors(form.dateObs) }}
                 </div>
 
             </div>
 
             <div class="form-group">
-                {{ form_label(form.photo, "Ajouter une photo :", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
-                {{ form_errors(form.photo) }}
+                <label class="col-sm-3 control-label">Ajouter une photo : <span
+                            class="glyphicon glyphicon-info-sign green" data-toggle="tooltip"
+                            data-original-title="Facultatif"> </span></label>
                 <div class="col-sm-6">
                     {{ form_widget(form.photo) }}
+                    {{ form_errors(form.photo) }}
                 </div>
             </div>
 
             <div class="form-group">
-                {{ form_label(form.commentaireP, "Votre commentaire :", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
-                {{ form_errors(form.commentaireP) }}
+                <label class="col-sm-3 control-label">Votre commentaire : <span
+                            class="glyphicon glyphicon-info-sign green" data-toggle="tooltip"
+                            data-original-title="Facultatif"> </span></label>
                 <div class="col-sm-6">
                     {{ form_widget(form.commentaireP) }}
+                    {{ form_errors(form.commentaireP) }}
                 </div>
             </div>
 
@@ -71,7 +78,7 @@
                 {{ form_widget(form.lon) }}
             </div>
 
-            {{ form_widget(form.valider, {'attr': {'class': 'col-sm-offset-5 col-sm-2 btn btn-customp'}}) }}
+            {{ form_widget(form.valider, {'attr': {'class': 'col-xs-offset-5 col-sm-2 btn btn-customp'}}) }}
 
             {{ form_end(form) }}
         </div>
