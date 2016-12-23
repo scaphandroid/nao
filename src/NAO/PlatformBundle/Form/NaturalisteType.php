@@ -24,15 +24,19 @@ class NaturalisteType extends AbstractType
         $builder
             ->add('prenom', TextType::class)
             ->add('nom', TextType::class)
-            ->add('email', LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\EmailType'), array('label' => 'form.email', 'translation_domain' => 'FOSUserBundle'))
+            ->add('email', EmailType::class, array('label' => 'form.email', 'translation_domain' => 'FOSUserBundle'))
             ->add('username', null, array('label' => 'form.username', 'translation_domain' => 'FOSUserBundle'))
             ->add('profession', TextType::class, array('required' => true))
             ->add('cv', FileType::class, array(
                 'required' => true,
-                'data_class' => null))
-            ->add('motivation', TextareaType::class, array('required' => true))
-            ->add('plainPassword', LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\RepeatedType'), array(
-                'type' => LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\PasswordType'),
+                'data_class' => null,
+                'label' => 'CV (Format PDF uniquement - Taille Max. 3 Mo)'))
+            ->add('motivation', TextareaType::class, array(
+                'required' => true,
+                'label' => 'Motivation : (Minimum 200 Caractères)'
+                ))
+            ->add('plainPassword', RepeatedType::class, array(
+                'type' => PasswordType::class,
                 'options' => array('translation_domain' => 'FOSUserBundle'),
                 'first_options' => array('label' => 'form.password'),
                 'second_options' => array('label' => 'form.password_confirmation'),

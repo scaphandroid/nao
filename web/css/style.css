@@ -406,6 +406,8 @@ ol, ul {
 
 .bouton-main:hover {
     color: #ffffff;
+    background-color: #5cc82d;
+    border: solid green 1px !important;
 }
 
 .texte-bouton {
@@ -594,6 +596,10 @@ a:-webkit-any-link  {
     color:red !important;
     opacity: 0.75;
 }
+
+#devenir_naturaliste_motivation, #nao_platformbundle_user_motivation{
+     height: 180px;
+ }
 /*RESPONSIVE */
 
 @media (max-width: 1200px) {
@@ -736,5 +742,8 @@ a:-webkit-any-link  {
         width: 320px;
         margin: 10px auto 0 auto;
         height: 320px;
+    }
+    #devenir_naturaliste_motivation #nao_platformbundle_user_motivation{
+        height: 110px;
     }
 }

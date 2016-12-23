@@ -102,7 +102,9 @@
             $(document).ajaxStop(function () {
                 $(".loader").css("display", "none");
             });
-            $('#nao_platformbundle_observation_dateObs').datetimepicker();
+            $('#nao_platformbundle_observation_dateObs').datetimepicker({
+                sideBySide: true
+            });
 
         });
 

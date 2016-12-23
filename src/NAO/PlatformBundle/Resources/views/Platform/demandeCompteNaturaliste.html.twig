@@ -20,3 +20,19 @@
 
 
 {% endblock %}
+{% block javascript %}
+    {{ parent() }}
+    <script>
+        $(function () {
+            var length = 0;
+            $('textarea').keyup(function() {
+                var length = $(this).val().length;
+                $('#chars').text(length);
+            });
+            $("#nao_platformbundle_user_motivation").after('<div class="count"><br/><i><span id="chars">0</span> caractères saisis</i></div>');
+
+        });
+
+
+    </script>
+{% endblock %}

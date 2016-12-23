@@ -12,20 +12,7 @@
                 <h4 class="text-center">Charte d'engagement</h4>
             </div>
             <div class="well text-center" style="overflow-y: scroll; max-height: 250px;">
-                <p>Ac ne quis a nobis hoc ita dici forte miretur, quod alia quaedam in hoc
-                    facultas sit ingeni, neque
-                    haec dicendi ratio aut disciplina, ne nos quidem huic uni studio penitus umquam dediti fuimus.
-                    Etenim omnes
-                    artes, quae ad humanitatem pertinent, habent quoddam commune vinculum, et quasi cognatione quadam
-                    inter se
-                    continentur.</p>
-                <p>Ac ne quis a nobis hoc ita dici forte miretur, quod alia quaedam in hoc
-                    facultas sit ingeni, neque
-                    haec dicendi ratio aut disciplina, ne nos quidem huic uni studio penitus umquam dediti fuimus.
-                    Etenim omnes
-                    artes, quae ad humanitatem pertinent, habent quoddam commune vinculum, et quasi cognatione quadam
-                    inter se
-                    continentur.</p>
+                <p>L’association Nos Amis les Oiseaux s’engagent quotidiennement pour la protection des oiseaux, aussi en validant cette charte vous vous engager à respecter les données qui vous serons accessibles après inscription et acceptez de ne saisir uniquement des observations réellement constatées dans le but d’alimenter un programme de recherche pour étudier les effets du climat, de l’urbanisation et de l’agriculture sur la biodiversité.</p>
             </div>
             <div class="text-center">
                 <button class="charte_close btn btn-success"
@@ -42,7 +29,7 @@
                 innovant.</h1>
             <h2>Partout en France, partez à la découverte des oiseaux <span class="saut-de-ligne">et enregistrez vos observations.</span>
             </h2>
-            <a href="{{ path('fos_user_security_login') }}">
+            <a href="{{ path('nao_platform_observer') }}">
                 <button class="btn btn-lg bouton-main"><span class="texte-bouton">PARTICIPER</span></button>
             </a>
         </div>
@@ -58,7 +45,7 @@
             <div id="typeCompte" class="hidden"> <!--  -->
                 {{ typeCompte }}
             </div>
-            <a href="{{ path('nao_platform_observer') }}">
+            <a href="{{ path('nao_platform_rechercher') }}">
                 <button class="btn btn-lg bouton-main"><span class="texte-bouton">VOIR PLUS</span></button>
             </a>
         </div>
@@ -93,7 +80,7 @@
                 </div>
             </div>
             {% if not is_granted('ROLE_USER') %}
-                <a href="{{ path('nao_profile_devenirnaturaliste') }}">
+                <a href="{{ path('nao_platform_demande') }}">
                     <button class="btn btn-lg bouton-main"><span class="texte-bouton">PARTICIPER</span></button>
                 </a>
             {% else %}

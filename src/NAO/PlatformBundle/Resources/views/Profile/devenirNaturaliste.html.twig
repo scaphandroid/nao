@@ -13,15 +13,17 @@
         <div class="container connexion_forms">
             <div class="row well col-sm-offset-1 col-sm-9 col-md-offset-2 col-md-8">
                 {% if (user.enAttente == true) %}
-                    <p class="well text-center">Vous avez déjà une demande en cours de traitement. Merci.</p>
+                    <h4 class="well text-center">Vous avez déjà une demande en cours de traitement. Merci.</h4>
 
-                {% else %}
-                    <p class="text-center">Vous souhaitez faire une demande de compte naturaliste ? Remplissez ce formulaire et nous vous
-                        répondrons dans les meilleurs délais.</p>
+                    <strong><span id="chars">200</span> caractères restants</strong> {% else %}
+                    <h4 class="text-center">Vous souhaitez faire une demande de compte naturaliste ? Remplissez ce
+                        formulaire et nous vous répondrons dans les meilleurs délais.</h4>
                     {{ form_start(form) }}
-                    {{ form_label(form) }}
+                    {#{{ form_label(form) }}#}
                     {{ form_errors(form) }}
                     {{ form_widget(form) }}
+                    {#<strong><span id="chars">200</span> caractères restants</strong>#}
+
                     {{ form_end(form) }}
 
                 {% endif %}
@@ -30,5 +32,21 @@
 
     {% endblock %}
 
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script>
+        $(function () {
+            var length = 0;
+            $('textarea').keyup(function() {
+                var length = $(this).val().length;
+                $('#chars').text(length);
+            });
+            $("#devenir_naturaliste_motivation").after('<div class="count"><br/><i><span id="chars">0</span> caractères saisis</i></div>');
+
+        });
+
+    </script>
 {% endblock %}
 
