@@ -42,7 +42,7 @@
                             class="glyphicon glyphicon-info-sign red" data-toggle="tooltip"
                             data-original-title="Obligatoire"> </span></label>
                 <div class="col-sm-6 ">
-                    {{ form_widget(form.dateObs) }}
+                    {{ form_widget(form.dateObs, {'attr': {'placeholder' : 'Cliquez ici pour choisir une date ', 'value' : '', 'onkeydown' : 'return false'}}) }}
                     {{ form_errors(form.dateObs) }}
                 </div>
 
@@ -63,7 +63,7 @@
                             class="glyphicon glyphicon-info-sign green" data-toggle="tooltip"
                             data-original-title="Facultatif"> </span></label>
                 <div class="col-sm-6">
-                    {{ form_widget(form.commentaireP) }}
+                    {{ form_widget(form.commentaireP, {'attr': {'placeholder' : 'Votre commentaire ...'}}) }}
                     {{ form_errors(form.commentaireP) }}
                 </div>
             </div>
@@ -103,7 +103,9 @@
                 $(".loader").css("display", "none");
             });
             $('#nao_platformbundle_observation_dateObs').datetimepicker({
-                sideBySide: true
+                sideBySide: true,
+                maxDate: "now",
+                showClear: true
             });
 
         });

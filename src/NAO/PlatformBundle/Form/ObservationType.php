@@ -28,9 +28,10 @@ class ObservationType extends AbstractType
                 'required' => false,
             ))
             ->add('dateObs', DateType::class, array(
-                'input' => 'datetime',
+//                'input' => 'datetime',
                 'format' => 'dd/MM/yyyy H:m',
-                'widget' => 'single_text'
+                'widget' => 'single_text',
+                'html5' => 'false'
 
             ))
             ->add('photo', FileType::class, array(
