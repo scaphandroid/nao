@@ -28,6 +28,10 @@ nao_platform_autoget:
     defaults: { _controller: NAOPlatformBundle:Autocomplete:autoget, id: null}
     methods: [GET]
 
+nao_platform_mentions:
+    path:     /mentions-legales
+    defaults: { _controller: NAOPlatformBundle:Platform:mentions}
+
 nao_profile_mesobservations:
     path:    /profile/mesobservations
     defaults: { _controller: NAOPlatformBundle:Profile:mesObservations}

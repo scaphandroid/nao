@@ -188,4 +188,9 @@ class PlatformController extends Controller
             'form' => $form->createView()
         ));
     }
+
+    public function mentionsAction()
+    {
+        return $this->render('NAOPlatformBundle:Platform:mentionslegales.html.twig');
+    }
 }
