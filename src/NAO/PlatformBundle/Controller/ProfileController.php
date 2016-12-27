@@ -254,6 +254,14 @@ class ProfileController extends Controller
             return $this->redirectToRoute('fos_user_profile_show');
         }
 
+        // On s'assure que l'ID dans l'URL n'appartienne pas à
+        // soit un particulier n'ayant fait aucune demande
+        // soit l'admin
+        if (($naturaliste->getTypeCompte() == 0) && ($naturaliste->getValide()) && ($naturaliste->getEnAttente() == false ) || ($naturaliste->getTypeCompte() == 2)){
+            $request->getSession()->getFlashBag()->add('notice', 'Vous n\'avez pas accès au détail de ce compte.');
+            return $this->redirectToRoute('nao_profile_listenaturalistes');
+        }
+
         $form = $this->createForm(ValiderType::class);
         $validation = false;
 
