@@ -10,6 +10,8 @@ use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
 use NAO\PlatformBundle\Entity\User;
+use NAO\PlatformBundle\Form\ValiderObsType;
+use NAO\PlatformBundle\NAOPlatformBundle;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -73,6 +75,7 @@ class ProfileController extends Controller
         return $this->render('@NAOPlatform/Profile/mesObservations.html.twig', array(
             'user' => $user,
             'observation_JSON' => $observation_JSON,
+            'listeObservations' => $listObserv
         ));
     }
 
@@ -96,7 +99,7 @@ class ProfileController extends Controller
 
         return $this->render('@NAOPlatform/Profile/observationsEnAttente.html.twig', array(
             'user' => $user,
-            'ObservNonValide' => $ObservNonValide
+            'listeObservations' => $ObservNonValide
         ));
     }
 
@@ -149,7 +152,7 @@ class ProfileController extends Controller
 
         return $this->render('NAOPlatformBundle:Profile:observationsRefusees.html.twig', array(
             'user' => $user,
-            'ObservRefusees' => $observRefusees
+            'listeObservations' => $observRefusees
         ));
     }
 
@@ -408,7 +411,13 @@ class ProfileController extends Controller
         //pour la validation/invalidation, le formulaire n'est pas accessible au particulier, ni au naturaliste si il s'agit de sa propre observation ou si l'observation est déjà traitée
         $form = null;
         if(($checker->isGranted('ROLE_ADMIN') && !$observationPerso && $observation->getEnAttente()) || $checker->isGranted('ROLE_SUPER_ADMIN')){
-            $form = $this->createForm(ValiderType::class);
+            if(!$checker->isGranted('ROLE_SUPER_ADMIN') && $observation->getEnAttente()) {
+                $form = $this->createForm(ValiderObsType::class);
+            }
+            else{
+                $form = $this->createForm(ValiderType::class);
+            }
+
             $form->handleRequest($request);
 
             if($form->isSubmitted() && $form->isValid()){
@@ -422,6 +431,7 @@ class ProfileController extends Controller
                     $observation->setEnAttente(false);
                     $message = "Observation invalidée";
                 }
+                $observation->setCommentaireN($form->get('commentaireN')->getData());
                 $observation->setValidateur($user);
                 $em->persist($observation);
                 $em->flush();
@@ -429,6 +439,11 @@ class ProfileController extends Controller
                 return $this->redirectToRoute('nao_profile_observationsenattente');
             }
             $form = $form->createView();
+        }
+
+        //on veut s'assurer qu'après validation le naturaliste ne puisse plus modifier l'observation
+        if(!$checker->isGranted('ROLE_SUPER_ADMIN') && !$observation->getEnAttente() ){
+            $form = null;
         }
 
         return $this->render('@NAOPlatform/Profile/observation.html.twig', array(
