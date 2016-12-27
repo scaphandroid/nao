@@ -2,23 +2,30 @@ var map, zoom, maxZoom;
 var markersArray = [];
 var infowindow = null;
 var infowindowArray = [];
-zoom = (window.innerWidth <= 800 && window.innerHeight <= 600) ? 5 : 6;
-/* Affichage sur les pages accueil, rechercher*/
 /* Le zoom dépend du type de compte*/
-function initMapHomeRechercher() {
+zoom = (window.innerWidth <= 800 && window.innerHeight <= 600) ? 5 : 6;
+
+/* Affichage sur la page accueil*/
+function initMapHome() {
     maxZoom = (($("#typeCompte").text()) > 0) ? null : 8;
-    afficherCartePictos(maxZoom);
+    afficherCartePictos(maxZoom, false); /* On désactive le zoom lors du scroll sur la page d'accueil*/
+}
+/* Affichage sur la page rechercher*/
+function initMapRechercher() {
+    maxZoom = (($("#typeCompte").text()) > 0) ? null : 8;
+    afficherCartePictos(maxZoom, true);
 }
 /* Affichage sur la page mes observations de Profile*/
 function initMapProfile() {
     maxZoom = null;
-    afficherCartePictos(maxZoom);
+    afficherCartePictos(maxZoom, true);
 }
-function afficherCartePictos(maxZoom) {
+function afficherCartePictos(maxZoom, scrollwheel) {
 /*    detectBrowser();*/
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 46.764548, lng: 1.718674999999962}, // coordonnées du centre de la F
         zoom: zoom,
+        scrollwheel: scrollwheel,
         maxZoom: maxZoom //null si particulier
     });
     var observation = $("#observation").text();
