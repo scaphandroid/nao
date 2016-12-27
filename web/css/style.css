@@ -739,9 +739,14 @@ a:-webkit-any-link  {
     }
 
     #map {
-        width: 320px;
+        width: 280px;
         margin: 10px auto 0 auto;
-        height: 320px;
+        height: 280px;
+    }
+
+    #iw-container .iw-title {
+        font-size: 10px;
+        font-weight: 100;
     }
     #devenir_naturaliste_motivation #nao_platformbundle_user_motivation{
         height: 110px;
