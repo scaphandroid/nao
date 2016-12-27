@@ -216,6 +216,11 @@ class ProfileController extends Controller
             $request->getSession()->getFlashBag()->add('notice', 'Cet espace est réservé aux utilisateurs enregistrés !');
             return $this->redirectToRoute('fos_user_security_login');
         }
+        // cet espace est interdit aux administrateurs et aux naturalistes
+        if ( $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')){
+            $request->getSession()->getFlashBag()->add('notice', 'Vous ne pouvez pas faire une demande de compte naturaliste, vous l\'êtes déjà !');
+            return $this->redirectToRoute('fos_user_profile_show');
+        }
 
         $form = $this->createForm(DevenirNaturalisteType::class, $user);
 
