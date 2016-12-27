@@ -328,7 +328,7 @@ class ProfileController extends Controller
         ));
     }
 
-    public function traiterObservationAction(Request $request, Observation $observation) {
+/*    public function traiterObservationAction(Request $request, Observation $observation) {
         $user = $this->getUser();
         if (!is_object($user) || !$user instanceof UserInterface) {
             $request->getSession()->getFlashBag()->add('notice', 'Cet espace est réservé aux utilisateurs enregistrés !');
@@ -343,7 +343,7 @@ class ProfileController extends Controller
             throw $this->createNotFoundException("L'observation n°" . $observation->getId() . " n'existe pas.");
         }
      /*   $observation->setEnAttente(true);*/
-        $message = null;
+ /*       $message = null;
         if ($observation->getValide()) {
             $observation->setValide(false);
             $message = "L'observation a bien été invalidée.";
@@ -356,7 +356,7 @@ class ProfileController extends Controller
         $em->flush();
         $request->getSession()->getFlashBag()->add('notice', $message);
         return $this->redirectToRoute('nao_profile_modererobservations');
-    }
+    }*/
 
     public function observationAction($id, Request $request){
         $user = $this->getUser();
@@ -413,6 +413,7 @@ class ProfileController extends Controller
                 $em->persist($observation);
                 $em->flush();
                 if (isset($message)) $this->addFlash('notice', $message);
+                return $this->redirectToRoute('nao_profile_observationsenattente');
             }
             $form = $form->createView();
         }
