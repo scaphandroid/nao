@@ -37,6 +37,11 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  */
 class ResettingController extends BaseController
 {
+    public function requestAction()
+    {
+        return $this->render('NAOPlatformBundle:Resetting:request.html.twig');
+    }
+
     public function sendEmailAction(Request $request)
     {
         $username = $request->request->get('username');

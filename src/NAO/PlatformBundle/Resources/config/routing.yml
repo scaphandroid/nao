@@ -115,6 +115,11 @@ fos_user_resetting_send_email:
     defaults: { _controller: NAOPlatformBundle:Resetting:sendEmail}
     methods:  [POST]
 
+fos_user_resetting_request:
+    path: /request
+    defaults: { _controller: NAOPlatformBundle:Resetting:request}
+    methods: [GET]
+
 fos_user_profile:
     resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
     prefix: /profile
