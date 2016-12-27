@@ -743,6 +743,14 @@ a:-webkit-any-link  {
         margin: 10px auto 0 auto;
         height: 280px;
     }
+    .police_infowindow p {
+        font-size: 10px;
+        margin-bottom : 0;
+    }
+
+    .police_infowindow {
+        padding : 0 0 0 5px ;
+    }
 
     #iw-container .iw-title {
         font-size: 10px;
