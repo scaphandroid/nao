@@ -10,6 +10,8 @@ use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
 use NAO\PlatformBundle\Entity\User;
+use NAO\PlatformBundle\Form\ValiderObsType;
+use NAO\PlatformBundle\NAOPlatformBundle;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -384,7 +386,13 @@ class ProfileController extends Controller
         //pour la validation/invalidation, le formulaire n'est pas accessible au particulier, ni au naturaliste si il s'agit de sa propre observation ou si l'observation est déjà traitée
         $form = null;
         if(($checker->isGranted('ROLE_ADMIN') && !$observationPerso && $observation->getEnAttente()) || $checker->isGranted('ROLE_SUPER_ADMIN')){
-            $form = $this->createForm(ValiderType::class);
+            if(!$checker->isGranted('ROLE_SUPER_ADMIN') && $observation->getEnAttente()) {
+                $form = $this->createForm(ValiderObsType::class, $observation);
+            }
+            else{
+                $form = $this->createForm(ValiderType::class);
+            }
+
             $form->handleRequest($request);
 
             if($form->isSubmitted() && $form->isValid()){
@@ -404,6 +412,11 @@ class ProfileController extends Controller
                 if (isset($message)) $this->addFlash('notice', $message);
             }
             $form = $form->createView();
+        }
+
+        //on veut s'assurer qu'après validation le naturaliste ne puisse plus modifier l'observation
+        if(!$checker->isGranted('ROLE_SUPER_ADMIN') && !$observation->getEnAttente() ){
+            $form = null;
         }
 
         return $this->render('@NAOPlatform/Profile/observation.html.twig', array(
