@@ -51,10 +51,22 @@ class ProfileController extends Controller
             return $this->redirectToRoute('fos_user_profile_show');
         }
 
-        $listObserv = $this->getDoctrine()->getManager()
+        $listObservValides = $this->getDoctrine()->getManager()
             ->getRepository('NAOPlatformBundle:Observation')
-            ->getListObsByUser($user->getId());
+            ->getListObsValidesByUser($user->getId());
 
+        $listObservEnAttente = $this->getDoctrine()->getManager()
+            ->getRepository('NAOPlatformBundle:Observation')
+            ->getListObsEnAttenteByUser($user->getId());
+
+        $listObserv = $listObservValides;
+        if (!empty($listObservEnAttente)) {
+            foreach($listObservEnAttente as $observ)
+            {
+                array_push($listObserv, $observ);
+            }
+        }
+        //$listObserv ne contient que les observations validées et en attente (pas les refusées) pour les afficher sur la carte
         // les observations sont encodées en json pour être affichées sur la carte, via le service dédié
         $observation_JSON = $this->get('service_container')->get('nao_platform.jsonencode')->jsonEncode($listObserv, $request->getSchemeAndHttpHost());
 

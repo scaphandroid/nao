@@ -19,6 +19,26 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    function getListObsValidesByUser($id)    {
+        $qb = $this->createQueryBuilder('obs')
+            ->leftJoin('obs.user', 'user')
+            ->where('user.id = :id_user')
+            ->andWhere('obs.valide = :valide')
+            ->andWhere('obs.enAttente = :enAttente')
+            ->setParameters(array('id_user' => $id, 'valide' => true, 'enAttente' => false));
+        return $qb->getQuery()->getResult();
+    }
+
+    function getListObsEnAttenteByUser($id)    {
+        $qb = $this->createQueryBuilder('obs')
+            ->leftJoin('obs.user', 'user')
+            ->where('user.id = :id_user')
+            ->andWhere('obs.valide = :valide')
+            ->andWhere('obs.enAttente = :enAttente')
+            ->setParameters(array('id_user' => $id, 'valide' => false, 'enAttente' => true));
+        return $qb->getQuery()->getResult();
+    }
+
     function getListObsNonvalideEnAttente() {
         $qb = $this->createQueryBuilder('obs')
             ->leftJoin('obs.user', 'user')
