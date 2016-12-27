@@ -454,9 +454,14 @@ class ProfileController extends Controller
         ));
     }
 
-    public function exportCSVObsAction()
+    public function exportCSVObsAction(Request $request)
     {
         $user = $this->getUser();
+        // cet espace est réservé aux administrateurs
+        if ( $this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN') == false){
+            $request->getSession()->getFlashBag()->add('notice', 'Cet espace ne vous est pas accessible !');
+            return $this->redirectToRoute('fos_user_profile_show');
+        }
         $repository = $this->getDoctrine()->getRepository('NAOPlatformBundle:Observation');
         $data = $repository->findAll();
         $filename = "export_obs_" . date("Y_m_d_His") . ".csv";
@@ -469,9 +474,14 @@ class ProfileController extends Controller
         $response->headers->set('Content-Disposition', 'attachment; filename=' . $filename);
         return $response;
     }
-    public function exportCSVUsersAction()
+    public function exportCSVUsersAction(Request $request)
     {
         $user = $this->getUser();
+        // cet espace est réservé aux administrateurs
+        if ( $this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN') == false){
+            $request->getSession()->getFlashBag()->add('notice', 'Cet espace ne vous est pas accessible !');
+            return $this->redirectToRoute('fos_user_profile_show');
+        }
         $repository = $this->getDoctrine()->getRepository('NAOPlatformBundle:User');
         $data = $repository->findAll();
         $filename = "export_usr_" . date("Y_m_d_His") . ".csv";
@@ -484,9 +494,14 @@ class ProfileController extends Controller
         $response->headers->set('Content-Disposition', 'attachment; filename=' . $filename);
         return $response;
     }
-    public function exportCSVEspecesAction()
+    public function exportCSVEspecesAction(Request $request)
     {
         $user = $this->getUser();
+        // cet espace est réservé aux administrateurs
+        if ( $this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN') == false){
+            $request->getSession()->getFlashBag()->add('notice', 'Cet espace ne vous est pas accessible !');
+            return $this->redirectToRoute('fos_user_profile_show');
+        }
         $repository = $this->getDoctrine()->getRepository('NAOPlatformBundle:Espece');
         $data = $repository->findAll();
         $filename = "export_esp_" . date("Y_m_d_His") . ".csv";
