@@ -139,6 +139,9 @@ class PlatformController extends Controller
                 $fichierPhoto = $this->get('nao_platform.fileuploader')->upload($observation->getPhoto(), 'photoDirectory');
                 $observation->setPhoto($fichierPhoto);
             }
+            else {
+                $observation->setPhoto('photo_generique.jpg');
+            }
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($observation);
