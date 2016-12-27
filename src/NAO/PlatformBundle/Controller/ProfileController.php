@@ -387,7 +387,7 @@ class ProfileController extends Controller
         $form = null;
         if(($checker->isGranted('ROLE_ADMIN') && !$observationPerso && $observation->getEnAttente()) || $checker->isGranted('ROLE_SUPER_ADMIN')){
             if(!$checker->isGranted('ROLE_SUPER_ADMIN') && $observation->getEnAttente()) {
-                $form = $this->createForm(ValiderObsType::class, $observation);
+                $form = $this->createForm(ValiderObsType::class);
             }
             else{
                 $form = $this->createForm(ValiderType::class);
@@ -406,6 +406,7 @@ class ProfileController extends Controller
                     $observation->setEnAttente(false);
                     $message = "Observation invalidée";
                 }
+                $observation->setCommentaireN($form->get('commentaireN')->getData());
                 $observation->setValidateur($user);
                 $em->persist($observation);
                 $em->flush();
