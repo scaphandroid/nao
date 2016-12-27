@@ -61,6 +61,7 @@ class ProfileController extends Controller
         return $this->render('@NAOPlatform/Profile/mesObservations.html.twig', array(
             'user' => $user,
             'observation_JSON' => $observation_JSON,
+            'listeObservations' => $listObserv
         ));
     }
 
@@ -84,7 +85,7 @@ class ProfileController extends Controller
 
         return $this->render('@NAOPlatform/Profile/observationsEnAttente.html.twig', array(
             'user' => $user,
-            'ObservNonValide' => $ObservNonValide
+            'listeObservations' => $ObservNonValide
         ));
     }
 
@@ -137,7 +138,7 @@ class ProfileController extends Controller
 
         return $this->render('NAOPlatformBundle:Profile:observationsRefusees.html.twig', array(
             'user' => $user,
-            'ObservRefusees' => $observRefusees
+            'listeObservations' => $observRefusees
         ));
     }
 
