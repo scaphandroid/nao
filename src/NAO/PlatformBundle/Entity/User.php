@@ -124,7 +124,7 @@ class User extends BaseUser
     {
         parent::__construct();
         $this->dateInscription   = new \Datetime();
-        $this->setValide(false);
+        $this->setValide(true);
         $this->roles = array('ROLE_USER');
     }
     /**

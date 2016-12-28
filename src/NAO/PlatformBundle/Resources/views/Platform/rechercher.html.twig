@@ -33,29 +33,29 @@
                          {% for espece in especes %}
                          <h5 class="text-center">Consulter sa fiche sur le site de l'INPN: <a target="_blank" href="{{ espece.url }}">Fiche Espèce</a></h5>
                          {% endfor %}
-                      {% endif %}
+                    {% endif %}
                 {%  else %}
 
-                    <h3 class="text-center">Observations pour votre recherche "{{ recherche }}"</h3>
-
                     {% if listEspecesObservees|length > 1 %}
-                        <h4 class="text-center">Espèces observées correspondantes</h4>
+                         <h4>Espèces correspondantes</h4>
                     {% else %}
-                        <h4 class="text-center">Espèce observée correspondante</h4>
+                          <h4>Espèce correspondante</h4>
                     {% endif %}
-
                     <ul class="list-group">
                         {% for espece in listEspecesObservees %}
                             <li class="list-group-item">{{ espece.nomConcat }} <a target="_blank" href="{{ espece.url }}"> - Voir le descriptif sur le site de l'INPN</a></li>
                         {% endfor %}
                     </ul>
 
+                    <h3 class="text-center">Observations de "{{ recherche }}"</h3>
+
+
 
                     <div id="map"></div>
                     <div id="observation" class="hidden"> <!-- -->
                         {{ observation_JSON }}
                     </div>
-                    <div id="typeCompte" > <!-- class="hidden" -->
+                    <div id="typeCompte" class="hidden"> <!--  -->
                         {{ typeCompte }}
                     </div>
 
@@ -70,7 +70,7 @@
 {% block javascript %}
     {{ parent() }}
     <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQcmtlhakbZxEK68_wVMjV59kWTyPK9eA&region=FR&callback=initMapHomeRechercher">
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQcmtlhakbZxEK68_wVMjV59kWTyPK9eA&region=FR&callback=initMapRechercher">
     </script>
     <script>
         $(function () {

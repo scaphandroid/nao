@@ -58,13 +58,6 @@ nao_profile_modererobservations:
     defaults: {_controller: NAOPlatformBundle:Profile:modererObservations}
     methods:  [GET, POST]
 
-nao_profile_admin_traiterobservation:
-    path:    /profile/admin/traiterobservations/{id}
-    defaults: { _controller: NAOPlatformBundle:Profile:traiterObservation}
-    methods:  [GET]
-    requirements:
-            id : \d+
-
 nao_profile_observationsrefusees:
     path:    /profile/observationsrefusees
     defaults: { _controller: NAOPlatformBundle:Profile:observationRefusees}
@@ -79,15 +72,15 @@ nao_profile_observation:
     methods: [GET, POST]
 
 nao_profile_export_obs:
-    path: /profile/exporto
+    path: /profile/admin/exporto
     defaults: {_controller: NAOPlatformBundle:Profile:exportCSVObs}
 
 nao_profile_export_users:
-    path: /profile/exportu
+    path: /profile/admin/exportu
     defaults: {_controller: NAOPlatformBundle:Profile:exportCSVUsers}
 
 nao_profile_export_especes:
-    path: /profile/exporte
+    path: /profile/admin/exporte
     defaults: {_controller: NAOPlatformBundle:Profile:exportCSVEspeces}
 
 fos_user_security_login:
@@ -114,6 +107,11 @@ fos_user_resetting_send_email:
     path:     /send-email
     defaults: { _controller: NAOPlatformBundle:Resetting:sendEmail}
     methods:  [POST]
+
+fos_user_resetting_request:
+    path: /request
+    defaults: { _controller: NAOPlatformBundle:Resetting:request}
+    methods: [GET]
 
 fos_user_profile:
     resource: "@FOSUserBundle/Resources/config/routing/profile.xml"

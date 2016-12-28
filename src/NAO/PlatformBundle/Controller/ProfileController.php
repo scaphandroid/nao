@@ -53,10 +53,22 @@ class ProfileController extends Controller
             return $this->redirectToRoute('fos_user_profile_show');
         }
 
-        $listObserv = $this->getDoctrine()->getManager()
+        $listObservValides = $this->getDoctrine()->getManager()
             ->getRepository('NAOPlatformBundle:Observation')
-            ->getListObsByUser($user->getId());
+            ->getListObsValidesByUser($user->getId());
 
+        $listObservEnAttente = $this->getDoctrine()->getManager()
+            ->getRepository('NAOPlatformBundle:Observation')
+            ->getListObsEnAttenteByUser($user->getId());
+
+        $listObserv = $listObservValides;
+        if (!empty($listObservEnAttente)) {
+            foreach($listObservEnAttente as $observ)
+            {
+                array_push($listObserv, $observ);
+            }
+        }
+        //$listObserv ne contient que les observations validées et en attente (pas les refusées) pour les afficher sur la carte
         // les observations sont encodées en json pour être affichées sur la carte, via le service dédié
         $observation_JSON = $this->get('service_container')->get('nao_platform.jsonencode')->jsonEncode($listObserv, $request->getSchemeAndHttpHost());
 
@@ -207,6 +219,11 @@ class ProfileController extends Controller
             $request->getSession()->getFlashBag()->add('notice', 'Cet espace est réservé aux utilisateurs enregistrés !');
             return $this->redirectToRoute('fos_user_security_login');
         }
+        // cet espace est interdit aux administrateurs et aux naturalistes
+        if ( $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')){
+            $request->getSession()->getFlashBag()->add('notice', 'Vous ne pouvez pas faire une demande de compte naturaliste, vous l\'êtes déjà !');
+            return $this->redirectToRoute('fos_user_profile_show');
+        }
 
         $form = $this->createForm(DevenirNaturalisteType::class, $user);
 
@@ -243,6 +260,14 @@ class ProfileController extends Controller
         if ( $this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN') == false){
             $request->getSession()->getFlashBag()->add('notice', 'Cet espace ne vous est pas accessible !');
             return $this->redirectToRoute('fos_user_profile_show');
+        }
+
+        // On s'assure que l'ID dans l'URL n'appartienne pas à
+        // soit un particulier n'ayant fait aucune demande
+        // soit l'admin
+        if (($naturaliste->getTypeCompte() == 0) && ($naturaliste->getValide()) && ($naturaliste->getEnAttente() == false ) || ($naturaliste->getTypeCompte() == 2)){
+            $request->getSession()->getFlashBag()->add('notice', 'Vous n\'avez pas accès au détail de ce compte.');
+            return $this->redirectToRoute('nao_profile_listenaturalistes');
         }
 
         $form = $this->createForm(ValiderType::class);
@@ -319,7 +344,7 @@ class ProfileController extends Controller
         ));
     }
 
-    public function traiterObservationAction(Request $request, Observation $observation) {
+/*    public function traiterObservationAction(Request $request, Observation $observation) {
         $user = $this->getUser();
         if (!is_object($user) || !$user instanceof UserInterface) {
             $request->getSession()->getFlashBag()->add('notice', 'Cet espace est réservé aux utilisateurs enregistrés !');
@@ -334,7 +359,7 @@ class ProfileController extends Controller
             throw $this->createNotFoundException("L'observation n°" . $observation->getId() . " n'existe pas.");
         }
      /*   $observation->setEnAttente(true);*/
-        $message = null;
+ /*       $message = null;
         if ($observation->getValide()) {
             $observation->setValide(false);
             $message = "L'observation a bien été invalidée.";
@@ -347,7 +372,7 @@ class ProfileController extends Controller
         $em->flush();
         $request->getSession()->getFlashBag()->add('notice', $message);
         return $this->redirectToRoute('nao_profile_modererobservations');
-    }
+    }*/
 
     public function observationAction($id, Request $request){
         $user = $this->getUser();
@@ -411,6 +436,7 @@ class ProfileController extends Controller
                 $em->persist($observation);
                 $em->flush();
                 if (isset($message)) $this->addFlash('notice', $message);
+                return $this->redirectToRoute('nao_profile_observationsenattente');
             }
             $form = $form->createView();
         }
@@ -428,9 +454,14 @@ class ProfileController extends Controller
         ));
     }
 
-    public function exportCSVObsAction()
+    public function exportCSVObsAction(Request $request)
     {
         $user = $this->getUser();
+        // cet espace est réservé aux administrateurs
+        if ( $this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN') == false){
+            $request->getSession()->getFlashBag()->add('notice', 'Cet espace ne vous est pas accessible !');
+            return $this->redirectToRoute('fos_user_profile_show');
+        }
         $repository = $this->getDoctrine()->getRepository('NAOPlatformBundle:Observation');
         $data = $repository->findAll();
         $filename = "export_obs_" . date("Y_m_d_His") . ".csv";
@@ -443,9 +474,14 @@ class ProfileController extends Controller
         $response->headers->set('Content-Disposition', 'attachment; filename=' . $filename);
         return $response;
     }
-    public function exportCSVUsersAction()
+    public function exportCSVUsersAction(Request $request)
     {
         $user = $this->getUser();
+        // cet espace est réservé aux administrateurs
+        if ( $this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN') == false){
+            $request->getSession()->getFlashBag()->add('notice', 'Cet espace ne vous est pas accessible !');
+            return $this->redirectToRoute('fos_user_profile_show');
+        }
         $repository = $this->getDoctrine()->getRepository('NAOPlatformBundle:User');
         $data = $repository->findAll();
         $filename = "export_usr_" . date("Y_m_d_His") . ".csv";
@@ -458,9 +494,14 @@ class ProfileController extends Controller
         $response->headers->set('Content-Disposition', 'attachment; filename=' . $filename);
         return $response;
     }
-    public function exportCSVEspecesAction()
+    public function exportCSVEspecesAction(Request $request)
     {
         $user = $this->getUser();
+        // cet espace est réservé aux administrateurs
+        if ( $this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN') == false){
+            $request->getSession()->getFlashBag()->add('notice', 'Cet espace ne vous est pas accessible !');
+            return $this->redirectToRoute('fos_user_profile_show');
+        }
         $repository = $this->getDoctrine()->getRepository('NAOPlatformBundle:Espece');
         $data = $repository->findAll();
         $filename = "export_esp_" . date("Y_m_d_His") . ".csv";
