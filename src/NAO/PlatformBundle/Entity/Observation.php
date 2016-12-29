@@ -69,7 +69,7 @@ class Observation
      * @var \DateTime
      *
      * @ORM\Column(name="date_obs", type="datetimetz")
-     * @Asset\NotBlank()
+     * @Assert\NotBlank()
      * @Assert\DateTime()
      * @Assert\LessThanOrEqual(
      *      "now UTC",
