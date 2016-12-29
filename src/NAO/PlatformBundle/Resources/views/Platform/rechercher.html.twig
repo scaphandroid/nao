@@ -11,7 +11,7 @@
                 {{ form_errors(form) }}
 
             <div class="form-group form_search form-autocomplete">
-                    {{ form_label(form.nomConcat, "Veuillez saisir le nom d'une espèce :", {'label_attr': {'class': 'col-sm-3 control-label '}}) }}
+                    {{ form_label(form.nomConcat, "Veuillez saisir le nom d'une espèce :", {'label_attr': {'class': 'col-sm-3 control-label recherchelabel'}}) }}
                     {{ form_errors(form.nomConcat) }}
                 <div class="col-sm-3 btw_form">
                         {{ form_widget(form.nomConcat, {'attr': {'class': 'form-control'}}) }}

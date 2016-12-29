@@ -629,6 +629,19 @@ a:-webkit-any-link  {
 
 }
 
+/*pour optimisation sur ipage*/
+@media (width: 768px){
+    #logo-header{
+        width: 100%;
+    }
+    #recherche_nomConcat{
+        width: 600px;
+    }
+    .recherchelabel{
+        width: 280px;
+    }
+}
+
 @media (max-width: 768px) {
     .container {
         padding: 0;
