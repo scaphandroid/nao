@@ -600,6 +600,11 @@ a:-webkit-any-link  {
 #devenir_naturaliste_motivation, #nao_platformbundle_user_motivation{
      height: 180px;
  }
+
+.champs_caches {
+    display: none;
+}
+
 /*RESPONSIVE */
 
 @media (max-width: 1200px) {

@@ -21,8 +21,12 @@ class ObservationType extends AbstractType
     {
         $builder
             ->add('espece', 'PUGX\AutocompleterBundle\Form\Type\AutocompleteType', ['class' => 'NAO\PlatformBundle\Entity\Espece'])
-            ->add('lat', NumberType::class)
-            ->add('lon', NumberType::class)
+            ->add('lat', NumberType::class,  array(
+                'required' => false
+            ))
+            ->add('lon', NumberType::class,  array(
+                'required' => false
+            ))
             ->add('localise', CheckboxType::class, array(
                 'label'    => 'Je suis sur place',
                 'required' => false,

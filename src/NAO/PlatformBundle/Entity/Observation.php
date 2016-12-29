@@ -41,6 +41,10 @@ class Observation
     /**
      * @var string
      *
+     * @Assert\NotNull(
+     *     message="Vous devez préciser une localisation."
+     * )
+     *
      * @Assert\Type(
      *     type="float",
      *     message="Latitude incohérente !"
@@ -48,7 +52,6 @@ class Observation
      * @ORM\Column(name="lat", type="float")
      */
     private $lat;
-
     /**
      * @var string
      *
@@ -56,6 +59,7 @@ class Observation
      *     type="float",
      *     message="Latitude incohérente !"
      * )
+     *
      * @ORM\Column(name="lon", type="float")
      */
     private $lon;
