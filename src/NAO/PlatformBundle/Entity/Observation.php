@@ -55,7 +55,6 @@ class Observation
     /**
      * @var string
      *
-     * @Assert\NotBlank()
      * @Assert\Type(
      *     type="float",
      *     message="Latitude incohérente !"
