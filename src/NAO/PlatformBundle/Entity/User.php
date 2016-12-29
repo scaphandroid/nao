@@ -12,14 +12,6 @@ use FOS\UserBundle\Model\User as BaseUser;
  * User
  *
  * @ORM\Table(name="fos_user")
- * @UniqueEntity(
- *     fields={"email"},
- *     message="Cet email est déjà utilisé."
- * )
- * @UniqueEntity(
- *     fields={"username"},
- *     message="Ce nom d'utilisateur est déjà utilisé."
- * )
  * @ORM\Entity(repositoryClass="NAO\PlatformBundle\Repository\UserRepository")
  */
 class User extends BaseUser
