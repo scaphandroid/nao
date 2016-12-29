@@ -25,7 +25,7 @@ class Observation
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="NAO\PlatformBundle\Entity\Espece")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -40,7 +40,7 @@ class Observation
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
      * @Assert\NotNull(
      *     message="Vous devez préciser une localisation."
      * )
@@ -55,6 +55,7 @@ class Observation
     /**
      * @var string
      *
+     * @Assert\NotBlank()
      * @Assert\Type(
      *     type="float",
      *     message="Latitude incohérente !"
@@ -68,6 +69,7 @@ class Observation
      * @var \DateTime
      *
      * @ORM\Column(name="date_obs", type="datetimetz")
+     * @Asset\NotBlank()
      * @Assert\DateTime()
      * @Assert\LessThanOrEqual(
      *      "now UTC",
