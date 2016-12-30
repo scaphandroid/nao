@@ -410,9 +410,11 @@ class ProfileController extends Controller
 
         //pour la validation/invalidation, le formulaire n'est pas accessible au particulier, ni au naturaliste si il s'agit de sa propre observation ou si l'observation est déjà traitée
         $form = null;
+        $afficherCommentaire = false;
         if(($checker->isGranted('ROLE_ADMIN') && !$observationPerso && $observation->getEnAttente()) || $checker->isGranted('ROLE_SUPER_ADMIN')){
             if(!$checker->isGranted('ROLE_SUPER_ADMIN') && $observation->getEnAttente()) {
                 $form = $this->createForm(ValiderObsType::class);
+                $afficherCommentaire = true;
             }
             else{
                 $form = $this->createForm(ValiderType::class);
@@ -431,7 +433,11 @@ class ProfileController extends Controller
                     $observation->setEnAttente(false);
                     $message = "Observation invalidée";
                 }
-                $observation->setCommentaireN($form->get('commentaireN')->getData());
+                if(false !== $afficherCommentaire){
+                    dump($form->get('commentaireN'));
+                    $observation->setCommentaireN($form->get('commentaireN')->getData());
+                }
+
                 $observation->setValidateur($user);
                 $em->persist($observation);
                 $em->flush();
