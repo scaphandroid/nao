@@ -15,7 +15,8 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
         $qb = $this->createQueryBuilder('obs')
             ->leftJoin('obs.user', 'user')
             ->where('user.id = :id_user')
-            ->setParameter('id_user', $id);
+            ->setParameter('id_user', $id)
+            ->orderBy('obs.dateObs', 'DESC');
         return $qb->getQuery()->getResult();
     }
 

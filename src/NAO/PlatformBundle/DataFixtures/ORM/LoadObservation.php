@@ -14,7 +14,7 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
 
         // On crée 5 observations qu'on va assigner à nos user
         $listObservations = array(
-            array(
+            array( // observation par admin
                 'dateObserv' => new \DateTime('2016-12-16 11:00:00'),
                 'espece' => 'Aigle impérial',
                 'localise' => true,
@@ -25,7 +25,7 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
                 'validateur' => null,
                 'user' => 'user-admin',
                 'photo' => 'oiseau1.jpg',),
-            array(
+            array( // observation en attente
                 'dateObserv' => new \DateTime('2016-12-15 12:00:00'),
                 'espece' => 'Colibri tout-vert ',
                 'localise' => true,
@@ -36,7 +36,7 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
                 'validateur' => null,
                 'user' => 'user-part2',
                 'photo' => 'oiseau2.jpg',),
-            array(
+            array( // observation validée
                 'dateObserv' => new \DateTime('2016-12-11 14:00:00'),
                 'espece' => 'Pluvier guignard',
                 'localise' => false,
@@ -47,7 +47,7 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
                 'validateur' => 'user-nat',
                 'user' => 'user-part1',
                 'photo' => 'oiseau3.jpg',),
-            array(
+            array(// observation validée
                 'dateObserv' => new \DateTime('2016-12-13 02:00:00'),
                 'espece' => 'Bécasseau de Bonaparte, Bécasseau à croupion blanc',
                 'localise' => false,
@@ -58,7 +58,7 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
                 'validateur' => null,
                 'user' => 'user-nat',
                 'photo' => 'oiseau4.jpg',),
-            array(
+            array(// observation validée
                 'dateObserv' => new \DateTime('2016-12-12 04:00:00'),
                 'espece' => 'Bécasseau de Bonaparte, Bécasseau à croupion blanc',
                 'localise' => false,
@@ -69,7 +69,7 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
                 'validateur' => null,
                 'user' => 'user-nat',
                 'photo' => 'oiseau4.jpg',),
-            array(
+            array(// observation refusée par nat
                 'dateObserv' => new \DateTime('2016-12-01 04:00:00'),
                 'espece' => 'Pigeon biset',
                 'localise' => false,
@@ -80,17 +80,28 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
                 'validateur' => 'user-nat',
                 'user' => 'user-part1',
                 'photo' => 'oiseau4.jpg',),
-            array(
+            array( // observation validée
                 'dateObserv' => new \DateTime('2016-12-09 04:00:00'),
                 'espece' => 'Pigeon biset',
                 'localise' => false,
-                'lat' => 41.513502,
-                'long' => 3.046143,
-                'valide' => false,
+                'lat' => 47.854454,
+                'long' => -0.692139,
+                'valide' => true,
                 'enAttente' => false,
                 'validateur' => 'user-nat',
                 'user' => 'user-part1',
-                'photo' => 'oiseau4.jpg',)
+                'photo' => 'oiseau4.jpg',),
+            array( // observation en attente
+                'dateObserv' => new \DateTime('2016-12-10 06:00:00'),
+                'espece' => 'Pluvier guignard',
+                'localise' => false,
+                'lat' => 48.114583,
+                'long' => 5.123062,
+                'valide' => false,
+                'enAttente' => true,
+                'validateur' => null,
+                'user' => 'user-part1',
+                'photo' => 'oiseau2.jpg',)
         );
 
         foreach ($listObservations as $listObservation) {

@@ -53,6 +53,10 @@ class ProfileController extends Controller
             return $this->redirectToRoute('fos_user_profile_show');
         }
 
+        $listObservPourTableau =  $this->getDoctrine()->getManager()
+            ->getRepository('NAOPlatformBundle:Observation')
+            ->getListObsByUser($user->getId());
+
         $listObservValides = $this->getDoctrine()->getManager()
             ->getRepository('NAOPlatformBundle:Observation')
             ->getListObsValidesByUser($user->getId());
@@ -61,21 +65,21 @@ class ProfileController extends Controller
             ->getRepository('NAOPlatformBundle:Observation')
             ->getListObsEnAttenteByUser($user->getId());
 
-        $listObserv = $listObservValides;
+        $listObservPourCarte = $listObservValides;
         if (!empty($listObservEnAttente)) {
             foreach($listObservEnAttente as $observ)
             {
-                array_push($listObserv, $observ);
+                array_push($listObservPourCarte, $observ);
             }
         }
         //$listObserv ne contient que les observations validées et en attente (pas les refusées) pour les afficher sur la carte
         // les observations sont encodées en json pour être affichées sur la carte, via le service dédié
-        $observation_JSON = $this->get('service_container')->get('nao_platform.jsonencode')->jsonEncode($listObserv, $request->getSchemeAndHttpHost());
+        $observation_JSON = $this->get('service_container')->get('nao_platform.jsonencode')->jsonEncode($listObservPourCarte, $request->getSchemeAndHttpHost());
 
         return $this->render('@NAOPlatform/Profile/mesObservations.html.twig', array(
             'user' => $user,
             'observation_JSON' => $observation_JSON,
-            'listeObservations' => $listObserv
+            'listeObservations' => $listObservPourTableau
         ));
     }
 
@@ -343,36 +347,6 @@ class ProfileController extends Controller
             'form' => $form->createView()
         ));
     }
-
-/*    public function traiterObservationAction(Request $request, Observation $observation) {
-        $user = $this->getUser();
-        if (!is_object($user) || !$user instanceof UserInterface) {
-            $request->getSession()->getFlashBag()->add('notice', 'Cet espace est réservé aux utilisateurs enregistrés !');
-            return $this->redirectToRoute('fos_user_security_login');
-        }
-        // cet espace est réservé aux administrateurs
-        if ( $this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN') == false){
-            $request->getSession()->getFlashBag()->add('notice', 'Cet espace ne vous est pas accessible !');
-            return $this->redirectToRoute('fos_user_profile_show');
-        }
-        if ($observation == null) {
-            throw $this->createNotFoundException("L'observation n°" . $observation->getId() . " n'existe pas.");
-        }
-     /*   $observation->setEnAttente(true);*/
- /*       $message = null;
-        if ($observation->getValide()) {
-            $observation->setValide(false);
-            $message = "L'observation a bien été invalidée.";
-        }
-        else {
-            $observation->setValide(true);
-            $message = "L'observation a bien été validée.";
-        }
-        $em = $this->getDoctrine()->getManager();
-        $em->flush();
-        $request->getSession()->getFlashBag()->add('notice', $message);
-        return $this->redirectToRoute('nao_profile_modererobservations');
-    }*/
 
     public function observationAction($id, Request $request){
         $user = $this->getUser();

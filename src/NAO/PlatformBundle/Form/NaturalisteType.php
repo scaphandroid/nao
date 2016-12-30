@@ -42,13 +42,6 @@ class NaturalisteType extends AbstractType
                 'second_options' => array('label' => 'form.password_confirmation'),
                 'invalid_message' => 'fos_user.password.mismatch',
             ))
-         /*   ->add('password', RepeatedType::class, array(
-                'type' => PasswordType::class,
-                'invalid_message' => 'Les mots de passe doivent être identiques.',
-                'options' => array('attr' => array('class' => 'password-field')),
-                'required' => true,
-                'first_options'  => array('label' => 'Mot de passe'),
-                'second_options' => array('label' => 'Vérification du mot de passe')))*/
             ->add('valider',SubmitType::class, array('attr' => ['class' => 'btn-custom']));
         ;
     }
