@@ -46,7 +46,9 @@
                 </div>
                 <li class="row list-group-item">
                  <p>Commentaire de l'observateur : {{ observation.commentaireP }}</p>
-                 <p>Commentaire du validateur : {{ observation.commentaireN }}</p>
+                    {% if (observation.enAttente == false)  %}
+                        <p>Commentaire du validateur : {{ observation.commentaireN }}</p>
+                    {% endif %}
                 </li>
                 </ul>
 
@@ -56,9 +58,9 @@
                      {% if (is_granted('ROLE_ADMIN') and (is_granted('ROLE_SUPER_ADMIN') == false)) %}
                      <div class="row form-group">
                          <label class="col-sm-3 control-label">Votre commentaire : <span
-                                     class="glyphicon glyphicon-info-sign green" data-toggle="tooltip"
-                                     data-original-title="Facultatif"> </span></label>
-                         <div class="col-sm-6">
+                                     class="glyphicon glyphicon-info-sign red" data-toggle="tooltip"
+                                     data-original-title="Obligatoire"> </span></label>
+                         <div class="col-sm-9">
                              {{ form_widget(form.commentaireN, {'attr': {'placeholder' : 'Votre commentaire ...'}}) }}
                              {{ form_errors(form.commentaireN) }}
                         </div>

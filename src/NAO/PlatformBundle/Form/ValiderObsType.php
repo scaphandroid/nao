@@ -15,7 +15,7 @@ class ValiderObsType extends AbstractType
     {
         $builder
             ->add('commentaireN', TextareaType::class, array(
-                'required' => false
+               'required' => true
             ))
             ->add('valider', SubmitType::class, array('label' => 'Valider'))
             ->add('invalider', SubmitType::class, array('label' => 'Invalider'))

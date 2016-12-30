@@ -36,6 +36,7 @@ class LoadUser extends AbstractFixture implements OrderedFixtureInterface, Conta
                 'enabled' => true,
                 'typeCompte' => 2,
                 'enAttente' => false,
+                'valide' => true,
                 'role' => 'ROLE_SUPER_ADMIN',
                 'reference' => 'user-admin'),
             array(
@@ -48,23 +49,25 @@ class LoadUser extends AbstractFixture implements OrderedFixtureInterface, Conta
                 'enabled' => true,
                 'typeCompte' => 1,
                 'enAttente' => false,
+                'valide' => true,
                 'role' => 'ROLE_ADMIN',
                 'reference' => 'user-nat'),
-            array(
-                'nom' => 'particulier',
-                'prenom' => 'particulier',
+            array( // particulier simple
+                'nom' => '',
+                'prenom' => '',
                 'email' => 'particulier1@nao.com',
                 'username' => 'particulier1',
                 'password' => 'particulier1',
-                'profession' => 'medecin',
+                'profession' => '',
                 'enabled' => true,
                 'typeCompte' => 0,
                 'enAttente' => false,
+                'valide' => true,
                 'role' => 'ROLE_USER',
                 'reference' => 'user-part1'),
-            array(
-                'nom' => 'particulier',
-                'prenom' => 'particulier',
+            array( // particulier simple
+                'nom' => '',
+                'prenom' => '',
                 'email' => 'particulier2@nao.com',
                 'username' => 'particulier2',
                 'password' => 'particulier2',
@@ -72,9 +75,10 @@ class LoadUser extends AbstractFixture implements OrderedFixtureInterface, Conta
                 'enabled' => true,
                 'typeCompte' => 0,
                 'enAttente' => false,
+                'valide' => true,
                 'role' => 'ROLE_USER',
                 'reference' => 'user-part2'),
-            array(
+            array(// particulier avec demande en attente
                 'nom' => 'particulierendevenir',
                 'prenom' => 'particulier',
                 'email' => 'particulier3@nao.com',
@@ -84,9 +88,10 @@ class LoadUser extends AbstractFixture implements OrderedFixtureInterface, Conta
                 'enabled' => true,
                 'typeCompte' => 0,
                 'enAttente' => true,
+                'valide' => true,
                 'role' => 'ROLE_USER',
                 'reference' => 'user-part3'),
-            array(
+            array(// particulier avec demande refusée
                 'nom' => 'particulier4',
                 'prenom' => 'particulier4',
                 'email' => 'particulier4@nao.com',
@@ -95,7 +100,8 @@ class LoadUser extends AbstractFixture implements OrderedFixtureInterface, Conta
                 'profession' => 'chercheur bis',
                 'enabled' => true,
                 'typeCompte' => 0,
-                'enAttente' => true,
+                'enAttente' => false,
+                'valide' => false,
                 'role' => 'ROLE_USER',
                 'reference' => 'user-part4')
         );
@@ -111,6 +117,7 @@ class LoadUser extends AbstractFixture implements OrderedFixtureInterface, Conta
             $user->setEnabled($listUser['enabled']);
             $user->setTypeCompte($listUser['typeCompte']);
             $user->setEnAttente($listUser['enAttente']);
+            $user->setValide($listUser['valide']);
             $user->addRole($listUser['role']);
             $this->addReference($listUser['reference'], $user);
             $userManager->updateUser($user);
