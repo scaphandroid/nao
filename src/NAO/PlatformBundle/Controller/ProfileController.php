@@ -408,15 +408,21 @@ class ProfileController extends Controller
                     $message = "Observation invalidée";
                 }
                 if(false !== $afficherCommentaire){
-                    dump($form->get('commentaireN'));
                     $observation->setCommentaireN($form->get('commentaireN')->getData());
                 }
 
                 $observation->setValidateur($user);
                 $em->persist($observation);
                 $em->flush();
+
                 if (isset($message)) $this->addFlash('notice', $message);
-                return $this->redirectToRoute('nao_profile_observationsenattente');
+
+                //l'admin est redirigé vers le formulaire de recherche d'observations, le naturaliste vers les obs en attente
+                if ($checker->isGranted('ROLE_SUPER_ADMIN')){
+                    return $this->redirectToRoute('nao_profile_modererobservations');
+                }else{
+                    return $this->redirectToRoute('nao_profile_observationsenattente');
+                }
             }
             $form = $form->createView();
         }
