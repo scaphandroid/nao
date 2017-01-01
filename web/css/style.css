@@ -786,3 +786,10 @@ a:-webkit-any-link  {
         height: 110px;
     }
 }
+
+@media (max-width: 450px){
+    .bouton-sociaux{
+        flex-direction: column;
+        -webkit-flex-direction: column;
+    }
+}
