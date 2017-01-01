@@ -433,6 +433,10 @@ ol, ul {
     border-radius: 6px;
 }
 
+.bloc-texte p, #texte-charte{
+    text-align: justify;
+}
+
 /* PROFILS */
 
 .connexion_forms {
