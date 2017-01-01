@@ -100,6 +100,10 @@ a {
     color: rgba(0,0,0,0);
 }
 
+.recherche button[type="submit"]:focus{
+    color: rgba(0,0,0,0);
+}
+
 .recherche input[type="search"] {
     all: initial;
     display: inline;
