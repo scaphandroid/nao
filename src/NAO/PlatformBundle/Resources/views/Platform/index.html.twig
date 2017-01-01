@@ -59,11 +59,11 @@
             </h2>
             {% if not is_granted('ROLE_USER') %}
                 <a href="{{ path('nao_platform_demande') }}">
-                    <button class="btn btn-lg bouton-main"><span class="texte-bouton">PARTICIPER</span></button>
+                    <button class="btn btn-lg bouton-main"><span class="texte-bouton">COLLABORER</span></button>
                 </a>
             {% else %}
-                <a href="{{ path('nao_platform_demande') }}">
-                    <button class="btn btn-lg bouton-main"><span class="texte-bouton">PARTICIPER</span></button>
+                <a href="{{ path('fos_user_profile_show') }}">
+                    <button class="btn btn-lg bouton-main"><span class="texte-bouton">COLLABORER</span></button>
                 </a>
             {% endif %}
             <div class="row">
