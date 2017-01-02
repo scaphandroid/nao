@@ -437,6 +437,14 @@ ol, ul {
     text-align: justify;
 }
 
+#share-projet{
+    margin-top: -25px;
+}
+
+#share-projet li{
+    display: inline;
+}
+
 /* PROFILS */
 
 .connexion_forms {
