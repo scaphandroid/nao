@@ -16,7 +16,7 @@
                 {% for compte in comptesNatNonValides %}
                     <li class="row list-group-item">
                         <div class="colmd- 10 col-sm-9 col-xs-8">
-                            nom : {{ compte.nom }}, prenom: {{ compte.prenom }}, profession: {{ compte.profession }}
+                            {{ compte.prenom }} {{ compte.nom }} : {{ compte.profession }}
                         </div>
                         <div class="col-md-2 col-sm-3 col-xs-4">
                             <a class="btn btn-custom" href="{{ path('nao_profile_detailCompteNaturaliste', {'id': compte.id }) }}">Voir plus</a></p>
@@ -33,7 +33,7 @@
             {% for compte in comptesNaturalistes %}
                 <li class="row list-group-item">
                     <div class="colmd- 10 col-sm-9 col-xs-8">
-                        nom : {{ compte.nom }}, prenom: {{ compte.prenom }}, profession: {{ compte.profession }}
+                        {{ compte.prenom }} {{ compte.nom }} : {{ compte.profession }}
                     </div>
                     <div class="col-md-2 col-sm-3 col-xs-4">
                         <a class="btn btn-custom" href="{{ path('nao_profile_detailCompteNaturaliste', {'id': compte.id }) }}">Voir plus</a></p>
@@ -50,7 +50,7 @@
             {% for compte in compteNatRefuses %}
                 <li class="row list-group-item">
                     <div class="colmd- 10 col-sm-9 col-xs-8">
-                        nom : {{ compte.nom }}, prenom: {{ compte.prenom }}, profession: {{ compte.profession }}
+                        {{ compte.prenom }} {{ compte.nom }} : {{ compte.profession }}
                     </div>
                     <div class="col-md-2 col-sm-3 col-xs-4">
                         <a class="btn btn-custom" href="{{ path('nao_profile_detailCompteNaturaliste', {'id': compte.id }) }}">Voir plus</a></p>

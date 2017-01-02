@@ -36,9 +36,9 @@ class LoadEspece extends AbstractFixture implements OrderedFixtureInterface
                 $espece->setUrl($ligne[4]);
 
                 //pour récupérer dans la fixture suivante
-                $lignesPourRef = array( '2643', '442259', '3153','3218','3420');
+                $lignesPourRef = array( '2643', '442259', '3153','3218','3420', '442427', '3182', '3297', '3324', '3217', '2567');
                 if(in_array($ligne[0], $lignesPourRef)){
-                    $this->addReference($ligne[2], $espece);
+                    $this->addReference($ligne[3], $espece);
                 }
 
                 $manager->persist($espece);

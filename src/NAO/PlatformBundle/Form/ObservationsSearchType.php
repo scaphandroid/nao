@@ -23,7 +23,7 @@ class ObservationsSearchType extends AbstractType
                 'required' => false
             ))
             ->add('dateObs', DateType::class, array(
-                'label' => 'Jour de l\'observation (format JJ-MM-AAAA)',
+                'label' => 'Jour de l\'observation',
                 'widget' => 'single_text',
 //                'input' => 'datetime',
                 'format' => 'dd-MM-yyyy',

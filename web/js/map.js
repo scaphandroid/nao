@@ -93,7 +93,8 @@ function detectBrowser() {
 function observerMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 46.764548, lng: 1.718674999999962}, // coordonnées du centre de la F
-        zoom: zoom
+        zoom: zoom,
+        scrollwheel: false
     });
     var localise = document.getElementById('nao_platformbundle_observation_localise');
     if(localise.checked) {

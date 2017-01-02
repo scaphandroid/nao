@@ -9,7 +9,7 @@
 
         {% include "NAOPlatformBundle:Profile:profile-layout.html.twig" %}
 
-        <div class="row well col-lg-offset-4 col-lg-4 col-lg-offset-4 col-sm-offset-3 col-sm-6 col-sm-offset-3">
+        <div class="row well col-lg-offset-3 col-lg-6 col-lg-offset-3 col-sm-offset-3 col-sm-6 col-sm-offset-3">
             {% if is_granted('ROLE_SUPER_ADMIN') %}
                 {% if listObserv is defined %}
                     <h2 class="alert alert-info text-center"><strong>Résultats de la recherche ({{ listObserv|length }})</strong></h2>
