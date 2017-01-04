@@ -315,7 +315,7 @@ ol, ul {
 }
 
 .footer_rs {
-    margin-top: 2%;
+    margin-top: -10px;
     display: flex;
     display: -webkit-flex; /* Safari */
     justify-content: center;
