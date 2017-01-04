@@ -2,78 +2,121 @@
 {% block title %}
     Observer
 {% endblock %}
-
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/css/bootstrap-datetimepicker.min.css">
+{% endblock %}
 {% block body %}
     <div class="container">
+
         <h3 class="text-center" style="text-decoration: underline;">Formulaire de saisie</h3>
-        <div class="well">
+
+        <div class="well" style="padding-bottom: 45px">
+
             {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
             {{ form_errors(form) }}
 
             <div class="form-group">
-                {{ form_label(form.espece, "Nom de l'espèce :", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
-                {{ form_errors(form.espece) }}
+                <label class="col-sm-3 control-label">Nom de l'espèce : <span class="glyphicon glyphicon-info-sign red"
+                                                                              data-toggle="tooltip"
+                                                                              data-original-title="Obligatoire"> </span></label>
                 <div class="col-sm-6">
-                    {{ form_widget(form.espece, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_widget(form.espece, {'attr': {'class': 'form-control' , 'placeholder' : 'Champ obligatoire ...'}}) }}
+                    {{ form_errors(form.espece) }}
                 </div>
+                <span class="loader"></span>
             </div>
 
+            <p class="col-xs-10 col-xs-offset-2">Un doute sur une espèce ? N'hésitez pas à consulter sa fiche sur le
+                <a href="https://inpn.mnhn.fr/accueil/recherche-de-donnees/especes/" target="_blank">site de l'INPN</a>
+                ou à découvrir les <a href="{{ path('nao_platform_rechercher') }}" target="_blank">observations réalisées sur notre site.</a></p>
+
             <div class="form-group">
-                <label class="col-sm-3 control-label">Lieu de l'observation :</label>
-                <div class="checkbox-inline">
+                <label class="col-sm-3 control-label">Lieu de l'observation : <span
+                            class="glyphicon glyphicon-info-sign red" data-toggle="tooltip"
+                            data-original-title="Obligatoire"> </span></label>
+                <div class="checkbox-inline" style="padding-top: 0px;">
                     {{ form_widget(form.localise) }}
                     {{ form_label(form.localise) }}
                     {{ form_errors(form.localise) }}
+                </div>
+                <div class="hidden"> <!--class="champs_caches" -->
+                    {{ form_widget(form.lat) }}
+                    {{ form_widget(form.lon) }}
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-6">
+                        {{ form_errors(form.lat) }}
+                        {{ form_errors(form.lon) }}
+                    </div>
                 </div>
                 <div id="map"></div>
             </div>
 
             <div class="form-group">
-                {{ form_label(form.dateObs, "Date de l'observation :", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
-                {{ form_errors(form.dateObs) }}
-                {{ form_widget(form.dateObs) }}
+                <label class="col-sm-3 control-label">Date et heure de l'observation : <span
+                            class="glyphicon glyphicon-info-sign red" data-toggle="tooltip"
+                            data-original-title="Obligatoire"> </span></label>
+                <div class="col-sm-6 ">
+                    {{ form_widget(form.dateObs, {'attr': {'placeholder' : 'Cliquez ici pour choisir une date ', 'value' : '', 'onkeydown' : 'return false'}}) }}
+                    {{ form_errors(form.dateObs) }}
+                </div>
 
             </div>
 
             <div class="form-group">
-                {{ form_label(form.photo, "Ajouter une photo :", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
-                {{ form_errors(form.photo) }}
+                <label class="col-sm-3 control-label">Ajouter une photo : <span
+                            class="glyphicon glyphicon-info-sign green" data-toggle="tooltip"
+                            data-original-title="Facultatif"> </span></label>
                 <div class="col-sm-6">
                     {{ form_widget(form.photo) }}
+                    {{ form_errors(form.photo) }}
                 </div>
             </div>
 
             <div class="form-group">
-                {{ form_label(form.commentaireP, "Votre commentaire :", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
-                {{ form_errors(form.commentaireP) }}
+                <label class="col-sm-3 control-label">Votre commentaire : <span
+                            class="glyphicon glyphicon-info-sign green" data-toggle="tooltip"
+                            data-original-title="Facultatif"> </span></label>
                 <div class="col-sm-6">
-                    {{ form_widget(form.commentaireP) }}
+                    {{ form_widget(form.commentaireP, {'attr': {'placeholder' : 'Votre commentaire ...'}}) }}
+                    {{ form_errors(form.commentaireP) }}
                 </div>
             </div>
 
-            <div class="form-group">
-                {{ form_errors(form.lat) }}
-                {{ form_errors(form.lon) }}
-            </div>
-
-            <div class="hidden">
-                {{ form_widget(form.lat) }}
-                {{ form_widget(form.lon) }}
-            </div>
-
-        {#    {{ form_rest(form) }} #}
-            {{ form_widget(form.valider, {'attr': {'class': 'col-sm-offset-5 col-sm-2 btn btn-customp'}}) }}
+            {{ form_widget(form.valider, {'attr': {'class': 'col-xs-offset-5 col-sm-2 btn btn-customp'}}) }}
 
             {{ form_end(form) }}
         </div>
     </div>
-
 {% endblock %}
 
 {% block javascript %}
     {{ parent() }}
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQcmtlhakbZxEK68_wVMjV59kWTyPK9eA&region=FR&callback=observerMap">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/locale/fr.js"></script>
+    <script src="{{ asset('js/bootstrap-datetimepicker.js') }}"></script>
+    <script>
+        $(function () {
+            $(document).ajaxStart(function () {
+                $(".loader").css("display", "block");
+            });
+
+            $(document).ajaxStop(function () {
+                $(".loader").css("display", "none");
+            });
+            $('#nao_platformbundle_observation_dateObs').datetimepicker({
+                sideBySide: true,
+                maxDate: "now",
+                showClear: true
+            });
+
+        });
+
     </script>
 
 {% endblock %}

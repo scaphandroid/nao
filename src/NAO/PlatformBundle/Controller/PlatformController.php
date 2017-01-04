@@ -10,12 +10,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use NAO\PlatformBundle\Form\ObservationType;
 use NAO\PlatformBundle\Form\NaturalisteType;
 use Symfony\Component\HttpFoundation\Request;
-use FOS\UserBundle\Event\FilterUserResponseEvent;
-use FOS\UserBundle\Event\FormEvent;
-use FOS\UserBundle\Event\GetResponseUserEvent;
-use FOS\UserBundle\FOSUserEvents;
-use FOS\UserBundle\Model\UserManagerInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 
 class PlatformController extends Controller
@@ -61,8 +55,8 @@ class PlatformController extends Controller
         $form=$this->createForm(RechercheType::class);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
             // on récupère les données de recherche
             $data = $form->getData();
 
@@ -80,8 +74,8 @@ class PlatformController extends Controller
             //liste des espèces observées - pas top
             $idsEspecesObservees = [];
             $listEspecesObservees = [];
-            foreach ($listObserv as $obs){
-                if(!in_array($obs->getEspece()->getId(), $idsEspecesObservees)){
+            foreach ($listObserv as $obs) {
+                if (!in_array($obs->getEspece()->getId(), $idsEspecesObservees)) {
                     array_push($listEspecesObservees, $obs->getEspece());
                     array_push($idsEspecesObservees, $obs->getEspece()->getId());
                 }
@@ -92,11 +86,13 @@ class PlatformController extends Controller
 
             return $this->render('NAOPlatformBundle:Platform:rechercher.html.twig', array(
                 'form' => $form->createView(),
-                'listEspecesObservees' =>$listEspecesObservees,
+                'listEspecesObservees' => $listEspecesObservees,
                 'observation_JSON' => $observation_JSON,
                 'typeCompte' => $typeCompte,
-                'recherche' => $data["nomConcat"]
+                'recherche' => $data["nomConcat"],
+                'especes' => $listeEspeces
             ));
+             }
         }
 
         return $this->render('NAOPlatformBundle:Platform:rechercher.html.twig', array(
@@ -117,7 +113,9 @@ class PlatformController extends Controller
         $observation = new Observation();
         $form = $this->createForm(ObservationType::class, $observation);
 
-        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
 
             if($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN'))
             {
@@ -138,6 +136,9 @@ class PlatformController extends Controller
                 $fichierPhoto = $this->get('nao_platform.fileuploader')->upload($observation->getPhoto(), 'photoDirectory');
                 $observation->setPhoto($fichierPhoto);
             }
+            else {
+                $observation->setPhoto('photo_generique.jpg');
+            }
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($observation);
@@ -155,6 +156,12 @@ class PlatformController extends Controller
 
     public function demandeAction(Request $request)
     {
+        // cet espace est interdit aux administrateurs et aux naturalistes
+        if ( $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')){
+            $request->getSession()->getFlashBag()->add('notice', 'Vous ne pouvez pas faire une demande de compte naturaliste, vous l\'êtes déjà !');
+            return $this->redirectToRoute('fos_user_profile_show');
+        }
+
         $userManager = $this->get('fos_user.user_manager');
         $naturaliste = $userManager->createUser();
 
@@ -186,5 +193,10 @@ class PlatformController extends Controller
         return $this->render('NAOPlatformBundle:Platform:demandeCompteNaturaliste.html.twig', array(
             'form' => $form->createView()
         ));
+    }
+
+    public function mentionsAction()
+    {
+        return $this->render('NAOPlatformBundle:Platform:mentionslegales.html.twig');
     }
 }

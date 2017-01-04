@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\SearchType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class ObservationsSearchType extends AbstractType
 {
@@ -18,29 +19,36 @@ class ObservationsSearchType extends AbstractType
     {
         $builder
             ->add('espece', SearchType::class, array(
-                'label'=> 'Nom de l\'espèce',
+                'label' => 'Nom de l\'espèce',
                 'required' => false
             ))
-            ->add('dateObs', SearchType::class, array(
-                'label'=> 'Jour de l\'observation (format JJ-MM-AAAA)',
-                'required' => false
+            ->add('dateObs', DateType::class, array(
+                'label' => 'Jour de l\'observation',
+                'widget' => 'single_text',
+//                'input' => 'datetime',
+                'format' => 'dd-MM-yyyy',
+                'required' => false,
+                'attr' => ['class' => 'datepicker'],
+                'html5' => 'false'
             ))
             ->add('user', SearchType::class, array(
-                'label'=> 'Nom d\'utilisateur de l\'observateur',
+                'label' => 'Nom d\'utilisateur de l\'observateur',
                 'required' => false
             ))
             ->add('validateur', SearchType::class, array(
-                'label'=> 'Nom d\'utilisateur du naturaliste ayant traité l\'observation',
+                'label' => 'Nom d\'utilisateur du naturaliste ayant traité l\'observation',
                 'required' => false
             ))
-            ->add('rechercher', SubmitType::class);
+            ->add('rechercher', SubmitType::class, array(
+                'attr' => [ 'class' => 'btn btn-customp']
+            ));
     }
+
     /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-        ));
+        $resolver->setDefaults(array());
     }
 }

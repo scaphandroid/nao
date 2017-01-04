@@ -9,19 +9,10 @@
 
 {% include "NAOPlatformBundle:Profile:profile-layout.html.twig" %}
 
-<div class="row well col-lg-offset-4 col-lg-4 col-lg-offset-4 col-sm-offset-3 col-sm-6 col-sm-offset-3">
+<div class="row well col-lg-offset-3 col-lg-6 col-lg-offset-3 col-sm-offset-3 col-sm-6 col-sm-offset-3">
     {% if (is_granted('ROLE_ADMIN') and (is_granted('ROLE_SUPER_ADMIN') == false)) %}
-        <h2>Liste des observations à valider</h2>
-        <ul class="list-group">
-            {% for observation in ObservNonValide %}
-                <li class="list-group-item">
-                    <p>Date de l'observation: {{ observation.dateObs|date('d/m/Y H:i') }} </p>
-                    <p>Nom de l'espèce : {{ observation.espece.nomConcat }} </p>
-                    <p>Coordonnées GPS : {{ observation.lat }}, {{ observation.lon }} </p>
-                    <a class="btn btn-customp" href="{{ path('nao_profile_observation', {'id': observation.id}) }}">Voir plus</a>
-                </li>
-            {% endfor %}
-        </ul>
+        <h2>Liste des observations à valider ({{  listeObservations|length }})</h2>
+        {{ include('@NAOPlatform/Profile/listeObservations.html.twig') }}
     {% endif %}
 </div>
 

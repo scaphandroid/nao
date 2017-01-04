@@ -20,7 +20,24 @@
                     </div>
 
                     <div class="col-sm-4">
-                        <p><img class="img-responsive" src="{{ asset('uploads/photos/' ~ observation.photo) }}"></p>
+                        <p class="text-center"><a href="#" id="pop"><img class="img-responsive" src="{{ asset('uploads/photos/' ~ observation.photo) }}"></a><i>Cliquez pour agrandir</i></p>
+                        <!-- Creates the bootstrap modal where the image will appear -->
+                        <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                        <h4 class="modal-title text-center" id="myModalLabel">{{ observation.espece.nomConcat }}</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <img src="" class="imagepreview" style="width: 100%;" >
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-custom" data-dismiss="modal">Fermer</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </li>
                 <div id="map"></div>
@@ -29,12 +46,26 @@
                 </div>
                 <li class="row list-group-item">
                  <p>Commentaire de l'observateur : {{ observation.commentaireP }}</p>
+                    {% if (observation.enAttente == false)  %}
+                        <p>Commentaire du validateur : {{ observation.commentaireN }}</p>
+                    {% endif %}
                 </li>
                 </ul>
 
-                 {% if form is defined %}
+                 {% if form is defined  and form is not null %}
                      {{ form_start(form) }}
                      {{ form_errors(form) }}
+                     {% if (is_granted('ROLE_ADMIN') and (is_granted('ROLE_SUPER_ADMIN') == false)) %}
+                     <div class="row form-group">
+                         <label class="col-sm-3 control-label">Votre commentaire : <span
+                                     class="glyphicon glyphicon-info-sign red" data-toggle="tooltip"
+                                     data-original-title="Obligatoire"> </span></label>
+                         <div class="col-sm-9">
+                             {{ form_widget(form.commentaireN, {'attr': {'placeholder' : 'Votre commentaire ...'}}) }}
+                             {{ form_errors(form.commentaireN) }}
+                        </div>
+                     </div>
+                     {% endif %}
                      <div class="text-center">
                          {#Cas où l'observation n'a pas encore été validé#}
                          {% if (observation.enAttente)  %}
@@ -63,5 +94,14 @@
     {{ parent() }}
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQcmtlhakbZxEK68_wVMjV59kWTyPK9eA&region=FR&callback=initMapProfile">
+    </script>
+    <script>
+        $(function(){
+            $("#pop").on("click", function() {
+                $('.imagepreview').attr('src', $(this).find('img').attr('src')); // here asign the image to the modal when the user click the enlarge link
+                $('#imagemodal').modal('show');
+            });
+
+        });
     </script>
 {% endblock %}

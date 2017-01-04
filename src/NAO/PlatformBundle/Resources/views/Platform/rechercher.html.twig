@@ -10,8 +10,8 @@
                 {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
                 {{ form_errors(form) }}
 
-            <div class="form-group form_search">
-                    {{ form_label(form.nomConcat, "Veuillez saisir le nom d'une espèce :", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+            <div class="form-group form_search form-autocomplete">
+                    {{ form_label(form.nomConcat, "Veuillez saisir le nom d'une espèce :", {'label_attr': {'class': 'col-sm-3 control-label recherchelabel'}}) }}
                     {{ form_errors(form.nomConcat) }}
                 <div class="col-sm-3 btw_form">
                         {{ form_widget(form.nomConcat, {'attr': {'class': 'form-control'}}) }}
@@ -19,6 +19,7 @@
                 <div>
                 {{ form_widget(form.rechercher, {'attr': {'class': 'btn btn-customp col-xs-3 decal_btn'}}) }}
             </div>
+            <span class="loader"></span>
             {{ form_rest(form) }}
             {{ form_end(form) }}
         </div>
@@ -28,28 +29,33 @@
 
                 {%  if (observation_JSON == '[]') %}
                     <h3 class="text-center">Aucune observation pour cette recherche : "{{ recherche }}".</h3>
+                    {% if especes|length < 2 %}
+                         {% for espece in especes %}
+                         <h5 class="text-center">Consulter sa fiche sur le site de l'INPN: <a target="_blank" href="{{ espece.url }}">Fiche Espèce</a></h5>
+                         {% endfor %}
+                    {% endif %}
                 {%  else %}
 
-                    <h3 class="text-center">Observations pour votre recherche "{{ recherche }}"</h3>
-
                     {% if listEspecesObservees|length > 1 %}
-                        <h4>Espèces observées correspondantes :</h4>
+                         <h4>Espèces correspondantes</h4>
                     {% else %}
-                        <h4>Espèce observée correspondante :</h4>
+                          <h4>Espèce correspondante</h4>
                     {% endif %}
-
-                    <ul>
+                    <ul class="list-group">
                         {% for espece in listEspecesObservees %}
-                            <li>{{ espece.nomConcat }} <a target="_blank" href="{{ espece.url }}">voir le descriptif INPN</a></li>
+                            <li class="list-group-item">{{ espece.nomConcat }} <a target="_blank" href="{{ espece.url }}"> - Voir le descriptif sur le site de l'INPN</a></li>
                         {% endfor %}
                     </ul>
+
+                    <h3 class="text-center">Observations de "{{ recherche }}"</h3>
+
 
 
                     <div id="map"></div>
                     <div id="observation" class="hidden"> <!-- -->
                         {{ observation_JSON }}
                     </div>
-                    <div id="typeCompte" > <!-- class="hidden" -->
+                    <div id="typeCompte" class="hidden"> <!--  -->
                         {{ typeCompte }}
                     </div>
 
@@ -64,7 +70,7 @@
 {% block javascript %}
     {{ parent() }}
     <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQcmtlhakbZxEK68_wVMjV59kWTyPK9eA&region=FR&callback=initMapHomeRechercher">
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQcmtlhakbZxEK68_wVMjV59kWTyPK9eA&region=FR&callback=initMapRechercher">
     </script>
     <script>
         $(function () {

@@ -14,9 +14,9 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
 
         // On crée 5 observations qu'on va assigner à nos user
         $listObservations = array(
-            array(
-                'dateObserv' => new \DateTime('2016-12-16 11:00:00'),
-                'espece' => 'Aigle impérial',
+            array( // observation par admin
+                'dateObserv' => new \DateTime('2016-12-30 11:00:00'),
+                'espece' => 'Aigle impérial (Aquila heliaca Savigny, 1809)',
                 'localise' => true,
                 'lat' => 44.806004,
                 'long' => 4.420166,
@@ -25,9 +25,9 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
                 'validateur' => null,
                 'user' => 'user-admin',
                 'photo' => 'oiseau1.jpg',),
-            array(
-                'dateObserv' => new \DateTime('2016-12-15 12:00:00'),
-                'espece' => 'Colibri tout-vert ',
+            array( // observation par particulier2 en attente
+                'dateObserv' => new \DateTime('2016-12-31 12:00:00'),
+                'espece' => 'Colibri tout-vert  (Polytmus theresiae (Da Silva Maia, 1843))',
                 'localise' => true,
                 'lat' => 47.246424,
                 'long' => -0.150146,
@@ -36,9 +36,9 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
                 'validateur' => null,
                 'user' => 'user-part2',
                 'photo' => 'oiseau2.jpg',),
-            array(
-                'dateObserv' => new \DateTime('2016-12-11 14:00:00'),
-                'espece' => 'Pluvier guignard',
+            array( // observation par particulier1 validée par naturaliste1
+                'dateObserv' => new \DateTime('2016-12-29 14:00:00'),
+                'espece' => 'Dryade à queue fourchue  (Thalurania furcata (Gmelin, 1788))',
                 'localise' => false,
                 'lat' => 49.707431,
                 'long' => 4.112549,
@@ -47,9 +47,9 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
                 'validateur' => 'user-nat',
                 'user' => 'user-part1',
                 'photo' => 'oiseau3.jpg',),
-            array(
-                'dateObserv' => new \DateTime('2016-12-13 02:00:00'),
-                'espece' => 'Bécasseau de Bonaparte, Bécasseau à croupion blanc',
+            array(// observation par naturaliste1 validée
+                'dateObserv' => new \DateTime('2016-12-30 02:00:00'),
+                'espece' => 'Bécasseau de Bonaparte, Bécasseau à croupion blanc (Calidris fuscicollis (Vieillot, 1819))',
                 'localise' => false,
                 'lat' => 43.513502,
                 'long' => 6.046143,
@@ -58,9 +58,20 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
                 'validateur' => null,
                 'user' => 'user-nat',
                 'photo' => 'oiseau4.jpg',),
-            array(
-                'dateObserv' => new \DateTime('2016-12-12 04:00:00'),
-                'espece' => 'Bécasseau de Bonaparte, Bécasseau à croupion blanc',
+            array(// observation par naturaliste2 validée
+                'dateObserv' => new \DateTime('2016-12-31 12:00:00'),
+                'espece' => 'Pluvier guignard (Eudromias morinellus (Linnaeus, 1758))',
+                'localise' => false,
+                'lat' => 45.513502,
+                'long' => 6.046143,
+                'valide' => true,
+                'enAttente' => false,
+                'validateur' => null,
+                'user' => 'user-nat2',
+                'photo' => 'oiseau1.jpg',),
+            array(// observation par naturaliste1 validée
+                'dateObserv' => new \DateTime('2016-12-29 04:00:00'),
+                'espece' => 'Vanneau à queue blanche (Chettusia leucura (Lichtenstein, 1823))',
                 'localise' => false,
                 'lat' => 45.513502,
                 'long' => 3.046143,
@@ -69,9 +80,9 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
                 'validateur' => null,
                 'user' => 'user-nat',
                 'photo' => 'oiseau4.jpg',),
-            array(
-                'dateObserv' => new \DateTime('2016-12-01 04:00:00'),
-                'espece' => 'Pigeon biset',
+            array(// observation par particulier1 refusée par nat1
+                'dateObserv' => new \DateTime('2016-12-31 04:00:00'),
+                'espece' => 'Goéland brun (Larus fuscus Linnaeus, 1758)',
                 'localise' => false,
                 'lat' => 41.513502,
                 'long' => 3.046143,
@@ -80,17 +91,39 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
                 'validateur' => 'user-nat',
                 'user' => 'user-part1',
                 'photo' => 'oiseau4.jpg',),
-            array(
-                'dateObserv' => new \DateTime('2016-12-09 04:00:00'),
-                'espece' => 'Pigeon biset',
+            array( // observation par particulier1 validée par nat1
+                'dateObserv' => new \DateTime('2016-12-30 04:00:00'),
+                'espece' => 'Mouette ivoire, Goéland sénateur, Mouette blanche (Larus eburneus Phipps, 1774)',
                 'localise' => false,
-                'lat' => 41.513502,
-                'long' => 3.046143,
-                'valide' => false,
+                'lat' => 47.854454,
+                'long' => -0.692139,
+                'valide' => true,
                 'enAttente' => false,
                 'validateur' => 'user-nat',
                 'user' => 'user-part1',
-                'photo' => 'oiseau4.jpg',)
+                'photo' => 'oiseau4.jpg',),
+            array( // observation par particulier1 validée par nat2
+                'dateObserv' => new \DateTime('2016-12-29 14:00:00'),
+                'espece' => 'Bécasseau minuscule (Erolia minutilla (Vieillot, 1819))',
+                'localise' => false,
+                'lat' => 46.854454,
+                'long' => -0.692139,
+                'valide' => true,
+                'enAttente' => false,
+                'validateur' => 'user-nat2',
+                'user' => 'user-part1',
+                'photo' => 'oiseau3.jpg',),
+            array( // observation par particulier1 en attente
+                'dateObserv' => new \DateTime('2016-12-30 06:00:00'),
+                'espece' => 'Limosa limosa islandica Brehm, 1831',
+                'localise' => false,
+                'lat' => 48.114583,
+                'long' => 5.123062,
+                'valide' => false,
+                'enAttente' => true,
+                'validateur' => null,
+                'user' => 'user-part1',
+                'photo' => 'oiseau2.jpg',)
         );
 
         foreach ($listObservations as $listObservation) {

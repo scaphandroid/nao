@@ -2,6 +2,7 @@
 
 namespace NAO\PlatformBundle\Controller;
 
+use NAO\PlatformBundle\Form\RechercheType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,5 +22,15 @@ class AutocompleteController extends Controller {
     public function autogetAction($id = null){
         $espece= $this->getDoctrine()->getRepository('NAOPlatformBundle:Espece')->find($id);
         return new Response($espece->getNomConcat());
+    }
+
+    public function formulaireDeRechercheAction(Request $request){
+
+        $form=$this->createForm(RechercheType::class);
+        $form->handleRequest($request);
+
+        return $this->render('@NAOPlatform/Platform/formRecherche.html.twig', array(
+            'form' => $form->createView()
+        ));
     }
 }

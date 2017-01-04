@@ -1,0 +1,17 @@
+{% extends "NAOPlatformBundle::layout.html.twig" %}
+
+{% block title %}Page non trouvée !{% endblock %}
+
+{% block body %}
+    <div class="well col-xs-offset-2 col-xs-8 col-xs-offset-2 "
+         style="margin-top: 25px;">
+        {% block fos_user_content %}
+        {% endblock fos_user_content %}
+        <div class="jumbotron bg-birds">
+            <p class="text-center">Désolé cette page n'existe pas - Erreur {{ status_code }} - <a href="{{ path('nao_platform_home') }}">Retour à l'Accueil</a></p>
+        </div>
+    </div>
+{% endblock %}
+
+
+

@@ -78,13 +78,15 @@ a {
     background: #ffffff none repeat scroll 0 0;
     box-shadow: 0 -1px 2px 0 rgba(201, 201, 201, 1) inset;
     margin-top: 55px;
+    color: #c4c4c4;
 }
 
 .recherche form {
     width: 100%;
+    height: 43px;
 }
 
-.recherche input[type="submit"] {
+.recherche button[type="submit"] {
     background: rgba(0, 0, 0, 0) url("../images/oiseau_recherche.png") no-repeat scroll;
     border: medium none;
     cursor: pointer;
@@ -95,9 +97,16 @@ a {
     padding: 12px 0;
     position: absolute;
     right: 0;
+    color: rgba(0,0,0,0);
 }
 
-.recherche input[type="text"] {
+.recherche button[type="submit"]:focus{
+    color: rgba(0,0,0,0);
+}
+
+.recherche input[type="search"] {
+    all: initial;
+    display: inline;
     background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
     border: medium none;
     color: #c4c4c4;
@@ -107,7 +116,53 @@ a {
     padding: 12px 16px;
     position: relative;
     width: 80%;
+    font-family: "Open Sans";
 }
+
+.recherche input[type="search"]::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: #c4c4c4;
+    color: #c4c4c4;
+    font-size: 13px;
+    font-weight: 600;
+    outline: medium none;
+    font-family: "Open Sans";
+}
+.recherche input[type="search"]::-moz-placeholder { /* Firefox 19+ */
+    color: #c4c4c4;
+    color: #c4c4c4;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: "Open Sans";
+    outline: medium none;
+}
+.recherche input[type="search"]:-ms-input-placeholder { /* IE 10+ */
+    color: #c4c4c4;
+    color: #c4c4c4;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: "Open Sans";
+    outline: medium none;
+}
+.recherche input[type="search"]:-moz-placeholder { /* Firefox 18- */
+    color: #c4c4c4;
+    color: #c4c4c4;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: "Open Sans";
+    outline: medium none;
+}
+
+#ui-id-1{
+    z-index: 10001;
+    color: #c4c4c4;
+    font-size: 13px;
+    font-weight: 600;
+    outline: medium none;
+    padding: 12px 16px;
+    font-family: "Open Sans";
+    position: fixed;
+}
+
 
 /*NAV*/
 
@@ -213,6 +268,11 @@ nav {
 
 /*FOOTER*/
 
+footer{
+    color: #90C840;
+    padding-top: 10px;
+}
+
 footer .logo {
     height: 120px;
     margin-left: -50px;
@@ -256,10 +316,13 @@ ol, ul {
 
 .footer_rs {
     margin-top: 2%;
+    display: flex;
+    display: -webkit-flex; /* Safari */
+    justify-content: center;
+    -webkit-justify-content: center; /* Safari 6.1+ */
 }
 
 .footer_rs li a {
-    padding: 14px 10px;
     transition: all 0.5s linear 0s;
 }
 
@@ -279,6 +342,24 @@ ol, ul {
     transition: none 0s ease 0s;
     vertical-align: middle;
     width: 20px;
+}
+
+.bouton-sociaux{
+    display: flex;
+    display: -webkit-flex; /* Safari */
+    justify-content: space-between;
+    -webkit-justify-content: space-between; /* Safari 6.1+ */
+    flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    max-width: 500px;
+}
+
+.bouton-sociaux li{
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-bottom: 5px;
 }
 
 .iconTwitter {
@@ -329,6 +410,8 @@ ol, ul {
 
 .bouton-main:hover {
     color: #ffffff;
+    background-color: #5cc82d;
+    border: solid green 1px !important;
 }
 
 .texte-bouton {
@@ -348,6 +431,18 @@ ol, ul {
     margin-bottom: 20px;
     padding:20px 30px;
     border-radius: 6px;
+}
+
+.bloc-texte p, #texte-charte{
+    text-align: justify;
+}
+
+#share-projet{
+    margin-top: -25px;
+}
+
+#share-projet li{
+    display: inline;
 }
 
 /* PROFILS */
@@ -475,7 +570,7 @@ hr {
     display: none;
     position : fixed;
     z-index: 9999;
-    background : url('../images/default.gif') 50% 50% no-repeat;
+    background : url('../images/loader.gif') 50% 50% no-repeat;
     top : 0;
     left : 0;
     height : 100%;
@@ -488,7 +583,45 @@ hr {
 a:-webkit-any-link  {
     text-decoration: none;
 }
-/*REPONSIVE */
+
+.bg-birds{
+    margin:0;
+    padding:0;
+    background: url('../images/birds-404.png') no-repeat center ;
+    height: 250px;
+}
+
+.green {
+    color: #00a368;
+}
+
+.red {
+    color: #d9534f;
+}
+.green + .tooltip > .tooltip-inner{
+    background-color: #00a368;
+    border-bottom-color: #00a368;
+}
+
+.red + .tooltip > .tooltip-inner{
+    background-color: #d9534f;
+    border-bottom-color: #d9534f;
+}
+
+.help-block{
+    color:red !important;
+    opacity: 0.75;
+}
+
+#devenir_naturaliste_motivation, #nao_platformbundle_user_motivation{
+     height: 180px;
+ }
+
+.champs_caches {
+    display: none;
+}
+
+/*RESPONSIVE */
 
 @media (max-width: 1200px) {
     .logo a img {
@@ -506,6 +639,23 @@ a:-webkit-any-link  {
         margin-left: 210px;
     }
 
+    .recherche input[type="search"]{
+        width: 60%;
+    }
+
+}
+
+/*pour optimisation sur ipage*/
+@media (width: 768px){
+    #logo-header{
+        width: 100%;
+    }
+    #recherche_nomConcat{
+        width: 600px;
+    }
+    .recherchelabel{
+        width: 280px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -531,7 +681,10 @@ a:-webkit-any-link  {
 
     #logo-header {
         display: flex;
+        display: -webkit-flex;
         justify-content: center;
+        -webkit-justify-content: center;
+        float:none;
     }
 
     .entete {
@@ -548,12 +701,17 @@ a:-webkit-any-link  {
         width: 90px;
     }
 
+    .recherche{
+        display: none;
+    }
+
     nav {
         margin-left: -12px;
     }
 
     .nav-decale {
         margin-left: 75px;
+        position: relative;
     }
 
     .menu_box_list {
@@ -598,8 +756,11 @@ a:-webkit-any-link  {
 
     .form_search {
         display: flex;
+        display: -webkit-flex;
         flex-direction: column;
+        -webkit-flex-direction: column;
         justify-content: space-between;
+        -webkit-justify-content: space-between;
     }
 
     .btw_form {
@@ -607,12 +768,36 @@ a:-webkit-any-link  {
     }
 
     .decal_btn {
-        margin: auto;
+        width: auto;
+        margin: auto auto auto 15px;
     }
 
     #map {
-        width: 320px;
+        width: 280px;
         margin: 10px auto 0 auto;
-        height: 320px;
+        height: 280px;
+    }
+    .police_infowindow p {
+        font-size: 10px;
+        margin-bottom : 0;
+    }
+
+    .police_infowindow {
+        padding : 0 0 0 5px ;
+    }
+
+    #iw-container .iw-title {
+        font-size: 10px;
+        font-weight: 100;
+    }
+    #devenir_naturaliste_motivation #nao_platformbundle_user_motivation{
+        height: 110px;
+    }
+}
+
+@media (max-width: 450px){
+    .bouton-sociaux{
+        flex-direction: column;
+        -webkit-flex-direction: column;
     }
 }

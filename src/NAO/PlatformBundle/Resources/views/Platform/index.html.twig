@@ -12,24 +12,11 @@
                 <h4 class="text-center">Charte d'engagement</h4>
             </div>
             <div class="well text-center" style="overflow-y: scroll; max-height: 250px;">
-                <p>Ac ne quis a nobis hoc ita dici forte miretur, quod alia quaedam in hoc
-                    facultas sit ingeni, neque
-                    haec dicendi ratio aut disciplina, ne nos quidem huic uni studio penitus umquam dediti fuimus.
-                    Etenim omnes
-                    artes, quae ad humanitatem pertinent, habent quoddam commune vinculum, et quasi cognatione quadam
-                    inter se
-                    continentur.</p>
-                <p>Ac ne quis a nobis hoc ita dici forte miretur, quod alia quaedam in hoc
-                    facultas sit ingeni, neque
-                    haec dicendi ratio aut disciplina, ne nos quidem huic uni studio penitus umquam dediti fuimus.
-                    Etenim omnes
-                    artes, quae ad humanitatem pertinent, habent quoddam commune vinculum, et quasi cognatione quadam
-                    inter se
-                    continentur.</p>
+                <p id="texte-charte">L’association Nos Amis les Oiseaux s’engage quotidiennement pour la protection des oiseaux. En validant cette charte vous vous engagez à respecter les données qui vous seront accessibles après inscription et acceptez de saisir uniquement des observations réellement constatées dans le but d’alimenter un programme de recherche pour étudier les effets du climat, de l’urbanisation et de l’agriculture sur la biodiversité</p>
             </div>
             <div class="text-center">
                 <button class="charte_close btn btn-success"
-                        onClick="setCookie('charte','charte_approved', 3600 * 24 * 365, '/')">J'accepte
+                        onClick="setCookie('charte','charte_approved', 365, '/')">J'accepte
                 </button>
             </div>
         </div>
@@ -42,7 +29,7 @@
                 innovant.</h1>
             <h2>Partout en France, partez à la découverte des oiseaux <span class="saut-de-ligne">et enregistrez vos observations.</span>
             </h2>
-            <a href="{{ path('fos_user_security_login') }}">
+            <a href="{{ path('nao_platform_observer') }}">
                 <button class="btn btn-lg bouton-main"><span class="texte-bouton">PARTICIPER</span></button>
             </a>
         </div>
@@ -58,7 +45,7 @@
             <div id="typeCompte" class="hidden"> <!--  -->
                 {{ typeCompte }}
             </div>
-            <a href="{{ path('nao_platform_observer') }}">
+            <a href="{{ path('nao_platform_rechercher') }}">
                 <button class="btn btn-lg bouton-main"><span class="texte-bouton">VOIR PLUS</span></button>
             </a>
         </div>
@@ -70,37 +57,65 @@
             </h1>
             <h2>Aidez notre projet <span class="saut-de-ligne">en participant à la validation des observations.</span>
             </h2>
+            {% if not is_granted('ROLE_USER') %}
+                <a href="{{ path('nao_platform_demande') }}">
+                    <button class="btn btn-lg bouton-main"><span class="texte-bouton">COLLABORER</span></button>
+                </a>
+            {% else %}
+                <a href="{{ path('fos_user_profile_show') }}">
+                    <button class="btn btn-lg bouton-main"><span class="texte-bouton">COLLABORER</span></button>
+                </a>
+            {% endif %}
             <div class="row">
                 <div class="col-md-5 bloc-texte">
                     <h3 class="text-center">Notre Projet</h3>
                     <p class="text-center">
-                        Morbi malesuada mauris sed nibh placerat sit amet posuere libero egestas. Vestibulum consectetur
-                        iaculis est, at dapibus purus malesuada vitae. Mauris sollicitudin aliquam scelerisque.
-                        Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec et
-                        mi sem. Duis tristique elementum tristique. Sed ac magna quis erat sagittis suscipit. Phasellus
-                        faucibus rhoncus massa, non laoreet lorem fringilla non.
+                        L’Association Nos Amis Les Oiseaux réunit des passionnés d’ornithologie et s’engage quotidiennement pour la protection des oiseaux rares.
+                        <br><br>
+                        Avec notre application, partez à la découverte des oiseaux et partagez votre passion partout en France. Enregistrez vos observations et vos photos sur le site et prenez part à un programme de recherche innovant pour étudier les effets du climat, de l’urbanisation et de l’agriculture sur l’évolution et les migrations des différentes espèces.
+                        <br><br>
+                        Je partage :
+                        <br><br>
                     </p>
+                    <ul id="share-projet">
+                        <li>
+                            <a href="http://twitter.com/intent/tweet?status=NAO+https://raphaeloff.net/nao/web">
+                                <img src="{{ asset('images/share icons/Twitter.png') }}">
+                            </a>
+                        </li>
+                        <li>
+                            <a target="_blank" href="http://www.facebook.com/share.php?u=https://raphaeloff.net/nao/web&title=NAO">
+                                <img src="{{ asset('images/share icons/Facebook.png') }}">
+                            </a>
+                        </li>
+                        <li>
+                            <a target="_blank" href="http://pinterest.com/pin/create/bookmarklet/?media=https://raphaeloff.net/nao/web/images/Logo-def.png&url=https://raphaeloff.net/nao/web&is_video=false&description=NAO">
+                                <img src="{{ asset('images/share icons/Pinterest.png') }}">
+                            </a>
+                        </li>
+                        <li>
+                            <a target="_blank" href="https://plus.google.com/share?url=https://raphaeloff.net/nao/web">
+                                <img src="{{ asset('images/share icons/Google+.png') }}">
+                            </a>
+                        </li>
+                        <li>
+                           <a href="mailto:?subject=&body=:%20https%3A%2F%2Fraphaeloff.net%2Fnao%2F" title="Découvrir NAO">
+                                <img src="{{ asset('images/share icons/Email.png') }}">
+                            </a>
+                        </li>
+                    </ul>
                 </div>
                 <div class="col-md-offset-2 col-md-5 bloc-texte">
                     <h3 class="text-center">Notre Charte</h3>
                     <p class="text-center">
-                        Morbi malesuada mauris sed nibh placerat sit amet posuere libero egestas. Vestibulum consectetur
-                        iaculis est, at dapibus purus malesuada vitae. Mauris sollicitudin aliquam scelerisque.
-                        Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec et
-                        mi sem. Duis tristique elementum tristique. Sed ac magna quis erat sagittis suscipit. Phasellus
-                        faucibus rhoncus massa, non laoreet lorem fringilla non.
+                        En participant à ce projet, vous vous engagez à respecter les données qui vous seront accessibles et acceptez de saisir uniquement des observations réellement constatées dans le but d’alimenter un programme d’étude.
+                        <br><br>
+                        Vous découvrez l’ornithologie ? Vous serez aidés dans la saisie de vos observations et nos naturalistes professionnels les valideront avant publication sur le site.
+                        <br><br>
+                        Vous êtes naturaliste professionnel et souhaitez participer à la validation des observations ? Envoyez nous votre CV lors de votre demande de compte naturaliste.
                     </p>
                 </div>
             </div>
-            {% if not is_granted('ROLE_USER') %}
-                <a href="{{ path('nao_profile_devenirnaturaliste') }}">
-                    <button class="btn btn-lg bouton-main"><span class="texte-bouton">PARTICIPER</span></button>
-                </a>
-            {% else %}
-                <a href="{{ path('nao_platform_demande') }}">
-                    <button class="btn btn-lg bouton-main"><span class="texte-bouton">PARTICIPER</span></button>
-                </a>
-            {% endif %}
         </div>
     </section>
 
@@ -109,7 +124,7 @@
 {% block javascript %}
     {{ parent() }}
     <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQcmtlhakbZxEK68_wVMjV59kWTyPK9eA&region=FR&callback=initMapHomeRechercher">
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQcmtlhakbZxEK68_wVMjV59kWTyPK9eA&region=FR&callback=initMapHome">
     </script>
     <script>
         function setCookie(name, value, days2expire, path) {

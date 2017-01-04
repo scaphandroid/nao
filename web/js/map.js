@@ -2,23 +2,30 @@ var map, zoom, maxZoom;
 var markersArray = [];
 var infowindow = null;
 var infowindowArray = [];
-zoom = (window.innerWidth <= 800 && window.innerHeight <= 600) ? 5 : 6;
-/* Affichage sur les pages accueil, rechercher*/
 /* Le zoom dépend du type de compte*/
-function initMapHomeRechercher() {
+zoom = (window.innerWidth <= 800 && window.innerHeight <= 600) ? 5 : 6;
+
+/* Affichage sur la page accueil*/
+function initMapHome() {
     maxZoom = (($("#typeCompte").text()) > 0) ? null : 8;
-    afficherCartePictos(maxZoom);
+    afficherCartePictos(maxZoom, false); /* On désactive le zoom lors du scroll sur la page d'accueil*/
+}
+/* Affichage sur la page rechercher*/
+function initMapRechercher() {
+    maxZoom = (($("#typeCompte").text()) > 0) ? null : 8;
+    afficherCartePictos(maxZoom, true);
 }
 /* Affichage sur la page mes observations de Profile*/
 function initMapProfile() {
     maxZoom = null;
-    afficherCartePictos(maxZoom);
+    afficherCartePictos(maxZoom, true);
 }
-function afficherCartePictos(maxZoom) {
+function afficherCartePictos(maxZoom, scrollwheel) {
 /*    detectBrowser();*/
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 46.764548, lng: 1.718674999999962}, // coordonnées du centre de la F
         zoom: zoom,
+        scrollwheel: scrollwheel,
         maxZoom: maxZoom //null si particulier
     });
     var observation = $("#observation").text();
@@ -33,12 +40,12 @@ function afficherCartePictos(maxZoom) {
         var class_title = observation_decode[i].valide ? "title_valide" : "title_invalide";
 
         var content = '<div id="iw-container">' +
-            '<div class="iw-title ' + class_title + '">' + observation_decode[i].espece + '</div>' + '<hr>' +
+            '<div class="iw-title text-center ' + class_title + '">' + observation_decode[i].espece + '</div>' + '<hr>' +
             '<div class="iw-content row">' +
                 '<div class="col-xs-5">' +
-                    '<img src="' + observation_decode[i].photoObs + '" alt="' + observation_decode[i].espece +'" height="auto" width="100">'+
+                    '<img src="' + observation_decode[i].photoObs + '" alt="' + observation_decode[i].espece +'" width="100%" height="auto">'+
                 '</div>'+
-                '<div class="col-xs-7">' +
+                '<div class="col-xs-7 police_infowindow">' +
                     '<p>Observé par ' + observation_decode[i].username + '</p>' +
                     '<p>le ' + observation_decode[i].date + '</p>'+
                 '</div>'+
@@ -84,10 +91,10 @@ function detectBrowser() {
 }
 
 function observerMap() {
-    detectBrowser();
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 46.764548, lng: 1.718674999999962}, // coordonnées du centre de la F
-        zoom: zoom
+        zoom: zoom,
+        scrollwheel: false
     });
     var localise = document.getElementById('nao_platformbundle_observation_localise');
     if(localise.checked) {

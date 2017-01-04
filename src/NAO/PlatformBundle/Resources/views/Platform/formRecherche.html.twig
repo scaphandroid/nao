@@ -1,0 +1,6 @@
+<form action="{{ path('nao_platform_rechercher') }}" method="post">
+   {{ form_start(form) }}
+        {{ form_widget(form.nomConcat, { 'attr': {'placeholder': 'Entrez une espèce d\'oiseau'}}) }}
+        {{ form_widget(form.rechercher, { 'label': 'rechercher' }) }}
+    {{ form_end(form) }}
+</form>

@@ -7,3 +7,4 @@ $('#nao_platformbundle_espece_nomVern').autocompleter(options);
 $('#nao_platformbundle_observation_espece').autocompleter(options);
 $('#recherche_nomConcat').autocompleterRecherche(options);
 $('#observations_search_espece').autocompleterRecherche(options);
+$('.form-autocomplete input').autocompleterRecherche(options);

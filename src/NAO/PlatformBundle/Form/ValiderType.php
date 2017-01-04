@@ -16,7 +16,7 @@ class ValiderType extends AbstractType
     {
         $builder
             ->add('valider', SubmitType::class, array('label' => 'Valider'))
-            ->add('invalider', SubmitType::class, array('label' => 'Ne pas valider'));
+            ->add('invalider', SubmitType::class, array('label' => 'Invalider'));
     }
 
     /**

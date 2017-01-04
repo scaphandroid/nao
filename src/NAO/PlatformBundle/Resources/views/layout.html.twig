@@ -3,11 +3,30 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('images/favicon/apple-icon-57x57.png') }}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('images/favicon/apple-icon-60x60.png') }}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('images/favicon/apple-icon-72x72.png') }}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('images/favicon/apple-icon-76x76.png') }}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{{ asset('images/favicon/apple-icon-114x114.png') }}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('images/favicon/apple-icon-120x120.png') }}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('images/favicon/apple-icon-144x144.png') }}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('images/favicon/apple-icon-152x152.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('images/favicon/apple-icon-180x180.png') }}">
+    <link rel="icon" type="image/png" sizes="192x192"  href="{{ asset('images/favicon/android-icon-192x192.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/favicon/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('images/favicon/favicon-96x96.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/favicon/favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ asset('images/favicon/manifest.json') }}">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta property="og:url" content=""/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="NAO"/>
+    <meta property="og:description" content="Découvrez l'ornithologie et alimentez un projet de recherche innovant."/>
+    <meta property="og:image" content=""/>
 
     <title>{% block title %}NAO{% endblock %}</title>
 
@@ -22,6 +41,8 @@
         <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans"/>
         <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.12.1/themes/black-tie/jquery-ui.css"/>
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link rel="stylesheet"
+              href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
         <link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css"/>
         <link rel="icon" type="image/x-icon" href=""/>
 
@@ -29,6 +50,7 @@
 </head>
 
 <body class="container-fluid">
+
 <header>
     <div class="container">
         <div class="row entete">
@@ -38,15 +60,7 @@
                 </a>
             </div>
             <div id="barre-recherche" class="col-sm-offset-4 col-sm-3 hidden-xs recherche">
-                {#   {{ form_start(form) }}
-                   {{ form_errors(form) }}
-                   {{ form_widget(form.nomVern) }}
-                   {{ form_rest(form) }}
-                   {{ form_end(form) }}#}
-                <form>
-                    <input type="text" placeholder="Entrez une espèce d'oiseaux" value="">
-                    <input type="submit" value="">
-                </form>
+                {{ render(controller('NAOPlatformBundle:Autocomplete:formulaireDeRecherche')) }}
             </div>
         </div>
         {% block nav %}
@@ -99,35 +113,12 @@
 <!-- Pied de page  -->
 {% block footer %}
     <footer>
-        <div class="row wrap">
-            <div class="footer_left col-sm-6">
-                <div class="row logo">
-                    <a href="{{ path('nao_platform_home') }}">
-                        <img src="{{ asset('images/Logo-def.png') }}" alt="Logo de Nos Amis les Oiseaux"/>
-                    </a>
-                </div>
-                <div class="row footer_texte">
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
-                        of type and scrambled it to make a type specimen book.</p>
-                </div>
-            </div>
+        <div class="row col-xs-12">
 
-            <div class="col-sm-offset-1 footer_right col-sm-5">
-                <div class="row footer_liens">
-                    <ul class="footer_nav">
-                        <li><a href="{{ path('nao_platform_rechercher') }}">Découvrir</a></li>
-                        |
-                        <li><a href="{{ path('nao_platform_observer') }}">Observer</a></li>
-                        |
-                        <li><a href="{{ path('fos_user_security_login') }}">S'inscrire</a></li>
-                        |
-                        <li><a href="#" data-target="#myModal" data-toggle="modal">Contact</a></li>
-                    </ul>
-                </div>
+            <div class="text-center">
+                <h4 class="row">Je partage</h4>
                 <div id="myModal" class="modal fade" role="dialog" style="z-index: 9999">
                     <div class="modal-dialog">
-
                         <!-- Modal content-->
                         <div class="modal-content">
                             <div class="modal-header">
@@ -135,7 +126,8 @@
                                 <h4 class="modal-title text-center">Adresse de Contact : </h4>
                             </div>
                             <div class="modal-body" style="font-size: large">
-                                <p class="text-center">Envoyez nous un mail à : <a href="mailto:naoiseaux@gmail.com"> naoiseaux@gmail.com </a></p>
+                                <p class="text-center">Envoyez nous un mail à : <a href="mailto:naoiseaux@gmail.com">
+                                        naoiseaux@gmail.com </a></p>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-custom" data-dismiss="modal">Fermer</button>
@@ -145,11 +137,68 @@
                     </div>
                 </div>
                 <div class="row footer_rs">
-                    <ul>
-                        <li><a href="twitter.com/nao"> <i class="iconTwitter"> </i><span>Twitter</span></a></li>
-                        <li><a href="facebook.com/nao"> <i class="iconFacebook"> </i> <span>Facebook</span></a></li>
-                        <!--   <li><a href="#"> <i class="iconRss"> </i><span>Rss</span></a></li> -->
-                        <li><a href="mailto:naoiseaux@gmail.com"> <i class="iconMail"> </i><span>Mail</span></a></li>
+                    <ul class="row bouton-sociaux col-xs-10">
+                        <div id="fb-root"></div>
+                        <script>(function (d, s, id) {
+                                var js, fjs = d.getElementsByTagName(s)[0];
+                                if (d.getElementById(id)) return;
+                                js = d.createElement(s);
+                                js.id = id;
+                                js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.8";
+                                fjs.parentNode.insertBefore(js, fjs);
+                            }(document, 'script', 'facebook-jssdk'));</script>
+                        <script type="text/javascript" src="https://apis.google.com/js/plusone.js">
+                            {
+                                lang: 'fr'
+                            }
+                        </script>
+                        <li><a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+                            <script>!function (d, s, id) {
+                                    var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+                                    if (!d.getElementById(id)) {
+                                        js = d.createElement(s);
+                                        js.id = id;
+                                        js.src = p + '://platform.twitter.com/widgets.js';
+                                        fjs.parentNode.insertBefore(js, fjs);
+                                    }
+                                }(document, 'script', 'twitter-wjs');</script>
+                        </li>
+                        <li>
+                            <div class="fb-share-button"
+                                 data-layout="button_count"
+                                 data-mobile-iframe="true">
+                                <a class="fb-xfbml-parse-ignore"
+                                   target="_blank"
+                                   href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fraphaeloff.net%2Fnao%2Fweb&amp;src=sdkpreparse">
+                                    Partager
+                                </a>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="https://www.pinterest.com/pin/create/button/" data-pin-do="buttonPin"
+                               data-pin-media="{{ asset('images/Logo-def.png') }}">
+                                <img src="//assets.pinterest.com/images/pidgets/pinit_fg_en_rect_gray_20.png"/>
+                            </a>
+                        </li>
+                        <li>
+                            <div class="g-plusone" data-size="medium" data-annotation="none"></div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="row footer_liens">
+                    <ul class="footer_nav">
+                        <li><a href="{{ path('nao_platform_rechercher') }}">Découvrir</a></li>
+                        |
+                        <li><a href="{{ path('nao_platform_observer') }}">Observer</a></li>
+                        |
+                        <li><a href="{{ path('fos_user_security_login') }}">S'inscrire</a></li>
+                        |
+                        <li><a href="#" data-target="#myModal" data-toggle="modal">Contact</a></li>
+                        |
+                        <li><a href="{{ path('nao_platform_mentions') }}">Mentions légales</a></li>
+                        |
+                        <li><a href="mailto:naoiseaux@gmail.com"> <img
+                                        src="{{ asset('images/mail.png') }}"><span>Mail</span></a></li>
                     </ul>
                 </div>
             </div>
@@ -169,19 +218,54 @@
     <script src="{{ asset('js/autocomplete.js') }}"></script>
     <script src="{{ asset('js/map.js') }}"></script>
     <script src="{{ asset('js/jquery.popupoverlay.js') }}"></script>
+    <script src="{{ asset('js/datepicker-fr.js') }}"></script>
+
+    <!--Pinterest-->
+    <script
+            type="text/javascript"
+            async defer
+            src="//assets.pinterest.com/js/pinit.js"
+    ></script>
     <script>
         $(function () {
-                    $("#charte_popup").popup({
-                        autoopen: true,
-                        backgroundactive: true,
-                        autozindex: true,
-                        closeelement: '.charte_close',
-                        blur: true,
+                $("#charte_popup").popup({
+                    autoopen: true,
+                    backgroundactive: true,
+                    autozindex: true,
+                    closeelement: '.charte_close',
+                    blur: true,
 
 
-                    });
-                }
+                });
+                // JS pour le datepicker
+                $('.datepicker').datepicker({
+                    dateFormat: "dd-mm-yy",
+                    timeFormat: 'H:mm'
+                });
+
+                // JS pour le loader à chaque requête AJAX
+                $(document).ajaxStart(function () {
+                    $(".loader").css("display", "block");
+                });
+
+                $(document).ajaxStop(function () {
+                    $(".loader").css("display", "none");
+                });
+                $('[data-toggle="tooltip"]').tooltip({
+                    placement: 'top',
+                    classes: {
+                        "ui-tooltip": "modal-content"
+                    }
+
+                });
+            }
         );
+        //Gestion du scroll auto vers l'erreur de form invalide
+        var elements = document.querySelectorAll('input,select,textarea');
+        var invalidListener = function(){ this.scrollIntoView(false); };
+
+        for(var i = elements.length; i--;)
+            elements[i].addEventListener('invalid', invalidListener);
     </script>
 {% endblock %}
 

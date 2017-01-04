@@ -27,10 +27,10 @@ class NAOSendMail
             ->setFrom(array('nao@nao.com' => 'Nos Amis les Oiseaux'))
             ->setTo($this->user->getEmail());
         if ($validation) {
-            $this->message->setBody('<p>Bonjour,</p><p>Votre compte naturaliste est validé. Vous pouvez vous <a href="http://www.nao.philiweb.net/web">connecter</a> dès maintenant et valider les observations des particuliers.</p><p>A bientôt.</p><p>Nos Amis les Oiseaux</p>', 'text/html');
+            $this->message->setBody('<p>Bonjour,</p><p>Votre compte naturaliste est validé. Vous pouvez vous <a href="http://raphaeloff.net/nao/web/connexion">connecter</a> dès maintenant et valider les observations des particuliers.</p><p>A bientôt.</p><p>L\'équipe</p>', 'text/html');
         }
         else {
-            $this->message->setBody('<p>Bonjour,</p><p>Votre compte naturaliste n\'a pas été validé par nos équipes.</p><p>Si vous aviez déjà un compte particulier, vous pouvez continuer à saisir vos observations. Si vous n\'en aviez pas, nous vous en avons créer un avec le nom d\'utilisateur et le mot de passe que vous aviez saisi lors de votre demande.</p><p> <a href="http://www.nao.philiweb.net/web">Connectez-vous</a> dès maintenant et saisissez des observations.</p><p>A bientôt.</p><p>Nos Amis les Oiseaux</p>', 'text/html');
+            $this->message->setBody('<p>Bonjour,</p><p>Votre compte naturaliste n\'a pas été validé par nos équipes.</p><p>Si vous aviez déjà un compte particulier, vous pouvez continuer à saisir vos observations. Si vous n\'en aviez pas, nous vous en avons créer un avec le nom d\'utilisateur et le mot de passe que vous aviez saisi lors de votre demande.</p><p> <a href="http://raphaeloff.net/nao/web/connexion">Connectez-vous</a> dès maintenant et saisissez des observations.</p><p>A bientôt.</p><p>L\'équipe</p>', 'text/html');
         }
         $this->mailer->send($this->message);
     }
