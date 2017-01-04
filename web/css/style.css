@@ -437,6 +437,12 @@ ol, ul {
     text-align: justify;
 }
 
+#texte-charte{
+    font-size: 13px;
+    margin-top: -10px;
+    margin-bottom: -10px;
+}
+
 #share-projet{
     margin-top: -25px;
 }
