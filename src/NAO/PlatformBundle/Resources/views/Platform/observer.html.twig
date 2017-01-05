@@ -28,7 +28,7 @@
                 <span class="loader"></span>
             </div>
 
-            <p class="col-xs-10 col-xs-offset-2">Un doute sur une espèce ? N'hésitez pas à consulter sa fiche sur le
+            <p class="col-xs-9 col-xs-offset-3">Un doute sur une espèce ? N'hésitez pas à consulter sa fiche sur le
                 <a href="https://inpn.mnhn.fr/accueil/recherche-de-donnees/especes/" target="_blank">site de l'INPN</a>
                 ou à découvrir les <a href="{{ path('nao_platform_rechercher') }}" target="_blank">observations réalisées sur notre site.</a></p>
 
@@ -70,7 +70,7 @@
                             class="glyphicon glyphicon-info-sign green" data-toggle="tooltip"
                             data-original-title="Facultatif"> </span></label>
                 <div class="col-sm-6">
-                    {{ form_widget(form.photo) }}
+                    {{ form_widget(form.photo)}}
                     {{ form_errors(form.photo) }}
                 </div>
             </div>
