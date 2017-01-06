@@ -46,7 +46,8 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
             ->where('obs.valide = :valide')
             ->andWhere('user.typeCompte = :typeCompte')
             ->andWhere('obs.enAttente = :enAttente')
-            ->setParameters(array('valide' => false, 'typeCompte' => 0, 'enAttente' => true));
+            ->setParameters(array('valide' => false, 'typeCompte' => 0, 'enAttente' => true))
+            ->orderBy('obs.dateObs', 'ASC');
         return $qb->getQuery()->getResult();
     }
 
@@ -70,7 +71,8 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
                 'id'=> $id,
                 'valid'=>false,
                 'enAttente'=>false
-            ));
+            ))
+            ->orderBy('obs.dateObs', 'DESC');;
         return $qb->getQuery()->getResult();
     }
 
