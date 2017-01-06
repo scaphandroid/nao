@@ -103,8 +103,8 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
                 'validateur' => 'user-nat',
                 'user' => 'user-part1',
                 'photo' => 'oiseau4.jpg',
-                'commentaireP' => 'J\'ai observé cet oiseau près de chez moi, beau spécimen !',
-                'commentaireN' => 'Merci pour cet observation, c\'est un oiseau rare !'),
+                'commentaireP' => 'Bonjour, je ne suis pas très sur de l\'espèce. Merci.',
+                'commentaireN' => 'En effet, l\'espèce renseignée n\'est pas la bonne. Il s\'agit plutot d\'un oiseau de type Aigle.'),
             array( // observation par particulier1 validée par nat1
                 'dateObserv' => new \DateTime('2016-12-30 04:00:00'),
                 'espece' => 'Mouette ivoire, Goéland sénateur, Mouette blanche (Larus eburneus Phipps, 1774)',
