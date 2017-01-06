@@ -24,7 +24,9 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
                 'enAttente' => false,
                 'validateur' => null,
                 'user' => 'user-admin',
-                'photo' => 'oiseau1.jpg',),
+                'photo' => 'oiseau1.jpg',
+                'commentaireP' => null,
+                'commentaireN' => null),
             array( // observation par particulier2 en attente
                 'dateObserv' => new \DateTime('2016-12-31 12:00:00'),
                 'espece' => 'Colibri tout-vert  (Polytmus theresiae (Da Silva Maia, 1843))',
@@ -35,7 +37,9 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
                 'enAttente' => true,
                 'validateur' => null,
                 'user' => 'user-part2',
-                'photo' => 'oiseau2.jpg',),
+                'photo' => 'oiseau2.jpg',
+                'commentaireP' => 'J\'ai observé cet oiseau près d\'un étang, il était en train de boire l\'eau, magnifique !',
+                'commentaireN' => null),
             array( // observation par particulier1 validée par naturaliste1
                 'dateObserv' => new \DateTime('2016-12-29 14:00:00'),
                 'espece' => 'Dryade à queue fourchue  (Thalurania furcata (Gmelin, 1788))',
@@ -46,7 +50,9 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
                 'enAttente' => false,
                 'validateur' => 'user-nat',
                 'user' => 'user-part1',
-                'photo' => 'oiseau3.jpg',),
+                'photo' => 'oiseau3.jpg',
+                'commentaireP' => 'J\'ai observé cet oiseau près de chez moi mais je ne suis pas sur du nom de l\'espèce.',
+                'commentaireN' => 'Oui je vous confirme qu\'il s\'agit bien de cet espèce.'),
             array(// observation par naturaliste1 validée
                 'dateObserv' => new \DateTime('2016-12-30 02:00:00'),
                 'espece' => 'Bécasseau de Bonaparte, Bécasseau à croupion blanc (Calidris fuscicollis (Vieillot, 1819))',
@@ -57,7 +63,9 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
                 'enAttente' => false,
                 'validateur' => null,
                 'user' => 'user-nat',
-                'photo' => 'oiseau4.jpg',),
+                'photo' => 'oiseau4.jpg',
+                'commentaireP' => null,
+                'commentaireN' => null),
             array(// observation par naturaliste2 validée
                 'dateObserv' => new \DateTime('2016-12-31 12:00:00'),
                 'espece' => 'Pluvier guignard (Eudromias morinellus (Linnaeus, 1758))',
@@ -68,7 +76,9 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
                 'enAttente' => false,
                 'validateur' => null,
                 'user' => 'user-nat2',
-                'photo' => 'oiseau1.jpg',),
+                'photo' => 'oiseau1.jpg',
+                'commentaireP' => null,
+                'commentaireN' => null),
             array(// observation par naturaliste1 validée
                 'dateObserv' => new \DateTime('2016-12-29 04:00:00'),
                 'espece' => 'Vanneau à queue blanche (Chettusia leucura (Lichtenstein, 1823))',
@@ -79,7 +89,9 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
                 'enAttente' => false,
                 'validateur' => null,
                 'user' => 'user-nat',
-                'photo' => 'oiseau4.jpg',),
+                'photo' => 'oiseau4.jpg',
+                'commentaireP' => null,
+                'commentaireN' => null),
             array(// observation par particulier1 refusée par nat1
                 'dateObserv' => new \DateTime('2016-12-31 04:00:00'),
                 'espece' => 'Goéland brun (Larus fuscus Linnaeus, 1758)',
@@ -90,7 +102,9 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
                 'enAttente' => false,
                 'validateur' => 'user-nat',
                 'user' => 'user-part1',
-                'photo' => 'oiseau4.jpg',),
+                'photo' => 'oiseau4.jpg',
+                'commentaireP' => 'J\'ai observé cet oiseau près de chez moi, beau spécimen !',
+                'commentaireN' => 'Merci pour cet observation, c\'est un oiseau rare !'),
             array( // observation par particulier1 validée par nat1
                 'dateObserv' => new \DateTime('2016-12-30 04:00:00'),
                 'espece' => 'Mouette ivoire, Goéland sénateur, Mouette blanche (Larus eburneus Phipps, 1774)',
@@ -101,7 +115,9 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
                 'enAttente' => false,
                 'validateur' => 'user-nat',
                 'user' => 'user-part1',
-                'photo' => 'oiseau4.jpg',),
+                'photo' => 'oiseau4.jpg',
+                'commentaireP' => 'Magnifique oiseau, j\'espère en rencontrer d\'autres ! Il était avec ses petits.',
+                'commentaireN' => 'Merci pour cet observation !'),
             array( // observation par particulier1 validée par nat2
                 'dateObserv' => new \DateTime('2016-12-29 14:00:00'),
                 'espece' => 'Bécasseau minuscule (Erolia minutilla (Vieillot, 1819))',
@@ -112,7 +128,9 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
                 'enAttente' => false,
                 'validateur' => 'user-nat2',
                 'user' => 'user-part1',
-                'photo' => 'oiseau3.jpg',),
+                'photo' => 'oiseau3.jpg',
+                'commentaireP' => 'Cet oiseau était en train de construire son nid.',
+                'commentaireN' => 'Merci pour cet observation !'),
             array( // observation par particulier1 en attente
                 'dateObserv' => new \DateTime('2016-12-30 06:00:00'),
                 'espece' => 'Limosa limosa islandica Brehm, 1831',
@@ -123,7 +141,9 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
                 'enAttente' => true,
                 'validateur' => null,
                 'user' => 'user-part1',
-                'photo' => 'oiseau2.jpg',)
+                'photo' => 'oiseau2.jpg',
+                'commentaireP' => 'Magnifique oiseau.',
+                'commentaireN' => null)
         );
 
         foreach ($listObservations as $listObservation) {
@@ -136,6 +156,8 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
             $observation->setLon($listObservation['long']);
             $observation->setValide($listObservation['valide']);
             $observation->setEnAttente($listObservation['enAttente']);
+            $observation->setCommentaireP($listObservation['commentaireP']);
+            $observation->setCommentaireN($listObservation['commentaireN']);
             if ($listObservation['validateur'] !== null) {
                 $observation->setValidateur($this->getReference($listObservation['validateur']));
             }
