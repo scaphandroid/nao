@@ -52,7 +52,7 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
                 'user' => 'user-part1',
                 'photo' => 'oiseau3.jpg',
                 'commentaireP' => 'J\'ai observé cet oiseau près de chez moi mais je ne suis pas sur du nom de l\'espèce.',
-                'commentaireN' => 'Oui je vous confirme qu\'il s\'agit bien de cet espèce.'),
+                'commentaireN' => 'Oui je vous confirme qu\'il s\'agit bien de cette espèce.'),
             array(// observation par naturaliste1 validée
                 'dateObserv' => new \DateTime('2016-12-30 02:00:00'),
                 'espece' => 'Bécasseau de Bonaparte, Bécasseau à croupion blanc (Calidris fuscicollis (Vieillot, 1819))',
@@ -117,7 +117,7 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
                 'user' => 'user-part1',
                 'photo' => 'oiseau4.jpg',
                 'commentaireP' => 'Magnifique oiseau, j\'espère en rencontrer d\'autres ! Il était avec ses petits.',
-                'commentaireN' => 'Merci pour cet observation !'),
+                'commentaireN' => 'Merci pour cette observation !'),
             array( // observation par particulier1 validée par nat2
                 'dateObserv' => new \DateTime('2016-12-29 14:00:00'),
                 'espece' => 'Bécasseau minuscule (Erolia minutilla (Vieillot, 1819))',
@@ -130,7 +130,7 @@ class LoadObservation extends AbstractFixture implements OrderedFixtureInterface
                 'user' => 'user-part1',
                 'photo' => 'oiseau3.jpg',
                 'commentaireP' => 'Cet oiseau était en train de construire son nid.',
-                'commentaireN' => 'Merci pour cet observation !'),
+                'commentaireN' => 'Merci pour cette observation !'),
             array( // observation par particulier1 en attente
                 'dateObserv' => new \DateTime('2016-12-30 06:00:00'),
                 'espece' => 'Limosa limosa islandica Brehm, 1831',

@@ -1,14 +1,17 @@
 <ul class="list-group">
     {% for observation in listeObservations %}
         <li class="list-group-item">
-            <p>Nom de l'espèce : {{ observation.espece.nomConcat }} </p>
-            <p>Date de l'observation: {{ observation.dateObs|date('d/m/Y H:i') }} </p>
+            <p><strong>Nom de l'espèce : </strong>{{ observation.espece.nomConcat }} </p>
+            <p><strong>Date de l'observation: </strong>{{ observation.dateObs|date('d/m/Y H:i') }} </p>
             {% if app.request.pathInfo != '/profile/mesobservations' %}
-                <p>Observé par : {{ observation.user.username }} </p>
+                <p><strong>Observé par : </strong>{{ observation.user.username }} </p>
             {% endif %}
-            <p>Statut : {% if observation.valide %}Valide{% elseif observation.enAttente %}En attente{% else %}Invalide{% endif %}</p>
-            <p>Coordonnées GPS : {{ observation.lat }}, {{ observation.lon }} </p>
-            <a class="btn btn-customp" href="{{ path('nao_profile_observation', {'id': observation.id}) }}">Voir plus</a>
+            <p><strong>Statut
+                    : </strong>{% if observation.valide %}Valide{% elseif observation.enAttente %}En attente{% else %}Invalide{% endif %}
+            </p>
+            <p><strong>Coordonnées GPS : </strong>{{ observation.lat }}, {{ observation.lon }} </p>
+            <a class="btn btn-customp" href="{{ path('nao_profile_observation', {'id': observation.id}) }}">Voir
+                plus</a>
         </li>
     {% endfor %}
 </ul>
