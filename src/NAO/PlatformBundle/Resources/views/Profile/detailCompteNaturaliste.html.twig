@@ -1,6 +1,6 @@
 {% extends "NAOPlatformBundle::layout.html.twig" %}
 {% block title %}
-    Détail compte naturaliste
+    Détail Compte Naturaliste
 {% endblock %}
 
 {% block body %}
@@ -13,11 +13,11 @@
             {% if is_granted('ROLE_SUPER_ADMIN') %}
                 <h2>Détail du compte naturaliste {{ naturaliste.username }}</h2>
 
-                <p>Nom : {{ naturaliste.nom }} <p>
-                <p>Prenom : {{ naturaliste.prenom }} </p>
-                <p>Email : {{ naturaliste.email }} </p>
-                <p>Profession: {{ naturaliste.profession }} </p>
-                <p>Motivation : {{ naturaliste.motivation }}</p>
+                <p><strong>Nom : </strong>{{ naturaliste.nom }} <p>
+                <p><strong>Prenom : </strong>{{ naturaliste.prenom }} </p>
+                <p><strong>Email : </strong>{{ naturaliste.email }} </p>
+                <p><strong>Profession: </strong>{{ naturaliste.profession }} </p>
+                <p><strong>Motivation : </strong>{{ naturaliste.motivation }}</p>
                 <a href="{{ asset('uploads/pdf/' ~ naturaliste.cv)}}" download="cv - {{ naturaliste.nom }} - {{ naturaliste.prenom }}">Téléchargez le cv (PDF)</a>
 
                 {{ form_start(form) }}

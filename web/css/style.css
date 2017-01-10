@@ -296,6 +296,15 @@ ol, ul {
 
 .footer_nav {
     color: #90C840;
+
+}
+.footer_liens:before {
+    content: "";
+    width: auto;
+    height: 2px;
+    background: lightgray;
+    display: block;
+    margin-left:30px;
 }
 
 .footer_nav li, .footer_rs li {
@@ -315,7 +324,7 @@ ol, ul {
 }
 
 .footer_rs {
-    margin-top: 2%;
+    margin-top: -10px;
     display: flex;
     display: -webkit-flex; /* Safari */
     justify-content: center;
@@ -437,6 +446,12 @@ ol, ul {
     text-align: justify;
 }
 
+#texte-charte{
+    font-size: 13px;
+    margin-top: -10px;
+    margin-bottom: -10px;
+}
+
 #share-projet{
     margin-top: -25px;
 }
@@ -491,14 +506,16 @@ ol, ul {
 
 .bloc_vert {
     background-color: #00A368;
-    /*font-weight: 600;*/
+    font-weight: 400;
     padding: 0 10px 0 10px;
+    border-radius: 3px;
 }
 
 .bloc_orange {
     background-color: #ffae19;
-    /*font-weight: 600;*/
+    font-weight: 400;
     padding: 0 10px 0 10px;
+    border-radius: 3px;
 }
 
 #iw-container .iw-content {
@@ -746,6 +763,9 @@ a:-webkit-any-link  {
         padding-right: 0;
     }
 
+    .footer_liens:before{
+        display: none;
+    }
     .footer_right {
         margin-top: 10px;
     }

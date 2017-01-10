@@ -1,6 +1,6 @@
 {% extends "NAOPlatformBundle::layout.html.twig" %}
 {% block title %}
-    Demande de compte naturaliste
+    Demande de Compte Naturaliste
 {% endblock %}
 
 
@@ -15,15 +15,11 @@
                 {% if (user.enAttente == true) %}
                     <h4 class="well text-center">Vous avez déjà une demande en cours de traitement. Merci.</h4>
 
-                    <strong><span id="chars">200</span> caractères restants</strong> {% else %}
-                    <h4 class="text-center">Vous souhaitez faire une demande de compte naturaliste ? Remplissez ce
-                        formulaire et nous vous répondrons dans les meilleurs délais.</h4>
+                {% else %}
+                    <h4 class="text-center well">Vous souhaitez faire une demande de compte naturaliste ? Remplissez ce formulaire et nous vous répondrons dans les meilleurs délais.</h4>
                     {{ form_start(form) }}
-                    {#{{ form_label(form) }}#}
                     {{ form_errors(form) }}
                     {{ form_widget(form) }}
-                    {#<strong><span id="chars">200</span> caractères restants</strong>#}
-
                     {{ form_end(form) }}
 
                 {% endif %}

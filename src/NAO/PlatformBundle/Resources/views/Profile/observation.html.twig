@@ -13,10 +13,10 @@
             <ul class="list-group">
                 <li class="row list-group-item">
                     <div class="col-sm-8">
-                        <p>Nom de l'espèce : {{ observation.espece.nomConcat }} </p>
-                        <p>Date de l'observation: {{ observation.dateObs|date('d/m/Y H:i') }} </p>
-                        <p>Date de saisie: {{ observation.dateSaisie|date('d/m/Y H:i') }}</p>
-                        <p>Statut : {% if observation.valide %}Valide{% elseif observation.enAttente %}En attente{% else %}Invalide{% endif %}</p>
+                        <p><strong>Nom de l'espèce : </strong>{{ observation.espece.nomConcat }} </p>
+                        <p><strong>Date de l'observation: </strong>{{ observation.dateObs|date('d/m/Y H:i') }} </p>
+                        <p><strong>Date de saisie: </strong>{{ observation.dateSaisie|date('d/m/Y H:i') }}</p>
+                        <p><strong>Statut : </strong>{% if observation.valide %}Valide{% elseif observation.enAttente %}En attente{% else %}Invalide{% endif %}</p>
                     </div>
 
                     <div class="col-sm-4">
@@ -45,9 +45,9 @@
                         {{ observation_JSON }}
                 </div>
                 <li class="row list-group-item">
-                 <p>Commentaire de l'observateur : {{ observation.commentaireP }}</p>
+                    <p><strong>Commentaire de l'observateur : </strong>{{ observation.commentaireP }}</p>
                     {% if (observation.enAttente == false)  %}
-                        <p>Commentaire du validateur : {{ observation.commentaireN }}</p>
+                        <p><strong>Commentaire du validateur : </strong>{{ observation.commentaireN }}</p>
                     {% endif %}
                 </li>
                 </ul>

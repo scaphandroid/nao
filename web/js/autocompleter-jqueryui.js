@@ -27,9 +27,10 @@
             });
             if ($this.val() !== '') {
                 $.ajax({
-                    url:     settings.url_get + $this.val(),
+                    url:     settings.url_get + '/' + $this.val(),
                     success: function (name) {
                         $fakeInput.val(name);
+                        console.log('test');
                     }
                 });
             }

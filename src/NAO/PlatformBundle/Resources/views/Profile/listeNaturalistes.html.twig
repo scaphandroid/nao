@@ -1,6 +1,6 @@
 {% extends "NAOPlatformBundle::layout.html.twig" %}
 {% block title %}
-    Liste comptes naturalistes
+    Liste Comptes Naturalistes
 {% endblock %}
 
 {% block body %}
@@ -19,7 +19,7 @@
                             {{ compte.prenom }} {{ compte.nom }} : {{ compte.profession }}
                         </div>
                         <div class="col-md-2 col-sm-3 col-xs-4">
-                            <a class="btn btn-custom" href="{{ path('nao_profile_detailCompteNaturaliste', {'id': compte.id }) }}">Voir plus</a></p>
+                            <a class="btn btn-custom" href="{{ path('nao_profile_detailCompteNaturaliste', {'id': compte.id }) }}">Voir Plus</a></p>
                         </div>
                     </li>
                 {% endfor %}
@@ -36,7 +36,7 @@
                         {{ compte.prenom }} {{ compte.nom }} : {{ compte.profession }}
                     </div>
                     <div class="col-md-2 col-sm-3 col-xs-4">
-                        <a class="btn btn-custom" href="{{ path('nao_profile_detailCompteNaturaliste', {'id': compte.id }) }}">Voir plus</a></p>
+                        <a class="btn btn-custom" href="{{ path('nao_profile_detailCompteNaturaliste', {'id': compte.id }) }}">Voir Plus</a></p>
                     </div>
                 </li>
             {% endfor %}
@@ -53,7 +53,7 @@
                         {{ compte.prenom }} {{ compte.nom }} : {{ compte.profession }}
                     </div>
                     <div class="col-md-2 col-sm-3 col-xs-4">
-                        <a class="btn btn-custom" href="{{ path('nao_profile_detailCompteNaturaliste', {'id': compte.id }) }}">Voir plus</a></p>
+                        <a class="btn btn-custom" href="{{ path('nao_profile_detailCompteNaturaliste', {'id': compte.id }) }}">Voir Plus</a></p>
                     </div>
                 </li>
             {% endfor %}
