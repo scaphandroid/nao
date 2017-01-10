@@ -6,6 +6,23 @@
     {{ parent() }}
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/css/bootstrap-datetimepicker.min.css">
+    <style>
+        #ui-id-2{
+            z-index: 10001;
+            color: #c4c4c4;
+            font-size: 13px;
+            font-weight: 600;
+            outline: medium none;
+            padding: 12px 16px;
+            font-family: "Open Sans";
+            position: fixed;
+        }
+        #ui-id-1{
+            color: black;
+            font-size: 1.1em;
+            font-weight: 400;
+        }
+    </style>
 {% endblock %}
 {% block body %}
     <div class="container">
