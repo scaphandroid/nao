@@ -32,6 +32,14 @@ nao_platform_mentions:
     path:     /mentions-legales
     defaults: { _controller: NAOPlatformBundle:Platform:mentions}
 
+nao_platform_collaborer:
+    path:    /collaborer
+    defaults: {_controller: NAOPlatformBundle:Platform:collaborer}
+
+nao_platform_inscription:
+    path:    /inscription
+    defaults: {_controller: NAOPlatformBundle:Platform:inscription}
+
 nao_profile_mesobservations:
     path:    /profile/mesobservations
     defaults: { _controller: NAOPlatformBundle:Profile:mesObservations}
