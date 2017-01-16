@@ -102,6 +102,7 @@ function observerMap() {
     }
     else {// on rend la carte cliquable pour que l'utilisateur puisse saisir son lieu d'observation
         map.addListener('click', function(event) {
+            document.getElementById("nao_platformbundle_observation_localise").checked = false;
             placeMarker(event.latLng);
             document.getElementById("nao_platformbundle_observation_lat").value = event.latLng.lat();
             document.getElementById("nao_platformbundle_observation_lon").value = event.latLng.lng();
@@ -113,6 +114,7 @@ function observerMap() {
         }
         else {
             map.addListener('click', function(event) {
+                document.getElementById("nao_platformbundle_observation_localise").checked = false;
                 placeMarker(event.latLng);
                 // Ajout des coordonnées dans les champs cachés
                 document.getElementById("nao_platformbundle_observation_lat").value = event.latLng.lat();
