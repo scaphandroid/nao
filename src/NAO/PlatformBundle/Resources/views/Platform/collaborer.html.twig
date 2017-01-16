@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('images/favicon/apple-icon-57x57.png') }}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('images/favicon/apple-icon-60x60.png') }}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('images/favicon/apple-icon-72x72.png') }}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('images/favicon/apple-icon-76x76.png') }}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{{ asset('images/favicon/apple-icon-114x114.png') }}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('images/favicon/apple-icon-120x120.png') }}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('images/favicon/apple-icon-144x144.png') }}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('images/favicon/apple-icon-152x152.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('images/favicon/apple-icon-180x180.png') }}">
+    <link rel="icon" type="image/png" sizes="192x192"  href="{{ asset('images/favicon/android-icon-192x192.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/favicon/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('images/favicon/favicon-96x96.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/favicon/favicon-16x16.png') }}">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Nos Amis Les Oiseaux</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{{ asset('css/landing-page/bootstrap.min.css') }}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{{ asset('css/landing-page/landing-page.css') }}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="{{ asset('fonts/landing-page/font-awesome/css/font-awesome.css') }}" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
+    <div class="container topnav">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <a class="navbar-brand topnav" href="Lien de votre compte sur le réseau social" target="_blank" ><img src="{{ asset('images/landing-page/facebook.png') }}" alt="Facebook" width="30px" height="30px" /></a>
+            <a class="navbar-brand topnav" href="Lien de votre compte sur le réseau social" target="_blank" ><img src="{{ asset('images/landing-page/googleplus.png') }}" alt="Googleplus" width="30px" height="30px" /></a>
+            <a class="navbar-brand topnav" href="Lien de votre compte sur le réseau social" target="_blank" ><img src="{{ asset('images/landing-page/instagram.png') }}" alt="Instagram" width="30px" height="30px" /></a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#about">Accueil</a>
+                </li>
+                <li>
+                    <a href="#projet">Le projet</a>
+                </li>
+                <li>
+                    <a href="#contact">Actualité</a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+<!-- Header -->
+<a name="about"></a>
+<div class="intro-header">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="intro-message">
+                    <h1>Naturalistes professionnels de l’ornithologie<br/>prenez part à un programme de recherche innovant</h1>
+                    <h5>L’Association Nos Amis Les Oiseaux qui réunit des passionnés d’ornithologie s’engage quotidiennement pour la protection des oiseaux rares.<br/> Nous recherchons des Naturalistes expérimentés pour valider les observations saisies sur l'application et garantir la qualité de notre étude sur la biodiversité.</h5>
+                    <hr class="intro-divider">
+                    <a href="{{ path('fos_user_security_login') }}" class="btn btn-default btn-lg"><span class="bouton">Collaborer</span></a>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- /.container -->
+
+</div>
+<!-- /.intro-header -->
+
+<!-- Page Content -->
+
+<a  name="projet"></a>
+<div class="content-section-a">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5 col-sm-6">
+                <hr class="section-heading-spacer">
+                <div class="clearfix"></div>
+                <h2 class="section-heading">Le projet :</h2>
+                <p class="lead">M. Dujardin Fondateur de l’association Nos Amis les Oiseaux (NAO) met à votre disposition une <strong>application participative</strong> permettant d’<strong>observer des espèces d’oiseaux</strong> et de mémoriser vos découvertes partout en France en saisissant leurs coordonnées. D'abord destinée aux amoureux de l’<strong>ornithologie</strong> elle a pour vocation de collecter des <strong>observations d'oiseaux</strong> afin d'alimenter <strong>un programme de recherche</strong> et étudier les effets du climat, de l’urbanisation et de l’agriculture sur la <strong>biodiversité</strong>.</p>
+                <a href="{{ path('nao_platform_home') }}" class="btn btn-default btn-lg"><span class="bouton">Découvrir l'application</span></a>
+            </div>
+            <div class="col-lg-5 col-lg-offset-2 col-sm-6">
+                <img class="img-responsive" src="{{ asset('images/landing-page/Logonao.png') }}" alt="logo nao">
+            </div>
+        </div>
+
+    </div>
+    <!-- /.container -->
+
+</div>
+
+
+<a  name="contact"></a>
+<div class="banner">
+
+    <div class="container">
+        <h2>Notre actualité</h2>
+        <form>
+            <input type="text" name="email" placeholder="exemple@exemple.fr">
+            <input type="button" value="Recevoir">
+            <p class="gt"> Je reçois les meilleures observations du mois directement dans ma boîte mails !</p>
+            <p class="tpt">Votre adresse ne sera utilisée que dans le cadre de l'envoi de la newsletter de l'association NAO, elle ne sera pas diffusée à d'autres organismes.</p>
+        </form>
+
+
+
+    </div>
+
+</div>
+<!-- /.container -->
+
+
+<!-- /.banner -->
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+
+            <p class="copyright text-muted small">Copyright &copy; NAO 2016. Tous droits réservés</p>
+
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="{{ asset('js/landing-page/jquery.js') }}"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="{{ asset('js/landing-page/bootstrap.min.js') }}"></script>
+
+</body>
+
+</html>

@@ -199,4 +199,14 @@ class PlatformController extends Controller
     {
         return $this->render('NAOPlatformBundle:Platform:mentionslegales.html.twig');
     }
+
+    public function collaborerAction()
+    {
+        return $this->render('@NAOPlatform/Platform/collaborer.html.twig');
+    }
+
+    public function inscriptionAction()
+    {
+        return $this->render('@NAOPlatform/Platform/inscription.html.twig');
+    }
 }
