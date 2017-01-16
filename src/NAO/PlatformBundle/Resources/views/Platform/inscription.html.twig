@@ -3,6 +3,20 @@
 
 <head>
 
+    <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('images/favicon/apple-icon-57x57.png') }}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('images/favicon/apple-icon-60x60.png') }}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('images/favicon/apple-icon-72x72.png') }}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('images/favicon/apple-icon-76x76.png') }}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{{ asset('images/favicon/apple-icon-114x114.png') }}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('images/favicon/apple-icon-120x120.png') }}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('images/favicon/apple-icon-144x144.png') }}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('images/favicon/apple-icon-152x152.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('images/favicon/apple-icon-180x180.png') }}">
+    <link rel="icon" type="image/png" sizes="192x192"  href="{{ asset('images/favicon/android-icon-192x192.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/favicon/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('images/favicon/favicon-96x96.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/favicon/favicon-16x16.png') }}">
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -85,9 +99,9 @@
             <div class="col-xs-4 col-sm-6">
                 <!---hr class="intro-divider" -->
                 <div class="bouton_collaborer">
-                    <a href="http://raphaeloff.net/nao/web/connexion" class="btn btn-default btn-lg hidden-xs hidden-sm"><span class="btn-xlarge">Collaborer</span></a>
-                    <a href="http://raphaeloff.net/nao/web/connexion" class="btn btn-default btn-sm visible-sm-block"><span class="btn-xlarge">Collaborer</span></a>
-                    <a href="http://raphaeloff.net/nao/web/connexion" class="btn btn-default btn-xs visible-xs-block"><span class="btn-xlarge">Collaborer</span></a>
+                    <a href="{{ path('fos_user_security_login') }}" class="btn btn-default btn-lg hidden-xs hidden-sm"><span class="btn-xlarge">Collaborer</span></a>
+                    <a href="{{ path('fos_user_security_login') }}" class="btn btn-default btn-sm visible-sm-block"><span class="btn-xlarge">Collaborer</span></a>
+                    <a href="{{ path('fos_user_security_login') }}" class="btn btn-default btn-xs visible-xs-block"><span class="btn-xlarge">Collaborer</span></a>
                 </div>
 
             </div>
@@ -108,7 +122,7 @@
                 <div class="clearfix"></div>
                 <h2 class="section-heading">Le projet :</h2>
                 <p class="lead">M. Dujardin Fondateur de l’association Nos Amis les Oiseaux (NAO) met à votre disposition une <strong>application participative</strong> permettant d’<strong>observer des espèces d’oiseaux</strong> et de mémoriser vos découvertes partout en France en saisissant leurs coordonnées. D'abord destinée aux amoureux de l’<strong>ornithologie</strong> elle a pour vocation de collecter des <strong>observations d'oiseaux</strong> afin d'alimenter <strong>un programme de recherche</strong> et étudier les effets du climat, de l’urbanisation et de l’agriculture sur la <strong>biodiversité</strong>.</p>
-                <a href="http://raphaeloff.net/nao/web" class="btn btn-default btn-lg"><span class="bouton">Découvrir l'application</span></a>
+                <a href="{{ path('nao_platform_home') }}" class="btn btn-default btn-lg"><span class="bouton">Découvrir l'application</span></a>
             </div>
             <div class="col-lg-5 col-lg-offset-2 col-sm-6">
                 <img class="img-responsive" src="{{ asset('images/landing-page/Logonao.png') }}" alt="logo nao">
